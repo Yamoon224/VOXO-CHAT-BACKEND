@@ -59,6 +59,7 @@
         <env name="KNOWLEDGE_EMBEDDINGS_DRIVER" value="array"/>
         <env name="KNOWLEDGE_OCR_DRIVER" value="array"/>
         <env name="KNOWLEDGE_CRAWLER_DRIVER" value="array"/>
+        <env name="ASSISTANT_AI_DRIVER" value="array"/>
 
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>

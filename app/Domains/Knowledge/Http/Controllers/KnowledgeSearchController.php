@@ -16,7 +16,7 @@ class KnowledgeSearchController extends Controller
     public function store(StoreKnowledgeSearchRequest $request): AnonymousResourceCollection
     {
         $results = $this->search->search(
-            WorkspaceScope::fromRequest($request),
+            WorkspaceScope::fromRequest($request)->workspaceId,
             $request->string('query')->toString(),
             $request->limit(),
         );

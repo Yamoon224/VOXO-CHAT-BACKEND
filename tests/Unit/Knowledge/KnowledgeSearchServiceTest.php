@@ -6,8 +6,6 @@ use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Search\MySqlCosineSimilaritySearch;
 use App\Domains\Knowledge\Services\KnowledgeSearchService;
-use App\Domains\Shared\Enums\WorkspaceRole;
-use App\Domains\Shared\Support\WorkspaceScope;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\InMemoryKnowledgeChunkRepository;
 use Tests\Support\Fakes\InMemoryKnowledgeDocumentRepository;
@@ -38,7 +36,7 @@ class KnowledgeSearchServiceTest extends TestCase
 
         $service = new KnowledgeSearchService($embeddings, new MySqlCosineSimilaritySearch($chunks), $documents);
 
-        $results = $service->search(new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent), 'Quel est le prix par mois ?', 2);
+        $results = $service->search('workspace-1', 'Quel est le prix par mois ?', 2);
 
         $this->assertNotEmpty($results);
         $this->assertSame('Tarifs', $results[0]->documentTitle);
@@ -61,7 +59,7 @@ class KnowledgeSearchServiceTest extends TestCase
 
         $service = new KnowledgeSearchService($embeddings, new MySqlCosineSimilaritySearch($chunks), $documents);
 
-        $results = $service->search(new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent), 'remboursement', 1);
+        $results = $service->search('workspace-1', 'remboursement', 1);
 
         $this->assertSame('https://example.test/faq', $results[0]->citationUrl);
     }
@@ -73,7 +71,7 @@ class KnowledgeSearchServiceTest extends TestCase
         $chunks = new InMemoryKnowledgeChunkRepository;
         $service = new KnowledgeSearchService($embeddings, new MySqlCosineSimilaritySearch($chunks), new InMemoryKnowledgeDocumentRepository);
 
-        $results = $service->search(new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent), '   ');
+        $results = $service->search('workspace-1', '   ');
 
         $this->assertSame([], $results);
     }

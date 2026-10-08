@@ -8,7 +8,6 @@ use App\Domains\Knowledge\Contracts\KnowledgeDocumentRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeSearchContract;
 use App\Domains\Knowledge\DTOs\KnowledgeSearchResult;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
-use App\Domains\Shared\Support\WorkspaceScope;
 use App\Models\KnowledgeDocument;
 
 /**
@@ -25,7 +24,7 @@ final class KnowledgeSearchService implements KnowledgeSearchContract
         private readonly KnowledgeDocumentRepositoryContract $documents,
     ) {}
 
-    public function search(WorkspaceScope $scope, string $query, int $limit = 5): array
+    public function search(string $workspaceId, string $query, int $limit = 5): array
     {
         $query = trim($query);
 
@@ -39,7 +38,7 @@ final class KnowledgeSearchService implements KnowledgeSearchContract
             return [];
         }
 
-        $scoredChunks = $this->search->search($scope->workspaceId, $vectors[0], $limit);
+        $scoredChunks = $this->search->search($workspaceId, $vectors[0], $limit);
 
         $documentsById = [];
 
@@ -47,7 +46,7 @@ final class KnowledgeSearchService implements KnowledgeSearchContract
 
         foreach ($scoredChunks as $scoredChunk) {
             $document = $documentsById[$scoredChunk->documentId]
-                ??= $this->documents->findInWorkspaceOrFail($scope->workspaceId, $scoredChunk->documentId);
+                ??= $this->documents->findInWorkspaceOrFail($workspaceId, $scoredChunk->documentId);
 
             $results[] = new KnowledgeSearchResult(
                 $scoredChunk->documentId,

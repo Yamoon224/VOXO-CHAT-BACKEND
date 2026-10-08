@@ -2,12 +2,17 @@
 
 namespace Tests\Feature\Documentation;
 
+use App\Domains\Conversations\Enums\ConversationChannel;
+use App\Domains\Conversations\Enums\ConversationStatus;
+use App\Domains\Conversations\Enums\MessageSenderType;
+use App\Domains\Conversations\Enums\MessageVisibility;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Shared\Http\Controllers\DocumentationController;
+use App\Domains\Widget\Enums\WidgetPosition;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -108,6 +113,11 @@ class OpenApiSpecificationTest extends TestCase
         yield 'KnowledgeDocumentType' => ['KnowledgeDocumentType', KnowledgeDocumentType::values()];
         yield 'KnowledgeDocumentStatus' => ['KnowledgeDocumentStatus', KnowledgeDocumentStatus::values()];
         yield 'RecrawlFrequency' => ['RecrawlFrequency', RecrawlFrequency::values()];
+        yield 'ConversationStatus' => ['ConversationStatus', ConversationStatus::values()];
+        yield 'ConversationChannel' => ['ConversationChannel', ConversationChannel::values()];
+        yield 'MessageSenderType' => ['MessageSenderType', MessageSenderType::values()];
+        yield 'MessageVisibility' => ['MessageVisibility', MessageVisibility::values()];
+        yield 'WidgetPosition' => ['WidgetPosition', WidgetPosition::values()];
     }
 
     #[Test]

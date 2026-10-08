@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Domains\Assistant\Contracts\AiProviderContract;
+use App\Domains\Assistant\Contracts\AssistantResponderContract;
+use App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract;
+use App\Domains\Assistant\Contracts\ConversationInsightContract;
+use App\Domains\Assistant\Providers\ArrayAiProvider;
+use App\Domains\Assistant\Providers\ClaudeAiProvider;
+use App\Domains\Assistant\Repositories\EloquentAssistantSettingsRepository;
+use App\Domains\Assistant\Services\AssistantService;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
 use App\Domains\Auth\Contracts\PasswordResetTokenStoreContract;
 use App\Domains\Auth\Contracts\TotpProviderContract;
@@ -9,6 +17,14 @@ use App\Domains\Auth\Services\SanctumAccessTokenManager;
 use App\Domains\Auth\Support\BrokerPasswordResetTokenStore;
 use App\Domains\Auth\Support\EmailVerificationToken;
 use App\Domains\Auth\Support\Google2faTotpProvider;
+use App\Domains\Conversations\Contracts\CannedResponseRepositoryContract;
+use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
+use App\Domains\Conversations\Contracts\MessageRepositoryContract;
+use App\Domains\Conversations\Contracts\VisitorConversationContract;
+use App\Domains\Conversations\Repositories\EloquentCannedResponseRepository;
+use App\Domains\Conversations\Repositories\EloquentConversationRepository;
+use App\Domains\Conversations\Repositories\EloquentMessageRepository;
+use App\Domains\Conversations\Services\ConversationService;
 use App\Domains\Knowledge\Contracts\EmbeddingProviderContract;
 use App\Domains\Knowledge\Contracts\EmbeddingSearchContract;
 use App\Domains\Knowledge\Contracts\KnowledgeChunkRepositoryContract;
@@ -44,6 +60,10 @@ use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
 use App\Domains\Users\Contracts\UserRepositoryContract;
 use App\Domains\Users\Repositories\EloquentUserRepository;
+use App\Domains\Widget\Contracts\WidgetSettingsRepositoryContract;
+use App\Domains\Widget\Repositories\EloquentWidgetSettingsRepository;
+use App\Domains\Widget\Services\WidgetSettingsService;
+use App\Domains\Widget\Support\VisitorSessionToken;
 use App\Domains\Workspaces\Contracts\InvitationRepositoryContract;
 use App\Domains\Workspaces\Contracts\MembershipReaderContract;
 use App\Domains\Workspaces\Contracts\MembershipRepositoryContract;
@@ -106,9 +126,27 @@ class DomainServiceProvider extends ServiceProvider
         // Moteur de recherche vectorielle : MySQL + similarité cosinus en PHP, pas de
         // pgvector (décision du 8 octobre 2026, section 12 du cahier des charges).
         EmbeddingSearchContract::class => MySqlCosineSimilaritySearch::class,
-        // Lecture étroite exposée au futur domaine `Assistant` (lot 2) : il cherche,
+        // Lecture étroite exposée au domaine `Assistant` (lot 2) : il cherche,
         // il n'indexe pas.
         KnowledgeSearchContract::class => KnowledgeSearchService::class,
+
+        // --- Conversations (lot 2) --------------------------------------------------
+        ConversationRepositoryContract::class => EloquentConversationRepository::class,
+        MessageRepositoryContract::class => EloquentMessageRepository::class,
+        CannedResponseRepositoryContract::class => EloquentCannedResponseRepository::class,
+        // Lecture étroite exposée au domaine `Widget` : un visiteur écrit et note,
+        // sans rien connaître de l'affectation ni des notes internes.
+        VisitorConversationContract::class => ConversationService::class,
+
+        // --- Widget (lot 2) ----------------------------------------------------------
+        WidgetSettingsRepositoryContract::class => EloquentWidgetSettingsRepository::class,
+
+        // --- Agent IA (lot 2) ---------------------------------------------------------
+        AssistantSettingsRepositoryContract::class => EloquentAssistantSettingsRepository::class,
+        // Lecture étroite exposée au domaine `Conversations` : il déclenche une
+        // réponse et lit résumé/sentiment, sans rien connaître du fournisseur d'IA.
+        AssistantResponderContract::class => AssistantService::class,
+        ConversationInsightContract::class => AssistantService::class,
     ];
 
     public function register(): void
@@ -116,6 +154,8 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerMailSender();
         $this->registerAuthSupport();
         $this->registerKnowledgeProviders();
+        $this->registerAssistantProvider();
+        $this->registerWidgetSupport();
 
         $this->app->bind(FrontendUrl::class, fn (): FrontendUrl => new FrontendUrl(
             (string) config('voxo.frontend_url'),
@@ -239,6 +279,44 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->bind(KnowledgeFileStorage::class, fn (): KnowledgeFileStorage => new KnowledgeFileStorage(
             (string) config('knowledge.storage_disk'),
         ));
+    }
+
+    /** Fournisseur d'IA de l'agent, choisi par configuration (même garde que `registerMailSender()`). */
+    private function registerAssistantProvider(): void
+    {
+        $this->app->singleton(ArrayAiProvider::class);
+
+        $this->app->singleton(AiProviderContract::class, function (): AiProviderContract {
+            $name = (string) config('assistant.driver');
+            $driver = config("assistant.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, AiProviderContract::class)) {
+                throw new RuntimeException(
+                    "Pilote d'IA « {$name} » inconnu. Vérifiez ASSISTANT_AI_DRIVER et config/assistant.php.",
+                );
+            }
+
+            return $driver === ClaudeAiProvider::class
+                ? new ClaudeAiProvider(
+                    (string) config('assistant.claude.key'),
+                    (string) config('assistant.claude.respond_model'),
+                    (string) config('assistant.claude.short_task_model'),
+                    (string) config('assistant.claude.base_url'),
+                )
+                : $this->app->make($driver);
+        });
+    }
+
+    private function registerWidgetSupport(): void
+    {
+        $this->app->bind(VisitorSessionToken::class, fn (): VisitorSessionToken => new VisitorSessionToken(
+            (string) config('app.key'),
+            (int) config('widget.visitor_session.ttl_minutes'),
+        ));
+
+        $this->app->when(WidgetSettingsService::class)
+            ->needs('$scriptBaseUrl')
+            ->giveConfig('widget.script_base_url');
     }
 
     private function registerAuthSupport(): void

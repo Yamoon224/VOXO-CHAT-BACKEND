@@ -37,6 +37,11 @@ class RolesAndPermissionsSeeder extends Seeder
         'platform.manage' => 'Administrer la plateforme : espaces, plans, consommation.',
         'knowledge.view' => 'Consulter la base de connaissances et effectuer des recherches.',
         'knowledge.manage' => 'Importer, explorer, modifier et supprimer le contenu de la base de connaissances.',
+        'conversations.view' => 'Consulter les conversations de la boîte de réception.',
+        'conversations.manage' => 'Répondre, affecter, changer le statut et noter les conversations.',
+        'canned_responses.manage' => 'Créer, modifier et supprimer les réponses pré-enregistrées.',
+        'widget.manage' => 'Régler l\'apparence, les horaires et le script du widget.',
+        'assistant.manage' => "Régler l'agent IA et tester le bac à sable.",
     ];
 
     /**
@@ -46,10 +51,19 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public const ROLES = [
         User::PLATFORM_ADMIN_ROLE => ['platform.manage'],
-        WorkspaceRole::Owner->value => ['workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage'],
-        WorkspaceRole::Admin->value => ['workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage'],
-        WorkspaceRole::Agent->value => ['workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage'],
-        WorkspaceRole::Viewer->value => ['workspace.view', 'members.view', 'knowledge.view'],
+        WorkspaceRole::Owner->value => [
+            'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+        ],
+        WorkspaceRole::Admin->value => [
+            'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+        ],
+        WorkspaceRole::Agent->value => [
+            'workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage',
+        ],
+        WorkspaceRole::Viewer->value => ['workspace.view', 'members.view', 'knowledge.view', 'conversations.view'],
     ];
 
     public function run(): void

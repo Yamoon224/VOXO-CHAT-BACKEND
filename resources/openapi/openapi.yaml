@@ -35,6 +35,9 @@ tags:
   - name: Équipe
   - name: Invitations
   - name: Base de connaissances
+  - name: Conversations
+  - name: Widget
+  - name: Agent IA
 
 paths:
   /health:
@@ -885,6 +888,471 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/conversations:
+    get:
+      tags: [Conversations]
+      summary: Conversations de l'espace courant
+      description: Permission `conversations.view`.
+      parameters:
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ConversationStatus' } }
+        - { name: assigned_user_id, in: query, schema: { type: string, format: uuid } }
+        - { name: needs_human, in: query, schema: { type: boolean } }
+        - { name: page, in: query, schema: { type: integer, minimum: 1 } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 25 } }
+      responses:
+        '200':
+          description: Page de conversations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Conversation' }
+                  links: { type: object }
+                  meta: { $ref: '#/components/schemas/PaginationMeta' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/conversations/{conversation}:
+    parameters:
+      - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [Conversations]
+      summary: Consulter une conversation
+      description: Permission `conversations.view`.
+      responses:
+        '200':
+          description: Conversation
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Conversation' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/conversations/{conversation}/status:
+    put:
+      tags: [Conversations]
+      summary: Changer le statut d'une conversation
+      description: Permission `conversations.manage`.
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [status], properties: { status: { $ref: '#/components/schemas/ConversationStatus' } } }
+      responses:
+        '200':
+          description: Statut modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Conversation' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/conversations/{conversation}/assignment:
+    put:
+      tags: [Conversations]
+      summary: Affecter ou désaffecter une conversation
+      description: Permission `conversations.manage`. Code d'erreur `assignee_not_member` (422).
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { user_id: { type: string, format: uuid, nullable: true } } }
+      responses:
+        '200':
+          description: Affectation modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Conversation' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/conversations/{conversation}/messages:
+    parameters:
+      - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [Conversations]
+      summary: Messages d'une conversation, notes internes comprises
+      description: Permission `conversations.view`.
+      responses:
+        '200':
+          description: Messages, dans l'ordre
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Message' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [Conversations]
+      summary: Répondre, ou ajouter une note interne
+      description: Permission `conversations.manage`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body: { type: string, minLength: 1, maxLength: 10000 }
+                visibility: { $ref: '#/components/schemas/MessageVisibility' }
+      responses:
+        '201':
+          description: Message créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Message' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/conversations/{conversation}/summarize:
+    post:
+      tags: [Conversations]
+      summary: Résumer la conversation (agent IA)
+      description: Permission `conversations.manage`.
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Conversation, résumé mis à jour
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Conversation' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/conversations/{conversation}/sentiment:
+    post:
+      tags: [Conversations]
+      summary: Analyser le sentiment du visiteur (agent IA)
+      description: Permission `conversations.manage`.
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Conversation, sentiment mis à jour
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Conversation' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/canned-responses:
+    get:
+      tags: [Conversations]
+      summary: Réponses pré-enregistrées de l'espace
+      description: Permission `canned_responses.manage`.
+      responses:
+        '200':
+          description: Réponses pré-enregistrées
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/CannedResponse' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Conversations]
+      summary: Créer une réponse pré-enregistrée
+      description: Permission `canned_responses.manage`. Code d'erreur `canned_response_title_taken` (409).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title: { type: string, minLength: 2, maxLength: 120 }
+                body: { type: string, minLength: 1, maxLength: 5000 }
+      responses:
+        '201':
+          description: Réponse créée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/CannedResponse' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '409': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/canned-responses/{cannedResponse}:
+    parameters:
+      - { name: cannedResponse, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      tags: [Conversations]
+      summary: Modifier une réponse pré-enregistrée
+      description: Permission `canned_responses.manage`. Code d'erreur `canned_response_title_taken` (409).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title: { type: string, minLength: 2, maxLength: 120 }
+                body: { type: string, minLength: 1, maxLength: 5000 }
+      responses:
+        '200':
+          description: Réponse modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/CannedResponse' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Conversations]
+      summary: Supprimer une réponse pré-enregistrée
+      description: Permission `canned_responses.manage`.
+      responses:
+        '204': { description: Réponse supprimée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/widget/settings:
+    get:
+      tags: [Widget]
+      summary: Réglages du widget de l'espace courant
+      description: Permission `widget.manage`.
+      responses:
+        '200':
+          description: Réglages
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/WidgetSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Widget]
+      summary: Modifier les réglages du widget
+      description: Permission `widget.manage`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                primary_color: { type: string, pattern: '^#[0-9A-Fa-f]{6}$' }
+                logo_url: { type: string, format: uri, nullable: true }
+                position: { $ref: '#/components/schemas/WidgetPosition' }
+                welcome_message: { type: string, nullable: true, maxLength: 500 }
+                language: { $ref: '#/components/schemas/Locale' }
+                business_hours:
+                  type: array
+                  nullable: true
+                  items:
+                    type: object
+                    properties:
+                      day: { type: integer, minimum: 0, maximum: 6 }
+                      opens_at: { type: string, example: '09:00' }
+                      closes_at: { type: string, example: '18:00' }
+                offline_message: { type: string, nullable: true, maxLength: 500 }
+      responses:
+        '200':
+          description: Réglages modifiés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/WidgetSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/widget/script:
+    get:
+      tags: [Widget]
+      summary: Générer le script d'intégration du widget
+      description: Permission `widget.manage`.
+      responses:
+        '200':
+          description: Script à copier-coller
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { script: { type: string } } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/assistant/settings:
+    get:
+      tags: [Agent IA]
+      summary: Réglages de l'agent IA de l'espace courant
+      description: Permission `assistant.manage`.
+      responses:
+        '200':
+          description: Réglages
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AssistantSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Agent IA]
+      summary: Modifier les réglages de l'agent IA
+      description: Permission `assistant.manage`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled: { type: boolean }
+                tone_instructions: { type: string, nullable: true, maxLength: 2000 }
+                confidence_threshold: { type: number, minimum: 0, maximum: 1 }
+      responses:
+        '200':
+          description: Réglages modifiés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AssistantSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/assistant/sandbox:
+    post:
+      tags: [Agent IA]
+      summary: Bac à sable de l'agent IA avant activation
+      description: |
+        Permission `assistant.manage`. Cherche et répond comme en production,
+        sans toucher à aucune conversation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [message], properties: { message: { type: string, minLength: 1, maxLength: 2000 } } }
+      responses:
+        '200':
+          description: Réponse simulée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AiReply' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/widget/{workspace}/settings:
+    get:
+      tags: [Widget]
+      summary: Réglages publics du widget, lus avant toute session de visiteur
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Réglages publics
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/PublicWidgetSettings' } } }
+
+  /public/widget/{workspace}/sessions:
+    post:
+      tags: [Widget]
+      summary: Ouvrir une session de visiteur
+      description: Jeton signé, sans état côté serveur ; pas d'authentification.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '201':
+          description: Session ouverte
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token: { type: string }
+                      visitor_id: { type: string, format: uuid }
+
+  /public/widget/messages:
+    post:
+      tags: [Widget]
+      summary: Envoyer un message en tant que visiteur
+      description: |
+        Retrouve ou ouvre la conversation du visiteur, y ajoute son message,
+        et déclenche l'agent IA. Le jeton de session identifie l'espace de
+        travail et le visiteur ; aucun des deux n'est lu ailleurs.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, body]
+              properties:
+                token: { type: string }
+                body: { type: string, minLength: 1, maxLength: 5000 }
+                visitor_name: { type: string, nullable: true, maxLength: 120 }
+                visitor_email: { type: string, format: email, nullable: true }
+      responses:
+        '201':
+          description: Message reçu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: object, properties: { conversation_id: { type: string, format: uuid } } }
+        '401': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    get:
+      tags: [Widget]
+      summary: Sonder les messages de sa conversation (visiteur)
+      description: Pas de temps réel pour l'instant (voir la note de portée du lot 2) : le widget sonde cette route.
+      security: []
+      parameters:
+        - { name: token, in: query, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Messages visibles du visiteur, dans l'ordre
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/PublicMessage' } } } }
+        '401': { $ref: '#/components/responses/DomainError' }
+
+  /public/widget/ratings:
+    post:
+      tags: [Widget]
+      summary: Évaluer sa conversation (visiteur)
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, conversation_id, rating]
+              properties:
+                token: { type: string }
+                conversation_id: { type: string, format: uuid }
+                rating: { type: integer, minimum: 1, maximum: 5 }
+                comment: { type: string, nullable: true, maxLength: 1000 }
+      responses:
+        '204': { description: Évaluation enregistrée }
+        '401': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
   /invitations/{token}:
     get:
       tags: [Invitations]
@@ -1206,6 +1674,133 @@ components:
         chunk_content: { type: string }
         score: { type: number, format: float }
         citation_url: { type: string, nullable: true }
+
+    ConversationStatus:
+      type: string
+      enum: [open, pending, resolved]
+
+    ConversationChannel:
+      type: string
+      enum: [widget]
+
+    MessageSenderType:
+      type: string
+      enum: [visitor, agent, ai, system]
+
+    MessageVisibility:
+      type: string
+      enum: [public, internal]
+
+    WidgetPosition:
+      type: string
+      enum: [bottom_right, bottom_left]
+
+    Conversation:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        channel: { $ref: '#/components/schemas/ConversationChannel' }
+        channel_label: { type: string }
+        status: { $ref: '#/components/schemas/ConversationStatus' }
+        status_label: { type: string }
+        visitor_name: { type: string, nullable: true }
+        visitor_email: { type: string, nullable: true }
+        assigned_user:
+          type: object
+          nullable: true
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+        subject: { type: string, nullable: true }
+        summary: { type: string, nullable: true }
+        sentiment: { type: string, nullable: true }
+        needs_human: { type: boolean }
+        rating: { type: integer, nullable: true }
+        rating_comment: { type: string, nullable: true }
+        last_message_at: { type: string, format: date-time, nullable: true }
+        resolved_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time }
+
+    Message:
+      type: object
+      description: Vue d'équipe, notes internes comprises.
+      properties:
+        id: { type: string, format: uuid }
+        sender_type: { $ref: '#/components/schemas/MessageSenderType' }
+        sender_label: { type: string }
+        sender_user:
+          type: object
+          nullable: true
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+        visibility: { $ref: '#/components/schemas/MessageVisibility' }
+        body: { type: string }
+        citations: { type: array, items: { type: object } }
+        attachment_filename: { type: string, nullable: true }
+        created_at: { type: string, format: date-time }
+
+    PublicMessage:
+      type: object
+      description: Vue du visiteur, jamais de note interne.
+      properties:
+        id: { type: string, format: uuid }
+        sender_type: { $ref: '#/components/schemas/MessageSenderType' }
+        body: { type: string }
+        citations: { type: array, items: { type: object } }
+        created_at: { type: string, format: date-time }
+
+    CannedResponse:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        body: { type: string }
+        created_at: { type: string, format: date-time }
+
+    WidgetSettings:
+      type: object
+      properties:
+        primary_color: { type: string }
+        logo_url: { type: string, nullable: true }
+        position: { $ref: '#/components/schemas/WidgetPosition' }
+        welcome_message: { type: string, nullable: true }
+        language: { $ref: '#/components/schemas/Locale' }
+        business_hours:
+          type: array
+          nullable: true
+          items:
+            type: object
+            properties:
+              day: { type: integer }
+              opens_at: { type: string }
+              closes_at: { type: string }
+        offline_message: { type: string, nullable: true }
+
+    PublicWidgetSettings:
+      type: object
+      properties:
+        primary_color: { type: string }
+        logo_url: { type: string, nullable: true }
+        position: { $ref: '#/components/schemas/WidgetPosition' }
+        welcome_message: { type: string, nullable: true }
+        language: { $ref: '#/components/schemas/Locale' }
+        is_open_now: { type: boolean }
+        offline_message: { type: string, nullable: true }
+
+    AssistantSettings:
+      type: object
+      properties:
+        enabled: { type: boolean }
+        tone_instructions: { type: string, nullable: true }
+        confidence_threshold: { type: number, format: float }
+
+    AiReply:
+      type: object
+      properties:
+        content: { type: string }
+        citations: { type: array, items: { type: object } }
+        confidence: { type: number, format: float }
 
     PaginationMeta:
       type: object

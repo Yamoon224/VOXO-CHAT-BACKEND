@@ -8,6 +8,7 @@ use App\Domains\Knowledge\Contracts\KnowledgeSourceRepositoryContract;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
+use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Knowledge\Exceptions\DocumentNotRetryableException;
 use App\Domains\Knowledge\Exceptions\QaContentRequiredException;
 use App\Domains\Knowledge\Jobs\IndexKnowledgeDocumentJob;
@@ -66,7 +67,11 @@ final class KnowledgeDocumentService
 
         IndexKnowledgeDocumentJob::dispatch($document->id);
 
-        return $document;
+        // La file est synchrone en test (`QUEUE_CONNECTION=sync`) : l'indexation a
+        // déjà pu modifier cette ligne sous nos pieds. On relit par le dépôt,
+        // pas par `refresh()`, pour que la doublure en mémoire des tests
+        // unitaires (sans base) renvoie la même instance qu'elle a déjà mutée.
+        return $this->documents->findInWorkspaceOrFail($scope->workspaceId, $document->id);
     }
 
     /** @throws QaContentRequiredException */
@@ -84,6 +89,7 @@ final class KnowledgeDocumentService
                 'workspace_id' => $scope->workspaceId,
                 'type' => KnowledgeSourceType::Manual,
                 'name' => 'Entrées manuelles',
+                'recrawl_frequency' => RecrawlFrequency::Manual,
                 'created_by_user_id' => $userId,
             ]);
 
@@ -101,7 +107,7 @@ final class KnowledgeDocumentService
 
         IndexKnowledgeDocumentJob::dispatch($document->id);
 
-        return $document;
+        return $this->documents->findInWorkspaceOrFail($scope->workspaceId, $document->id);
     }
 
     /** @throws QaContentRequiredException */
@@ -129,6 +135,6 @@ final class KnowledgeDocumentService
 
         IndexKnowledgeDocumentJob::dispatch($document->id);
 
-        return $document;
+        return $this->documents->findInWorkspaceOrFail($scope->workspaceId, $document->id);
     }
 }

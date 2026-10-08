@@ -50,6 +50,7 @@ final class KnowledgeSourceService
                 'workspace_id' => $scope->workspaceId,
                 'type' => KnowledgeSourceType::Upload,
                 'name' => $name,
+                'recrawl_frequency' => RecrawlFrequency::Manual,
                 'created_by_user_id' => $userId,
             ]);
         });
@@ -100,7 +101,11 @@ final class KnowledgeSourceService
 
         CrawlKnowledgeSourceJob::dispatch($source->id);
 
-        return $source;
+        // La file est synchrone en test (`QUEUE_CONNECTION=sync`) : l'exploration a
+        // déjà pu modifier cette ligne (`last_crawled_at`) sous nos pieds. On relit
+        // par le dépôt, pas par `refresh()`, pour que la doublure en mémoire des
+        // tests unitaires (sans base) renvoie la même instance qu'elle a déjà mutée.
+        return $this->sources->findInWorkspaceOrFail($scope->workspaceId, $source->id);
     }
 
     /** @throws WebsiteSourceRequiredException */

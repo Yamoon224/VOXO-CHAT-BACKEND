@@ -1,0 +1,9 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-6.73.0.5-8.3.32-713f7962462830bdf32de55129465eedec865a922ec00ba18decceb0c1bc4ab7";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:22:"App\Models\ActivityLog";s:8:"filename";s:59:"C:/laragon/www/voxo.chat/backend/app/Models/ActivityLog.php";}}s:9:"namespace";s:10:"App\Models";s:4:"name";s:22:"App\Models\ActivityLog";s:9:"shortName";s:11:"ActivityLog";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:295:"/**
+ * Entree du journal d'audit.
+ *
+ * Etendue pour aligner la cle primaire sur le reste du schema (UUID) et parce
+ * que le journal est expose en lecture par l'API : lui donner un modele
+ * applicatif evite de faire dependre un controleur d'une classe du paquet.
+ *
+ * @property string $id
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:17;s:7:"endLine";i:20;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:34:"Spatie\Activitylog\Models\Activity";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:1:{i:0;s:46:"Illuminate\Database\Eloquent\Concerns\HasUuids";}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:0:{}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

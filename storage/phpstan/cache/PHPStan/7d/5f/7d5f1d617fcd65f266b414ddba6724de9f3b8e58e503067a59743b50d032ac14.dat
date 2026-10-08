@@ -1,0 +1,85 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-5124041d7418cca79672e0b451998c03112b85d935bc4eaf2a3b48fafa77dfaf-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:8:"filename";s:111:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/Element/AbstractContainer.php";}}s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:4:"name";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"shortName";s:17:"AbstractContainer";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:64;s:10:"docComment";s:2250:"/**
+ * Container abstract class.
+ *
+ * @method Text addText(string $text, mixed $fStyle = null, mixed $pStyle = null)
+ * @method TextRun addTextRun(mixed $pStyle = null)
+ * @method Bookmark addBookmark(string $name)
+ * @method Link addLink(string $target, string $text = null, mixed $fStyle = null, mixed $pStyle = null, boolean $internal = false)
+ * @method PreserveText addPreserveText(string $text, mixed $fStyle = null, mixed $pStyle = null)
+ * @method void addTextBreak(int $count = 1, mixed $fStyle = null, mixed $pStyle = null)
+ * @method ListItem addListItem(string $txt, int $depth = 0, mixed $font = null, mixed $list = null, mixed $para = null)
+ * @method ListItemRun addListItemRun(int $depth = 0, mixed $listStyle = null, mixed $pStyle = null)
+ * @method Footnote addFootnote(mixed $pStyle = null)
+ * @method Endnote addEndnote(mixed $pStyle = null)
+ * @method CheckBox addCheckBox(string $name, $text, mixed $fStyle = null, mixed $pStyle = null)
+ * @method Title addTitle(mixed $text, int $depth = 1, int $pageNumber = null)
+ * @method TOC addTOC(mixed $fontStyle = null, mixed $tocStyle = null, int $minDepth = 1, int $maxDepth = 9)
+ * @method PageBreak addPageBreak()
+ * @method Table addTable(mixed $style = null)
+ * @method Image addImage(string $source, mixed $style = null, bool $isWatermark = false, $name = null)
+ * @method OLEObject addOLEObject(string $source, mixed $style = null)
+ * @method TextBox addTextBox(mixed $style = null)
+ * @method Field addField(string $type = null, array $properties = array(), array $options = array(), mixed $text = null)
+ * @method Line addLine(mixed $lineStyle = null)
+ * @method Shape addShape(string $type, mixed $style = null)
+ * @method Chart addChart(string $type, array $categories, array $values, array $style = null, $seriesName = null)
+ * @method FormField addFormField(string $type, mixed $fStyle = null, mixed $pStyle = null)
+ * @method SDT addSDT(string $type)
+ * @method Formula addFormula(Math $math)
+ * @method Ruby addRuby(TextRun $baseText, TextRun $rubyText, \PhpOffice\PhpWord\ComplexType\RubyProperties $properties)
+ * @method \PhpOffice\PhpWord\Element\OLEObject addObject(string $source, mixed $style = null) deprecated, use addOLEObject instead
+ *
+ * @since 0.10.0
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:58;s:7:"endLine";i:293;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:41:"PhpOffice\PhpWord\Element\AbstractElement";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:2:{s:8:"elements";a:16:{s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:4:"name";s:8:"elements";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:65;s:7:"endLine";i:65;s:13:"startTokenPos";i:46;s:12:"startFilePos";i:3164;s:11:"endTokenPos";i:47;s:10:"endFilePos";i:3165;}}s:10:"docComment";s:60:"/**
+ * Elements collection.
+ *
+ * @var AbstractElement[]
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:65;s:7:"endLine";i:65;s:11:"startColumn";i:5;s:9:"endColumn";i:29;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:9:"container";a:16:{s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:4:"name";s:9:"container";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:128:"/**
+ * Container type Section|Header|Footer|Footnote|Endnote|Cell|TextRun|TextBox|ListItemRun|TrackChange.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:72;s:7:"endLine";i:72;s:11:"startColumn";i:5;s:9:"endColumn";i:25;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:7:{s:6:"__call";a:20:{s:4:"name";s:6:"__call";s:10:"parameters";a:2:{s:8:"function";a:13:{s:4:"name";s:8:"function";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:87;s:11:"startColumn";i:28;s:9:"endColumn";i:36;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:4:"args";a:13:{s:4:"name";s:4:"args";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:87;s:11:"startColumn";i:39;s:9:"endColumn";i:43;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:371:"/**
+ * Magic method to catch all 'addElement' variation.
+ *
+ * This removes addText, addTextRun, etc. When adding new element, we have to
+ * add the model in the class docblock with `@method`.
+ *
+ * Warning: This makes capitalization matters, e.g. addCheckbox or addcheckbox won't work.
+ *
+ * @param mixed $function
+ * @param mixed $args
+ *
+ * @return AbstractElement
+ */";s:9:"startLine";i:87;s:7:"endLine";i:126;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:10:"addElement";a:20:{s:4:"name";s:10:"addElement";s:10:"parameters";a:1:{s:11:"elementName";a:13:{s:4:"name";s:11:"elementName";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:137;s:7:"endLine";i:137;s:11:"startColumn";i:35;s:9:"endColumn";i:46;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:147:"/**
+ * Add element.
+ *
+ * Each element has different number of parameters passed
+ *
+ * @param string $elementName
+ *
+ * @return AbstractElement
+ */";s:9:"startLine";i:137;s:7:"endLine";i:165;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:1;s:9:"modifiers";i:2;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:11:"getElements";a:20:{s:4:"name";s:11:"getElements";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:60:"/**
+ * Get all elements.
+ *
+ * @return AbstractElement[]
+ */";s:9:"startLine";i:172;s:7:"endLine";i:175;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:10:"getElement";a:20:{s:4:"name";s:10:"getElement";s:10:"parameters";a:1:{s:5:"index";a:13:{s:4:"name";s:5:"index";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:184;s:7:"endLine";i:184;s:11:"startColumn";i:32;s:9:"endColumn";i:37;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:116:"/**
+ * Returns the element at the requested position.
+ *
+ * @param int $index
+ *
+ * @return null|AbstractElement
+ */";s:9:"startLine";i:184;s:7:"endLine";i:191;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:13:"removeElement";a:20:{s:4:"name";s:13:"removeElement";s:10:"parameters";a:1:{s:8:"toRemove";a:13:{s:4:"name";s:8:"toRemove";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:198;s:7:"endLine";i:198;s:11:"startColumn";i:35;s:9:"endColumn";i:43;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:93:"/**
+ * Removes the element at requested index.
+ *
+ * @param AbstractElement|int $toRemove
+ */";s:9:"startLine";i:198;s:7:"endLine";i:211;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:13:"countElements";a:20:{s:4:"name";s:13:"countElements";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:44:"/**
+ * Count elements.
+ *
+ * @return int
+ */";s:9:"startLine";i:218;s:7:"endLine";i:221;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}s:13:"checkValidity";a:20:{s:4:"name";s:13:"checkValidity";s:10:"parameters";a:1:{s:6:"method";a:13:{s:4:"name";s:6:"method";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:230;s:7:"endLine";i:230;s:11:"startColumn";i:36;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:113:"/**
+ * Check if a method is allowed for the current container.
+ *
+ * @param string $method
+ *
+ * @return bool
+ */";s:9:"startLine";i:230;s:7:"endLine";i:292;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:21:"implementingClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:16:"currentClassName";s:43:"PhpOffice\PhpWord\Element\AbstractContainer";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

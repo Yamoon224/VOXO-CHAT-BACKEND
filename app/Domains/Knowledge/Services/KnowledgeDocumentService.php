@@ -25,7 +25,10 @@ final class KnowledgeDocumentService
         private readonly KnowledgeFileStorage $files,
     ) {}
 
-    /** @param  array<string, mixed>  $filters */
+    /**
+     * @param  array<string, mixed>  $filters
+     * @return LengthAwarePaginator<int, KnowledgeDocument>
+     */
     public function list(WorkspaceScope $scope, array $filters, int $perPage): LengthAwarePaginator
     {
         return $this->documents->paginate($scope->workspaceId, $filters, $perPage);

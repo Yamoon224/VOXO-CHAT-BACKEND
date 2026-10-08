@@ -21,7 +21,7 @@ final class VoyageAiEmbeddingProvider implements EmbeddingProviderContract
         }
 
         if ($this->apiKey === '') {
-            throw new RuntimeException("VOYAGE_API_KEY est absente : les embeddings Voyage AI ne peuvent pas être calculés.");
+            throw new RuntimeException('VOYAGE_API_KEY est absente : les embeddings Voyage AI ne peuvent pas être calculés.');
         }
 
         $response = Http::baseUrl($this->baseUrl)
@@ -29,7 +29,7 @@ final class VoyageAiEmbeddingProvider implements EmbeddingProviderContract
             ->timeout(60)
             ->post('/embeddings', [
                 'model' => $this->model,
-                'input' => array_values($texts),
+                'input' => $texts,
                 'input_type' => 'document',
             ])
             ->throw();

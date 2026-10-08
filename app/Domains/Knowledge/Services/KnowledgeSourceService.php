@@ -28,7 +28,10 @@ final class KnowledgeSourceService
         private readonly TransactionManagerContract $transactions,
     ) {}
 
-    /** @param  array<string, mixed>  $filters */
+    /**
+     * @param  array<string, mixed>  $filters
+     * @return LengthAwarePaginator<int, KnowledgeSource>
+     */
     public function list(WorkspaceScope $scope, array $filters, int $perPage): LengthAwarePaginator
     {
         return $this->sources->paginate($scope->workspaceId, $filters, $perPage);

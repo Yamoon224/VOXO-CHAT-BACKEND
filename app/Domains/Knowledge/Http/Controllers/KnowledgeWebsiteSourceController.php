@@ -6,8 +6,8 @@ use App\Domains\Knowledge\Http\Requests\StoreKnowledgeWebsiteSourceRequest;
 use App\Domains\Knowledge\Http\Resources\KnowledgeSourceResource;
 use App\Domains\Knowledge\Services\KnowledgeSourceService;
 use App\Domains\Shared\Support\WorkspaceScope;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class KnowledgeWebsiteSourceController extends Controller
 {

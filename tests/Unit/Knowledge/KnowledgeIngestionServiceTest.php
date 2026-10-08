@@ -3,6 +3,7 @@
 namespace Tests\Unit\Knowledge;
 
 use App\Domains\Knowledge\Contracts\EmbeddingProviderContract;
+use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Extractors\PlainTextExtractor;
@@ -10,7 +11,6 @@ use App\Domains\Knowledge\Ocr\ArrayOcrEngine;
 use App\Domains\Knowledge\Services\KnowledgeIngestionService;
 use App\Domains\Knowledge\Support\KnowledgeFileStorage;
 use App\Domains\Knowledge\Support\TextExtractorRegistry;
-use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\Test;

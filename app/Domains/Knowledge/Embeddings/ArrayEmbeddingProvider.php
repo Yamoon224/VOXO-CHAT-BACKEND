@@ -50,9 +50,9 @@ final class ArrayEmbeddingProvider implements EmbeddingProviderContract
         $norm = sqrt(array_sum(array_map(fn (float $v) => $v ** 2, $vector)));
 
         if ($norm === 0.0) {
-            return $vector;
+            return array_values($vector);
         }
 
-        return array_map(fn (float $v) => $v / $norm, $vector);
+        return array_values(array_map(fn (float $v) => $v / $norm, $vector));
     }
 }

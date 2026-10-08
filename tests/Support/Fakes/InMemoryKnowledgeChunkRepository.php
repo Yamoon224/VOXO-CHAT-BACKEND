@@ -22,7 +22,7 @@ final class InMemoryKnowledgeChunkRepository implements KnowledgeChunkRepository
 
         $created = [];
 
-        foreach (array_values($chunks) as $position => $chunk) {
+        foreach ($chunks as $position => $chunk) {
             $model = ModelFactory::knowledgeChunk([
                 'workspace_id' => $workspaceId,
                 'document_id' => $documentId,

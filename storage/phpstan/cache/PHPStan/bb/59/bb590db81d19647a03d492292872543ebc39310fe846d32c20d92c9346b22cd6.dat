@@ -1,0 +1,156 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-f84bd4e8aa025fe30c83a3ceba7856e5c1e170659f08370cfde726a8fbe76036-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:25:"PhpOffice\PhpWord\PhpWord";s:8:"filename";s:93:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/PhpWord.php";}}s:9:"namespace";s:17:"PhpOffice\PhpWord";s:4:"name";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"shortName";s:7:"PhpWord";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:1089:"/**
+ * PHPWord main class.
+ *
+ * @method Collection\Titles getTitles()
+ * @method Collection\Footnotes getFootnotes()
+ * @method Collection\Endnotes getEndnotes()
+ * @method Collection\Charts getCharts()
+ * @method Collection\Comments getComments()
+ * @method int addBookmark(Element\Bookmark $bookmark)
+ * @method int addTitle(Element\Title $title)
+ * @method int addFootnote(Element\Footnote $footnote)
+ * @method int addEndnote(Element\Endnote $endnote)
+ * @method int addChart(Element\Chart $chart)
+ * @method int addComment(Element\Comment $comment)
+ * @method Style\Paragraph addParagraphStyle(string $styleName, mixed $styles)
+ * @method Style\Font addFontStyle(string $styleName, mixed $fontStyle, mixed $paragraphStyle = null)
+ * @method Style\Font addLinkStyle(string $styleName, mixed $styles)
+ * @method Style\Font addTitleStyle(mixed $depth, mixed $fontStyle, mixed $paragraphStyle = null)
+ * @method Style\Table addTableStyle(string $styleName, mixed $styleTable, mixed $styleFirstRow = null)
+ * @method Style\Numbering addNumberingStyle(string $styleName, mixed $styles)
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:46;s:7:"endLine";i:411;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";N;s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:3:{s:8:"sections";a:16:{s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:4:"name";s:8:"sections";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:53;s:7:"endLine";i:53;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:1981;s:11:"endTokenPos";i:41;s:10:"endFilePos";i:1982;}}s:10:"docComment";s:55:"/**
+ * Collection of sections.
+ *
+ * @var Section[]
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:53;s:7:"endLine";i:53;s:11:"startColumn";i:5;s:9:"endColumn";i:27;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:11:"collections";a:16:{s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:4:"name";s:11:"collections";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:60;s:7:"endLine";i:60;s:13:"startTokenPos";i:52;s:12:"startFilePos";i:2074;s:11:"endTokenPos";i:53;s:10:"endFilePos";i:2075;}}s:10:"docComment";s:40:"/**
+ * Collections.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:60;s:7:"endLine";i:60;s:11:"startColumn";i:5;s:9:"endColumn";i:30;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:8:"metadata";a:16:{s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:4:"name";s:8:"metadata";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:69;s:7:"endLine";i:69;s:13:"startTokenPos";i:64;s:12:"startFilePos";i:2189;s:11:"endTokenPos";i:65;s:10:"endFilePos";i:2190;}}s:10:"docComment";s:57:"/**
+ * Metadata.
+ *
+ * @var array
+ *
+ * @since 0.12.0
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:69;s:7:"endLine";i:69;s:11:"startColumn";i:5;s:9:"endColumn";i:27;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:22:{s:11:"__construct";a:20:{s:4:"name";s:11:"__construct";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:73:"/**
+ * Create new instance.
+ *
+ * Collections are created dynamically
+ */";s:9:"startLine";i:76;s:7:"endLine";i:96;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:6:"__call";a:20:{s:4:"name";s:6:"__call";s:10:"parameters";a:2:{s:8:"function";a:13:{s:4:"name";s:8:"function";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:108;s:7:"endLine";i:108;s:11:"startColumn";i:28;s:9:"endColumn";i:36;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:4:"args";a:13:{s:4:"name";s:4:"args";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:108;s:7:"endLine";i:108;s:11:"startColumn";i:39;s:9:"endColumn";i:43;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:152:"/**
+ * Dynamic function call to reduce static dependency.
+ *
+ * @since 0.12.0
+ *
+ * @param mixed $function
+ * @param mixed $args
+ *
+ * @return mixed
+ */";s:9:"startLine";i:108;s:7:"endLine";i:150;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:10:"getDocInfo";a:20:{s:4:"name";s:10:"getDocInfo";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:73:"/**
+ * Get document properties object.
+ *
+ * @return Metadata\DocInfo
+ */";s:9:"startLine";i:157;s:7:"endLine";i:160;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:16:"getCompatibility";a:20:{s:4:"name";s:16:"getCompatibility";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:86:"/**
+ * Get compatibility.
+ *
+ * @return Metadata\Compatibility
+ *
+ * @since 0.12.0
+ */";s:9:"startLine";i:169;s:7:"endLine";i:172;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:11:"getSettings";a:20:{s:4:"name";s:11:"getSettings";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:81:"/**
+ * Get compatibility.
+ *
+ * @return Metadata\Settings
+ *
+ * @since 0.14.0
+ */";s:9:"startLine";i:181;s:7:"endLine";i:184;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:11:"getSections";a:20:{s:4:"name";s:11:"getSections";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:52:"/**
+ * Get all sections.
+ *
+ * @return Section[]
+ */";s:9:"startLine";i:191;s:7:"endLine";i:194;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:10:"getSection";a:20:{s:4:"name";s:10:"getSection";s:10:"parameters";a:1:{s:5:"index";a:13:{s:4:"name";s:5:"index";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:203;s:7:"endLine";i:203;s:11:"startColumn";i:32;s:9:"endColumn";i:37;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:108:"/**
+ * Returns the section at the requested position.
+ *
+ * @param int $index
+ *
+ * @return null|Section
+ */";s:9:"startLine";i:203;s:7:"endLine";i:210;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:10:"addSection";a:20:{s:4:"name";s:10:"addSection";s:10:"parameters";a:1:{s:5:"style";a:13:{s:4:"name";s:5:"style";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:219;s:7:"endLine";i:219;s:13:"startTokenPos";i:732;s:12:"startFilePos";i:5885;s:11:"endTokenPos";i:732;s:10:"endFilePos";i:5888;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:219;s:7:"endLine";i:219;s:11:"startColumn";i:32;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:90:"/**
+ * Create new section.
+ *
+ * @param null|array|string $style
+ *
+ * @return Section
+ */";s:9:"startLine";i:219;s:7:"endLine";i:226;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:12:"sortSections";a:20:{s:4:"name";s:12:"sortSections";s:10:"parameters";a:1:{s:6:"sorter";a:13:{s:4:"name";s:6:"sorter";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:235;s:7:"endLine";i:235;s:11:"startColumn";i:34;s:9:"endColumn";i:40;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:151:"/**
+ * Sorts the sections using the callable passed.
+ *
+ * @see http://php.net/manual/en/function.usort.php for usage
+ *
+ * @param callable $sorter
+ */";s:9:"startLine";i:235;s:7:"endLine";i:238;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:18:"getDefaultFontName";a:20:{s:4:"name";s:18:"getDefaultFontName";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:54:"/**
+ * Get default font name.
+ *
+ * @return string
+ */";s:9:"startLine";i:245;s:7:"endLine";i:248;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:18:"setDefaultFontName";a:20:{s:4:"name";s:18:"setDefaultFontName";s:10:"parameters";a:1:{s:8:"fontName";a:13:{s:4:"name";s:8:"fontName";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:255;s:7:"endLine";i:255;s:11:"startColumn";i:40;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:63:"/**
+ * Set default font name.
+ *
+ * @param string $fontName
+ */";s:9:"startLine";i:255;s:7:"endLine";i:258;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:23:"getDefaultAsianFontName";a:20:{s:4:"name";s:23:"getDefaultAsianFontName";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:39:"/**
+ * Get default asian font name.
+ */";s:9:"startLine";i:263;s:7:"endLine";i:266;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:23:"setDefaultAsianFontName";a:20:{s:4:"name";s:23:"setDefaultAsianFontName";s:10:"parameters";a:1:{s:8:"fontName";a:13:{s:4:"name";s:8:"fontName";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:273;s:7:"endLine";i:273;s:11:"startColumn";i:45;s:9:"endColumn";i:53;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:69:"/**
+ * Set default asian font name.
+ *
+ * @param string $fontName
+ */";s:9:"startLine";i:273;s:7:"endLine";i:276;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:19:"setDefaultFontColor";a:20:{s:4:"name";s:19:"setDefaultFontColor";s:10:"parameters";a:1:{s:9:"fontColor";a:13:{s:4:"name";s:9:"fontColor";s:7:"default";N;s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:281;s:7:"endLine";i:281;s:11:"startColumn";i:41;s:9:"endColumn";i:57;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:34:"/**
+ * Set default font color.
+ */";s:9:"startLine";i:281;s:7:"endLine";i:284;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:19:"getDefaultFontColor";a:20:{s:4:"name";s:19:"getDefaultFontColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:34:"/**
+ * Get default font color.
+ */";s:9:"startLine";i:289;s:7:"endLine";i:292;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:18:"getDefaultFontSize";a:20:{s:4:"name";s:18:"getDefaultFontSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:51:"/**
+ * Get default font size.
+ *
+ * @return int
+ */";s:9:"startLine";i:299;s:7:"endLine";i:302;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:18:"setDefaultFontSize";a:20:{s:4:"name";s:18:"setDefaultFontSize";s:10:"parameters";a:1:{s:8:"fontSize";a:13:{s:4:"name";s:8:"fontSize";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:309;s:7:"endLine";i:309;s:11:"startColumn";i:40;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:60:"/**
+ * Set default font size.
+ *
+ * @param int $fontSize
+ */";s:9:"startLine";i:309;s:7:"endLine";i:312;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:24:"setDefaultParagraphStyle";a:20:{s:4:"name";s:24:"setDefaultParagraphStyle";s:10:"parameters";a:1:{s:6:"styles";a:13:{s:4:"name";s:6:"styles";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:321;s:7:"endLine";i:321;s:11:"startColumn";i:46;s:9:"endColumn";i:52;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:148:"/**
+ * Set default paragraph style definition to styles.xml.
+ *
+ * @param array $styles Paragraph style definition
+ *
+ * @return Style\Paragraph
+ */";s:9:"startLine";i:321;s:7:"endLine";i:324;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:4:"save";a:20:{s:4:"name";s:4:"save";s:10:"parameters";a:3:{s:8:"filename";a:13:{s:4:"name";s:8:"filename";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:337;s:7:"endLine";i:337;s:11:"startColumn";i:26;s:9:"endColumn";i:34;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"format";a:13:{s:4:"name";s:6:"format";s:7:"default";a:2:{s:4:"code";s:10:"'Word2007'";s:10:"attributes";a:6:{s:9:"startLine";i:337;s:7:"endLine";i:337;s:13:"startTokenPos";i:1060;s:12:"startFilePos";i:8419;s:11:"endTokenPos";i:1060;s:10:"endFilePos";i:8428;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:337;s:7:"endLine";i:337;s:11:"startColumn";i:37;s:9:"endColumn";i:56;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:8:"download";a:13:{s:4:"name";s:8:"download";s:7:"default";a:2:{s:4:"code";s:5:"false";s:10:"attributes";a:6:{s:9:"startLine";i:337;s:7:"endLine";i:337;s:13:"startTokenPos";i:1067;s:12:"startFilePos";i:8443;s:11:"endTokenPos";i:1067;s:10:"endFilePos";i:8447;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:337;s:7:"endLine";i:337;s:11:"startColumn";i:59;s:9:"endColumn";i:75;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:199:"/**
+ * Save to file or download.
+ *
+ * All exceptions should already been handled by the writers
+ *
+ * @param string $filename
+ * @param string $format
+ * @param bool $download
+ *
+ * @return bool
+ */";s:9:"startLine";i:337;s:7:"endLine";i:362;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:13:"createSection";a:20:{s:4:"name";s:13:"createSection";s:10:"parameters";a:1:{s:8:"settings";a:13:{s:4:"name";s:8:"settings";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:375;s:7:"endLine";i:375;s:13:"startTokenPos";i:1232;s:12:"startFilePos";i:9607;s:11:"endTokenPos";i:1232;s:10:"endFilePos";i:9610;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:375;s:7:"endLine";i:375;s:11:"startColumn";i:35;s:9:"endColumn";i:50;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:132:"/**
+ * Create new section.
+ *
+ * @deprecated 0.10.0
+ *
+ * @param array $settings
+ *
+ * @return Section
+ *
+ * @codeCoverageIgnore
+ */";s:9:"startLine";i:375;s:7:"endLine";i:378;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:21:"getDocumentProperties";a:20:{s:4:"name";s:21:"getDocumentProperties";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:124:"/**
+ * Get document properties object.
+ *
+ * @deprecated 0.12.0
+ *
+ * @return Metadata\DocInfo
+ *
+ * @codeCoverageIgnore
+ */";s:9:"startLine";i:389;s:7:"endLine";i:392;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}s:21:"setDocumentProperties";a:20:{s:4:"name";s:21:"setDocumentProperties";s:10:"parameters";a:1:{s:18:"documentProperties";a:13:{s:4:"name";s:18:"documentProperties";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:405;s:7:"endLine";i:405;s:11:"startColumn";i:43;s:9:"endColumn";i:61;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:162:"/**
+ * Set document properties object.
+ *
+ * @deprecated 0.12.0
+ *
+ * @param Metadata\DocInfo $documentProperties
+ *
+ * @return self
+ *
+ * @codeCoverageIgnore
+ */";s:9:"startLine";i:405;s:7:"endLine";i:410;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:17:"PhpOffice\PhpWord";s:18:"declaringClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:21:"implementingClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:16:"currentClassName";s:25:"PhpOffice\PhpWord\PhpWord";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

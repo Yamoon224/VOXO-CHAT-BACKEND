@@ -16,7 +16,7 @@ final class EloquentKnowledgeChunkRepository implements KnowledgeChunkRepository
 
         $created = [];
 
-        foreach (array_values($chunks) as $position => $chunk) {
+        foreach ($chunks as $position => $chunk) {
             $created[] = KnowledgeChunk::create([
                 'workspace_id' => $workspaceId,
                 'document_id' => $documentId,

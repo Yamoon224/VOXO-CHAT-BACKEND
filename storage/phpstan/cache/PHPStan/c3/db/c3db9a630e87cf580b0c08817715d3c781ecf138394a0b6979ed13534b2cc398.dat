@@ -1,0 +1,165 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-ba19756b2453554188daf369c3bbec4dfb3b7fe668b249d4b7eb03cca7fcf3f0-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:31:"PhpOffice\PhpWord\Element\Field";s:8:"filename";s:99:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/Element/Field.php";}}s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:4:"name";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"shortName";s:5:"Field";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:116:"/**
+ * Field element.
+ *
+ * @since 0.11.0
+ * @see  http://www.schemacentral.com/sc/ooxml/t-w_CT_SimpleField.html
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:30;s:7:"endLine";i:308;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:41:"PhpOffice\PhpWord\Element\AbstractElement";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:6:{s:11:"fieldsArray";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:11:"fieldsArray";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2746:"['PAGE' => ['properties' => ['format' => ['Arabic', 'ArabicDash', 'alphabetic', 'ALPHABETIC', 'roman', 'ROMAN']], 'options' => ['PreserveFormat']], 'NUMPAGES' => ['properties' => ['format' => ['Arabic', 'ArabicDash', 'CardText', 'DollarText', 'Ordinal', 'OrdText', 'alphabetic', 'ALPHABETIC', 'roman', 'ROMAN', 'Caps', 'FirstCap', 'Lower', 'Upper'], 'numformat' => ['0', '0,00', '#.##0', '#.##0,00', '€ #.##0,00(€ #.##0,00)', '0%', '0,00%']], 'options' => ['PreserveFormat']], 'DATE' => ['properties' => ['dateformat' => [
+    // Generic formats
+    'yyyy-MM-dd',
+    'yyyy-MM',
+    'MMM-yy',
+    'MMM-yyyy',
+    'h:mm am/pm',
+    'h:mm:ss am/pm',
+    'HH:mm',
+    'HH:mm:ss',
+    // Day-Month-Year formats
+    'dddd d MMMM yyyy',
+    'd MMMM yyyy',
+    'd-MMM-yy',
+    'd MMM. yy',
+    'd-M-yy',
+    'd-M-yy h:mm',
+    'd-M-yy h:mm:ss',
+    'd-M-yy h:mm am/pm',
+    'd-M-yy h:mm:ss am/pm',
+    'd-M-yy HH:mm',
+    'd-M-yy HH:mm:ss',
+    'd/M/yy',
+    'd/M/yy h:mm',
+    'd/M/yy h:mm:ss',
+    'd/M/yy h:mm am/pm',
+    'd/M/yy h:mm:ss am/pm',
+    'd/M/yy HH:mm',
+    'd/M/yy HH:mm:ss',
+    'd-M-yyyy',
+    'd-M-yyyy h:mm',
+    'd-M-yyyy h:mm:ss',
+    'd-M-yyyy h:mm am/pm',
+    'd-M-yyyy h:mm:ss am/pm',
+    'd-M-yyyy HH:mm',
+    'd-M-yyyy HH:mm:ss',
+    'd/M/yyyy',
+    'd/M/yyyy h:mm',
+    'd/M/yyyy h:mm:ss',
+    'd/M/yyyy h:mm am/pm',
+    'd/M/yyyy h:mm:ss am/pm',
+    'd/M/yyyy HH:mm',
+    'd/M/yyyy HH:mm:ss',
+    // Month-Day-Year formats
+    'dddd, MMMM d yyyy',
+    'MMMM d yyyy',
+    'MMM-d-yy',
+    'MMM. d yy',
+    'M-d-yy',
+    'M-d-yy h:mm',
+    'M-d-yy h:mm:ss',
+    'M-d-yy h:mm am/pm',
+    'M-d-yy h:mm:ss am/pm',
+    'M-d-yy HH:mm',
+    'M-d-yy HH:mm:ss',
+    'M/d/yy',
+    'M/d/yy h:mm',
+    'M/d/yy h:mm:ss',
+    'M/d/yy h:mm am/pm',
+    'M/d/yy h:mm:ss am/pm',
+    'M/d/yy HH:mm',
+    'M/d/yy HH:mm:ss',
+    'M-d-yyyy',
+    'M-d-yyyy h:mm',
+    'M-d-yyyy h:mm:ss',
+    'M-d-yyyy h:mm am/pm',
+    'M-d-yyyy h:mm:ss am/pm',
+    'M-d-yyyy HH:mm',
+    'M-d-yyyy HH:mm:ss',
+    'M/d/yyyy',
+    'M/d/yyyy h:mm',
+    'M/d/yyyy h:mm:ss',
+    'M/d/yyyy h:mm am/pm',
+    'M/d/yyyy h:mm:ss am/pm',
+    'M/d/yyyy HH:mm',
+    'M/d/yyyy HH:mm:ss',
+]], 'options' => ['PreserveFormat', 'LunarCalendar', 'SakaEraCalendar', 'LastUsedFormat']], 'MACROBUTTON' => ['properties' => ['macroname' => '']], 'XE' => ['properties' => [], 'options' => ['Bold', 'Italic']], 'INDEX' => ['properties' => [], 'options' => ['PreserveFormat']], 'STYLEREF' => ['properties' => ['StyleIdentifier' => ''], 'options' => ['PreserveFormat']], 'FILENAME' => ['properties' => ['format' => ['Upper', 'Lower', 'FirstCap', 'Caps']], 'options' => ['Path', 'PreserveFormat']], 'REF' => ['properties' => ['name' => ''], 'options' => ['f', 'h', 'n', 'p', 'r', 't', 'w']]]";s:10:"attributes";a:6:{s:9:"startLine";i:38;s:7:"endLine";i:99;s:13:"startTokenPos";i:39;s:12:"startFilePos";i:1076;s:11:"endTokenPos";i:668;s:10:"endFilePos";i:4361;}}s:10:"docComment";s:130:"/**
+ * Field properties and options. Depending on type, a field can have different properties
+ * and options.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:38;s:7:"endLine";i:99;s:11:"startColumn";i:5;s:9:"endColumn";i:6;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:4:"type";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:4:"type";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:40:"/**
+ * Field type.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:106;s:7:"endLine";i:106;s:11:"startColumn";i:5;s:9:"endColumn";i:20;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:4:"text";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:4:"text";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:48:"/**
+ * Field text.
+ *
+ * @var string|TextRun
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:113;s:7:"endLine";i:113;s:11:"startColumn";i:5;s:9:"endColumn";i:20;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:10:"properties";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:10:"properties";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:120;s:7:"endLine";i:120;s:13:"startTokenPos";i:693;s:12:"startFilePos";i:4633;s:11:"endTokenPos";i:694;s:10:"endFilePos";i:4634;}}s:10:"docComment";s:45:"/**
+ * Field properties.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:120;s:7:"endLine";i:120;s:11:"startColumn";i:5;s:9:"endColumn";i:31;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:7:"options";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:7:"options";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:127;s:7:"endLine";i:127;s:13:"startTokenPos";i:705;s:12:"startFilePos";i:4726;s:11:"endTokenPos";i:706;s:10:"endFilePos";i:4727;}}s:10:"docComment";s:42:"/**
+ * Field options.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:127;s:7:"endLine";i:127;s:11:"startColumn";i:5;s:9:"endColumn";i:28;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:9:"fontStyle";a:16:{s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:4:"name";s:9:"fontStyle";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:45:"/**
+ * Font style.
+ *
+ * @var Font|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:134;s:7:"endLine";i:134;s:11:"startColumn";i:5;s:9:"endColumn";i:25;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:11:{s:12:"setFontStyle";a:20:{s:4:"name";s:12:"setFontStyle";s:10:"parameters";a:1:{s:5:"style";a:13:{s:4:"name";s:5:"style";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:143;s:7:"endLine";i:143;s:13:"startTokenPos";i:728;s:12:"startFilePos";i:4985;s:11:"endTokenPos";i:728;s:10:"endFilePos";i:4988;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:143;s:7:"endLine";i:143;s:11:"startColumn";i:34;s:9:"endColumn";i:46;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:90:"/**
+ * Set Font style.
+ *
+ * @param array|Font|string $style
+ *
+ * @return Font|string
+ */";s:9:"startLine";i:143;s:7:"endLine";i:157;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:12:"getFontStyle";a:20:{s:4:"name";s:12:"getFontStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:52:"/**
+ * Get Font style.
+ *
+ * @return Font|string
+ */";s:9:"startLine";i:164;s:7:"endLine";i:167;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:11:"__construct";a:20:{s:4:"name";s:11:"__construct";s:10:"parameters";a:5:{s:4:"type";a:13:{s:4:"name";s:4:"type";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:178;s:7:"endLine";i:178;s:13:"startTokenPos";i:873;s:12:"startFilePos";i:5820;s:11:"endTokenPos";i:873;s:10:"endFilePos";i:5823;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:178;s:7:"endLine";i:178;s:11:"startColumn";i:33;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:10:"properties";a:13:{s:4:"name";s:10:"properties";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:178;s:7:"endLine";i:178;s:13:"startTokenPos";i:880;s:12:"startFilePos";i:5840;s:11:"endTokenPos";i:881;s:10:"endFilePos";i:5841;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:178;s:7:"endLine";i:178;s:11:"startColumn";i:47;s:9:"endColumn";i:62;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:7:"options";a:13:{s:4:"name";s:7:"options";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:178;s:7:"endLine";i:178;s:13:"startTokenPos";i:888;s:12:"startFilePos";i:5855;s:11:"endTokenPos";i:889;s:10:"endFilePos";i:5856;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:178;s:7:"endLine";i:178;s:11:"startColumn";i:65;s:9:"endColumn";i:77;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:4:"text";a:13:{s:4:"name";s:4:"text";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:178;s:7:"endLine";i:178;s:13:"startTokenPos";i:896;s:12:"startFilePos";i:5867;s:11:"endTokenPos";i:896;s:10:"endFilePos";i:5870;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:178;s:7:"endLine";i:178;s:11:"startColumn";i:80;s:9:"endColumn";i:91;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}s:9:"fontStyle";a:13:{s:4:"name";s:9:"fontStyle";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:178;s:7:"endLine";i:178;s:13:"startTokenPos";i:903;s:12:"startFilePos";i:5886;s:11:"endTokenPos";i:903;s:10:"endFilePos";i:5889;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:178;s:7:"endLine";i:178;s:11:"startColumn";i:94;s:9:"endColumn";i:110;s:14:"parameterIndex";i:4;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:192:"/**
+ * Create a new Field Element.
+ *
+ * @param string $type
+ * @param array $properties
+ * @param array $options
+ * @param null|string|TextRun $text
+ * @param array|Font|string $fontStyle
+ */";s:9:"startLine";i:178;s:7:"endLine";i:185;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:7:"setType";a:20:{s:4:"name";s:7:"setType";s:10:"parameters";a:1:{s:4:"type";a:13:{s:4:"name";s:4:"type";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:194;s:7:"endLine";i:194;s:13:"startTokenPos";i:962;s:12:"startFilePos";i:6226;s:11:"endTokenPos";i:962;s:10:"endFilePos";i:6229;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:194;s:7:"endLine";i:194;s:11:"startColumn";i:29;s:9:"endColumn";i:40;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:73:"/**
+ * Set Field type.
+ *
+ * @param string $type
+ *
+ * @return string
+ */";s:9:"startLine";i:194;s:7:"endLine";i:205;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:7:"getType";a:20:{s:4:"name";s:7:"getType";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:47:"/**
+ * Get Field type.
+ *
+ * @return string
+ */";s:9:"startLine";i:212;s:7:"endLine";i:215;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:13:"setProperties";a:20:{s:4:"name";s:13:"setProperties";s:10:"parameters";a:1:{s:10:"properties";a:13:{s:4:"name";s:10:"properties";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:224;s:7:"endLine";i:224;s:13:"startTokenPos";i:1069;s:12:"startFilePos";i:6810;s:11:"endTokenPos";i:1070;s:10:"endFilePos";i:6811;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:224;s:7:"endLine";i:224;s:11:"startColumn";i:35;s:9:"endColumn";i:50;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:82:"/**
+ * Set Field properties.
+ *
+ * @param array $properties
+ *
+ * @return self
+ */";s:9:"startLine";i:224;s:7:"endLine";i:236;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:13:"getProperties";a:20:{s:4:"name";s:13:"getProperties";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:52:"/**
+ * Get Field properties.
+ *
+ * @return array
+ */";s:9:"startLine";i:243;s:7:"endLine";i:246;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:10:"setOptions";a:20:{s:4:"name";s:10:"setOptions";s:10:"parameters";a:1:{s:7:"options";a:13:{s:4:"name";s:7:"options";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:255;s:7:"endLine";i:255;s:13:"startTokenPos";i:1207;s:12:"startFilePos";i:7557;s:11:"endTokenPos";i:1208;s:10:"endFilePos";i:7558;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:255;s:7:"endLine";i:255;s:11:"startColumn";i:32;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:76:"/**
+ * Set Field options.
+ *
+ * @param array $options
+ *
+ * @return self
+ */";s:9:"startLine";i:255;s:7:"endLine";i:267;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:10:"getOptions";a:20:{s:4:"name";s:10:"getOptions";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:52:"/**
+ * Get Field properties.
+ *
+ * @return array
+ */";s:9:"startLine";i:274;s:7:"endLine";i:277;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:7:"setText";a:20:{s:4:"name";s:7:"setText";s:10:"parameters";a:1:{s:4:"text";a:13:{s:4:"name";s:4:"text";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:286;s:7:"endLine";i:286;s:13:"startTokenPos";i:1382;s:12:"startFilePos";i:8417;s:11:"endTokenPos";i:1382;s:10:"endFilePos";i:8420;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:286;s:7:"endLine";i:286;s:11:"startColumn";i:29;s:9:"endColumn";i:40;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:99:"/**
+ * Set Field text.
+ *
+ * @param null|string|TextRun $text
+ *
+ * @return null|string|TextRun
+ */";s:9:"startLine";i:286;s:7:"endLine";i:297;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}s:7:"getText";a:20:{s:4:"name";s:7:"getText";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:55:"/**
+ * Get Field text.
+ *
+ * @return string|TextRun
+ */";s:9:"startLine";i:304;s:7:"endLine";i:307;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:21:"implementingClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:16:"currentClassName";s:31:"PhpOffice\PhpWord\Element\Field";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

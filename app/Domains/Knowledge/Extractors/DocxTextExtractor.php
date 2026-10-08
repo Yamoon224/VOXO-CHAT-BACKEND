@@ -3,10 +3,10 @@
 namespace App\Domains\Knowledge\Extractors;
 
 use App\Domains\Knowledge\Contracts\TextExtractorContract;
-use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\IOFactory;
 
 final class DocxTextExtractor implements TextExtractorContract
 {
@@ -37,9 +37,9 @@ final class DocxTextExtractor implements TextExtractorContract
     {
         foreach ($container->getElements() as $element) {
             if ($element instanceof Text) {
-                $lines[] = $element->getText();
+                $lines[] = (string) $element->getText();
             } elseif ($element instanceof TextRun) {
-                $lines[] = $element->getText();
+                $lines[] = (string) $element->getText();
             } elseif ($element instanceof AbstractContainer) {
                 $this->collectText($element, $lines);
             }

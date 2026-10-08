@@ -1,0 +1,81 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-297ae3ada6103787a15c37df9449f3fd99638da7b3b08c90da2da64b8f29a8b8-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:29:"PhpOffice\PhpWord\Element\SDT";s:8:"filename";s:97:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/Element/SDT.php";}}s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:4:"name";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"shortName";s:3:"SDT";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:69:"/**
+ * Structured document tag (SDT) element.
+ *
+ * @since 0.12.0
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:26;s:7:"endLine";i:196;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"PhpOffice\PhpWord\Element\Text";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:5:{s:4:"type";a:16:{s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:4:"name";s:4:"type";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:73:"/**
+ * Form field type: comboBox|dropDownList|date.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:33;s:7:"endLine";i:33;s:11:"startColumn";i:5;s:9:"endColumn";i:18;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:5:"value";a:16:{s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:4:"name";s:5:"value";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:49:"/**
+ * Value.
+ *
+ * @var null|bool|int|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:40;s:7:"endLine";i:40;s:11:"startColumn";i:5;s:9:"endColumn";i:19;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:9:"listItems";a:16:{s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:4:"name";s:9:"listItems";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:47;s:7:"endLine";i:47;s:13:"startTokenPos";i:43;s:12:"startFilePos";i:1077;s:11:"endTokenPos";i:44;s:10:"endFilePos";i:1078;}}s:10:"docComment";s:59:"/**
+ * CheckBox/DropDown list entries.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:47;s:7:"endLine";i:47;s:11:"startColumn";i:5;s:9:"endColumn";i:28;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:5:"alias";a:16:{s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:4:"name";s:5:"alias";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:35:"/**
+ * Alias.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:54;s:7:"endLine";i:54;s:11:"startColumn";i:5;s:9:"endColumn";i:19;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:3:"tag";a:16:{s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:4:"name";s:3:"tag";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:33:"/**
+ * Tag.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:61;s:7:"endLine";i:61;s:11:"startColumn";i:5;s:9:"endColumn";i:17;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:11:{s:11:"__construct";a:20:{s:4:"name";s:11:"__construct";s:10:"parameters";a:3:{s:4:"type";a:13:{s:4:"name";s:4:"type";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:33;s:9:"endColumn";i:37;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:9:"fontStyle";a:13:{s:4:"name";s:9:"fontStyle";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:70;s:7:"endLine";i:70;s:13:"startTokenPos";i:76;s:12:"startFilePos";i:1429;s:11:"endTokenPos";i:76;s:10:"endFilePos";i:1432;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:40;s:9:"endColumn";i:56;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:14:"paragraphStyle";a:13:{s:4:"name";s:14:"paragraphStyle";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:70;s:7:"endLine";i:70;s:13:"startTokenPos";i:83;s:12:"startFilePos";i:1453;s:11:"endTokenPos";i:83;s:10:"endFilePos";i:1456;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:59;s:9:"endColumn";i:80;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:116:"/**
+ * Create new instance.
+ *
+ * @param string $type
+ * @param mixed $fontStyle
+ * @param mixed $paragraphStyle
+ */";s:9:"startLine";i:70;s:7:"endLine";i:74;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:7:"getType";a:20:{s:4:"name";s:7:"getType";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:41:"/**
+ * Get type.
+ *
+ * @return string
+ */";s:9:"startLine";i:81;s:7:"endLine";i:84;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:7:"setType";a:20:{s:4:"name";s:7:"setType";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:93;s:7:"endLine";i:93;s:11:"startColumn";i:29;s:9:"endColumn";i:34;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:66:"/**
+ * Set type.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:93;s:7:"endLine";i:99;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:8:"getValue";a:20:{s:4:"name";s:8:"getValue";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:56:"/**
+ * Get value.
+ *
+ * @return null|bool|int|string
+ */";s:9:"startLine";i:106;s:7:"endLine";i:109;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:8:"setValue";a:20:{s:4:"name";s:8:"setValue";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:118;s:7:"endLine";i:118;s:11:"startColumn";i:30;s:9:"endColumn";i:35;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:81:"/**
+ * Set value.
+ *
+ * @param null|bool|int|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:118;s:7:"endLine";i:123;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:12:"getListItems";a:20:{s:4:"name";s:12:"getListItems";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:45:"/**
+ * Get listItems.
+ *
+ * @return array
+ */";s:9:"startLine";i:130;s:7:"endLine";i:133;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:12:"setListItems";a:20:{s:4:"name";s:12:"setListItems";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:142;s:7:"endLine";i:142;s:11:"startColumn";i:34;s:9:"endColumn";i:39;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:70:"/**
+ * Set listItems.
+ *
+ * @param array $value
+ *
+ * @return self
+ */";s:9:"startLine";i:142;s:7:"endLine";i:147;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:6:"getTag";a:20:{s:4:"name";s:6:"getTag";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:40:"/**
+ * Get tag.
+ *
+ * @return string
+ */";s:9:"startLine";i:154;s:7:"endLine";i:157;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:6:"setTag";a:20:{s:4:"name";s:6:"setTag";s:10:"parameters";a:1:{s:3:"tag";a:13:{s:4:"name";s:3:"tag";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:166;s:7:"endLine";i:166;s:11:"startColumn";i:28;s:9:"endColumn";i:31;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:63:"/**
+ * Set tag.
+ *
+ * @param string $tag
+ *
+ * @return self
+ */";s:9:"startLine";i:166;s:7:"endLine";i:171;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:8:"getAlias";a:20:{s:4:"name";s:8:"getAlias";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:42:"/**
+ * Get alias.
+ *
+ * @return string
+ */";s:9:"startLine";i:178;s:7:"endLine";i:181;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}s:8:"setAlias";a:20:{s:4:"name";s:8:"setAlias";s:10:"parameters";a:1:{s:5:"alias";a:13:{s:4:"name";s:5:"alias";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:190;s:7:"endLine";i:190;s:11:"startColumn";i:30;s:9:"endColumn";i:35;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:67:"/**
+ * Set alias.
+ *
+ * @param string $alias
+ *
+ * @return self
+ */";s:9:"startLine";i:190;s:7:"endLine";i:195;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:25:"PhpOffice\PhpWord\Element";s:18:"declaringClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:21:"implementingClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:16:"currentClassName";s:29:"PhpOffice\PhpWord\Element\SDT";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

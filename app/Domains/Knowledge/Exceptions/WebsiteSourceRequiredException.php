@@ -10,7 +10,7 @@ final class WebsiteSourceRequiredException extends DomainException
     public static function make(): self
     {
         return new self(
-            "Seule une source de type site web peut être ré-explorée.",
+            'Seule une source de type site web peut être ré-explorée.',
             'website_source_required',
             422,
         );

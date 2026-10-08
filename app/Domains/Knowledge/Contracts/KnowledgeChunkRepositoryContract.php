@@ -12,7 +12,7 @@ interface KnowledgeChunkRepositoryContract
      * ré-indexation (reprise sur échec, ré-exploration) ne doit pas laisser
      * d'anciens passages orphelins mêlés aux nouveaux.
      *
-     * @param  list<array{content: string, token_count: int}>  $chunks
+     * @param  list<array{content: string, token_count?: int}>  $chunks
      * @return Collection<int, KnowledgeChunk>
      */
     public function replaceForDocument(string $documentId, string $workspaceId, array $chunks): Collection;

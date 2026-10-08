@@ -1,0 +1,27 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:38:"v3-6.73.0.5-dev-master@e4f5f6c-8.3.32-";s:4:"data";a:17:{s:4:"name";s:21:"simplexml_load_string";s:10:"parameters";a:5:{s:4:"data";a:13:{s:4:"name";s:4:"data";s:7:"default";N;s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:31;s:7:"endLine";i:31;s:11:"startColumn";i:36;s:9:"endColumn";i:47;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:10:"class_name";a:13:{s:4:"name";s:10:"class_name";s:7:"default";a:2:{s:4:"code";s:18:""SimpleXMLElement"";s:10:"attributes";a:6:{s:9:"startLine";i:31;s:7:"endLine";i:31;s:13:"startTokenPos";i:24;s:12:"startFilePos";i:1210;s:11:"endTokenPos";i:24;s:10:"endFilePos";i:1227;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionUnionType";s:4:"data";a:1:{s:5:"types";a:2:{i:0;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}i:1;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"null";s:12:"isIdentifier";b:1;}}}}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:31;s:7:"endLine";i:31;s:11:"startColumn";i:50;s:9:"endColumn";i:89;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:7:"options";a:13:{s:4:"name";s:7:"options";s:7:"default";a:2:{s:4:"code";s:1:"0";s:10:"attributes";a:6:{s:9:"startLine";i:31;s:7:"endLine";i:31;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:1245;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:1245;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:3:"int";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:31;s:7:"endLine";i:31;s:11:"startColumn";i:92;s:9:"endColumn";i:107;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:19:"namespace_or_prefix";a:13:{s:4:"name";s:19:"namespace_or_prefix";s:7:"default";a:2:{s:4:"code";s:2:"""";s:10:"attributes";a:6:{s:9:"startLine";i:31;s:7:"endLine";i:31;s:13:"startTokenPos";i:42;s:12:"startFilePos";i:1278;s:11:"endTokenPos";i:42;s:10:"endFilePos";i:1279;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:31;s:7:"endLine";i:31;s:11:"startColumn";i:110;s:9:"endColumn";i:141;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}s:9:"is_prefix";a:13:{s:4:"name";s:9:"is_prefix";s:7:"default";a:2:{s:4:"code";s:6:"\false";s:10:"attributes";a:6:{s:9:"startLine";i:31;s:7:"endLine";i:31;s:13:"startTokenPos";i:51;s:12:"startFilePos";i:1300;s:11:"endTokenPos";i:51;s:10:"endFilePos";i:1304;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"bool";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:31;s:7:"endLine";i:31;s:11:"startColumn";i:144;s:9:"endColumn";i:166;s:14:"parameterIndex";i:4;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionUnionType";s:4:"data";a:1:{s:5:"types";a:2:{i:0;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:16:"SimpleXMLElement";s:12:"isIdentifier";b:0;}}i:1;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:5:"false";s:12:"isIdentifier";b:1;}}}}}s:10:"attributes";a:0:{}s:10:"docComment";s:1011:"/**
+ * Interprets a string of XML into an object
+ * @link https://php.net/manual/en/function.simplexml-load-string.php
+ * @param string $data <p>
+ * A well-formed XML string
+ * </p>
+ * @param string|null $class_name [optional] <p>
+ * You may use this optional parameter so that
+ * <b>simplexml_load_string</b> will return an object of
+ * the specified class. That class should extend the
+ * SimpleXMLElement class.
+ * </p>
+ * @param int $options [optional] <p>
+ * Since PHP 5.1.0 and Libxml 2.6.0, you may also use the
+ * <i>options</i> parameter to specify additional Libxml parameters.
+ * </p>
+ * @param string $namespace_or_prefix [optional] <p>
+ * Namespace prefix or URI.
+ * </p>
+ * @param bool $is_prefix [optional] <p>
+ * <b>TRUE</b> if <i>ns</i> is a prefix, <b>FALSE</b> if it's a URI;
+ * defaults to <b>FALSE</b>.
+ * </p>
+ * @return SimpleXMLElement|false an object of class SimpleXMLElement with
+ * properties containing the data held within the xml document, or <b>FALSE</b> on failure.
+ * @meta
+ */";s:9:"startLine";i:31;s:7:"endLine";i:33;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:8:"isStatic";b:0;s:9:"namespace";N;s:13:"locatedSource";a:2:{s:5:"class";s:68:"PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource";s:4:"data";a:4:{s:4:"name";s:21:"simplexml_load_string";s:8:"filename";s:39:"phpstorm-stubs:SimpleXML/SimpleXML.stub";s:13:"extensionName";s:9:"SimpleXML";s:9:"aliasName";N;}}}}

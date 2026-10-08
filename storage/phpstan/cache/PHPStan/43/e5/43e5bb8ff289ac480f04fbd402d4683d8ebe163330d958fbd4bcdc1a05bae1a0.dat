@@ -1,0 +1,140 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-5d749f705cf418e9b7d6211008941fccf87def5b1ad89f6dbda849dab28bde65-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:8:"filename";s:105:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/Style/AbstractStyle.php";}}s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:4:"name";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"shortName";s:13:"AbstractStyle";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:64;s:10:"docComment";s:52:"/**
+ * Abstract style class.
+ *
+ * @since 0.10.0
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:29;s:7:"endLine";i:358;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";N;s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:4:{s:9:"styleName";a:16:{s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:4:"name";s:9:"styleName";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:41:"/**
+ * Style name.
+ *
+ * @var ?string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:36;s:7:"endLine";i:36;s:11:"startColumn";i:5;s:9:"endColumn";i:25;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:5:"index";a:16:{s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:4:"name";s:5:"index";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:153:"/**
+ * Index number in Style collection for named style.
+ *
+ * This number starts from one and defined in Style::setStyleValues()
+ *
+ * @var null|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:45;s:7:"endLine";i:45;s:11:"startColumn";i:5;s:9:"endColumn";i:21;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:7:"aliases";a:16:{s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:4:"name";s:7:"aliases";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:52;s:7:"endLine";i:52;s:13:"startTokenPos";i:51;s:12:"startFilePos";i:1196;s:11:"endTokenPos";i:52;s:10:"endFilePos";i:1197;}}s:10:"docComment";s:36:"/**
+ * Aliases.
+ *
+ * @var array
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:52;s:7:"endLine";i:52;s:11:"startColumn";i:5;s:9:"endColumn";i:28;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:6:"isAuto";a:16:{s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:4:"name";s:6:"isAuto";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:5:"false";s:10:"attributes";a:6:{s:9:"startLine";i:61;s:7:"endLine";i:61;s:13:"startTokenPos";i:63;s:12:"startFilePos";i:1367;s:11:"endTokenPos";i:63;s:10:"endFilePos";i:1371;}}s:10:"docComment";s:115:"/**
+ * Is this an automatic style? (Used primarily in OpenDocument driver).
+ *
+ * @var bool
+ *
+ * @since 0.11.0
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:61;s:7:"endLine";i:61;s:11:"startColumn";i:5;s:9:"endColumn";i:28;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:17:{s:12:"getStyleName";a:20:{s:4:"name";s:12:"getStyleName";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:48:"/**
+ * Get style name.
+ *
+ * @return ?string
+ */";s:9:"startLine";i:68;s:7:"endLine";i:71;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:12:"setStyleName";a:20:{s:4:"name";s:12:"setStyleName";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:80;s:7:"endLine";i:80;s:11:"startColumn";i:34;s:9:"endColumn";i:39;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:72:"/**
+ * Set style name.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:80;s:7:"endLine";i:85;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:8:"getIndex";a:20:{s:4:"name";s:8:"getIndex";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:51:"/**
+ * Get index number.
+ *
+ * @return null|int
+ */";s:9:"startLine";i:92;s:7:"endLine";i:95;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:8:"setIndex";a:20:{s:4:"name";s:8:"setIndex";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:104;s:7:"endLine";i:104;s:13:"startTokenPos";i:149;s:12:"startFilePos";i:2026;s:11:"endTokenPos";i:149;s:10:"endFilePos";i:2029;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:104;s:7:"endLine";i:104;s:11:"startColumn";i:30;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:76:"/**
+ * Set index number.
+ *
+ * @param null|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:104;s:7:"endLine";i:109;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:6:"isAuto";a:20:{s:4:"name";s:6:"isAuto";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:58:"/**
+ * Get is automatic style flag.
+ *
+ * @return bool
+ */";s:9:"startLine";i:116;s:7:"endLine";i:119;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:7:"setAuto";a:20:{s:4:"name";s:7:"setAuto";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"true";s:10:"attributes";a:6:{s:9:"startLine";i:128;s:7:"endLine";i:128;s:13:"startTokenPos";i:213;s:12:"startFilePos";i:2431;s:11:"endTokenPos";i:213;s:10:"endFilePos";i:2434;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:128;s:7:"endLine";i:128;s:11:"startColumn";i:29;s:9:"endColumn";i:41;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:83:"/**
+ * Set is automatic style flag.
+ *
+ * @param bool $value
+ *
+ * @return self
+ */";s:9:"startLine";i:128;s:7:"endLine";i:133;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:18:"getChildStyleValue";a:20:{s:4:"name";s:18:"getChildStyleValue";s:10:"parameters";a:2:{s:14:"substyleObject";a:13:{s:4:"name";s:14:"substyleObject";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:145;s:7:"endLine";i:145;s:11:"startColumn";i:40;s:9:"endColumn";i:54;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:16:"substyleProperty";a:13:{s:4:"name";s:16:"substyleProperty";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:145;s:7:"endLine";i:145;s:11:"startColumn";i:57;s:9:"endColumn";i:73;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:229:"/**
+ * Return style value of child style object, e.g. `left` from `Indentation` child style of `Paragraph`.
+ *
+ * @param AbstractStyle $substyleObject
+ * @param string $substyleProperty
+ *
+ * @return mixed
+ *
+ * @since 0.12.0
+ */";s:9:"startLine";i:145;s:7:"endLine";i:154;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:13:"setStyleValue";a:20:{s:4:"name";s:13:"setStyleValue";s:10:"parameters";a:2:{s:3:"key";a:13:{s:4:"name";s:3:"key";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:169;s:7:"endLine";i:169;s:11:"startColumn";i:35;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:169;s:7:"endLine";i:169;s:11:"startColumn";i:41;s:9:"endColumn";i:46;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:353:"/**
+ * Set style value template method.
+ *
+ * Some child classes have their own specific overrides.
+ * Backward compability check for versions < 0.10.0 which use underscore
+ * prefix for their private properties.
+ * Check if the set method is exists. Throws an exception?
+ *
+ * @param string $key
+ * @param array|int|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:169;s:7:"endLine";i:185;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:15:"setStyleByArray";a:20:{s:4:"name";s:15:"setStyleByArray";s:10:"parameters";a:1:{s:6:"values";a:13:{s:4:"name";s:6:"values";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:194;s:7:"endLine";i:194;s:13:"startTokenPos";i:428;s:12:"startFilePos";i:4047;s:11:"endTokenPos";i:429;s:10:"endFilePos";i:4048;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:194;s:7:"endLine";i:194;s:11:"startColumn";i:37;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:94:"/**
+ * Set style by using associative array.
+ *
+ * @param array $values
+ *
+ * @return self
+ */";s:9:"startLine";i:194;s:7:"endLine";i:201;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:14:"setNonEmptyVal";a:20:{s:4:"name";s:14:"setNonEmptyVal";s:10:"parameters";a:2:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:211;s:7:"endLine";i:211;s:11:"startColumn";i:39;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:211;s:7:"endLine";i:211;s:11:"startColumn";i:47;s:9:"endColumn";i:54;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:123:"/**
+ * Set default for null and empty value.
+ *
+ * @param ?string $value
+ * @param string $default
+ *
+ * @return string
+ */";s:9:"startLine";i:211;s:7:"endLine";i:218;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:10:"setBoolVal";a:20:{s:4:"name";s:10:"setBoolVal";s:10:"parameters";a:2:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:228;s:7:"endLine";i:228;s:11:"startColumn";i:35;s:9:"endColumn";i:40;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:228;s:7:"endLine";i:228;s:11:"startColumn";i:43;s:9:"endColumn";i:50;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:94:"/**
+ * Set bool value.
+ *
+ * @param bool $value
+ * @param bool $default
+ *
+ * @return bool
+ */";s:9:"startLine";i:228;s:7:"endLine";i:235;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:13:"setNumericVal";a:20:{s:4:"name";s:13:"setNumericVal";s:10:"parameters";a:2:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:245;s:7:"endLine";i:245;s:11:"startColumn";i:38;s:9:"endColumn";i:43;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:245;s:7:"endLine";i:245;s:13:"startTokenPos";i:581;s:12:"startFilePos";i:5024;s:11:"endTokenPos";i:581;s:10:"endFilePos";i:5027;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:245;s:7:"endLine";i:245;s:11:"startColumn";i:46;s:9:"endColumn";i:60;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:118:"/**
+ * Set numeric value.
+ *
+ * @param mixed $value
+ * @param null|float|int $default
+ *
+ * @return null|float|int
+ */";s:9:"startLine";i:245;s:7:"endLine";i:252;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:9:"setIntVal";a:20:{s:4:"name";s:9:"setIntVal";s:10:"parameters";a:2:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:262;s:7:"endLine";i:262;s:11:"startColumn";i:34;s:9:"endColumn";i:39;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:262;s:7:"endLine";i:262;s:13:"startTokenPos";i:629;s:12:"startFilePos";i:5406;s:11:"endTokenPos";i:629;s:10:"endFilePos";i:5409;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:262;s:7:"endLine";i:262;s:11:"startColumn";i:42;s:9:"endColumn";i:56;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:178:"/**
+ * Set integer value: Convert string that contains only numeric into integer.
+ *
+ * @param null|float|int|string $value
+ * @param null|int $default
+ *
+ * @return null|int
+ */";s:9:"startLine";i:262;s:7:"endLine";i:274;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:11:"setFloatVal";a:20:{s:4:"name";s:11:"setFloatVal";s:10:"parameters";a:2:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:284;s:7:"endLine";i:284;s:11:"startColumn";i:36;s:9:"endColumn";i:41;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:284;s:7:"endLine";i:284;s:13:"startTokenPos";i:730;s:12:"startFilePos";i:5944;s:11:"endTokenPos";i:730;s:10:"endFilePos";i:5947;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:284;s:7:"endLine";i:284;s:11:"startColumn";i:44;s:9:"endColumn";i:58;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:162:"/**
+ * Set float value: Convert string that contains only numeric into float.
+ *
+ * @param mixed $value
+ * @param null|float $default
+ *
+ * @return null|float
+ */";s:9:"startLine";i:284;s:7:"endLine";i:294;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:10:"setEnumVal";a:20:{s:4:"name";s:10:"setEnumVal";s:10:"parameters";a:3:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:305;s:7:"endLine";i:305;s:13:"startTokenPos";i:813;s:12:"startFilePos";i:6386;s:11:"endTokenPos";i:813;s:10:"endFilePos";i:6389;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:305;s:7:"endLine";i:305;s:11:"startColumn";i:35;s:9:"endColumn";i:47;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"enum";a:13:{s:4:"name";s:4:"enum";s:7:"default";a:2:{s:4:"code";s:2:"[]";s:10:"attributes";a:6:{s:9:"startLine";i:305;s:7:"endLine";i:305;s:13:"startTokenPos";i:820;s:12:"startFilePos";i:6400;s:11:"endTokenPos";i:821;s:10:"endFilePos";i:6401;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:305;s:7:"endLine";i:305;s:11:"startColumn";i:50;s:9:"endColumn";i:59;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:7:"default";a:13:{s:4:"name";s:7:"default";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:305;s:7:"endLine";i:305;s:13:"startTokenPos";i:828;s:12:"startFilePos";i:6415;s:11:"endTokenPos";i:828;s:10:"endFilePos";i:6418;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:305;s:7:"endLine";i:305;s:11:"startColumn";i:62;s:9:"endColumn";i:76;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:119:"/**
+ * Set enum value.
+ *
+ * @param mixed $value
+ * @param array $enum
+ * @param mixed $default
+ *
+ * @return mixed
+ */";s:9:"startLine";i:305;s:7:"endLine";i:314;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:12:"setObjectVal";a:20:{s:4:"name";s:12:"setObjectVal";s:10:"parameters";a:3:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:324;s:7:"endLine";i:324;s:11:"startColumn";i:37;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:9:"styleName";a:13:{s:4:"name";s:9:"styleName";s:7:"default";N;s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:324;s:7:"endLine";i:324;s:11:"startColumn";i:45;s:9:"endColumn";i:61;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:5:"style";a:13:{s:4:"name";s:5:"style";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:1;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:324;s:7:"endLine";i:324;s:11:"startColumn";i:64;s:9:"endColumn";i:70;s:14:"parameterIndex";i:2;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:98:"/**
+ * Set object value.
+ *
+ * @param mixed $value
+ * @param mixed &$style
+ *
+ * @return mixed
+ */";s:9:"startLine";i:324;s:7:"endLine";i:338;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}s:12:"setPairedVal";a:20:{s:4:"name";s:12:"setPairedVal";s:10:"parameters";a:3:{s:8:"property";a:13:{s:4:"name";s:8:"property";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:1;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:349;s:7:"endLine";i:349;s:11:"startColumn";i:37;s:9:"endColumn";i:46;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:12:"pairProperty";a:13:{s:4:"name";s:12:"pairProperty";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:1;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:349;s:7:"endLine";i:349;s:11:"startColumn";i:49;s:9:"endColumn";i:62;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:349;s:7:"endLine";i:349;s:11:"startColumn";i:65;s:9:"endColumn";i:70;s:14:"parameterIndex";i:2;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:180:"/**
+ * Set $property value and set $pairProperty = false when $value = true.
+ *
+ * @param bool &$property
+ * @param bool &$pairProperty
+ * @param bool $value
+ *
+ * @return self
+ */";s:9:"startLine";i:349;s:7:"endLine";i:357;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:2;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:21:"implementingClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:16:"currentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

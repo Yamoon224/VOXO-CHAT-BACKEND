@@ -1,0 +1,261 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-4e2a5b3f31c91687ddf79829c21b46c3e94d8e83ca6282a11bf4f2a338e39fc4-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:30:"PhpOffice\PhpWord\Style\Border";s:8:"filename";s:98:"C:/laragon/www/voxo.chat/backend/vendor/composer/../phpoffice/phpword/src/PhpWord/Style/Border.php";}}s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:4:"name";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"shortName";s:6:"Border";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:24:"/**
+ * Border style.
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:24;s:7:"endLine";i:631;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:37:"PhpOffice\PhpWord\Style\AbstractStyle";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:1:{s:14:"DEFAULT_MARGIN";a:12:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:14:"DEFAULT_MARGIN";s:9:"modifiers";i:1;s:4:"type";N;s:5:"value";a:2:{s:4:"code";s:4:"1440";s:10:"attributes";a:6:{s:9:"startLine";i:26;s:7:"endLine";i:26;s:13:"startTokenPos";i:27;s:12:"startFilePos";i:759;s:11:"endTokenPos";i:27;s:10:"endFilePos";i:762;}}s:10:"docComment";N;s:10:"attributes";a:0:{}s:9:"startLine";i:26;s:7:"endLine";i:26;s:11:"startColumn";i:5;s:9:"endColumn";i:32;}}s:19:"immediateProperties";a:16:{s:13:"borderTopSize";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:13:"borderTopSize";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:48:"/**
+ * Border Top Size.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:33;s:7:"endLine";i:33;s:11:"startColumn";i:5;s:9:"endColumn";i:29;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:14:"borderTopColor";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:14:"borderTopColor";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:51:"/**
+ * Border Top Color.
+ *
+ * @var null|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:40;s:7:"endLine";i:40;s:11:"startColumn";i:5;s:9:"endColumn";i:30;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:14:"borderTopStyle";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:14:"borderTopStyle";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:46:"/**
+ * Border Top Style.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:47;s:7:"endLine";i:47;s:11:"startColumn";i:5;s:9:"endColumn";i:30;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:14:"borderLeftSize";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:14:"borderLeftSize";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:49:"/**
+ * Border Left Size.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:54;s:7:"endLine";i:54;s:11:"startColumn";i:5;s:9:"endColumn";i:30;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:15:"borderLeftColor";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:15:"borderLeftColor";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:52:"/**
+ * Border Left Color.
+ *
+ * @var null|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:61;s:7:"endLine";i:61;s:11:"startColumn";i:5;s:9:"endColumn";i:31;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:15:"borderLeftStyle";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:15:"borderLeftStyle";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:47:"/**
+ * Border Left Style.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:68;s:7:"endLine";i:68;s:11:"startColumn";i:5;s:9:"endColumn";i:31;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:15:"borderRightSize";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:15:"borderRightSize";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:50:"/**
+ * Border Right Size.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:75;s:7:"endLine";i:75;s:11:"startColumn";i:5;s:9:"endColumn";i:31;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:16:"borderRightColor";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:16:"borderRightColor";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:53:"/**
+ * Border Right Color.
+ *
+ * @var null|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:82;s:7:"endLine";i:82;s:11:"startColumn";i:5;s:9:"endColumn";i:32;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:16:"borderRightStyle";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:16:"borderRightStyle";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:48:"/**
+ * Border Right Style.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:89;s:7:"endLine";i:89;s:11:"startColumn";i:5;s:9:"endColumn";i:32;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:16:"borderBottomSize";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:16:"borderBottomSize";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:51:"/**
+ * Border Bottom Size.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:96;s:7:"endLine";i:96;s:11:"startColumn";i:5;s:9:"endColumn";i:32;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:17:"borderBottomColor";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:17:"borderBottomColor";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:54:"/**
+ * Border Bottom Color.
+ *
+ * @var null|string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:103;s:7:"endLine";i:103;s:11:"startColumn";i:5;s:9:"endColumn";i:33;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:17:"borderBottomStyle";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:17:"borderBottomStyle";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:49:"/**
+ * Border Bottom Style.
+ *
+ * @var string
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:110;s:7:"endLine";i:110;s:11:"startColumn";i:5;s:9:"endColumn";i:33;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:9:"marginTop";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:9:"marginTop";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:20:"self::DEFAULT_MARGIN";s:10:"attributes";a:6:{s:9:"startLine";i:117;s:7:"endLine";i:117;s:13:"startTokenPos";i:124;s:12:"startFilePos";i:2136;s:11:"endTokenPos";i:126;s:10:"endFilePos";i:2155;}}s:10:"docComment";s:51:"/**
+ * Top margin spacing.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:117;s:7:"endLine";i:117;s:11:"startColumn";i:5;s:9:"endColumn";i:48;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:10:"marginLeft";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:10:"marginLeft";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:20:"self::DEFAULT_MARGIN";s:10:"attributes";a:6:{s:9:"startLine";i:124;s:7:"endLine";i:124;s:13:"startTokenPos";i:137;s:12:"startFilePos";i:2260;s:11:"endTokenPos";i:139;s:10:"endFilePos";i:2279;}}s:10:"docComment";s:52:"/**
+ * Left margin spacing.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:124;s:7:"endLine";i:124;s:11:"startColumn";i:5;s:9:"endColumn";i:49;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:11:"marginRight";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:11:"marginRight";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:20:"self::DEFAULT_MARGIN";s:10:"attributes";a:6:{s:9:"startLine";i:131;s:7:"endLine";i:131;s:13:"startTokenPos";i:150;s:12:"startFilePos";i:2386;s:11:"endTokenPos";i:152;s:10:"endFilePos";i:2405;}}s:10:"docComment";s:53:"/**
+ * Right margin spacing.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:131;s:7:"endLine";i:131;s:11:"startColumn";i:5;s:9:"endColumn";i:50;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}s:12:"marginBottom";a:16:{s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:4:"name";s:12:"marginBottom";s:9:"modifiers";i:2;s:4:"type";N;s:7:"default";a:2:{s:4:"code";s:20:"self::DEFAULT_MARGIN";s:10:"attributes";a:6:{s:9:"startLine";i:138;s:7:"endLine";i:138;s:13:"startTokenPos";i:163;s:12:"startFilePos";i:2514;s:11:"endTokenPos";i:165;s:10:"endFilePos";i:2533;}}s:10:"docComment";s:54:"/**
+ * Bottom margin spacing.
+ *
+ * @var float|int
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:138;s:7:"endLine";i:138;s:11:"startColumn";i:5;s:9:"endColumn";i:51;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:39:{s:13:"getBorderSize";a:20:{s:4:"name";s:13:"getBorderSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:47:"/**
+ * Get border size.
+ *
+ * @return int[]
+ */";s:9:"startLine";i:145;s:7:"endLine";i:153;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:13:"setBorderSize";a:20:{s:4:"name";s:13:"setBorderSize";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:162;s:7:"endLine";i:162;s:13:"startTokenPos";i:229;s:12:"startFilePos";i:2992;s:11:"endTokenPos";i:229;s:10:"endFilePos";i:2995;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:162;s:7:"endLine";i:162;s:11:"startColumn";i:35;s:9:"endColumn";i:47;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:76:"/**
+ * Set border size.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:162;s:7:"endLine";i:170;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"getBorderColor";a:20:{s:4:"name";s:14:"getBorderColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:61:"/**
+ * Get border color.
+ *
+ * @return array<null|string>
+ */";s:9:"startLine";i:177;s:7:"endLine";i:185;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"setBorderColor";a:20:{s:4:"name";s:14:"setBorderColor";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:194;s:7:"endLine";i:194;s:13:"startTokenPos";i:334;s:12:"startFilePos";i:3682;s:11:"endTokenPos";i:334;s:10:"endFilePos";i:3685;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:194;s:7:"endLine";i:194;s:11:"startColumn";i:36;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:79:"/**
+ * Set border color.
+ *
+ * @param null|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:194;s:7:"endLine";i:202;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"getBorderStyle";a:20:{s:4:"name";s:14:"getBorderStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:51:"/**
+ * Get border style.
+ *
+ * @return string[]
+ */";s:9:"startLine";i:209;s:7:"endLine";i:217;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"setBorderStyle";a:20:{s:4:"name";s:14:"setBorderStyle";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:226;s:7:"endLine";i:226;s:13:"startTokenPos";i:439;s:12:"startFilePos";i:4361;s:11:"endTokenPos";i:439;s:10:"endFilePos";i:4364;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:226;s:7:"endLine";i:226;s:11:"startColumn";i:36;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:74:"/**
+ * Set border style.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:226;s:7:"endLine";i:234;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:16:"getBorderTopSize";a:20:{s:4:"name";s:16:"getBorderTopSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:55:"/**
+ * Get border top size.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:241;s:7:"endLine";i:244;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:16:"setBorderTopSize";a:20:{s:4:"name";s:16:"setBorderTopSize";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:253;s:7:"endLine";i:253;s:13:"startTokenPos";i:516;s:12:"startFilePos";i:4897;s:11:"endTokenPos";i:516;s:10:"endFilePos";i:4900;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:253;s:7:"endLine";i:253;s:11:"startColumn";i:38;s:9:"endColumn";i:50;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:80:"/**
+ * Set border top size.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:253;s:7:"endLine";i:258;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"getBorderTopColor";a:20:{s:4:"name";s:17:"getBorderTopColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:58:"/**
+ * Get border top color.
+ *
+ * @return null|string
+ */";s:9:"startLine";i:265;s:7:"endLine";i:268;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"setBorderTopColor";a:20:{s:4:"name";s:17:"setBorderTopColor";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:277;s:7:"endLine";i:277;s:13:"startTokenPos";i:580;s:12:"startFilePos";i:5351;s:11:"endTokenPos";i:580;s:10:"endFilePos";i:5354;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:277;s:7:"endLine";i:277;s:11:"startColumn";i:39;s:9:"endColumn";i:51;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:83:"/**
+ * Set border top color.
+ *
+ * @param null|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:277;s:7:"endLine";i:282;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"getBorderTopStyle";a:20:{s:4:"name";s:17:"getBorderTopStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:53:"/**
+ * Get border top style.
+ *
+ * @return string
+ */";s:9:"startLine";i:289;s:7:"endLine";i:292;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"setBorderTopStyle";a:20:{s:4:"name";s:17:"setBorderTopStyle";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:301;s:7:"endLine";i:301;s:13:"startTokenPos";i:634;s:12:"startFilePos";i:5752;s:11:"endTokenPos";i:634;s:10:"endFilePos";i:5755;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:301;s:7:"endLine";i:301;s:11:"startColumn";i:39;s:9:"endColumn";i:51;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:78:"/**
+ * Set border top Style.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:301;s:7:"endLine";i:306;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"getBorderLeftSize";a:20:{s:4:"name";s:17:"getBorderLeftSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:56:"/**
+ * Get border left size.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:313;s:7:"endLine";i:316;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:17:"setBorderLeftSize";a:20:{s:4:"name";s:17:"setBorderLeftSize";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:325;s:7:"endLine";i:325;s:13:"startTokenPos";i:688;s:12:"startFilePos";i:6159;s:11:"endTokenPos";i:688;s:10:"endFilePos";i:6162;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:325;s:7:"endLine";i:325;s:11:"startColumn";i:39;s:9:"endColumn";i:51;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:81:"/**
+ * Set border left size.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:325;s:7:"endLine";i:330;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"getBorderLeftColor";a:20:{s:4:"name";s:18:"getBorderLeftColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:59:"/**
+ * Get border left color.
+ *
+ * @return null|string
+ */";s:9:"startLine";i:337;s:7:"endLine";i:340;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"setBorderLeftColor";a:20:{s:4:"name";s:18:"setBorderLeftColor";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:349;s:7:"endLine";i:349;s:13:"startTokenPos";i:752;s:12:"startFilePos";i:6620;s:11:"endTokenPos";i:752;s:10:"endFilePos";i:6623;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:349;s:7:"endLine";i:349;s:11:"startColumn";i:40;s:9:"endColumn";i:52;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:84:"/**
+ * Set border left color.
+ *
+ * @param null|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:349;s:7:"endLine";i:354;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"getBorderLeftStyle";a:20:{s:4:"name";s:18:"getBorderLeftStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:54:"/**
+ * Get border left style.
+ *
+ * @return string
+ */";s:9:"startLine";i:361;s:7:"endLine";i:364;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"setBorderLeftStyle";a:20:{s:4:"name";s:18:"setBorderLeftStyle";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:373;s:7:"endLine";i:373;s:13:"startTokenPos";i:806;s:12:"startFilePos";i:7027;s:11:"endTokenPos";i:806;s:10:"endFilePos";i:7030;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:373;s:7:"endLine";i:373;s:11:"startColumn";i:40;s:9:"endColumn";i:52;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:79:"/**
+ * Set border left style.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:373;s:7:"endLine";i:378;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"getBorderRightSize";a:20:{s:4:"name";s:18:"getBorderRightSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:57:"/**
+ * Get border right size.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:385;s:7:"endLine";i:388;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:18:"setBorderRightSize";a:20:{s:4:"name";s:18:"setBorderRightSize";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:397;s:7:"endLine";i:397;s:13:"startTokenPos";i:860;s:12:"startFilePos";i:7440;s:11:"endTokenPos";i:860;s:10:"endFilePos";i:7443;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:397;s:7:"endLine";i:397;s:11:"startColumn";i:40;s:9:"endColumn";i:52;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:82:"/**
+ * Set border right size.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:397;s:7:"endLine";i:402;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"getBorderRightColor";a:20:{s:4:"name";s:19:"getBorderRightColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:60:"/**
+ * Get border right color.
+ *
+ * @return null|string
+ */";s:9:"startLine";i:409;s:7:"endLine";i:412;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"setBorderRightColor";a:20:{s:4:"name";s:19:"setBorderRightColor";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:421;s:7:"endLine";i:421;s:13:"startTokenPos";i:924;s:12:"startFilePos";i:7908;s:11:"endTokenPos";i:924;s:10:"endFilePos";i:7911;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:421;s:7:"endLine";i:421;s:11:"startColumn";i:41;s:9:"endColumn";i:53;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:85:"/**
+ * Set border right color.
+ *
+ * @param null|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:421;s:7:"endLine";i:426;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"getBorderRightStyle";a:20:{s:4:"name";s:19:"getBorderRightStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:55:"/**
+ * Get border right style.
+ *
+ * @return string
+ */";s:9:"startLine";i:433;s:7:"endLine";i:436;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"setBorderRightStyle";a:20:{s:4:"name";s:19:"setBorderRightStyle";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:445;s:7:"endLine";i:445;s:13:"startTokenPos";i:978;s:12:"startFilePos";i:8321;s:11:"endTokenPos";i:978;s:10:"endFilePos";i:8324;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:445;s:7:"endLine";i:445;s:11:"startColumn";i:41;s:9:"endColumn";i:53;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:80:"/**
+ * Set border right style.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:445;s:7:"endLine";i:450;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"getBorderBottomSize";a:20:{s:4:"name";s:19:"getBorderBottomSize";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:58:"/**
+ * Get border bottom size.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:457;s:7:"endLine";i:460;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:19:"setBorderBottomSize";a:20:{s:4:"name";s:19:"setBorderBottomSize";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:469;s:7:"endLine";i:469;s:13:"startTokenPos";i:1032;s:12:"startFilePos";i:8740;s:11:"endTokenPos";i:1032;s:10:"endFilePos";i:8743;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:469;s:7:"endLine";i:469;s:11:"startColumn";i:41;s:9:"endColumn";i:53;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:83:"/**
+ * Set border bottom size.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:469;s:7:"endLine";i:474;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:20:"getBorderBottomColor";a:20:{s:4:"name";s:20:"getBorderBottomColor";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:61:"/**
+ * Get border bottom color.
+ *
+ * @return null|string
+ */";s:9:"startLine";i:481;s:7:"endLine";i:484;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:20:"setBorderBottomColor";a:20:{s:4:"name";s:20:"setBorderBottomColor";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:493;s:7:"endLine";i:493;s:13:"startTokenPos";i:1096;s:12:"startFilePos";i:9215;s:11:"endTokenPos";i:1096;s:10:"endFilePos";i:9218;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:493;s:7:"endLine";i:493;s:11:"startColumn";i:42;s:9:"endColumn";i:54;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:86:"/**
+ * Set border bottom color.
+ *
+ * @param null|string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:493;s:7:"endLine";i:498;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:20:"getBorderBottomStyle";a:20:{s:4:"name";s:20:"getBorderBottomStyle";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:56:"/**
+ * Get border bottom style.
+ *
+ * @return string
+ */";s:9:"startLine";i:505;s:7:"endLine";i:508;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:20:"setBorderBottomStyle";a:20:{s:4:"name";s:20:"setBorderBottomStyle";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:517;s:7:"endLine";i:517;s:13:"startTokenPos";i:1150;s:12:"startFilePos";i:9634;s:11:"endTokenPos";i:1150;s:10:"endFilePos";i:9637;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:517;s:7:"endLine";i:517;s:11:"startColumn";i:42;s:9:"endColumn";i:54;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:81:"/**
+ * Set border bottom style.
+ *
+ * @param string $value
+ *
+ * @return self
+ */";s:9:"startLine";i:517;s:7:"endLine";i:522;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:9:"hasBorder";a:20:{s:4:"name";s:9:"hasBorder";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:69:"/**
+ * Check if any of the border is not null.
+ *
+ * @return bool
+ */";s:9:"startLine";i:529;s:7:"endLine";i:534;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:12:"getMarginTop";a:20:{s:4:"name";s:12:"getMarginTop";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:50:"/**
+ * Get Margin Top.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:541;s:7:"endLine";i:544;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:12:"setMarginTop";a:20:{s:4:"name";s:12:"setMarginTop";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:553;s:7:"endLine";i:553;s:13:"startTokenPos";i:1244;s:12:"startFilePos";i:10259;s:11:"endTokenPos";i:1244;s:10:"endFilePos";i:10262;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:553;s:7:"endLine";i:553;s:11:"startColumn";i:34;s:9:"endColumn";i:46;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:75:"/**
+ * Set Margin Top.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:553;s:7:"endLine";i:558;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:13:"getMarginLeft";a:20:{s:4:"name";s:13:"getMarginLeft";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:51:"/**
+ * Get Margin Left.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:565;s:7:"endLine";i:568;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:13:"setMarginLeft";a:20:{s:4:"name";s:13:"setMarginLeft";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:577;s:7:"endLine";i:577;s:13:"startTokenPos";i:1308;s:12:"startFilePos";i:10683;s:11:"endTokenPos";i:1308;s:10:"endFilePos";i:10686;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:577;s:7:"endLine";i:577;s:11:"startColumn";i:35;s:9:"endColumn";i:47;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:76:"/**
+ * Set Margin Left.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:577;s:7:"endLine";i:582;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"getMarginRight";a:20:{s:4:"name";s:14:"getMarginRight";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:52:"/**
+ * Get Margin Right.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:589;s:7:"endLine";i:592;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:14:"setMarginRight";a:20:{s:4:"name";s:14:"setMarginRight";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:601;s:7:"endLine";i:601;s:13:"startTokenPos";i:1372;s:12:"startFilePos";i:11113;s:11:"endTokenPos";i:1372;s:10:"endFilePos";i:11116;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:601;s:7:"endLine";i:601;s:11:"startColumn";i:36;s:9:"endColumn";i:48;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:77:"/**
+ * Set Margin Right.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:601;s:7:"endLine";i:606;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:15:"getMarginBottom";a:20:{s:4:"name";s:15:"getMarginBottom";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:53:"/**
+ * Get Margin Bottom.
+ *
+ * @return float|int
+ */";s:9:"startLine";i:613;s:7:"endLine";i:616;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}s:15:"setMarginBottom";a:20:{s:4:"name";s:15:"setMarginBottom";s:10:"parameters";a:1:{s:5:"value";a:13:{s:4:"name";s:5:"value";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:625;s:7:"endLine";i:625;s:13:"startTokenPos";i:1436;s:12:"startFilePos";i:11549;s:11:"endTokenPos";i:1436;s:10:"endFilePos";i:11552;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:625;s:7:"endLine";i:625;s:11:"startColumn";i:37;s:9:"endColumn";i:49;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:78:"/**
+ * Set Margin Bottom.
+ *
+ * @param float|int $value
+ *
+ * @return self
+ */";s:9:"startLine";i:625;s:7:"endLine";i:630;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:23:"PhpOffice\PhpWord\Style";s:18:"declaringClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:21:"implementingClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:16:"currentClassName";s:30:"PhpOffice\PhpWord\Style\Border";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

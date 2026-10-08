@@ -6,7 +6,12 @@ use App\Models\WidgetSettings;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue publique : ce que le widget a besoin de savoir pour s'afficher, rien de plus. @mixin WidgetSettings */
+/**
+ * Vue publique : ce que le widget a besoin de savoir pour s'afficher, rien
+ * de plus.
+ *
+ * @mixin WidgetSettings
+ */
 class PublicWidgetSettingsResource extends JsonResource
 {
     /** @return array<string, mixed> */

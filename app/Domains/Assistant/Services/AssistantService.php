@@ -101,7 +101,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
         );
     }
 
-    public function summarizeConversation(string $workspaceId, string $conversationId): Conversation
+    public function summarize(string $workspaceId, string $conversationId): Conversation
     {
         $conversation = $this->conversations->findInWorkspaceOrFail($workspaceId, $conversationId);
         $summary = $this->ai->summarize($this->historyFor($conversation->id));
@@ -172,7 +172,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
     private function systemPrompt(string $workspaceId, ?string $toneInstructions): string
     {
-        $workspaceName = Workspace::query()->find($workspaceId)?->name ?? 'cet espace de travail';
+        $workspaceName = Workspace::query()->findOrFail($workspaceId)->name;
 
         return trim("Tu es l'agent de support de {$workspaceName}. ".($toneInstructions ?: self::DEFAULT_TONE));
     }

@@ -6,7 +6,12 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue du visiteur : jamais de note interne, jamais l'identité d'un agent au-delà de son message. @mixin Message */
+/**
+ * Vue du visiteur : jamais de note interne, jamais l'identité d'un agent
+ * au-delà de son message.
+ *
+ * @mixin Message
+ */
 class PublicMessageResource extends JsonResource
 {
     /** @return array<string, mixed> */

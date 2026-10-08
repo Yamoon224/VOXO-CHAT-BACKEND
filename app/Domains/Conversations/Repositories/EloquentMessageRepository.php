@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 
 final class EloquentMessageRepository implements MessageRepositoryContract
 {
+    /** @return Collection<int, Message> */
     public function forConversation(string $conversationId): Collection
     {
         return Message::query()
@@ -18,6 +19,7 @@ final class EloquentMessageRepository implements MessageRepositoryContract
             ->get();
     }
 
+    /** @return Collection<int, Message> */
     public function publicForConversation(string $conversationId): Collection
     {
         return Message::query()

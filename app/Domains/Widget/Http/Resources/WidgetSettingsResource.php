@@ -6,7 +6,11 @@ use App\Models\WidgetSettings;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue d'équipe : tous les réglages. @mixin WidgetSettings */
+/**
+ * Vue d'équipe : tous les réglages.
+ *
+ * @mixin WidgetSettings
+ */
 class WidgetSettingsResource extends JsonResource
 {
     /** @return array<string, mixed> */

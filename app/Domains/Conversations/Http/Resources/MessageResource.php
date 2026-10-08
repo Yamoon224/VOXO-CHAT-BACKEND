@@ -6,7 +6,11 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue d'équipe : inclut les notes internes. @mixin Message */
+/**
+ * Vue d'équipe : inclut les notes internes.
+ *
+ * @mixin Message
+ */
 class MessageResource extends JsonResource
 {
     /** @return array<string, mixed> */

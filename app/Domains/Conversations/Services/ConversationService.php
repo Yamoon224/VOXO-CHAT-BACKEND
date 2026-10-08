@@ -49,7 +49,12 @@ final class ConversationService implements VisitorConversationContract
             throw AssigneeNotMemberException::make();
         }
 
-        return $this->conversations->update($conversation, ['assigned_user_id' => $userId]);
+        $conversation = $this->conversations->update($conversation, ['assigned_user_id' => $userId]);
+
+        // `findInWorkspaceOrFail` a chargé `assignedUser` avant l'affectation :
+        // la relation déjà en mémoire ne se met pas à jour toute seule quand
+        // seule la colonne `assigned_user_id` change.
+        return $conversation->load('assignedUser');
     }
 
     public function changeStatus(WorkspaceScope $scope, string $conversationId, ConversationStatus $status): Conversation

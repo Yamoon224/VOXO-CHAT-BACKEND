@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
 use App\Domains\Knowledge\Crawling\ArrayWebCrawler;
 use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
@@ -105,5 +106,11 @@ abstract class TestCase extends BaseTestCase
     protected function embeddingProvider(): ArrayEmbeddingProvider
     {
         return $this->app->make(ArrayEmbeddingProvider::class);
+    }
+
+    /** `ASSISTANT_AI_DRIVER=array` en environnement de test. */
+    protected function aiProvider(): ArrayAiProvider
+    {
+        return $this->app->make(ArrayAiProvider::class);
     }
 }

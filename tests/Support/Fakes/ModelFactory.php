@@ -2,15 +2,25 @@
 
 namespace Tests\Support\Fakes;
 
+use App\Domains\Conversations\Enums\ConversationChannel;
+use App\Domains\Conversations\Enums\ConversationStatus;
+use App\Domains\Conversations\Enums\MessageSenderType;
+use App\Domains\Conversations\Enums\MessageVisibility;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Shared\Enums\WorkspaceRole;
+use App\Domains\Widget\Enums\WidgetPosition;
+use App\Models\AssistantSettings;
+use App\Models\CannedResponse;
+use App\Models\Conversation;
 use App\Models\KnowledgeChunk;
 use App\Models\KnowledgeDocument;
 use App\Models\KnowledgeSource;
+use App\Models\Message;
 use App\Models\User;
+use App\Models\WidgetSettings;
 use App\Models\Workspace;
 use App\Models\WorkspaceInvitation;
 use App\Models\WorkspaceMember;
@@ -131,6 +141,86 @@ final class ModelFactory
             'token_count' => 10,
             'embedding' => null,
             'embedding_model' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function conversation(array $attributes = []): Conversation
+    {
+        return (new Conversation)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'channel' => ConversationChannel::Widget,
+            'status' => ConversationStatus::Open,
+            'visitor_id' => (string) Str::uuid(),
+            'visitor_name' => null,
+            'visitor_email' => null,
+            'assigned_user_id' => null,
+            'subject' => null,
+            'summary' => null,
+            'sentiment' => null,
+            'needs_human' => false,
+            'rating' => null,
+            'rating_comment' => null,
+            'last_message_at' => null,
+            'resolved_at' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function message(array $attributes = []): Message
+    {
+        return (new Message)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'conversation_id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'sender_type' => MessageSenderType::Visitor,
+            'sender_user_id' => null,
+            'visibility' => MessageVisibility::Public,
+            'body' => 'Message de test.',
+            'citations' => null,
+            'attachment_path' => null,
+            'attachment_filename' => null,
+            'created_at' => now(),
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function cannedResponse(array $attributes = []): CannedResponse
+    {
+        return (new CannedResponse)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'title' => 'Réponse de test',
+            'body' => 'Corps de la réponse.',
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function widgetSettings(array $attributes = []): WidgetSettings
+    {
+        return (new WidgetSettings)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'primary_color' => '#4F46E5',
+            'logo_url' => null,
+            'position' => WidgetPosition::BottomRight,
+            'welcome_message' => null,
+            'language' => 'fr',
+            'business_hours' => null,
+            'offline_message' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function assistantSettings(array $attributes = []): AssistantSettings
+    {
+        return (new AssistantSettings)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'enabled' => true,
+            'tone_instructions' => null,
+            'confidence_threshold' => 0.60,
         ], true);
     }
 }

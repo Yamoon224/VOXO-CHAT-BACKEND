@@ -3,6 +3,7 @@
 namespace App\Domains\Conversations\Repositories;
 
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
+use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Shared\Support\Sort;
 use App\Models\Conversation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -63,6 +64,17 @@ final class EloquentConversationRepository implements ConversationRepositoryCont
     public function update(Conversation $conversation, array $attributes): Conversation
     {
         $conversation->update($attributes);
+
+        return $conversation;
+    }
+
+    public function escalateToHuman(Conversation $conversation): Conversation
+    {
+        $conversation->update([
+            'needs_human' => true,
+            'status' => ConversationStatus::Pending,
+            'last_message_at' => now(),
+        ]);
 
         return $conversation;
     }

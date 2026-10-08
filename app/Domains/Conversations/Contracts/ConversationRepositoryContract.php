@@ -32,4 +32,11 @@ interface ConversationRepositoryContract
 
     /** @param  array<string, mixed>  $attributes */
     public function update(Conversation $conversation, array $attributes): Conversation;
+
+    /**
+     * L'agent IA est descendu sous le seuil de confiance : encapsule le
+     * statut et le drapeau d'escalade, pour que les domaines appelants
+     * (`Assistant`) n'aient pas à connaître l'enum de statut.
+     */
+    public function escalateToHuman(Conversation $conversation): Conversation;
 }

@@ -10,12 +10,9 @@ use App\Domains\Assistant\DTOs\AiReply;
 use App\Domains\Assistant\Jobs\RespondToVisitorMessageJob;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
-use App\Domains\Conversations\Enums\ConversationStatus;
-use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Knowledge\Contracts\KnowledgeSearchContract;
 use App\Models\Conversation;
 use App\Models\Message;
-use App\Models\Workspace;
 use Illuminate\Support\Collection;
 
 /**
@@ -26,6 +23,8 @@ use Illuminate\Support\Collection;
  */
 final class AssistantService implements AssistantResponderContract, ConversationInsightContract
 {
+    private const BASE_PROMPT = "Tu es l'agent de support de cette entreprise.";
+
     private const DEFAULT_TONE = 'Réponds de façon professionnelle, concise et chaleureuse.';
 
     private const ESCALATION_MESSAGE = 'Je ne suis pas certain de pouvoir répondre avec certitude : je transmets votre question à un coéquipier, qui vous répondra dès que possible.';
@@ -63,7 +62,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
         $context = $this->knowledgeContext($conversation->workspace_id, $lastVisitorMessage);
         $reply = $this->ai->respond(
-            $this->systemPrompt($conversation->workspace_id, $settings->tone_instructions),
+            $this->systemPrompt($settings->tone_instructions),
             $history,
             $context,
         );
@@ -74,13 +73,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
             return;
         }
 
-        $this->messages->create([
-            'conversation_id' => $conversation->id,
-            'workspace_id' => $conversation->workspace_id,
-            'sender_type' => MessageSenderType::Ai,
-            'body' => $reply->content,
-            'citations' => $reply->citations,
-        ]);
+        $this->messages->recordAiReply($conversation->id, $conversation->workspace_id, $reply->content, $reply->citations);
 
         $this->conversations->update($conversation, ['last_message_at' => now()]);
     }
@@ -95,7 +88,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
         $context = $this->knowledgeContext($workspaceId, $message);
 
         return $this->ai->respond(
-            $this->systemPrompt($workspaceId, $settings->tone_instructions),
+            $this->systemPrompt($settings->tone_instructions),
             [['role' => 'user', 'content' => $message]],
             $context,
         );
@@ -119,18 +112,8 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
     private function escalate(Conversation $conversation): void
     {
-        $this->messages->create([
-            'conversation_id' => $conversation->id,
-            'workspace_id' => $conversation->workspace_id,
-            'sender_type' => MessageSenderType::System,
-            'body' => self::ESCALATION_MESSAGE,
-        ]);
-
-        $this->conversations->update($conversation, [
-            'needs_human' => true,
-            'status' => ConversationStatus::Pending,
-            'last_message_at' => now(),
-        ]);
+        $this->messages->recordSystemNotice($conversation->id, $conversation->workspace_id, self::ESCALATION_MESSAGE);
+        $this->conversations->escalateToHuman($conversation);
     }
 
     /**
@@ -144,7 +127,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
     {
         return $this->messages->publicForConversation($conversationId)
             ->map(fn (Message $message) => [
-                'role' => $message->sender_type === MessageSenderType::Visitor ? 'user' : 'assistant',
+                'role' => $message->isFromVisitor() ? 'user' : 'assistant',
                 'content' => $message->body,
             ])
             ->all();
@@ -170,10 +153,8 @@ final class AssistantService implements AssistantResponderContract, Conversation
             ->all();
     }
 
-    private function systemPrompt(string $workspaceId, ?string $toneInstructions): string
+    private function systemPrompt(?string $toneInstructions): string
     {
-        $workspaceName = Workspace::query()->findOrFail($workspaceId)->name;
-
-        return trim("Tu es l'agent de support de {$workspaceName}. ".($toneInstructions ?: self::DEFAULT_TONE));
+        return trim(self::BASE_PROMPT.' '.($toneInstructions ?: self::DEFAULT_TONE));
     }
 }

@@ -66,4 +66,9 @@ class Message extends Model
     {
         return $this->visibility === MessageVisibility::Public;
     }
+
+    public function isFromVisitor(): bool
+    {
+        return $this->sender_type === MessageSenderType::Visitor;
+    }
 }

@@ -1319,7 +1319,7 @@ paths:
     get:
       tags: [Widget]
       summary: Sonder les messages de sa conversation (visiteur)
-      description: Pas de temps réel pour l'instant (voir la note de portée du lot 2) : le widget sonde cette route.
+      description: "Pas de temps réel pour l'instant (voir la note de portée du lot 2) : le widget sonde cette route."
       security: []
       parameters:
         - { name: token, in: query, required: true, schema: { type: string } }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Domains\Billing\Console\RenewDueSubscriptionsCommand;
 use App\Domains\Knowledge\Console\RecrawlDueKnowledgeSourcesCommand;
 use Illuminate\Support\Facades\Schedule;
 
@@ -14,3 +15,4 @@ use Illuminate\Support\Facades\Schedule;
 */
 
 Schedule::command(RecrawlDueKnowledgeSourcesCommand::class)->hourly();
+Schedule::command(RenewDueSubscriptionsCommand::class)->hourly();

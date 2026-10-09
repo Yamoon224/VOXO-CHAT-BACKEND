@@ -1,0 +1,110 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-0cec3ba80e57e18ecdba3c8f01e1c3e4a085b779223fb9d7ae64a923b252fd1a-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:30:"Stripe\Service\TransferService";s:8:"filename";s:101:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/Service/TransferService.php";}}s:9:"namespace";s:14:"Stripe\Service";s:4:"name";s:30:"Stripe\Service\TransferService";s:9:"shortName";s:15:"TransferService";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:162:"/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ *
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:12;s:7:"endLine";i:166;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"Stripe\Service\AbstractService";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:8:{s:3:"all";a:20:{s:4:"name";s:3:"all";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:26;s:7:"endLine";i:26;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:966;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:969;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:26;s:7:"endLine";i:26;s:11:"startColumn";i:25;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:26;s:7:"endLine";i:26;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:980;s:11:"endTokenPos";i:40;s:10:"endFilePos";i:983;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:26;s:7:"endLine";i:26;s:11:"startColumn";i:41;s:9:"endColumn";i:52;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:597:"/**
+ * Returns a list of existing transfers sent to connected accounts. The transfers
+ * are returned in sorted order, with the most recently created transfers appearing
+ * first.
+ *
+ * @param null|array{created?: array{gt?: int, gte?: int, lt?: int, lte?: int}|int, destination?: string, ending_before?: string, expand?: string[], limit?: int, starting_after?: string, transfer_group?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\Transfer>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:26;s:7:"endLine";i:29;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:12:"allReversals";a:20:{s:4:"name";s:12:"allReversals";s:10:"parameters";a:3:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:46;s:7:"endLine";i:46;s:11:"startColumn";i:34;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:46;s:7:"endLine";i:46;s:13:"startTokenPos";i:81;s:12:"startFilePos";i:1889;s:11:"endTokenPos";i:81;s:10:"endFilePos";i:1892;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:46;s:7:"endLine";i:46;s:11:"startColumn";i:45;s:9:"endColumn";i:58;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:46;s:7:"endLine";i:46;s:13:"startTokenPos";i:88;s:12:"startFilePos";i:1903;s:11:"endTokenPos";i:88;s:10:"endFilePos";i:1906;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:46;s:7:"endLine";i:46;s:11:"startColumn";i:61;s:9:"endColumn";i:72;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:694:"/**
+ * You can see a list of the reversals belonging to a specific transfer. Note that
+ * the 10 most recent reversals are always available by default on the transfer
+ * object. If you need more than those 10, you can use this API method and the
+ * <code>limit</code> and <code>starting_after</code> parameters to page through
+ * additional reversals.
+ *
+ * @param string $parentId
+ * @param null|array{ending_before?: string, expand?: string[], limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\TransferReversal>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:46;s:7:"endLine";i:49;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:6:"create";a:20:{s:4:"name";s:6:"create";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:63;s:7:"endLine";i:63;s:13:"startTokenPos";i:134;s:12:"startFilePos";i:2792;s:11:"endTokenPos";i:134;s:10:"endFilePos";i:2795;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:63;s:7:"endLine";i:63;s:11:"startColumn";i:28;s:9:"endColumn";i:41;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:63;s:7:"endLine";i:63;s:13:"startTokenPos";i:141;s:12:"startFilePos";i:2806;s:11:"endTokenPos";i:141;s:10:"endFilePos";i:2809;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:63;s:7:"endLine";i:63;s:11:"startColumn";i:44;s:9:"endColumn";i:55;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:661:"/**
+ * To send funds from your Stripe account to a connected account, you create a new
+ * transfer object. Your <a href="#balance">Stripe balance</a> must be able to
+ * cover the transfer amount, or you’ll receive an “Insufficient Funds” error.
+ *
+ * @param null|array{amount?: int, currency: string, description?: string, destination: string, expand?: string[], metadata?: array<string, string>, source_transaction?: string, source_type?: string, transfer_group?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Transfer
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:63;s:7:"endLine";i:66;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:14:"createReversal";a:20:{s:4:"name";s:14:"createReversal";s:10:"parameters";a:3:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:86;s:7:"endLine";i:86;s:11:"startColumn";i:36;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:86;s:7:"endLine";i:86;s:13:"startTokenPos";i:182;s:12:"startFilePos";i:3862;s:11:"endTokenPos";i:182;s:10:"endFilePos";i:3865;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:86;s:7:"endLine";i:86;s:11:"startColumn";i:47;s:9:"endColumn";i:60;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:86;s:7:"endLine";i:86;s:13:"startTokenPos";i:189;s:12:"startFilePos";i:3876;s:11:"endTokenPos";i:189;s:10:"endFilePos";i:3879;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:86;s:7:"endLine";i:86;s:11:"startColumn";i:63;s:9:"endColumn";i:74;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:836:"/**
+ * When you create a new reversal, you must specify a transfer to create it on.
+ *
+ * When reversing transfers, you can optionally reverse part of the transfer. You
+ * can do so as many times as you wish until the entire transfer has been reversed.
+ *
+ * Once entirely reversed, a transfer can’t be reversed again. This method will
+ * return an error when called on an already-reversed transfer, or when trying to
+ * reverse more money than is left on a transfer.
+ *
+ * @param string $parentId
+ * @param null|array{amount?: int, description?: string, expand?: string[], metadata?: null|array<string, string>, refund_application_fee?: bool} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\TransferReversal
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:86;s:7:"endLine";i:89;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:8:"retrieve";a:20:{s:4:"name";s:8:"retrieve";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:104;s:7:"endLine";i:104;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:104;s:7:"endLine";i:104;s:13:"startTokenPos";i:238;s:12:"startFilePos";i:4567;s:11:"endTokenPos";i:238;s:10:"endFilePos";i:4570;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:104;s:7:"endLine";i:104;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:104;s:7:"endLine";i:104;s:13:"startTokenPos";i:245;s:12:"startFilePos";i:4581;s:11:"endTokenPos";i:245;s:10:"endFilePos";i:4584;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:104;s:7:"endLine";i:104;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:461:"/**
+ * Retrieves the details of an existing transfer. Supply the unique transfer ID
+ * from either a transfer creation request or the transfer list, and Stripe will
+ * return the corresponding transfer information.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Transfer
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:104;s:7:"endLine";i:107;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:16:"retrieveReversal";a:20:{s:4:"name";s:16:"retrieveReversal";s:10:"parameters";a:4:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:123;s:7:"endLine";i:123;s:11:"startColumn";i:38;s:9:"endColumn";i:46;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:123;s:7:"endLine";i:123;s:11:"startColumn";i:49;s:9:"endColumn";i:51;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:123;s:7:"endLine";i:123;s:13:"startTokenPos";i:297;s:12:"startFilePos";i:5288;s:11:"endTokenPos";i:297;s:10:"endFilePos";i:5291;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:123;s:7:"endLine";i:123;s:11:"startColumn";i:54;s:9:"endColumn";i:67;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:123;s:7:"endLine";i:123;s:13:"startTokenPos";i:304;s:12:"startFilePos";i:5302;s:11:"endTokenPos";i:304;s:10:"endFilePos";i:5305;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:123;s:7:"endLine";i:123;s:11:"startColumn";i:70;s:9:"endColumn";i:81;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:471:"/**
+ * By default, you can see the 10 most recent reversals stored directly on the
+ * transfer object, but you can also retrieve details about a specific reversal
+ * stored on the transfer.
+ *
+ * @param string $parentId
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\TransferReversal
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:123;s:7:"endLine";i:126;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:6:"update";a:20:{s:4:"name";s:6:"update";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:142;s:7:"endLine";i:142;s:11:"startColumn";i:28;s:9:"endColumn";i:30;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:142;s:7:"endLine";i:142;s:13:"startTokenPos";i:356;s:12:"startFilePos";i:6046;s:11:"endTokenPos";i:356;s:10:"endFilePos";i:6049;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:142;s:7:"endLine";i:142;s:11:"startColumn";i:33;s:9:"endColumn";i:46;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:142;s:7:"endLine";i:142;s:13:"startTokenPos";i:363;s:12:"startFilePos";i:6060;s:11:"endTokenPos";i:363;s:10:"endFilePos";i:6063;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:142;s:7:"endLine";i:142;s:11:"startColumn";i:49;s:9:"endColumn";i:60;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:505:"/**
+ * Updates the specified transfer by setting the values of the parameters passed.
+ * Any parameters not provided will be left unchanged.
+ *
+ * This request accepts only metadata as an argument.
+ *
+ * @param string $id
+ * @param null|array{description?: string, expand?: string[], metadata?: null|array<string, string>} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Transfer
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:142;s:7:"endLine";i:145;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}s:14:"updateReversal";a:20:{s:4:"name";s:14:"updateReversal";s:10:"parameters";a:4:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:162;s:7:"endLine";i:162;s:11:"startColumn";i:36;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:162;s:7:"endLine";i:162;s:11:"startColumn";i:47;s:9:"endColumn";i:49;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:162;s:7:"endLine";i:162;s:13:"startTokenPos";i:415;s:12:"startFilePos";i:6831;s:11:"endTokenPos";i:415;s:10:"endFilePos";i:6834;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:162;s:7:"endLine";i:162;s:11:"startColumn";i:52;s:9:"endColumn";i:65;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:162;s:7:"endLine";i:162;s:13:"startTokenPos";i:422;s:12:"startFilePos";i:6845;s:11:"endTokenPos";i:422;s:10:"endFilePos";i:6848;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:162;s:7:"endLine";i:162;s:11:"startColumn";i:68;s:9:"endColumn";i:79;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:532:"/**
+ * Updates the specified reversal by setting the values of the parameters passed.
+ * Any parameters not provided will be left unchanged.
+ *
+ * This request only accepts metadata and description as arguments.
+ *
+ * @param string $parentId
+ * @param string $id
+ * @param null|array{expand?: string[], metadata?: null|array<string, string>} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\TransferReversal
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:162;s:7:"endLine";i:165;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:30:"Stripe\Service\TransferService";s:21:"implementingClassName";s:30:"Stripe\Service\TransferService";s:16:"currentClassName";s:30:"Stripe\Service\TransferService";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

@@ -1,0 +1,32 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-89f87938eb40344a71054c23d317abb8aa1ce61626bee1b7fd3104cfe9862720-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:40:"Stripe\Service\BalanceTransactionService";s:8:"filename";s:111:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/Service/BalanceTransactionService.php";}}s:9:"namespace";s:14:"Stripe\Service";s:4:"name";s:40:"Stripe\Service\BalanceTransactionService";s:9:"shortName";s:25:"BalanceTransactionService";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:162:"/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ *
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:12;s:7:"endLine";i:52;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"Stripe\Service\AbstractService";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:2:{s:3:"all";a:20:{s:4:"name";s:3:"all";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:29;s:7:"endLine";i:29;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:1199;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:1202;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:29;s:7:"endLine";i:29;s:11:"startColumn";i:25;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:29;s:7:"endLine";i:29;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:1213;s:11:"endTokenPos";i:40;s:10:"endFilePos";i:1216;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:29;s:7:"endLine";i:29;s:11:"startColumn";i:41;s:9:"endColumn";i:52;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:808:"/**
+ * Returns a list of transactions that have contributed to the Stripe account
+ * balance (for example, charges, transfers, and so on). The transactions return in
+ * sorted order, with the most recent transactions appearing first.
+ *
+ * The previous name of this endpoint was “Balance history,” and it used the path
+ * <code>/v1/balance/history</code>.
+ *
+ * @param null|array{created?: array{gt?: int, gte?: int, lt?: int, lte?: int}|int, currency?: string, ending_before?: string, expand?: string[], limit?: int, payout?: string, source?: string, starting_after?: string, type?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\BalanceTransaction>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:29;s:7:"endLine";i:32;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:40:"Stripe\Service\BalanceTransactionService";s:21:"implementingClassName";s:40:"Stripe\Service\BalanceTransactionService";s:16:"currentClassName";s:40:"Stripe\Service\BalanceTransactionService";s:9:"aliasName";N;}s:8:"retrieve";a:20:{s:4:"name";s:8:"retrieve";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:48;s:7:"endLine";i:48;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:48;s:7:"endLine";i:48;s:13:"startTokenPos";i:81;s:12:"startFilePos";i:1837;s:11:"endTokenPos";i:81;s:10:"endFilePos";i:1840;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:48;s:7:"endLine";i:48;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:48;s:7:"endLine";i:48;s:13:"startTokenPos";i:88;s:12:"startFilePos";i:1851;s:11:"endTokenPos";i:88;s:10:"endFilePos";i:1854;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:48;s:7:"endLine";i:48;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:412:"/**
+ * Retrieves the balance transaction with the given ID.
+ *
+ * Note that this endpoint previously used the path
+ * <code>/v1/balance/history/:id</code>.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\BalanceTransaction
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:48;s:7:"endLine";i:51;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:40:"Stripe\Service\BalanceTransactionService";s:21:"implementingClassName";s:40:"Stripe\Service\BalanceTransactionService";s:16:"currentClassName";s:40:"Stripe\Service\BalanceTransactionService";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

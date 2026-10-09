@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-20db287306aa8f02547e338ecd4613936b572bd0a8346245ce475fb758022650-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:34:"stripe\service\exchangerateservice";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

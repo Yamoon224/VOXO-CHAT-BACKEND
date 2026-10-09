@@ -20,6 +20,7 @@ use Tests\Support\Fakes\FakeTotpProvider;
 use Tests\Support\Fakes\ImmediateTransactionManager;
 use Tests\Support\Fakes\InMemoryMembershipRepository;
 use Tests\Support\Fakes\InMemoryPasswordResetTokenStore;
+use Tests\Support\Fakes\InMemorySubscriptionProvisioner;
 use Tests\Support\Fakes\InMemoryUserRepository;
 use Tests\Support\Fakes\InMemoryWorkspaceRepository;
 use Tests\Support\Fakes\ModelFactory;
@@ -61,7 +62,7 @@ class AccountServicesTest extends TestCase
         $memberships = new InMemoryMembershipRepository;
         $registration = new RegistrationService(
             $this->users,
-            new WorkspaceService(new InMemoryWorkspaceRepository, $memberships, $this->tokens, new ImmediateTransactionManager),
+            new WorkspaceService(new InMemoryWorkspaceRepository, $memberships, $this->tokens, new ImmediateTransactionManager, new InMemorySubscriptionProvisioner),
             $this->tokens,
             $this->verification(),
             new ImmediateTransactionManager,

@@ -2,6 +2,7 @@
 
 namespace App\Domains\Knowledge\Services;
 
+use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Knowledge\Contracts\KnowledgeDocumentRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeSourceRepositoryContract;
 use App\Domains\Knowledge\Contracts\WebCrawlerContract;
@@ -24,6 +25,7 @@ final class KnowledgeCrawlService
         private readonly KnowledgeSourceRepositoryContract $sources,
         private readonly KnowledgeDocumentRepositoryContract $documents,
         private readonly WebCrawlerContract $crawler,
+        private readonly QuotaGuardContract $quotas,
     ) {}
 
     public function crawl(string $sourceId): void
@@ -44,6 +46,13 @@ final class KnowledgeCrawlService
                         'status_message' => null,
                     ]);
                 } else {
+                    // Le palier limite les documents indexables : une page jamais vue
+                    // avant est ignorée une fois le plafond atteint, sans faire
+                    // échouer le reste de l'exploration.
+                    if (! $this->quotas->canIndexDocument($source->workspace_id)) {
+                        continue;
+                    }
+
                     $document = $this->documents->create([
                         'workspace_id' => $source->workspace_id,
                         'source_id' => $source->id,

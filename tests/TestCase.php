@@ -12,20 +12,22 @@ use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Models\User;
 use App\Models\Workspace;
 use App\Models\WorkspaceMember;
-use Database\Seeders\RolesAndPermissionsSeeder;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * Les rôles viennent du seeder versionné et non d'une matrice inventée
-     * pour les tests : un test qui s'appuierait sur des permissions fabriquées
-     * à la main passerait avec une matrice de production différente.
+     * Les rôles et la grille tarifaire viennent des seeders versionnés et non
+     * de matrices inventées pour les tests : un test qui s'appuierait sur des
+     * permissions ou des paliers fabriqués à la main passerait avec des
+     * données de production différentes. Toute inscription provisionne un
+     * essai (`SubscriptionProvisionerContract`), qui exige un palier actif.
      */
     protected bool $seed = true;
 
     /** @var class-string */
-    protected string $seeder = RolesAndPermissionsSeeder::class;
+    protected string $seeder = DatabaseSeeder::class;
 
     /**
      * Ajoute un compte à un espace de travail avec le rôle donné, et renvoie

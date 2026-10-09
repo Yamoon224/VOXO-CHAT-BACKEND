@@ -42,6 +42,9 @@ class RolesAndPermissionsSeeder extends Seeder
         'canned_responses.manage' => 'Créer, modifier et supprimer les réponses pré-enregistrées.',
         'widget.manage' => 'Régler l\'apparence, les horaires et le script du widget.',
         'assistant.manage' => "Régler l'agent IA et tester le bac à sable.",
+        'billing.view' => "Consulter le palier, l'abonnement et la consommation de l'espace de travail.",
+        'billing.manage' => "Changer de palier, résilier l'abonnement et consulter les factures.",
+        'analytics.view' => "Consulter les statistiques d'activité de l'espace de travail.",
     ];
 
     /**
@@ -54,16 +57,18 @@ class RolesAndPermissionsSeeder extends Seeder
         WorkspaceRole::Owner->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+            'billing.view', 'billing.manage', 'analytics.view',
         ],
         WorkspaceRole::Admin->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+            'billing.view', 'billing.manage', 'analytics.view',
         ],
         WorkspaceRole::Agent->value => [
             'workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage',
-            'conversations.view', 'conversations.manage', 'canned_responses.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'analytics.view',
         ],
-        WorkspaceRole::Viewer->value => ['workspace.view', 'members.view', 'knowledge.view', 'conversations.view'],
+        WorkspaceRole::Viewer->value => ['workspace.view', 'members.view', 'knowledge.view', 'conversations.view', 'analytics.view'],
     ];
 
     public function run(): void

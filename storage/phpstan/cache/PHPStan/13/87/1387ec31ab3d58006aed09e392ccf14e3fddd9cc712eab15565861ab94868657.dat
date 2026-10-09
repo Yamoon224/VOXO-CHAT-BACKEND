@@ -1,0 +1,84 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-ac6a515e71272f1f8fb9df4422635a0ca9f0ca4bcf773c9e8bb482986d1a0e03-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:19:"Stripe\StripeClient";s:8:"filename";s:90:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/StripeClient.php";}}s:9:"namespace";s:6:"Stripe";s:4:"name";s:19:"Stripe\StripeClient";s:9:"shortName";s:12:"StripeClient";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:4469:"/**
+ * Client used to send requests to Stripe's API.
+ *
+ * @property Service\OAuthService $oauth
+ * // The beginning of the section generated from our OpenAPI spec
+ * @property Service\AccountLinkService $accountLinks
+ * @property Service\AccountService $accounts
+ * @property Service\AccountSessionService $accountSessions
+ * @property Service\ApplePayDomainService $applePayDomains
+ * @property Service\ApplicationFeeService $applicationFees
+ * @property Service\Apps\AppsServiceFactory $apps
+ * @property Service\BalanceService $balance
+ * @property Service\BalanceSettingsService $balanceSettings
+ * @property Service\BalanceTransactionService $balanceTransactions
+ * @property Service\Billing\BillingServiceFactory $billing
+ * @property Service\BillingPortal\BillingPortalServiceFactory $billingPortal
+ * @property Service\ChargeService $charges
+ * @property Service\Checkout\CheckoutServiceFactory $checkout
+ * @property Service\Climate\ClimateServiceFactory $climate
+ * @property Service\ConfirmationTokenService $confirmationTokens
+ * @property Service\CountrySpecService $countrySpecs
+ * @property Service\CouponService $coupons
+ * @property Service\CreditNoteService $creditNotes
+ * @property Service\CustomerService $customers
+ * @property Service\CustomerSessionService $customerSessions
+ * @property Service\DisputeService $disputes
+ * @property Service\Entitlements\EntitlementsServiceFactory $entitlements
+ * @property Service\EphemeralKeyService $ephemeralKeys
+ * @property Service\EventService $events
+ * @property Service\ExchangeRateService $exchangeRates
+ * @property Service\FileLinkService $fileLinks
+ * @property Service\FileService $files
+ * @property Service\FinancialConnections\FinancialConnectionsServiceFactory $financialConnections
+ * @property Service\Forwarding\ForwardingServiceFactory $forwarding
+ * @property Service\Identity\IdentityServiceFactory $identity
+ * @property Service\InvoiceItemService $invoiceItems
+ * @property Service\InvoicePaymentService $invoicePayments
+ * @property Service\InvoiceRenderingTemplateService $invoiceRenderingTemplates
+ * @property Service\InvoiceService $invoices
+ * @property Service\Issuing\IssuingServiceFactory $issuing
+ * @property Service\MandateService $mandates
+ * @property Service\PaymentAttemptRecordService $paymentAttemptRecords
+ * @property Service\PaymentIntentService $paymentIntents
+ * @property Service\PaymentLinkService $paymentLinks
+ * @property Service\PaymentMethodConfigurationService $paymentMethodConfigurations
+ * @property Service\PaymentMethodDomainService $paymentMethodDomains
+ * @property Service\PaymentMethodService $paymentMethods
+ * @property Service\PaymentRecordService $paymentRecords
+ * @property Service\PayoutService $payouts
+ * @property Service\PlanService $plans
+ * @property Service\PriceService $prices
+ * @property Service\ProductCatalog\ProductCatalogServiceFactory $productCatalog
+ * @property Service\ProductService $products
+ * @property Service\PromotionCodeService $promotionCodes
+ * @property Service\QuoteService $quotes
+ * @property Service\Radar\RadarServiceFactory $radar
+ * @property Service\RefundService $refunds
+ * @property Service\Reporting\ReportingServiceFactory $reporting
+ * @property Service\ReviewService $reviews
+ * @property Service\SetupAttemptService $setupAttempts
+ * @property Service\SetupIntentService $setupIntents
+ * @property Service\ShippingRateService $shippingRates
+ * @property Service\Sigma\SigmaServiceFactory $sigma
+ * @property Service\SourceService $sources
+ * @property Service\SubscriptionItemService $subscriptionItems
+ * @property Service\SubscriptionService $subscriptions
+ * @property Service\SubscriptionScheduleService $subscriptionSchedules
+ * @property Service\Tax\TaxServiceFactory $tax
+ * @property Service\TaxCodeService $taxCodes
+ * @property Service\TaxIdService $taxIds
+ * @property Service\TaxRateService $taxRates
+ * @property Service\Terminal\TerminalServiceFactory $terminal
+ * @property Service\TestHelpers\TestHelpersServiceFactory $testHelpers
+ * @property Service\ThreeDSecure\ThreeDSecureServiceFactory $threeDSecure
+ * @property Service\TokenService $tokens
+ * @property Service\TopupService $topups
+ * @property Service\TransferService $transfers
+ * @property Service\Treasury\TreasuryServiceFactory $treasury
+ * @property Service\V2\V2ServiceFactory $v2
+ * @property Service\WebhookEndpointService $webhookEndpoints
+ * // The end of the section generated from our OpenAPI spec
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:107;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:23:"Stripe\BaseStripeClient";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:1:{s:18:"coreServiceFactory";a:16:{s:18:"declaringClassName";s:19:"Stripe\StripeClient";s:21:"implementingClassName";s:19:"Stripe\StripeClient";s:4:"name";s:18:"coreServiceFactory";s:9:"modifiers";i:4;s:4:"type";N;s:7:"default";N;s:10:"docComment";s:42:"/**
+ * @var Service\CoreServiceFactory
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:92;s:7:"endLine";i:92;s:11:"startColumn";i:5;s:9:"endColumn";i:32;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:2:{s:5:"__get";a:20:{s:4:"name";s:5:"__get";s:10:"parameters";a:1:{s:4:"name";a:13:{s:4:"name";s:4:"name";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:94;s:7:"endLine";i:94;s:11:"startColumn";i:27;s:9:"endColumn";i:31;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";N;s:9:"startLine";i:94;s:7:"endLine";i:97;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:19:"Stripe\StripeClient";s:21:"implementingClassName";s:19:"Stripe\StripeClient";s:16:"currentClassName";s:19:"Stripe\StripeClient";s:9:"aliasName";N;}s:10:"getService";a:20:{s:4:"name";s:10:"getService";s:10:"parameters";a:1:{s:4:"name";a:13:{s:4:"name";s:4:"name";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:99;s:7:"endLine";i:99;s:11:"startColumn";i:32;s:9:"endColumn";i:36;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";N;s:9:"startLine";i:99;s:7:"endLine";i:106;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:19:"Stripe\StripeClient";s:21:"implementingClassName";s:19:"Stripe\StripeClient";s:16:"currentClassName";s:19:"Stripe\StripeClient";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

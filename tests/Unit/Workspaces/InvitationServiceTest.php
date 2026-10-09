@@ -11,6 +11,7 @@ use App\Domains\Workspaces\Exceptions\InvitationExpiredException;
 use App\Domains\Workspaces\Exceptions\InvitationInvalidException;
 use App\Domains\Workspaces\Exceptions\InvitationRequiresLoginException;
 use App\Domains\Workspaces\Exceptions\RoleNotAssignableException;
+use App\Domains\Workspaces\Exceptions\SeatQuotaExceededException;
 use App\Domains\Workspaces\Services\InvitationService;
 use App\Domains\Workspaces\Support\InvitationToken;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,6 +19,7 @@ use Tests\Support\Fakes\FakeAccessTokenManager;
 use Tests\Support\Fakes\ImmediateTransactionManager;
 use Tests\Support\Fakes\InMemoryInvitationRepository;
 use Tests\Support\Fakes\InMemoryMembershipRepository;
+use Tests\Support\Fakes\InMemoryQuotaGuard;
 use Tests\Support\Fakes\InMemoryUserRepository;
 use Tests\Support\Fakes\InMemoryWorkspaceRepository;
 use Tests\Support\Fakes\ModelFactory;
@@ -36,6 +38,8 @@ class InvitationServiceTest extends TestCase
 
     private FakeAccessTokenManager $tokens;
 
+    private InMemoryQuotaGuard $quotas;
+
     private InvitationService $service;
 
     protected function setUp(): void
@@ -47,6 +51,7 @@ class InvitationServiceTest extends TestCase
         $this->users = new InMemoryUserRepository;
         $this->mailer = new RecordingMailer;
         $this->tokens = new FakeAccessTokenManager;
+        $this->quotas = new InMemoryQuotaGuard;
 
         $workspace = ModelFactory::workspace('Acme', 'acme');
         $workspaces = new InMemoryWorkspaceRepository($workspace);
@@ -59,6 +64,7 @@ class InvitationServiceTest extends TestCase
             $this->tokens,
             $this->mailer,
             new ImmediateTransactionManager,
+            $this->quotas,
             168,
         );
 
@@ -102,6 +108,16 @@ class InvitationServiceTest extends TestCase
         $this->expectException(AlreadyMemberException::class);
 
         $this->service->invite($this->scope(), ModelFactory::user(), 'deja@example.test', WorkspaceRole::Agent);
+    }
+
+    #[Test]
+    public function inviter_au_dela_du_quota_de_places_est_refuse(): void
+    {
+        $this->quotas->allowSeats = false;
+
+        $this->expectException(SeatQuotaExceededException::class);
+
+        $this->service->invite($this->scope(), ModelFactory::user(), 'x@example.test', WorkspaceRole::Agent);
     }
 
     #[Test]

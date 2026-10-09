@@ -1,11 +1,15 @@
 <?php
 
+use App\Domains\Analytics\Http\Controllers\AnalyticsController;
 use App\Domains\Assistant\Http\Controllers\AssistantSandboxController;
 use App\Domains\Assistant\Http\Controllers\AssistantSettingsController;
 use App\Domains\Auth\Http\Controllers\AuthController;
 use App\Domains\Auth\Http\Controllers\EmailVerificationController;
 use App\Domains\Auth\Http\Controllers\PasswordResetController;
 use App\Domains\Auth\Http\Controllers\TwoFactorController;
+use App\Domains\Billing\Http\Controllers\InvoiceController;
+use App\Domains\Billing\Http\Controllers\PlanController;
+use App\Domains\Billing\Http\Controllers\SubscriptionController;
 use App\Domains\Conversations\Http\Controllers\CannedResponseController;
 use App\Domains\Conversations\Http\Controllers\ConversationController;
 use App\Domains\Conversations\Http\Controllers\MessageController;
@@ -15,6 +19,9 @@ use App\Domains\Knowledge\Http\Controllers\KnowledgeSearchController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeSourceController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeUploadController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeWebsiteSourceController;
+use App\Domains\Payments\Http\Controllers\CheckoutController;
+use App\Domains\Payments\Http\Controllers\WebhookController;
+use App\Domains\Platform\Http\Controllers\PlatformWorkspaceController;
 use App\Domains\Shared\Http\Controllers\HealthController;
 use App\Domains\Users\Http\Controllers\ProfileController;
 use App\Domains\Widget\Http\Controllers\PublicWidgetSettingsController;
@@ -81,6 +88,11 @@ Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): 
     Route::get('/messages', [VisitorMessageController::class, 'index']);
     Route::post('/ratings', [VisitorRatingController::class, 'store']);
 });
+
+// Rappels du prestataire de paiement (lot 3) : l'authenticité tient à la
+// signature du corps, vérifiée dans `PaymentGatewayContract::parseWebhookEvent()`
+// — jamais à un jeton Sanctum, que Stripe ne détient pas.
+Route::post('/public/payments/webhook', [WebhookController::class, 'store']);
 
 // =============================================================================
 // Zone compte
@@ -181,5 +193,34 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::put('/assistant/settings', [AssistantSettingsController::class, 'update']);
             Route::post('/assistant/sandbox', [AssistantSandboxController::class, 'store']);
         });
+
+        // =====================================================================
+        // Facturation et statistiques (lot 3)
+        // =====================================================================
+
+        Route::middleware('workspace.can:billing.view')->group(function (): void {
+            Route::get('/billing/plans', [PlanController::class, 'index']);
+            Route::get('/billing/subscription', [SubscriptionController::class, 'show']);
+            Route::get('/billing/invoices', [InvoiceController::class, 'index']);
+        });
+
+        Route::middleware('workspace.can:billing.manage')->group(function (): void {
+            Route::post('/billing/checkout', [CheckoutController::class, 'store']);
+            Route::post('/billing/subscription/switch-to-free', [SubscriptionController::class, 'switchToFree']);
+            Route::post('/billing/subscription/cancel', [SubscriptionController::class, 'cancel']);
+        });
+
+        Route::middleware('workspace.can:analytics.view')->group(function (): void {
+            Route::get('/analytics/overview', [AnalyticsController::class, 'overview']);
+        });
     });
+});
+
+// =============================================================================
+// Console plateforme (lot 3) : lecture seule, réservée à `platform_admin`.
+// =============================================================================
+
+Route::middleware(['auth:sanctum', 'platform.admin'])->prefix('platform')->group(function (): void {
+    Route::get('/workspaces', [PlatformWorkspaceController::class, 'index']);
+    Route::get('/plans', [PlanController::class, 'index']);
 });

@@ -3,6 +3,7 @@
 namespace App\Domains\Workspaces\Services;
 
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
+use App\Domains\Billing\Contracts\SubscriptionProvisionerContract;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Shared\Exceptions\WorkspaceScopeViolationException;
@@ -23,11 +24,12 @@ final class WorkspaceService implements WorkspaceProvisionerContract
         private readonly MembershipRepositoryContract $memberships,
         private readonly AccessTokenManagerContract $tokens,
         private readonly TransactionManagerContract $transactions,
+        private readonly SubscriptionProvisionerContract $subscriptions,
     ) {}
 
     public function provision(string $ownerUserId, string $name): WorkspaceMember
     {
-        return $this->transactions->run(function () use ($ownerUserId, $name): WorkspaceMember {
+        $member = $this->transactions->run(function () use ($ownerUserId, $name): WorkspaceMember {
             $workspace = $this->workspaces->create([
                 'name' => $name,
                 'slug' => $this->availableSlug($name),
@@ -37,6 +39,10 @@ final class WorkspaceService implements WorkspaceProvisionerContract
 
             return $member->setRelation('workspace', $workspace);
         });
+
+        $this->subscriptions->startTrial($member->workspace_id);
+
+        return $member;
     }
 
     /** @return Collection<int, WorkspaceMember> */

@@ -2,6 +2,8 @@
 
 namespace Tests\Support\Fakes;
 
+use App\Domains\Billing\Enums\BillingInterval;
+use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
@@ -10,15 +12,19 @@ use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
+use App\Domains\Payments\Enums\InvoiceStatus;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Widget\Enums\WidgetPosition;
 use App\Models\AssistantSettings;
 use App\Models\CannedResponse;
 use App\Models\Conversation;
+use App\Models\Invoice;
 use App\Models\KnowledgeChunk;
 use App\Models\KnowledgeDocument;
 use App\Models\KnowledgeSource;
 use App\Models\Message;
+use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Models\WidgetSettings;
 use App\Models\Workspace;
@@ -221,6 +227,62 @@ final class ModelFactory
             'enabled' => true,
             'tone_instructions' => null,
             'confidence_threshold' => 0.60,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function plan(array $attributes = []): Plan
+    {
+        return (new Plan)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'slug' => 'starter',
+            'name' => 'Starter',
+            'price_cents' => 1900,
+            'currency' => 'EUR',
+            'billing_interval' => BillingInterval::Month,
+            'max_seats' => 5,
+            'max_contacts' => 2000,
+            'ai_credits_per_month' => 1000,
+            'max_knowledge_documents' => 200,
+            'is_custom' => false,
+            'is_active' => true,
+            'sort_order' => 1,
+            'provider_price_id' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function subscription(array $attributes = []): Subscription
+    {
+        return (new Subscription)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'plan_id' => (string) Str::uuid(),
+            'status' => SubscriptionStatus::Trialing,
+            'trial_ends_at' => now()->addDays(14),
+            'current_period_start' => now(),
+            'current_period_end' => now()->addDays(14),
+            'canceled_at' => null,
+            'payment_provider' => null,
+            'payment_provider_customer_id' => null,
+            'payment_provider_subscription_id' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function invoice(array $attributes = []): Invoice
+    {
+        return (new Invoice)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'subscription_id' => (string) Str::uuid(),
+            'payment_provider_invoice_id' => 'in_test_'.Str::random(8),
+            'amount_cents' => 1900,
+            'currency' => 'EUR',
+            'status' => InvoiceStatus::Paid,
+            'hosted_invoice_url' => null,
+            'issued_at' => now(),
+            'paid_at' => now(),
         ], true);
     }
 }

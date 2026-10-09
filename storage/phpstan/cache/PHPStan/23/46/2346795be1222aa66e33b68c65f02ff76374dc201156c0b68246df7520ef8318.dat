@@ -1,0 +1,64 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-ab5c769f36b12eecd71bf220835d7da6c0ea64469d4ab4b5a6f3e729cfeb49c2-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:41:"Stripe\Service\PaymentMethodDomainService";s:8:"filename";s:112:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/Service/PaymentMethodDomainService.php";}}s:9:"namespace";s:14:"Stripe\Service";s:4:"name";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"shortName";s:26:"PaymentMethodDomainService";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:162:"/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ *
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:12;s:7:"endLine";i:102;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"Stripe\Service\AbstractService";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:5:{s:3:"all";a:20:{s:4:"name";s:3:"all";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:24;s:7:"endLine";i:24;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:789;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:792;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:24;s:7:"endLine";i:24;s:11:"startColumn";i:25;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:24;s:7:"endLine";i:24;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:803;s:11:"endTokenPos";i:40;s:10:"endFilePos";i:806;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:24;s:7:"endLine";i:24;s:11:"startColumn";i:41;s:9:"endColumn";i:52;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:417:"/**
+ * Lists the details of existing payment method domains.
+ *
+ * @param null|array{domain_name?: string, enabled?: bool, ending_before?: string, expand?: string[], limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\PaymentMethodDomain>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:24;s:7:"endLine";i:27;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:21:"implementingClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:16:"currentClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"aliasName";N;}s:6:"create";a:20:{s:4:"name";s:6:"create";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:39;s:7:"endLine";i:39;s:13:"startTokenPos";i:78;s:12:"startFilePos";i:1307;s:11:"endTokenPos";i:78;s:10:"endFilePos";i:1310;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:39;s:7:"endLine";i:39;s:11:"startColumn";i:28;s:9:"endColumn";i:41;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:39;s:7:"endLine";i:39;s:13:"startTokenPos";i:85;s:12:"startFilePos";i:1321;s:11:"endTokenPos";i:85;s:10:"endFilePos";i:1324;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:39;s:7:"endLine";i:39;s:11:"startColumn";i:44;s:9:"endColumn";i:55;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:313:"/**
+ * Creates a payment method domain.
+ *
+ * @param null|array{domain_name: string, enabled?: bool, expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\PaymentMethodDomain
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:39;s:7:"endLine";i:42;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:21:"implementingClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:16:"currentClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"aliasName";N;}s:8:"retrieve";a:20:{s:4:"name";s:8:"retrieve";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:55;s:7:"endLine";i:55;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:55;s:7:"endLine";i:55;s:13:"startTokenPos";i:126;s:12:"startFilePos";i:1838;s:11:"endTokenPos";i:126;s:10:"endFilePos";i:1841;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:55;s:7:"endLine";i:55;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:55;s:7:"endLine";i:55;s:13:"startTokenPos";i:133;s:12:"startFilePos";i:1852;s:11:"endTokenPos";i:133;s:10:"endFilePos";i:1855;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:55;s:7:"endLine";i:55;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:324:"/**
+ * Retrieves the details of an existing payment method domain.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\PaymentMethodDomain
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:55;s:7:"endLine";i:58;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:21:"implementingClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:16:"currentClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"aliasName";N;}s:6:"update";a:20:{s:4:"name";s:6:"update";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:71;s:7:"endLine";i:71;s:11:"startColumn";i:28;s:9:"endColumn";i:30;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:71;s:7:"endLine";i:71;s:13:"startTokenPos";i:182;s:12:"startFilePos";i:2391;s:11:"endTokenPos";i:182;s:10:"endFilePos";i:2394;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:71;s:7:"endLine";i:71;s:11:"startColumn";i:33;s:9:"endColumn";i:46;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:71;s:7:"endLine";i:71;s:13:"startTokenPos";i:189;s:12:"startFilePos";i:2405;s:11:"endTokenPos";i:189;s:10:"endFilePos";i:2408;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:71;s:7:"endLine";i:71;s:11:"startColumn";i:49;s:9:"endColumn";i:60;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:323:"/**
+ * Updates an existing payment method domain.
+ *
+ * @param string $id
+ * @param null|array{enabled?: bool, expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\PaymentMethodDomain
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:71;s:7:"endLine";i:74;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:21:"implementingClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:16:"currentClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"aliasName";N;}s:8:"validate";a:20:{s:4:"name";s:8:"validate";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:98;s:7:"endLine";i:98;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:98;s:7:"endLine";i:98;s:13:"startTokenPos";i:238;s:12:"startFilePos";i:3570;s:11:"endTokenPos";i:238;s:10:"endFilePos";i:3573;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:98;s:7:"endLine";i:98;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:98;s:7:"endLine";i:98;s:13:"startTokenPos";i:245;s:12:"startFilePos";i:3584;s:11:"endTokenPos";i:245;s:10:"endFilePos";i:3587;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:98;s:7:"endLine";i:98;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:902:"/**
+ * Some payment methods might require additional steps to register a domain. If the
+ * requirements weren’t satisfied when the domain was created, the payment method
+ * will be inactive on the domain. The payment method doesn’t appear in Elements or
+ * Embedded Checkout for this domain until it is active.
+ *
+ * To activate a payment method on an existing payment method domain, complete the
+ * required registration steps specific to the payment method, and then validate
+ * the payment method domain with this endpoint.
+ *
+ * Related guides: <a
+ * href="/docs/payments/payment-methods/pmd-registration">Payment method
+ * domains</a>.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\PaymentMethodDomain
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:98;s:7:"endLine";i:101;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:21:"implementingClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:16:"currentClassName";s:41:"Stripe\Service\PaymentMethodDomainService";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

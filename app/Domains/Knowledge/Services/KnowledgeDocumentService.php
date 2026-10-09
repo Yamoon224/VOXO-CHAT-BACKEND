@@ -2,6 +2,7 @@
 
 namespace App\Domains\Knowledge\Services;
 
+use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Knowledge\Contracts\KnowledgeChunkRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeDocumentRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeSourceRepositoryContract;
@@ -10,6 +11,7 @@ use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Knowledge\Exceptions\DocumentNotRetryableException;
+use App\Domains\Knowledge\Exceptions\DocumentQuotaExceededException;
 use App\Domains\Knowledge\Exceptions\QaContentRequiredException;
 use App\Domains\Knowledge\Jobs\IndexKnowledgeDocumentJob;
 use App\Domains\Knowledge\Support\KnowledgeFileStorage;
@@ -24,6 +26,7 @@ final class KnowledgeDocumentService
         private readonly KnowledgeSourceRepositoryContract $sources,
         private readonly KnowledgeChunkRepositoryContract $chunks,
         private readonly KnowledgeFileStorage $files,
+        private readonly QuotaGuardContract $quotas,
     ) {}
 
     /**
@@ -74,7 +77,10 @@ final class KnowledgeDocumentService
         return $this->documents->findInWorkspaceOrFail($scope->workspaceId, $document->id);
     }
 
-    /** @throws QaContentRequiredException */
+    /**
+     * @throws QaContentRequiredException
+     * @throws DocumentQuotaExceededException
+     */
     public function createQaEntry(WorkspaceScope $scope, string $question, string $answer, string $userId): KnowledgeDocument
     {
         $question = trim($question);
@@ -82,6 +88,10 @@ final class KnowledgeDocumentService
 
         if ($question === '' || $answer === '') {
             throw QaContentRequiredException::make();
+        }
+
+        if (! $this->quotas->canIndexDocument($scope->workspaceId)) {
+            throw DocumentQuotaExceededException::make();
         }
 
         $source = $this->sources->findManualSource($scope->workspaceId)

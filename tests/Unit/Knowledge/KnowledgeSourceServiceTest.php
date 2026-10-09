@@ -20,6 +20,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\ImmediateTransactionManager;
 use Tests\Support\Fakes\InMemoryKnowledgeDocumentRepository;
 use Tests\Support\Fakes\InMemoryKnowledgeSourceRepository;
+use Tests\Support\Fakes\InMemoryQuotaGuard;
 use Tests\TestCase;
 
 class KnowledgeSourceServiceTest extends TestCase
@@ -37,7 +38,7 @@ class KnowledgeSourceServiceTest extends TestCase
 
         $sources = new InMemoryKnowledgeSourceRepository;
         $documents = new InMemoryKnowledgeDocumentRepository;
-        $service = new KnowledgeSourceService($sources, $documents, new KnowledgeFileStorage('local'), new ImmediateTransactionManager);
+        $service = new KnowledgeSourceService($sources, $documents, new KnowledgeFileStorage('local'), new ImmediateTransactionManager, new InMemoryQuotaGuard);
 
         $files = [
             UploadedFile::fake()->create('a.txt', 10, 'text/plain'),
@@ -59,6 +60,7 @@ class KnowledgeSourceServiceTest extends TestCase
             new InMemoryKnowledgeDocumentRepository,
             new KnowledgeFileStorage('local'),
             new ImmediateTransactionManager,
+            new InMemoryQuotaGuard,
         );
 
         $this->expectException(WebsiteSourceConfigurationInvalidException::class);
@@ -76,6 +78,7 @@ class KnowledgeSourceServiceTest extends TestCase
             new InMemoryKnowledgeDocumentRepository,
             new KnowledgeFileStorage('local'),
             new ImmediateTransactionManager,
+            new InMemoryQuotaGuard,
         );
 
         $source = $service->createWebsiteSource($this->scope(), 'Site', 'https://example.test', null, RecrawlFrequency::Daily, 'user-1');
@@ -88,7 +91,7 @@ class KnowledgeSourceServiceTest extends TestCase
     public function ne_reexplorer_qu_une_source_de_type_site_web(): void
     {
         $sources = new InMemoryKnowledgeSourceRepository;
-        $service = new KnowledgeSourceService($sources, new InMemoryKnowledgeDocumentRepository, new KnowledgeFileStorage('local'), new ImmediateTransactionManager);
+        $service = new KnowledgeSourceService($sources, new InMemoryKnowledgeDocumentRepository, new KnowledgeFileStorage('local'), new ImmediateTransactionManager, new InMemoryQuotaGuard);
 
         $upload = $sources->create(['workspace_id' => 'workspace-1', 'type' => KnowledgeSourceType::Upload, 'name' => 'Import']);
 
@@ -105,7 +108,7 @@ class KnowledgeSourceServiceTest extends TestCase
         $sources = new InMemoryKnowledgeSourceRepository;
         $documents = new InMemoryKnowledgeDocumentRepository;
         $storage = new KnowledgeFileStorage('local');
-        $service = new KnowledgeSourceService($sources, $documents, $storage, new ImmediateTransactionManager);
+        $service = new KnowledgeSourceService($sources, $documents, $storage, new ImmediateTransactionManager, new InMemoryQuotaGuard);
 
         $source = $sources->create(['workspace_id' => 'workspace-1', 'type' => KnowledgeSourceType::Upload, 'name' => 'Import']);
         $diskPath = $storage->store('workspace-1', UploadedFile::fake()->create('a.txt', 5, 'text/plain'));

@@ -1,0 +1,39 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-2da23f92ced2ab1752f7b98a29c433a6008a49b4b21d82584bfa174b24e00ed6-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:32:"Stripe\BaseStripeClientInterface";s:8:"filename";s:103:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/BaseStripeClientInterface.php";}}s:9:"namespace";s:6:"Stripe";s:4:"name";s:32:"Stripe\BaseStripeClientInterface";s:9:"shortName";s:25:"BaseStripeClientInterface";s:11:"isInterface";b:1;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:41:"/**
+ * Interface for a Stripe client.
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:8;s:7:"endLine";i:72;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";N;s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:9:{s:9:"getApiKey";a:20:{s:4:"name";s:9:"getApiKey";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:138:"/**
+ * Gets the API key used by the client to send requests.
+ *
+ * @return null|string the API key used by the client to send requests
+ */";s:9:"startLine";i:15;s:7:"endLine";i:15;s:11:"startColumn";i:5;s:9:"endColumn";i:32;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:11:"getClientId";a:20:{s:4:"name";s:11:"getClientId";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:144:"/**
+ * Gets the client ID used by the client in OAuth requests.
+ *
+ * @return null|string the client ID used by the client in OAuth requests
+ */";s:9:"startLine";i:22;s:7:"endLine";i:22;s:11:"startColumn";i:5;s:9:"endColumn";i:34;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:16:"getStripeAccount";a:20:{s:4:"name";s:16:"getStripeAccount";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:158:"/**
+ * Gets the Stripe account ID used by the client to send requests.
+ *
+ * @return null|string the Stripe account ID used by the client to send requests
+ */";s:9:"startLine";i:29;s:7:"endLine";i:29;s:11:"startColumn";i:5;s:9:"endColumn";i:39;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:16:"getStripeContext";a:20:{s:4:"name";s:16:"getStripeContext";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:158:"/**
+ * Gets the Stripe Context ID used by the client to send requests.
+ *
+ * @return null|string the Stripe Context ID used by the client to send requests
+ */";s:9:"startLine";i:36;s:7:"endLine";i:36;s:11:"startColumn";i:5;s:9:"endColumn";i:39;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:16:"getStripeVersion";a:20:{s:4:"name";s:16:"getStripeVersion";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:155:"/**
+ * Gets the Stripe Version used by the client to send requests.
+ *
+ * @return null|string the Stripe Context ID used by the client to send requests
+ */";s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:5;s:9:"endColumn";i:39;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:10:"getApiBase";a:20:{s:4:"name";s:10:"getApiBase";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:97:"/**
+ * Gets the base URL for Stripe's API.
+ *
+ * @return string the base URL for Stripe's API
+ */";s:9:"startLine";i:50;s:7:"endLine";i:50;s:11:"startColumn";i:5;s:9:"endColumn";i:33;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:14:"getConnectBase";a:20:{s:4:"name";s:14:"getConnectBase";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:109:"/**
+ * Gets the base URL for Stripe's OAuth API.
+ *
+ * @return string the base URL for Stripe's OAuth API
+ */";s:9:"startLine";i:57;s:7:"endLine";i:57;s:11:"startColumn";i:5;s:9:"endColumn";i:37;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:12:"getFilesBase";a:20:{s:4:"name";s:12:"getFilesBase";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:109:"/**
+ * Gets the base URL for Stripe's Files API.
+ *
+ * @return string the base URL for Stripe's Files API
+ */";s:9:"startLine";i:64;s:7:"endLine";i:64;s:11:"startColumn";i:5;s:9:"endColumn";i:35;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}s:18:"getMeterEventsBase";a:20:{s:4:"name";s:18:"getMeterEventsBase";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:123:"/**
+ * Gets the base URL for Stripe's Meter Events API.
+ *
+ * @return string the base URL for Stripe's Meter Events API
+ */";s:9:"startLine";i:71;s:7:"endLine";i:71;s:11:"startColumn";i:5;s:9:"endColumn";i:41;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:6:"Stripe";s:18:"declaringClassName";s:32:"Stripe\BaseStripeClientInterface";s:21:"implementingClassName";s:32:"Stripe\BaseStripeClientInterface";s:16:"currentClassName";s:32:"Stripe\BaseStripeClientInterface";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

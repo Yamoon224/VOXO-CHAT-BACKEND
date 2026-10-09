@@ -2,14 +2,17 @@
 
 namespace App\Domains\Conversations\Repositories;
 
+use App\Domains\Conversations\Contracts\ConversationReaderContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Shared\Support\Sort;
 use App\Models\Conversation;
+use App\Models\Message;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
-final class EloquentConversationRepository implements ConversationRepositoryContract
+final class EloquentConversationRepository implements ConversationReaderContract, ConversationRepositoryContract
 {
     /** @var array<string, string|array{0: string, 1: string}> */
     private const SORTABLE = ['last_message_at' => 'last_message_at'];
@@ -77,5 +80,51 @@ final class EloquentConversationRepository implements ConversationRepositoryCont
         ]);
 
         return $conversation;
+    }
+
+    public function countConversations(string $workspaceId, Carbon $from, Carbon $to): int
+    {
+        return $this->scopedByPeriod($workspaceId, $from, $to)->count();
+    }
+
+    public function countMessages(string $workspaceId, Carbon $from, Carbon $to): int
+    {
+        return Message::query()
+            ->where('workspace_id', $workspaceId)
+            ->whereBetween('created_at', [$from, $to])
+            ->count();
+    }
+
+    public function averageRating(string $workspaceId, Carbon $from, Carbon $to): ?float
+    {
+        $average = $this->scopedByPeriod($workspaceId, $from, $to)->whereNotNull('rating')->avg('rating');
+
+        return $average === null ? null : (float) $average;
+    }
+
+    public function countByResolutionOutcome(string $workspaceId, Carbon $from, Carbon $to): array
+    {
+        $aiResolved = $this->scopedByPeriod($workspaceId, $from, $to)
+            ->where('needs_human', false)
+            ->whereHas('messages', fn (Builder $query) => $query->where('sender_type', 'ai'))
+            ->count();
+
+        $escalated = $this->scopedByPeriod($workspaceId, $from, $to)
+            ->where(fn (Builder $query) => $query
+                ->where('needs_human', true)
+                ->orWhereHas('messages', fn (Builder $message) => $message->where('sender_type', 'system')))
+            ->count();
+
+        $unanswered = $this->scopedByPeriod($workspaceId, $from, $to)
+            ->whereDoesntHave('messages', fn (Builder $query) => $query->whereIn('sender_type', ['ai', 'agent']))
+            ->count();
+
+        return ['ai_resolved' => $aiResolved, 'escalated' => $escalated, 'unanswered' => $unanswered];
+    }
+
+    /** @return Builder<Conversation> */
+    private function scopedByPeriod(string $workspaceId, Carbon $from, Carbon $to): Builder
+    {
+        return Conversation::query()->where('workspace_id', $workspaceId)->whereBetween('created_at', [$from, $to]);
     }
 }

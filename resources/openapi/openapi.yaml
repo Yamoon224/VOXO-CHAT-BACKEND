@@ -38,6 +38,10 @@ tags:
   - name: Conversations
   - name: Widget
   - name: Agent IA
+  - name: Facturation
+  - name: Paiements
+  - name: Statistiques
+  - name: Plateforme
 
 paths:
   /health:
@@ -1420,6 +1424,172 @@ paths:
         '410': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/DomainError' }
 
+  /workspace/billing/plans:
+    get:
+      tags: [Facturation]
+      summary: Paliers actifs de la grille tarifaire
+      description: Permission `billing.view`. Grille indicative (section 12 du cahier des charges).
+      responses:
+        '200':
+          description: Paliers, du moins cher au plus cher
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Plan' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/billing/subscription:
+    get:
+      tags: [Facturation]
+      summary: Abonnement de l'espace courant
+      description: Permission `billing.view`.
+      responses:
+        '200':
+          description: Abonnement, palier et solde de crédits IA
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Subscription' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/billing/invoices:
+    get:
+      tags: [Facturation]
+      summary: Factures de l'espace courant
+      description: "Permission `billing.view`. Pages Stripe hébergées : pas de génération de PDF maison pour l'instant."
+      responses:
+        '200':
+          description: Factures, les plus récentes en premier
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Invoice' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/billing/checkout:
+    post:
+      tags: [Facturation]
+      summary: Démarrer un passage à un palier payant
+      description: |
+        Permission `billing.manage`. Ouvre une session de paiement hébergée
+        chez le prestataire ; l'abonnement n'est activé qu'au retour de son
+        rappel. Code `plan_requires_sales_contact` (422) pour l'offre sur
+        devis, qui ne se souscrit pas en self-service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [plan_slug], properties: { plan_slug: { type: string } } }
+      responses:
+        '200':
+          description: URL de paiement hébergée vers laquelle rediriger l'appelant
+          content:
+            application/json:
+              schema: { type: object, properties: { checkout_url: { type: string, format: uri } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/billing/subscription/switch-to-free:
+    post:
+      tags: [Facturation]
+      summary: Revenir au palier gratuit
+      description: Permission `billing.manage`. Résilie l'abonnement payant en cours chez le prestataire, le cas échéant.
+      responses:
+        '200':
+          description: Abonnement basculé sur le palier gratuit
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Subscription' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/billing/subscription/cancel:
+    post:
+      tags: [Facturation]
+      summary: Résilier l'abonnement
+      description: Permission `billing.manage`. Bascule l'espace sur le palier gratuit.
+      responses:
+        '200':
+          description: Abonnement résilié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Subscription' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/analytics/overview:
+    get:
+      tags: [Statistiques]
+      summary: Vue d'ensemble de l'activité de l'espace courant
+      description: Permission `analytics.view`. Par défaut, les 30 derniers jours.
+      parameters:
+        - { name: from, in: query, schema: { type: string, format: date } }
+        - { name: to, in: query, schema: { type: string, format: date } }
+      responses:
+        '200':
+          description: Agrégats de la période
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AnalyticsOverview' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/payments/webhook:
+    post:
+      tags: [Paiements]
+      summary: Rappel du prestataire de paiement
+      description: |
+        Authenticité vérifiée par signature (en-tête `Stripe-Signature`), pas
+        par jeton Sanctum que le prestataire ne détient pas. Code
+        `webhook_signature_invalid` (400) sur signature invalide.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: "Évènement brut du prestataire." }
+      responses:
+        '204': { description: Évènement traité }
+        '400': { $ref: '#/components/responses/DomainError' }
+
+  /platform/workspaces:
+    get:
+      tags: [Plateforme]
+      summary: Liste de tous les espaces de travail, avec palier et usage
+      description: |
+        Réservé aux comptes `platform_admin`. Lecture seule : cette console ne
+        modifie ni plan ni abonnement.
+      parameters:
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100 } }
+      responses:
+        '200':
+          description: Espaces de travail, les plus récents en premier
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/PlatformWorkspace' } }
+                  meta: { $ref: '#/components/schemas/PaginationMeta' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /platform/plans:
+    get:
+      tags: [Plateforme]
+      summary: Grille tarifaire, vue plateforme
+      description: Réservé aux comptes `platform_admin`.
+      responses:
+        '200':
+          description: Paliers actifs, du moins cher au plus cher
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Plan' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
 security:
   - bearerAuth: []
 
@@ -1809,3 +1979,81 @@ components:
         last_page: { type: integer }
         per_page: { type: integer }
         total: { type: integer }
+
+    BillingInterval:
+      type: string
+      enum: [month, year]
+
+    SubscriptionStatus:
+      type: string
+      enum: [trialing, active, past_due, canceled]
+
+    InvoiceStatus:
+      type: string
+      enum: [open, paid, void, uncollectible]
+
+    Plan:
+      type: object
+      description: Grille indicative, à ajuster sans toucher au code (section 12 du cahier des charges).
+      properties:
+        id: { type: string, format: uuid }
+        slug: { type: string }
+        name: { type: string }
+        price_cents: { type: integer, nullable: true, description: "`null` : tarif sur devis." }
+        currency: { type: string }
+        billing_interval: { $ref: '#/components/schemas/BillingInterval' }
+        max_seats: { type: integer, nullable: true, description: "`null` : illimité." }
+        max_contacts: { type: integer, nullable: true }
+        ai_credits_per_month: { type: integer, nullable: true }
+        max_knowledge_documents: { type: integer, nullable: true }
+        is_custom: { type: boolean }
+        sort_order: { type: integer }
+
+    Subscription:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        status: { $ref: '#/components/schemas/SubscriptionStatus' }
+        status_label: { type: string }
+        plan: { $ref: '#/components/schemas/Plan' }
+        trial_ends_at: { type: string, format: date-time, nullable: true }
+        current_period_start: { type: string, format: date-time, nullable: true }
+        current_period_end: { type: string, format: date-time, nullable: true }
+        canceled_at: { type: string, format: date-time, nullable: true }
+        ai_credit_balance: { type: integer }
+
+    Invoice:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        amount_cents: { type: integer }
+        currency: { type: string }
+        status: { $ref: '#/components/schemas/InvoiceStatus' }
+        hosted_invoice_url: { type: string, format: uri, nullable: true }
+        issued_at: { type: string, format: date-time, nullable: true }
+        paid_at: { type: string, format: date-time, nullable: true }
+
+    AnalyticsOverview:
+      type: object
+      properties:
+        from: { type: string, format: date-time }
+        to: { type: string, format: date-time }
+        conversation_count: { type: integer }
+        message_count: { type: integer }
+        average_rating: { type: number, format: float, nullable: true }
+        ai_resolved_count: { type: integer }
+        escalated_count: { type: integer }
+        unanswered_count: { type: integer }
+
+    PlatformWorkspace:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        created_at: { type: string, format: date-time, nullable: true }
+        member_count: { type: integer }
+        plan_slug: { type: string, nullable: true }
+        plan_name: { type: string, nullable: true }
+        subscription_status: { type: string, nullable: true, enum: [trialing, active, past_due, canceled] }
+        current_period_end: { type: string, format: date-time, nullable: true }

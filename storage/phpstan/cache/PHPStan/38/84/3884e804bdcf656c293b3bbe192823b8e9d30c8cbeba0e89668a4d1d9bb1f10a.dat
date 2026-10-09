@@ -1,0 +1,86 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-97b8d51c3147cfce32fa401eb2f1d30f56b789390a8c12d319363c6bead18109-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:36:"Stripe\Service\ApplicationFeeService";s:8:"filename";s:107:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/Service/ApplicationFeeService.php";}}s:9:"namespace";s:14:"Stripe\Service";s:4:"name";s:36:"Stripe\Service\ApplicationFeeService";s:9:"shortName";s:21:"ApplicationFeeService";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:162:"/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ *
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:12;s:7:"endLine";i:130;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"Stripe\Service\AbstractService";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:6:{s:3:"all";a:20:{s:4:"name";s:3:"all";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:25;s:7:"endLine";i:25;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:934;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:937;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:25;s:7:"endLine";i:25;s:11:"startColumn";i:25;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:25;s:7:"endLine";i:25;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:948;s:11:"endTokenPos";i:40;s:10:"endFilePos";i:951;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:25;s:7:"endLine";i:25;s:11:"startColumn";i:41;s:9:"endColumn";i:52;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:563:"/**
+ * Returns a list of application fees you’ve previously collected. The application
+ * fees are returned in sorted order, with the most recent fees appearing first.
+ *
+ * @param null|array{charge?: string, created?: array{gt?: int, gte?: int, lt?: int, lte?: int}|int, ending_before?: string, expand?: string[], limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\ApplicationFee>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:25;s:7:"endLine";i:28;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}s:10:"allRefunds";a:20:{s:4:"name";s:10:"allRefunds";s:10:"parameters";a:3:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:45;s:7:"endLine";i:45;s:11:"startColumn";i:32;s:9:"endColumn";i:40;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:45;s:7:"endLine";i:45;s:13:"startTokenPos";i:81;s:12:"startFilePos";i:1874;s:11:"endTokenPos";i:81;s:10:"endFilePos";i:1877;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:45;s:7:"endLine";i:45;s:11:"startColumn";i:43;s:9:"endColumn";i:56;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:45;s:7:"endLine";i:45;s:13:"startTokenPos";i:88;s:12:"startFilePos";i:1888;s:11:"endTokenPos";i:88;s:10:"endFilePos";i:1891;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:45;s:7:"endLine";i:45;s:11:"startColumn";i:59;s:9:"endColumn";i:70;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:706:"/**
+ * You can see a list of the refunds belonging to a specific application fee. Note
+ * that the 10 most recent refunds are always available by default on the
+ * application fee object. If you need more than those 10, you can use this API
+ * method and the <code>limit</code> and <code>starting_after</code> parameters to
+ * page through additional refunds.
+ *
+ * @param string $parentId
+ * @param null|array{ending_before?: string, expand?: string[], limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\ApplicationFeeRefund>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:45;s:7:"endLine";i:48;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}s:12:"createRefund";a:20:{s:4:"name";s:12:"createRefund";s:10:"parameters";a:3:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:34;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:70;s:7:"endLine";i:70;s:13:"startTokenPos";i:137;s:12:"startFilePos";i:3045;s:11:"endTokenPos";i:137;s:10:"endFilePos";i:3048;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:45;s:9:"endColumn";i:58;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:70;s:7:"endLine";i:70;s:13:"startTokenPos";i:144;s:12:"startFilePos";i:3059;s:11:"endTokenPos";i:144;s:10:"endFilePos";i:3062;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:70;s:7:"endLine";i:70;s:11:"startColumn";i:61;s:9:"endColumn";i:72;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:875:"/**
+ * Refunds an application fee that has previously been collected but not yet
+ * refunded. Funds will be refunded to the Stripe account from which the fee was
+ * originally collected.
+ *
+ * You can optionally refund only part of an application fee. You can do so
+ * multiple times, until the entire fee has been refunded.
+ *
+ * Once entirely refunded, an application fee can’t be refunded again. This method
+ * will raise an error when called on an already-refunded application fee, or when
+ * trying to refund more money than is left on an application fee.
+ *
+ * @param string $parentId
+ * @param null|array{amount?: int, expand?: string[], metadata?: array<string, string>} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\ApplicationFeeRefund
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:70;s:7:"endLine";i:73;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}s:8:"retrieve";a:20:{s:4:"name";s:8:"retrieve";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:87;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:87;s:7:"endLine";i:87;s:13:"startTokenPos";i:193;s:12:"startFilePos";i:3698;s:11:"endTokenPos";i:193;s:10:"endFilePos";i:3701;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:87;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:87;s:7:"endLine";i:87;s:13:"startTokenPos";i:200;s:12:"startFilePos";i:3712;s:11:"endTokenPos";i:200;s:10:"endFilePos";i:3715;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:87;s:7:"endLine";i:87;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:408:"/**
+ * Retrieves the details of an application fee that your account has collected. The
+ * same information is returned when refunding the application fee.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\ApplicationFee
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:87;s:7:"endLine";i:90;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}s:14:"retrieveRefund";a:20:{s:4:"name";s:14:"retrieveRefund";s:10:"parameters";a:4:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:106;s:7:"endLine";i:106;s:11:"startColumn";i:36;s:9:"endColumn";i:44;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:106;s:7:"endLine";i:106;s:11:"startColumn";i:47;s:9:"endColumn";i:49;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:106;s:7:"endLine";i:106;s:13:"startTokenPos";i:252;s:12:"startFilePos";i:4438;s:11:"endTokenPos";i:252;s:10:"endFilePos";i:4441;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:106;s:7:"endLine";i:106;s:11:"startColumn";i:52;s:9:"endColumn";i:65;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:106;s:7:"endLine";i:106;s:13:"startTokenPos";i:259;s:12:"startFilePos";i:4452;s:11:"endTokenPos";i:259;s:10:"endFilePos";i:4455;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:106;s:7:"endLine";i:106;s:11:"startColumn";i:68;s:9:"endColumn";i:79;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:485:"/**
+ * By default, you can see the 10 most recent refunds stored directly on the
+ * application fee object, but you can also retrieve details about a specific
+ * refund stored on the application fee.
+ *
+ * @param string $parentId
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\ApplicationFeeRefund
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:106;s:7:"endLine";i:109;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}s:12:"updateRefund";a:20:{s:4:"name";s:12:"updateRefund";s:10:"parameters";a:4:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:126;s:7:"endLine";i:126;s:11:"startColumn";i:34;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:126;s:7:"endLine";i:126;s:11:"startColumn";i:45;s:9:"endColumn";i:47;s:14:"parameterIndex";i:1;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:126;s:7:"endLine";i:126;s:13:"startTokenPos";i:314;s:12:"startFilePos";i:5253;s:11:"endTokenPos";i:314;s:10:"endFilePos";i:5256;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:126;s:7:"endLine";i:126;s:11:"startColumn";i:50;s:9:"endColumn";i:63;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:126;s:7:"endLine";i:126;s:13:"startTokenPos";i:321;s:12:"startFilePos";i:5267;s:11:"endTokenPos";i:321;s:10:"endFilePos";i:5270;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:126;s:7:"endLine";i:126;s:11:"startColumn";i:66;s:9:"endColumn";i:77;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:536:"/**
+ * Updates the specified application fee refund by setting the values of the
+ * parameters passed. Any parameters not provided will be left unchanged.
+ *
+ * This request only accepts metadata as an argument.
+ *
+ * @param string $parentId
+ * @param string $id
+ * @param null|array{expand?: string[], metadata?: null|array<string, string>} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\ApplicationFeeRefund
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:126;s:7:"endLine";i:129;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:36:"Stripe\Service\ApplicationFeeService";s:21:"implementingClassName";s:36:"Stripe\Service\ApplicationFeeService";s:16:"currentClassName";s:36:"Stripe\Service\ApplicationFeeService";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

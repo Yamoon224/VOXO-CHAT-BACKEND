@@ -1,6 +1,7 @@
 <?php
 
 use App\Domains\Shared\Exceptions\DomainException;
+use App\Domains\Shared\Http\Middleware\RequirePlatformAdmin;
 use App\Domains\Workspaces\Http\Middleware\RequireWorkspacePermission;
 use App\Domains\Workspaces\Http\Middleware\ResolveWorkspaceScope;
 use Illuminate\Auth\AuthenticationException;
@@ -28,6 +29,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'workspace' => ResolveWorkspaceScope::class,
             // Exige une permission du rôle tenu dans cet espace.
             'workspace.can' => RequireWorkspacePermission::class,
+            // Exige le rôle `platform_admin`, porté par le compte (console plateforme).
+            'platform.admin' => RequirePlatformAdmin::class,
         ]);
 
         // API pure, sans page de connexion côté serveur : ne jamais tenter de

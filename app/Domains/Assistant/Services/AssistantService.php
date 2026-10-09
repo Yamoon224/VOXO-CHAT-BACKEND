@@ -8,6 +8,7 @@ use App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract;
 use App\Domains\Assistant\Contracts\ConversationInsightContract;
 use App\Domains\Assistant\DTOs\AiReply;
 use App\Domains\Assistant\Jobs\RespondToVisitorMessageJob;
+use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeSearchContract;
@@ -29,12 +30,15 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
     private const ESCALATION_MESSAGE = 'Je ne suis pas certain de pouvoir répondre avec certitude : je transmets votre question à un coéquipier, qui vous répondra dès que possible.';
 
+    private const QUOTA_EXHAUSTED_MESSAGE = 'Le quota de réponses automatiques de ce mois est atteint : je transmets votre question à un coéquipier, qui vous répondra dès que possible.';
+
     public function __construct(
         private readonly KnowledgeSearchContract $knowledgeSearch,
         private readonly AiProviderContract $ai,
         private readonly AssistantSettingsRepositoryContract $settings,
         private readonly ConversationRepositoryContract $conversations,
         private readonly MessageRepositoryContract $messages,
+        private readonly QuotaGuardContract $quotas,
     ) {}
 
     /** Implémente `AssistantResponderContract` : déclenche la réponse, en file. */
@@ -60,6 +64,12 @@ final class AssistantService implements AssistantResponderContract, Conversation
             return;
         }
 
+        if (! $this->quotas->canConsumeAiCredit($conversation->workspace_id)) {
+            $this->escalate($conversation, self::QUOTA_EXHAUSTED_MESSAGE);
+
+            return;
+        }
+
         $context = $this->knowledgeContext($conversation->workspace_id, $lastVisitorMessage);
         $reply = $this->ai->respond(
             $this->systemPrompt($settings->tone_instructions),
@@ -68,11 +78,12 @@ final class AssistantService implements AssistantResponderContract, Conversation
         );
 
         if ($reply->confidence < $settings->confidence_threshold) {
-            $this->escalate($conversation);
+            $this->escalate($conversation, self::ESCALATION_MESSAGE);
 
             return;
         }
 
+        $this->quotas->consumeAiCredit($conversation->workspace_id, "Réponse de l'agent IA", $conversation->id);
         $this->messages->recordAiReply($conversation->id, $conversation->workspace_id, $reply->content, $reply->citations);
 
         $this->conversations->update($conversation, ['last_message_at' => now()]);
@@ -80,7 +91,9 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
     /**
      * Aperçu de l'agent IA avant activation (bac à sable, section 2.2) :
-     * cherche et répond sans toucher à aucune conversation.
+     * cherche et répond sans toucher à aucune conversation. Ne consomme pas
+     * de crédit IA : un réglage qui teste son agent ne doit pas être compté
+     * comme du trafic client.
      */
     public function sandboxRespond(string $workspaceId, string $message): AiReply
     {
@@ -110,9 +123,9 @@ final class AssistantService implements AssistantResponderContract, Conversation
         return $this->conversations->update($conversation, ['sentiment' => $sentiment]);
     }
 
-    private function escalate(Conversation $conversation): void
+    private function escalate(Conversation $conversation, string $message): void
     {
-        $this->messages->recordSystemNotice($conversation->id, $conversation->workspace_id, self::ESCALATION_MESSAGE);
+        $this->messages->recordSystemNotice($conversation->id, $conversation->workspace_id, $message);
         $this->conversations->escalateToHuman($conversation);
     }
 

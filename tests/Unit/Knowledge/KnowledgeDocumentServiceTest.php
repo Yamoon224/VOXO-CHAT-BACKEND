@@ -16,6 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\InMemoryKnowledgeChunkRepository;
 use Tests\Support\Fakes\InMemoryKnowledgeDocumentRepository;
 use Tests\Support\Fakes\InMemoryKnowledgeSourceRepository;
+use Tests\Support\Fakes\InMemoryQuotaGuard;
 use Tests\TestCase;
 
 class KnowledgeDocumentServiceTest extends TestCase
@@ -34,7 +35,7 @@ class KnowledgeDocumentServiceTest extends TestCase
             'title' => 'x', 'status' => KnowledgeDocumentStatus::Indexed,
         ]);
 
-        $service = new KnowledgeDocumentService($documents, new InMemoryKnowledgeSourceRepository, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'));
+        $service = new KnowledgeDocumentService($documents, new InMemoryKnowledgeSourceRepository, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'), new InMemoryQuotaGuard);
 
         $this->expectException(DocumentNotRetryableException::class);
 
@@ -52,7 +53,7 @@ class KnowledgeDocumentServiceTest extends TestCase
             'title' => 'x', 'status' => KnowledgeDocumentStatus::Failed, 'status_message' => 'Oups.',
         ]);
 
-        $service = new KnowledgeDocumentService($documents, new InMemoryKnowledgeSourceRepository, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'));
+        $service = new KnowledgeDocumentService($documents, new InMemoryKnowledgeSourceRepository, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'), new InMemoryQuotaGuard);
 
         $retried = $service->retry($this->scope(), $document->id);
 
@@ -69,6 +70,7 @@ class KnowledgeDocumentServiceTest extends TestCase
             new InMemoryKnowledgeSourceRepository,
             new InMemoryKnowledgeChunkRepository,
             new KnowledgeFileStorage('local'),
+            new InMemoryQuotaGuard,
         );
 
         $this->expectException(QaContentRequiredException::class);
@@ -82,7 +84,7 @@ class KnowledgeDocumentServiceTest extends TestCase
         Bus::fake();
 
         $sources = new InMemoryKnowledgeSourceRepository;
-        $service = new KnowledgeDocumentService(new InMemoryKnowledgeDocumentRepository, $sources, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'));
+        $service = new KnowledgeDocumentService(new InMemoryKnowledgeDocumentRepository, $sources, new InMemoryKnowledgeChunkRepository, new KnowledgeFileStorage('local'), new InMemoryQuotaGuard);
 
         $first = $service->createQaEntry($this->scope(), 'Quels sont vos horaires ?', 'De 9h à 18h.', 'user-1');
         $second = $service->createQaEntry($this->scope(), 'Livrez-vous le dimanche ?', 'Non.', 'user-1');

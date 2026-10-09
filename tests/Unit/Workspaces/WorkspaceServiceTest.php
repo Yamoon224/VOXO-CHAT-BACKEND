@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\FakeAccessTokenManager;
 use Tests\Support\Fakes\ImmediateTransactionManager;
 use Tests\Support\Fakes\InMemoryMembershipRepository;
+use Tests\Support\Fakes\InMemorySubscriptionProvisioner;
 use Tests\Support\Fakes\InMemoryWorkspaceRepository;
 use Tests\Support\Fakes\ModelFactory;
 use Tests\TestCase;
@@ -31,7 +32,13 @@ class WorkspaceServiceTest extends TestCase
         $this->workspaces = new InMemoryWorkspaceRepository;
         $this->memberships = new InMemoryMembershipRepository;
         $this->tokens = new FakeAccessTokenManager;
-        $this->service = new WorkspaceService($this->workspaces, $this->memberships, $this->tokens, new ImmediateTransactionManager);
+        $this->service = new WorkspaceService(
+            $this->workspaces,
+            $this->memberships,
+            $this->tokens,
+            new ImmediateTransactionManager,
+            new InMemorySubscriptionProvisioner,
+        );
     }
 
     #[Test]

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Documentation;
 
+use App\Domains\Billing\Enums\BillingInterval;
+use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
@@ -10,6 +12,7 @@ use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
+use App\Domains\Payments\Enums\InvoiceStatus;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Shared\Http\Controllers\DocumentationController;
 use App\Domains\Widget\Enums\WidgetPosition;
@@ -118,6 +121,9 @@ class OpenApiSpecificationTest extends TestCase
         yield 'MessageSenderType' => ['MessageSenderType', MessageSenderType::values()];
         yield 'MessageVisibility' => ['MessageVisibility', MessageVisibility::values()];
         yield 'WidgetPosition' => ['WidgetPosition', WidgetPosition::values()];
+        yield 'BillingInterval' => ['BillingInterval', BillingInterval::values()];
+        yield 'SubscriptionStatus' => ['SubscriptionStatus', SubscriptionStatus::values()];
+        yield 'InvoiceStatus' => ['InvoiceStatus', InvoiceStatus::values()];
     }
 
     #[Test]

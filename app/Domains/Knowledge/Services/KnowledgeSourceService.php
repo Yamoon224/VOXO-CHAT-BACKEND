@@ -2,12 +2,14 @@
 
 namespace App\Domains\Knowledge\Services;
 
+use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Knowledge\Contracts\KnowledgeDocumentRepositoryContract;
 use App\Domains\Knowledge\Contracts\KnowledgeSourceRepositoryContract;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
 use App\Domains\Knowledge\Enums\RecrawlFrequency;
+use App\Domains\Knowledge\Exceptions\DocumentQuotaExceededException;
 use App\Domains\Knowledge\Exceptions\WebsiteSourceConfigurationInvalidException;
 use App\Domains\Knowledge\Exceptions\WebsiteSourceRequiredException;
 use App\Domains\Knowledge\Jobs\CrawlKnowledgeSourceJob;
@@ -26,6 +28,7 @@ final class KnowledgeSourceService
         private readonly KnowledgeDocumentRepositoryContract $documents,
         private readonly KnowledgeFileStorage $files,
         private readonly TransactionManagerContract $transactions,
+        private readonly QuotaGuardContract $quotas,
     ) {}
 
     /**
@@ -42,9 +45,15 @@ final class KnowledgeSourceService
      * file pour extraction/découpage/embeddings.
      *
      * @param  list<UploadedFile>  $files
+     *
+     * @throws DocumentQuotaExceededException
      */
     public function createUploadSource(WorkspaceScope $scope, string $name, array $files, string $userId): KnowledgeSource
     {
+        if ($files !== [] && ! $this->quotas->canIndexDocument($scope->workspaceId)) {
+            throw DocumentQuotaExceededException::make();
+        }
+
         $source = $this->transactions->run(function () use ($scope, $name, $userId): KnowledgeSource {
             return $this->sources->create([
                 'workspace_id' => $scope->workspaceId,

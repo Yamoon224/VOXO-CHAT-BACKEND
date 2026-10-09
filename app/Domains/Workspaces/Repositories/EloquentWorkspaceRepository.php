@@ -2,10 +2,12 @@
 
 namespace App\Domains\Workspaces\Repositories;
 
+use App\Domains\Workspaces\Contracts\WorkspacePlatformReaderContract;
 use App\Domains\Workspaces\Contracts\WorkspaceRepositoryContract;
 use App\Models\Workspace;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-final class EloquentWorkspaceRepository implements WorkspaceRepositoryContract
+final class EloquentWorkspaceRepository implements WorkspacePlatformReaderContract, WorkspaceRepositoryContract
 {
     public function findOrFail(string $id): Workspace
     {
@@ -27,5 +29,14 @@ final class EloquentWorkspaceRepository implements WorkspaceRepositoryContract
     public function slugExists(string $slug): bool
     {
         return Workspace::query()->where('slug', $slug)->exists();
+    }
+
+    public function listAllPaginated(int $perPage): LengthAwarePaginator
+    {
+        return Workspace::query()
+            ->withCount('members')
+            ->with('subscription.plan')
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
     }
 }

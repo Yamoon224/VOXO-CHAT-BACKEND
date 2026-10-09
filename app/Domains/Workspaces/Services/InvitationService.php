@@ -3,6 +3,7 @@
 namespace App\Domains\Workspaces\Services;
 
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
+use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Notifications\Contracts\TransactionalMailerContract;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Enums\WorkspaceRole;
@@ -19,6 +20,7 @@ use App\Domains\Workspaces\Exceptions\InvitationExpiredException;
 use App\Domains\Workspaces\Exceptions\InvitationInvalidException;
 use App\Domains\Workspaces\Exceptions\InvitationRequiresLoginException;
 use App\Domains\Workspaces\Exceptions\RoleNotAssignableException;
+use App\Domains\Workspaces\Exceptions\SeatQuotaExceededException;
 use App\Domains\Workspaces\Support\InvitationToken;
 use App\Models\User;
 use App\Models\WorkspaceInvitation;
@@ -38,6 +40,7 @@ final class InvitationService
         private readonly AccessTokenManagerContract $tokens,
         private readonly TransactionalMailerContract $mailer,
         private readonly TransactionManagerContract $transactions,
+        private readonly QuotaGuardContract $quotas,
         private readonly int $ttlHours,
     ) {}
 
@@ -52,11 +55,16 @@ final class InvitationService
      *
      * @throws RoleNotAssignableException
      * @throws AlreadyMemberException
+     * @throws SeatQuotaExceededException
      */
     public function invite(WorkspaceScope $scope, User $inviter, string $email, WorkspaceRole $role): WorkspaceInvitation
     {
         if (! $role->isAssignable()) {
             throw RoleNotAssignableException::make();
+        }
+
+        if (! $this->quotas->canAddSeat($scope->workspaceId)) {
+            throw SeatQuotaExceededException::make();
         }
 
         $email = mb_strtolower(trim($email));
@@ -132,6 +140,7 @@ final class InvitationService
      * @throws InvitationEmailMismatchException
      * @throws InvitationRequiresLoginException
      * @throws AccountDetailsRequiredException
+     * @throws SeatQuotaExceededException
      */
     public function accept(string $token, ?User $authenticated, array $account, string $deviceName): AcceptedInvitation
     {
@@ -142,8 +151,13 @@ final class InvitationService
                 ? $this->matchingAccount($invitation, $authenticated)
                 : $this->newAccount($invitation, $account);
 
-            $member = $this->memberships->findForUser($invitation->workspace_id, $user->id)
-                ?? $this->memberships->add($invitation->workspace_id, $user->id, $invitation->role);
+            $existingMember = $this->memberships->findForUser($invitation->workspace_id, $user->id);
+
+            if ($existingMember === null && ! $this->quotas->canAddSeat($invitation->workspace_id)) {
+                throw SeatQuotaExceededException::make();
+            }
+
+            $member = $existingMember ?? $this->memberships->add($invitation->workspace_id, $user->id, $invitation->role);
 
             $this->invitations->markAccepted($invitation);
 

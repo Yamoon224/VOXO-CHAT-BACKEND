@@ -12,6 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\InMemoryAssistantSettingsRepository;
 use Tests\Support\Fakes\InMemoryConversationRepository;
 use Tests\Support\Fakes\InMemoryMessageRepository;
+use Tests\Support\Fakes\InMemoryQuotaGuard;
 use Tests\Support\Fakes\ModelFactory;
 use Tests\TestCase;
 
@@ -44,12 +45,15 @@ class AssistantServiceTest extends TestCase
         $ai = new ArrayAiProvider;
         $ai->respondWith(new AiReply('Le prix est de 29€ par mois.', [['title' => 'Tarifs', 'content' => '29€/mois', 'citation_url' => null]], 0.9));
 
+        $quotas = new InMemoryQuotaGuard;
+
         $service = new AssistantService(
             $this->knowledgeSearch([new KnowledgeSearchResult('doc-1', 'Tarifs', '29€/mois', 0.8, null)]),
             $ai,
             new InMemoryAssistantSettingsRepository,
             $conversations,
             $messages,
+            $quotas,
         );
 
         $service->processConversationResponse($conversation->id);
@@ -59,6 +63,36 @@ class AssistantServiceTest extends TestCase
         $this->assertSame('ai', $thread->last()->sender_type->value);
         $this->assertSame('Le prix est de 29€ par mois.', $thread->last()->body);
         $this->assertFalse($conversation->needs_human);
+        $this->assertCount(1, $quotas->consumed);
+    }
+
+    #[Test]
+    public function un_quota_de_credits_ia_epuise_escalade_sans_appeler_le_fournisseur_dia(): void
+    {
+        $workspace = ModelFactory::workspace();
+        $conversation = ModelFactory::conversation(['workspace_id' => $workspace->id]);
+        $conversations = new InMemoryConversationRepository($conversation);
+        $messages = new InMemoryMessageRepository;
+        $messages->create(['conversation_id' => $conversation->id, 'workspace_id' => $workspace->id, 'sender_type' => 'visitor', 'body' => 'Quel est le prix ?']);
+
+        $ai = new ArrayAiProvider;
+        $quotas = new InMemoryQuotaGuard;
+        $quotas->allowAiCredits = false;
+
+        $service = new AssistantService(
+            $this->knowledgeSearch(),
+            $ai,
+            new InMemoryAssistantSettingsRepository,
+            $conversations,
+            $messages,
+            $quotas,
+        );
+
+        $service->processConversationResponse($conversation->id);
+
+        $this->assertTrue($conversation->needs_human);
+        $this->assertSame([], $ai->calls());
+        $this->assertSame([], $quotas->consumed);
     }
 
     #[Test]
@@ -79,6 +113,7 @@ class AssistantServiceTest extends TestCase
             new InMemoryAssistantSettingsRepository,
             $conversations,
             $messages,
+            new InMemoryQuotaGuard,
         );
 
         $service->processConversationResponse($conversation->id);
@@ -102,7 +137,7 @@ class AssistantServiceTest extends TestCase
 
         $ai = new ArrayAiProvider;
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, $settings, $conversations, $messages);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, $settings, $conversations, $messages, new InMemoryQuotaGuard);
 
         $service->processConversationResponse($conversation->id);
 
@@ -123,6 +158,7 @@ class AssistantServiceTest extends TestCase
             new InMemoryAssistantSettingsRepository,
             new InMemoryConversationRepository,
             new InMemoryMessageRepository,
+            new InMemoryQuotaGuard,
         );
 
         $reply = $service->sandboxRespond($workspace->id, 'Une question de test ?');
@@ -144,7 +180,7 @@ class AssistantServiceTest extends TestCase
         $ai->respondWithSummary('Le visiteur se plaint d\'un retard.');
         $ai->respondWithSentiment('négatif');
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, new InMemoryQuotaGuard);
 
         $summarized = $service->summarize($workspace->id, $conversation->id);
         $analyzed = $service->analyzeSentiment($workspace->id, $conversation->id);

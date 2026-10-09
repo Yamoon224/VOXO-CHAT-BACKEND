@@ -1,0 +1,112 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-e9d07bae38104523c98337bd64fd3ae37d6786c83aeaf1956c1c3fc37eb0e894-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:32:"Stripe\Service\CreditNoteService";s:8:"filename";s:103:"C:/laragon/www/voxo.chat/backend/vendor/composer/../stripe/stripe-php/lib/Service/CreditNoteService.php";}}s:9:"namespace";s:14:"Stripe\Service";s:4:"name";s:32:"Stripe\Service\CreditNoteService";s:9:"shortName";s:17:"CreditNoteService";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:162:"/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ *
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:12;s:7:"endLine";i:168;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:30:"Stripe\Service\AbstractService";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:0:{}s:16:"immediateMethods";a:8:{s:3:"all";a:20:{s:4:"name";s:3:"all";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:24;s:7:"endLine";i:24;s:13:"startTokenPos";i:33;s:12:"startFilePos";i:838;s:11:"endTokenPos";i:33;s:10:"endFilePos";i:841;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:24;s:7:"endLine";i:24;s:11:"startColumn";i:25;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:24;s:7:"endLine";i:24;s:13:"startTokenPos";i:40;s:12:"startFilePos";i:852;s:11:"endTokenPos";i:40;s:10:"endFilePos";i:855;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:24;s:7:"endLine";i:24;s:11:"startColumn";i:41;s:9:"endColumn";i:52;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:475:"/**
+ * Returns a list of credit notes.
+ *
+ * @param null|array{created?: array{gt?: int, gte?: int, lt?: int, lte?: int}|int, customer?: string, customer_account?: string, ending_before?: string, expand?: string[], invoice?: string, limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\CreditNote>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:24;s:7:"endLine";i:27;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:8:"allLines";a:20:{s:4:"name";s:8:"allLines";s:10:"parameters";a:3:{s:8:"parentId";a:13:{s:4:"name";s:8:"parentId";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:42;s:7:"endLine";i:42;s:11:"startColumn";i:30;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:42;s:7:"endLine";i:42;s:13:"startTokenPos";i:81;s:12:"startFilePos";i:1622;s:11:"endTokenPos";i:81;s:10:"endFilePos";i:1625;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:42;s:7:"endLine";i:42;s:11:"startColumn";i:41;s:9:"endColumn";i:54;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:42;s:7:"endLine";i:42;s:13:"startTokenPos";i:88;s:12:"startFilePos";i:1636;s:11:"endTokenPos";i:88;s:10:"endFilePos";i:1639;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:42;s:7:"endLine";i:42;s:11:"startColumn";i:57;s:9:"endColumn";i:68;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:564:"/**
+ * When retrieving a credit note, you’ll get a <strong>lines</strong> property
+ * containing the first handful of those items. There is also a URL where you can
+ * retrieve the full (paginated) list of line items.
+ *
+ * @param string $parentId
+ * @param null|array{ending_before?: string, expand?: string[], limit?: int, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\CreditNoteLineItem>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:42;s:7:"endLine";i:45;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:6:"create";a:20:{s:4:"name";s:6:"create";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:83;s:7:"endLine";i:83;s:13:"startTokenPos";i:134;s:12:"startFilePos";i:4621;s:11:"endTokenPos";i:134;s:10:"endFilePos";i:4624;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:83;s:7:"endLine";i:83;s:11:"startColumn";i:28;s:9:"endColumn";i:41;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:83;s:7:"endLine";i:83;s:13:"startTokenPos";i:141;s:12:"startFilePos";i:4635;s:11:"endTokenPos";i:141;s:10:"endFilePos";i:4638;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:83;s:7:"endLine";i:83;s:11:"startColumn";i:44;s:9:"endColumn";i:55;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:2662:"/**
+ * Issue a credit note to adjust the amount of a finalized invoice. A credit note
+ * will first reduce the invoice’s <code>amount_remaining</code> (and
+ * <code>amount_due</code>), but not below zero. This amount is indicated by the
+ * credit note’s <code>pre_payment_amount</code>. The excess amount is indicated by
+ * <code>post_payment_amount</code>, and it can result in any combination of the
+ * following:
+ *
+ * <ul> <li>Refunds: create a new refund (using <code>refund_amount</code>) or link
+ * existing refunds (using <code>refunds</code>).</li> <li>Customer balance credit:
+ * credit the customer’s balance (using <code>credit_amount</code>) which will be
+ * automatically applied to their next invoice when it’s finalized.</li>
+ * <li>Outside of Stripe credit: record the amount that is or will be credited
+ * outside of Stripe (using <code>out_of_band_amount</code>).</li> </ul>
+ *
+ * The sum of refunds, customer balance credits, and outside of Stripe credits must
+ * equal the <code>post_payment_amount</code>.
+ *
+ * You may issue multiple credit notes for an invoice. Each credit note may
+ * increment the invoice’s <code>pre_payment_credit_notes_amount</code>,
+ * <code>post_payment_credit_notes_amount</code>, or both, depending on the
+ * invoice’s <code>amount_remaining</code> at the time of credit note creation.
+ *
+ * For invoices that also have refunds created through the <a
+ * href="/docs/api/refunds">Refund API</a>, the credit note API subtracts those
+ * refund amounts from the maximum creditable amount. This prevents the combined
+ * credit notes and refunds from exceeding the invoice amount. If you use both,
+ * ensure the combined total does not exceed the invoice’s paid amount.
+ *
+ * @param null|array{amount?: int, credit_amount?: int, effective_at?: int, email_type?: string, expand?: string[], invoice: string, lines?: (array{amount?: int, description?: string, invoice_line_item?: string, metadata?: array<string, string>, quantity?: int, tax_amounts?: null|array{amount: int, tax_rate: string, taxable_amount: int}[], tax_rates?: null|string[], type: string, unit_amount?: int, unit_amount_decimal?: string})[], memo?: string, metadata?: array<string, string>, out_of_band_amount?: int, reason?: string, refund_amount?: int, refunds?: array{amount_refunded?: int, payment_record_refund?: array{payment_record: string, refund_group: string}, refund?: string, type?: string}[], shipping_cost?: array{shipping_rate?: string}} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\CreditNote
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:83;s:7:"endLine";i:86;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:7:"preview";a:20:{s:4:"name";s:7:"preview";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:98;s:7:"endLine";i:98;s:13:"startTokenPos";i:179;s:12:"startFilePos";i:5801;s:11:"endTokenPos";i:179;s:10:"endFilePos";i:5804;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:98;s:7:"endLine";i:98;s:11:"startColumn";i:29;s:9:"endColumn";i:42;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:98;s:7:"endLine";i:98;s:13:"startTokenPos";i:186;s:12:"startFilePos";i:5815;s:11:"endTokenPos";i:186;s:10:"endFilePos";i:5818;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:98;s:7:"endLine";i:98;s:11:"startColumn";i:45;s:9:"endColumn";i:56;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:993:"/**
+ * Get a preview of a credit note without creating it.
+ *
+ * @param null|array{amount?: int, credit_amount?: int, effective_at?: int, email_type?: string, expand?: string[], invoice: string, lines?: (array{amount?: int, description?: string, invoice_line_item?: string, metadata?: array<string, string>, quantity?: int, tax_amounts?: null|array{amount: int, tax_rate: string, taxable_amount: int}[], tax_rates?: null|string[], type: string, unit_amount?: int, unit_amount_decimal?: string})[], memo?: string, metadata?: array<string, string>, out_of_band_amount?: int, reason?: string, refund_amount?: int, refunds?: array{amount_refunded?: int, payment_record_refund?: array{payment_record: string, refund_group: string}, refund?: string, type?: string}[], shipping_cost?: array{shipping_rate?: string}} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\CreditNote
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:98;s:7:"endLine";i:101;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:12:"previewLines";a:20:{s:4:"name";s:12:"previewLines";s:10:"parameters";a:2:{s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:115;s:7:"endLine";i:115;s:13:"startTokenPos";i:224;s:12:"startFilePos";i:7243;s:11:"endTokenPos";i:224;s:10:"endFilePos";i:7246;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:115;s:7:"endLine";i:115;s:11:"startColumn";i:34;s:9:"endColumn";i:47;s:14:"parameterIndex";i:0;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:115;s:7:"endLine";i:115;s:13:"startTokenPos";i:231;s:12:"startFilePos";i:7257;s:11:"endTokenPos";i:231;s:10:"endFilePos";i:7260;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:115;s:7:"endLine";i:115;s:11:"startColumn";i:50;s:9:"endColumn";i:61;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:1235:"/**
+ * When retrieving a credit note preview, you’ll get a <strong>lines</strong>
+ * property containing the first handful of those items. This URL you can retrieve
+ * the full (paginated) list of line items.
+ *
+ * @param null|array{amount?: int, credit_amount?: int, effective_at?: int, email_type?: string, ending_before?: string, expand?: string[], invoice: string, limit?: int, lines?: (array{amount?: int, description?: string, invoice_line_item?: string, metadata?: array<string, string>, quantity?: int, tax_amounts?: null|array{amount: int, tax_rate: string, taxable_amount: int}[], tax_rates?: null|string[], type: string, unit_amount?: int, unit_amount_decimal?: string})[], memo?: string, metadata?: array<string, string>, out_of_band_amount?: int, reason?: string, refund_amount?: int, refunds?: array{amount_refunded?: int, payment_record_refund?: array{payment_record: string, refund_group: string}, refund?: string, type?: string}[], shipping_cost?: array{shipping_rate?: string}, starting_after?: string} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\Collection<\Stripe\CreditNoteLineItem>
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:115;s:7:"endLine";i:118;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:8:"retrieve";a:20:{s:4:"name";s:8:"retrieve";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:131;s:7:"endLine";i:131;s:11:"startColumn";i:30;s:9:"endColumn";i:32;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:131;s:7:"endLine";i:131;s:13:"startTokenPos";i:272;s:12:"startFilePos";i:7778;s:11:"endTokenPos";i:272;s:10:"endFilePos";i:7781;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:131;s:7:"endLine";i:131;s:11:"startColumn";i:35;s:9:"endColumn";i:48;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:131;s:7:"endLine";i:131;s:13:"startTokenPos";i:279;s:12:"startFilePos";i:7792;s:11:"endTokenPos";i:279;s:10:"endFilePos";i:7795;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:131;s:7:"endLine";i:131;s:11:"startColumn";i:51;s:9:"endColumn";i:62;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:315:"/**
+ * Retrieves the credit note object with the given identifier.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\CreditNote
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:131;s:7:"endLine";i:134;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:6:"update";a:20:{s:4:"name";s:6:"update";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:147;s:7:"endLine";i:147;s:11:"startColumn";i:28;s:9:"endColumn";i:30;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:147;s:7:"endLine";i:147;s:13:"startTokenPos";i:328;s:12:"startFilePos";i:8335;s:11:"endTokenPos";i:328;s:10:"endFilePos";i:8338;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:147;s:7:"endLine";i:147;s:11:"startColumn";i:33;s:9:"endColumn";i:46;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:147;s:7:"endLine";i:147;s:13:"startTokenPos";i:335;s:12:"startFilePos";i:8349;s:11:"endTokenPos";i:335;s:10:"endFilePos";i:8352;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:147;s:7:"endLine";i:147;s:11:"startColumn";i:49;s:9:"endColumn";i:60;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:337:"/**
+ * Updates an existing credit note.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[], memo?: string, metadata?: array<string, string>} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\CreditNote
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:147;s:7:"endLine";i:150;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}s:14:"voidCreditNote";a:20:{s:4:"name";s:14:"voidCreditNote";s:10:"parameters";a:3:{s:2:"id";a:13:{s:4:"name";s:2:"id";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:164;s:7:"endLine";i:164;s:11:"startColumn";i:36;s:9:"endColumn";i:38;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"params";a:13:{s:4:"name";s:6:"params";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:164;s:7:"endLine";i:164;s:13:"startTokenPos";i:384;s:12:"startFilePos";i:8952;s:11:"endTokenPos";i:384;s:10:"endFilePos";i:8955;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:164;s:7:"endLine";i:164;s:11:"startColumn";i:41;s:9:"endColumn";i:54;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:4:"opts";a:13:{s:4:"name";s:4:"opts";s:7:"default";a:2:{s:4:"code";s:4:"null";s:10:"attributes";a:6:{s:9:"startLine";i:164;s:7:"endLine";i:164;s:13:"startTokenPos";i:391;s:12:"startFilePos";i:8966;s:11:"endTokenPos";i:391;s:10:"endFilePos";i:8969;}}s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:164;s:7:"endLine";i:164;s:11:"startColumn";i:57;s:9:"endColumn";i:68;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";N;s:10:"attributes";a:0:{}s:10:"docComment";s:384:"/**
+ * Marks a credit note as void. Learn more about <a
+ * href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.
+ *
+ * @param string $id
+ * @param null|array{expand?: string[]} $params
+ * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
+ *
+ * @return \Stripe\CreditNote
+ *
+ * @throws \Stripe\Exception\ApiErrorException if the request fails
+ */";s:9:"startLine";i:164;s:7:"endLine";i:167;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:14:"Stripe\Service";s:18:"declaringClassName";s:32:"Stripe\Service\CreditNoteService";s:21:"implementingClassName";s:32:"Stripe\Service\CreditNoteService";s:16:"currentClassName";s:32:"Stripe\Service\CreditNoteService";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

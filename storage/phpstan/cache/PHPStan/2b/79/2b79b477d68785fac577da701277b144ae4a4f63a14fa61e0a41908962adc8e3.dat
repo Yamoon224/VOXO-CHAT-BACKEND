@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-91d0eab468a4e5784f39a36335aac1999329f69a54064949667bc3cb643b2418-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:58:"stripe\service\productcatalog\productcatalogservicefactory";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

@@ -17,7 +17,21 @@ use App\Domains\Auth\Services\SanctumAccessTokenManager;
 use App\Domains\Auth\Support\BrokerPasswordResetTokenStore;
 use App\Domains\Auth\Support\EmailVerificationToken;
 use App\Domains\Auth\Support\Google2faTotpProvider;
+use App\Domains\Billing\Contracts\AiCreditLedgerContract;
+use App\Domains\Billing\Contracts\InvoiceRepositoryContract;
+use App\Domains\Billing\Contracts\PlanRepositoryContract;
+use App\Domains\Billing\Contracts\QuotaGuardContract;
+use App\Domains\Billing\Contracts\SubscriptionProvisionerContract;
+use App\Domains\Billing\Contracts\SubscriptionRepositoryContract;
+use App\Domains\Billing\Contracts\SubscriptionWebhookContract;
+use App\Domains\Billing\Repositories\EloquentAiCreditLedger;
+use App\Domains\Billing\Repositories\EloquentInvoiceRepository;
+use App\Domains\Billing\Repositories\EloquentPlanRepository;
+use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
+use App\Domains\Billing\Services\QuotaGuardService;
+use App\Domains\Billing\Services\SubscriptionService;
 use App\Domains\Conversations\Contracts\CannedResponseRepositoryContract;
+use App\Domains\Conversations\Contracts\ConversationReaderContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
 use App\Domains\Conversations\Contracts\VisitorConversationContract;
@@ -56,6 +70,10 @@ use App\Domains\Notifications\Senders\ArrayMailSender;
 use App\Domains\Notifications\Senders\LaravelMailSender;
 use App\Domains\Notifications\Services\TransactionalMailer;
 use App\Domains\Notifications\Support\FrontendUrl;
+use App\Domains\Payments\Contracts\PaymentGatewayContract;
+use App\Domains\Payments\Gateways\ArrayPaymentGateway;
+use App\Domains\Payments\Gateways\StripePaymentGateway;
+use App\Domains\Payments\Services\CheckoutService;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
 use App\Domains\Users\Contracts\UserRepositoryContract;
@@ -68,6 +86,7 @@ use App\Domains\Workspaces\Contracts\InvitationRepositoryContract;
 use App\Domains\Workspaces\Contracts\MembershipReaderContract;
 use App\Domains\Workspaces\Contracts\MembershipRepositoryContract;
 use App\Domains\Workspaces\Contracts\PermissionMatrixContract;
+use App\Domains\Workspaces\Contracts\WorkspacePlatformReaderContract;
 use App\Domains\Workspaces\Contracts\WorkspaceProvisionerContract;
 use App\Domains\Workspaces\Contracts\WorkspaceRepositoryContract;
 use App\Domains\Workspaces\Repositories\EloquentInvitationRepository;
@@ -147,6 +166,28 @@ class DomainServiceProvider extends ServiceProvider
         // réponse et lit résumé/sentiment, sans rien connaître du fournisseur d'IA.
         AssistantResponderContract::class => AssistantService::class,
         ConversationInsightContract::class => AssistantService::class,
+
+        // --- Facturation (lot 3) ------------------------------------------------------
+        PlanRepositoryContract::class => EloquentPlanRepository::class,
+        SubscriptionRepositoryContract::class => EloquentSubscriptionRepository::class,
+        InvoiceRepositoryContract::class => EloquentInvoiceRepository::class,
+        AiCreditLedgerContract::class => EloquentAiCreditLedger::class,
+        // Lecture étroite exposée au domaine `Workspaces` : ouvrir un espace ouvre
+        // aussi son essai gratuit, sans connaître les plans.
+        SubscriptionProvisionerContract::class => SubscriptionService::class,
+        // « Puis-je ? » : les domaines demandent sans connaître les plans.
+        QuotaGuardContract::class => QuotaGuardService::class,
+        // Lecture étroite exposée au domaine `Payments` : un évènement du
+        // prestataire met à jour un abonnement, sans connaître les plans ni les
+        // crédits IA.
+        SubscriptionWebhookContract::class => SubscriptionService::class,
+
+        // --- Lectures étroites exposées à la console plateforme (lot 3) --------------
+        WorkspacePlatformReaderContract::class => EloquentWorkspaceRepository::class,
+
+        // --- Conversation : lecture étroite exposée au domaine `Analytics` (lot 3) ---
+        // Analytics lit, n'écrit pas.
+        ConversationReaderContract::class => EloquentConversationRepository::class,
     ];
 
     public function register(): void
@@ -156,6 +197,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerKnowledgeProviders();
         $this->registerAssistantProvider();
         $this->registerWidgetSupport();
+        $this->registerPaymentsProvider();
 
         $this->app->bind(FrontendUrl::class, fn (): FrontendUrl => new FrontendUrl(
             (string) config('voxo.frontend_url'),
@@ -164,6 +206,10 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(InvitationService::class)
             ->needs('$ttlHours')
             ->giveConfig('voxo.invitations.ttl_hours');
+
+        $this->app->when(CheckoutService::class)
+            ->needs('$frontendUrl')
+            ->giveConfig('voxo.frontend_url');
     }
 
     /**
@@ -302,6 +348,30 @@ class DomainServiceProvider extends ServiceProvider
                     (string) config('assistant.claude.respond_model'),
                     (string) config('assistant.claude.short_task_model'),
                     (string) config('assistant.claude.base_url'),
+                )
+                : $this->app->make($driver);
+        });
+    }
+
+    /** Prestataire de paiement, choisi par configuration (même garde que `registerMailSender()`). */
+    private function registerPaymentsProvider(): void
+    {
+        $this->app->singleton(ArrayPaymentGateway::class);
+
+        $this->app->singleton(PaymentGatewayContract::class, function (): PaymentGatewayContract {
+            $name = (string) config('payments.driver');
+            $driver = config("payments.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, PaymentGatewayContract::class)) {
+                throw new RuntimeException(
+                    "Pilote de paiement « {$name} » inconnu. Vérifiez PAYMENTS_GATEWAY_DRIVER et config/payments.php.",
+                );
+            }
+
+            return $driver === StripePaymentGateway::class
+                ? new StripePaymentGateway(
+                    (string) config('payments.stripe.key'),
+                    (string) config('payments.stripe.webhook_secret'),
                 )
                 : $this->app->make($driver);
         });

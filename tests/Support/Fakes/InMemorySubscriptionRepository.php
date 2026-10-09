@@ -57,6 +57,13 @@ final class InMemorySubscriptionRepository implements SubscriptionRepositoryCont
     {
         $subscription->setRawAttributes($attributes + $subscription->getAttributes(), true);
 
+        // Le palier a pu changer : une relation déjà chargée resterait sinon
+        // sur l'ancien palier en mémoire, comme le ferait Eloquent (voir
+        // `EloquentSubscriptionRepository::update()`).
+        if (array_key_exists('plan_id', $attributes)) {
+            $subscription->unsetRelation('plan');
+        }
+
         return $subscription;
     }
 

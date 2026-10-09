@@ -35,7 +35,9 @@ final class EloquentSubscriptionRepository implements SubscriptionRepositoryCont
     {
         $subscription->update($attributes);
 
-        return $subscription;
+        // `plan_id` a pu changer : la relation chargée avant la mise à jour
+        // resterait sinon sur l'ancien palier en mémoire.
+        return $subscription->load('plan');
     }
 
     /** @return Collection<int, Subscription> */

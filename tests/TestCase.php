@@ -8,6 +8,7 @@ use App\Domains\Knowledge\Crawling\ArrayWebCrawler;
 use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use App\Domains\Knowledge\Ocr\ArrayOcrEngine;
 use App\Domains\Notifications\Senders\ArrayMailSender;
+use App\Domains\Payments\Gateways\ArrayPaymentGateway;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Models\User;
 use App\Models\Workspace;
@@ -114,5 +115,11 @@ abstract class TestCase extends BaseTestCase
     protected function aiProvider(): ArrayAiProvider
     {
         return $this->app->make(ArrayAiProvider::class);
+    }
+
+    /** `PAYMENTS_GATEWAY_DRIVER=array` en environnement de test. */
+    protected function paymentGateway(): ArrayPaymentGateway
+    {
+        return $this->app->make(ArrayPaymentGateway::class);
     }
 }

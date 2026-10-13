@@ -21,4 +21,11 @@ interface TransactionalMailerContract
         string $roleLabel,
         string $token,
     ): void;
+
+    public function sendQuotaAlert(
+        string $email,
+        string $workspaceName,
+        string $quotaLabel,
+        int $thresholdPercent,
+    ): void;
 }

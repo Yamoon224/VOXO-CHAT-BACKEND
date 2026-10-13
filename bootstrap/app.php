@@ -23,6 +23,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         apiPrefix: 'api/v1',
     )
+    // Les commandes planifiées vivent par domaine (`app/Domains/*/Console`),
+    // pas dans `app/Console/Commands` : sans ceci, Artisan ne les connaît pas
+    // par leur signature, et `Schedule::command(...)` échoue silencieusement
+    // au déclenchement (il exécute `php artisan <signature>` en sous-processus).
+    ->withCommands([app_path('Domains')])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             // Résout le périmètre d'espace de travail à partir du jeton.

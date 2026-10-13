@@ -20,6 +20,7 @@ use App\Domains\Auth\Support\Google2faTotpProvider;
 use App\Domains\Billing\Contracts\AiCreditLedgerContract;
 use App\Domains\Billing\Contracts\InvoiceRepositoryContract;
 use App\Domains\Billing\Contracts\PlanRepositoryContract;
+use App\Domains\Billing\Contracts\QuotaAlertRepositoryContract;
 use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Billing\Contracts\SubscriptionProvisionerContract;
 use App\Domains\Billing\Contracts\SubscriptionRepositoryContract;
@@ -27,6 +28,7 @@ use App\Domains\Billing\Contracts\SubscriptionWebhookContract;
 use App\Domains\Billing\Repositories\EloquentAiCreditLedger;
 use App\Domains\Billing\Repositories\EloquentInvoiceRepository;
 use App\Domains\Billing\Repositories\EloquentPlanRepository;
+use App\Domains\Billing\Repositories\EloquentQuotaAlertRepository;
 use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
 use App\Domains\Billing\Services\QuotaGuardService;
 use App\Domains\Billing\Services\SubscriptionService;
@@ -172,6 +174,7 @@ class DomainServiceProvider extends ServiceProvider
         SubscriptionRepositoryContract::class => EloquentSubscriptionRepository::class,
         InvoiceRepositoryContract::class => EloquentInvoiceRepository::class,
         AiCreditLedgerContract::class => EloquentAiCreditLedger::class,
+        QuotaAlertRepositoryContract::class => EloquentQuotaAlertRepository::class,
         // Lecture étroite exposée au domaine `Workspaces` : ouvrir un espace ouvre
         // aussi son essai gratuit, sans connaître les plans.
         SubscriptionProvisionerContract::class => SubscriptionService::class,

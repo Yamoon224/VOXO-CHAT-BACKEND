@@ -222,5 +222,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
 Route::middleware(['auth:sanctum', 'platform.admin'])->prefix('platform')->group(function (): void {
     Route::get('/workspaces', [PlatformWorkspaceController::class, 'index']);
-    Route::get('/plans', [PlanController::class, 'index']);
+    Route::get('/plans', [PlanController::class, 'adminIndex']);
+    Route::post('/plans', [PlanController::class, 'store']);
+    Route::put('/plans/{plan}', [PlanController::class, 'update'])->whereUuid('plan');
+    Route::delete('/plans/{plan}', [PlanController::class, 'destroy'])->whereUuid('plan');
 });

@@ -29,6 +29,35 @@ final class InMemoryPlanRepository implements PlanRepositoryContract
             ->values();
     }
 
+    /** @return Collection<int, Plan> */
+    public function listAll(): Collection
+    {
+        return (new Collection($this->plans))->sortBy('sort_order')->values();
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public function create(array $attributes): Plan
+    {
+        $plan = Plan::factory()->make($attributes);
+        $this->plans[$plan->id] = $plan;
+
+        return $plan;
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public function update(Plan $plan, array $attributes): Plan
+    {
+        $plan->forceFill($attributes);
+        $this->plans[$plan->id] = $plan;
+
+        return $plan;
+    }
+
+    public function delete(Plan $plan): void
+    {
+        unset($this->plans[$plan->id]);
+    }
+
     public function findBySlugOrFail(string $slug): Plan
     {
         foreach ($this->plans as $plan) {

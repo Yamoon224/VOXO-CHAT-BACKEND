@@ -3,6 +3,7 @@
 namespace App\Domains\Billing\Repositories;
 
 use App\Domains\Billing\Contracts\SubscriptionRepositoryContract;
+use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Models\Subscription;
 use Illuminate\Support\Collection;
 
@@ -47,6 +48,15 @@ final class EloquentSubscriptionRepository implements SubscriptionRepositoryCont
             ->with('plan')
             ->whereNotNull('current_period_end')
             ->where('current_period_end', '<', now())
+            ->get();
+    }
+
+    /** @return Collection<int, Subscription> */
+    public function allActive(): Collection
+    {
+        return Subscription::query()
+            ->with('plan')
+            ->whereIn('status', [SubscriptionStatus::Trialing->value, SubscriptionStatus::Active->value])
             ->get();
     }
 }

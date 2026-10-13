@@ -25,4 +25,11 @@ interface SubscriptionRepositoryContract
      * @return Collection<int, Subscription>
      */
     public function dueForRenewal(): Collection;
+
+    /**
+     * Abonnements à l'essai ou actifs : sondés par la tâche d'alerte de quota.
+     *
+     * @return Collection<int, Subscription>
+     */
+    public function allActive(): Collection;
 }

@@ -3,6 +3,7 @@
 namespace Tests\Support\Fakes;
 
 use App\Domains\Billing\Contracts\SubscriptionRepositoryContract;
+use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Models\Subscription;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
@@ -72,6 +73,14 @@ final class InMemorySubscriptionRepository implements SubscriptionRepositoryCont
     {
         return (new Collection($this->subscriptions))
             ->filter(fn (Subscription $subscription) => $subscription->current_period_end !== null && $subscription->current_period_end->isPast())
+            ->values();
+    }
+
+    /** @return Collection<int, Subscription> */
+    public function allActive(): Collection
+    {
+        return (new Collection($this->subscriptions))
+            ->filter(fn (Subscription $subscription) => in_array($subscription->status, [SubscriptionStatus::Trialing, SubscriptionStatus::Active], true))
             ->values();
     }
 }

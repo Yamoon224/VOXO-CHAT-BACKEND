@@ -20,4 +20,32 @@ final class PlanService
     {
         return $this->plans->findBySlugOrFail($slug);
     }
+
+    /** @return Collection<int, Plan> */
+    public function listAll(): Collection
+    {
+        return $this->plans->listAll();
+    }
+
+    public function findById(string $id): Plan
+    {
+        return $this->plans->findOrFailById($id);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public function create(array $attributes): Plan
+    {
+        return $this->plans->create($attributes);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public function update(string $id, array $attributes): Plan
+    {
+        return $this->plans->update($this->plans->findOrFailById($id), $attributes);
+    }
+
+    public function delete(string $id): void
+    {
+        $this->plans->delete($this->plans->findOrFailById($id));
+    }
 }

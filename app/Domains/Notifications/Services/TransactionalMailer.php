@@ -45,4 +45,18 @@ final class TransactionalMailer implements TransactionalMailerContract
             'action_url' => $this->frontendUrl->to('accept-invitation', ['token' => $token]),
         ]));
     }
+
+    public function sendQuotaAlert(
+        string $email,
+        string $workspaceName,
+        string $quotaLabel,
+        int $thresholdPercent,
+    ): void {
+        $this->sender->send(new MailMessage($email, MailTemplate::QuotaAlert, [
+            'workspace_name' => $workspaceName,
+            'quota_label' => $quotaLabel,
+            'threshold_percent' => $thresholdPercent,
+            'action_url' => $this->frontendUrl->to('settings/billing'),
+        ]));
+    }
 }

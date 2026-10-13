@@ -33,6 +33,19 @@ final class RecordingMailer implements TransactionalMailerContract
         ]];
     }
 
+    public function sendQuotaAlert(
+        string $email,
+        string $workspaceName,
+        string $quotaLabel,
+        int $thresholdPercent,
+    ): void {
+        $this->sent[] = ['type' => 'quota_alert', 'email' => $email, 'token' => '', 'data' => [
+            'workspace_name' => $workspaceName,
+            'quota_label' => $quotaLabel,
+            'threshold_percent' => (string) $thresholdPercent,
+        ]];
+    }
+
     public function lastToken(): ?string
     {
         return $this->sent === [] ? null : $this->sent[array_key_last($this->sent)]['token'];

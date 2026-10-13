@@ -1580,15 +1580,66 @@ paths:
     get:
       tags: [Plateforme]
       summary: Grille tarifaire, vue plateforme
-      description: Réservé aux comptes `platform_admin`.
+      description: Réservé aux comptes `platform_admin`. Tous les paliers, actifs ou non.
       responses:
         '200':
-          description: Paliers actifs, du moins cher au plus cher
+          description: Paliers, du moins cher au plus cher
           content:
             application/json:
               schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Plan' } } } }
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Plateforme]
+      summary: Créer un palier
+      description: Réservé aux comptes `platform_admin`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PlanWriteRequest' }
+      responses:
+        '201':
+          description: Palier créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Plan' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /platform/plans/{plan}:
+    parameters:
+      - { name: plan, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      tags: [Plateforme]
+      summary: Modifier un palier
+      description: Réservé aux comptes `platform_admin`. Tous les champs sont facultatifs (mise à jour partielle).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PlanWriteRequest' }
+      responses:
+        '200':
+          description: Palier modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Plan' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Plateforme]
+      summary: Supprimer un palier
+      description: Réservé aux comptes `platform_admin`. Code d'erreur `plan_in_use` (409) si un abonnement y est rattaché.
+      responses:
+        '204': { description: Palier supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/DomainError' }
 
 security:
   - bearerAuth: []
@@ -2007,7 +2058,27 @@ components:
         ai_credits_per_month: { type: integer, nullable: true }
         max_knowledge_documents: { type: integer, nullable: true }
         is_custom: { type: boolean }
+        is_active: { type: boolean }
         sort_order: { type: integer }
+        provider_price_id: { type: string, nullable: true }
+
+    PlanWriteRequest:
+      type: object
+      description: Création ou modification d'un palier (console plateforme). Mise à jour partielle sur `PUT`.
+      properties:
+        slug: { type: string, maxLength: 40, description: "Identifiant unique, alphanumérique et tirets." }
+        name: { type: string, maxLength: 120 }
+        price_cents: { type: integer, nullable: true, minimum: 0, description: "`null` : tarif sur devis." }
+        currency: { type: string, minLength: 3, maxLength: 3 }
+        billing_interval: { $ref: '#/components/schemas/BillingInterval' }
+        max_seats: { type: integer, nullable: true, minimum: 0 }
+        max_contacts: { type: integer, nullable: true, minimum: 0 }
+        ai_credits_per_month: { type: integer, nullable: true, minimum: 0 }
+        max_knowledge_documents: { type: integer, nullable: true, minimum: 0 }
+        is_custom: { type: boolean }
+        is_active: { type: boolean }
+        sort_order: { type: integer, minimum: 0 }
+        provider_price_id: { type: string, nullable: true }
 
     Subscription:
       type: object

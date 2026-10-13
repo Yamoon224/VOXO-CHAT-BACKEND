@@ -24,7 +24,9 @@ class PlanResource extends JsonResource
             'ai_credits_per_month' => $this->ai_credits_per_month,
             'max_knowledge_documents' => $this->max_knowledge_documents,
             'is_custom' => $this->is_custom,
+            'is_active' => $this->is_active,
             'sort_order' => $this->sort_order,
+            'provider_price_id' => $this->provider_price_id,
         ];
     }
 }

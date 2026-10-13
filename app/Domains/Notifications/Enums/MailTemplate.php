@@ -13,6 +13,7 @@ enum MailTemplate: string
     case EmailVerification = 'email_verification';
     case PasswordReset = 'password_reset';
     case WorkspaceInvitation = 'workspace_invitation';
+    case QuotaAlert = 'quota_alert';
 
     public function view(): string
     {
@@ -28,6 +29,12 @@ enum MailTemplate: string
             self::WorkspaceInvitation => sprintf(
                 'Invitation à rejoindre %s sur VOXO',
                 is_string($data['workspace_name'] ?? null) ? $data['workspace_name'] : 'un espace de travail',
+            ),
+            self::QuotaAlert => sprintf(
+                'VOXO — %s',
+                (int) ($data['threshold_percent'] ?? 0) >= 100
+                    ? 'quota atteint'
+                    : 'vous approchez de votre quota',
             ),
         };
     }

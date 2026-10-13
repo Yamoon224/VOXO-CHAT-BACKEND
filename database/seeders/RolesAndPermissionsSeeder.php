@@ -45,6 +45,8 @@ class RolesAndPermissionsSeeder extends Seeder
         'billing.view' => "Consulter le palier, l'abonnement et la consommation de l'espace de travail.",
         'billing.manage' => "Changer de palier, résilier l'abonnement et consulter les factures.",
         'analytics.view' => "Consulter les statistiques d'activité de l'espace de travail.",
+        'contacts.view' => 'Consulter les profils clients et leurs segments.',
+        'contacts.manage' => 'Créer, modifier, supprimer, importer et exporter les profils clients.',
     ];
 
     /**
@@ -57,18 +59,21 @@ class RolesAndPermissionsSeeder extends Seeder
         WorkspaceRole::Owner->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
-            'billing.view', 'billing.manage', 'analytics.view',
+            'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage',
         ],
         WorkspaceRole::Admin->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
-            'billing.view', 'billing.manage', 'analytics.view',
+            'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage',
         ],
         WorkspaceRole::Agent->value => [
             'workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'analytics.view',
+            'contacts.view', 'contacts.manage',
         ],
-        WorkspaceRole::Viewer->value => ['workspace.view', 'members.view', 'knowledge.view', 'conversations.view', 'analytics.view'],
+        WorkspaceRole::Viewer->value => [
+            'workspace.view', 'members.view', 'knowledge.view', 'conversations.view', 'analytics.view', 'contacts.view',
+        ],
     ];
 
     public function run(): void

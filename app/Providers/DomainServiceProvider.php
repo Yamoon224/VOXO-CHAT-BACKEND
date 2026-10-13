@@ -32,6 +32,16 @@ use App\Domains\Billing\Repositories\EloquentQuotaAlertRepository;
 use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
 use App\Domains\Billing\Services\QuotaGuardService;
 use App\Domains\Billing\Services\SubscriptionService;
+use App\Domains\Contacts\Contracts\ContactEventRepositoryContract;
+use App\Domains\Contacts\Contracts\ContactLinkContract;
+use App\Domains\Contacts\Contracts\ContactNoteRepositoryContract;
+use App\Domains\Contacts\Contracts\ContactRepositoryContract;
+use App\Domains\Contacts\Contracts\ContactSegmentRepositoryContract;
+use App\Domains\Contacts\Repositories\EloquentContactEventRepository;
+use App\Domains\Contacts\Repositories\EloquentContactNoteRepository;
+use App\Domains\Contacts\Repositories\EloquentContactRepository;
+use App\Domains\Contacts\Repositories\EloquentContactSegmentRepository;
+use App\Domains\Contacts\Services\ContactService;
 use App\Domains\Conversations\Contracts\CannedResponseRepositoryContract;
 use App\Domains\Conversations\Contracts\ConversationReaderContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
@@ -150,6 +160,15 @@ class DomainServiceProvider extends ServiceProvider
         // Lecture étroite exposée au domaine `Assistant` (lot 2) : il cherche,
         // il n'indexe pas.
         KnowledgeSearchContract::class => KnowledgeSearchService::class,
+
+        // --- Contacts (lot 4) ---------------------------------------------------------
+        ContactRepositoryContract::class => EloquentContactRepository::class,
+        ContactNoteRepositoryContract::class => EloquentContactNoteRepository::class,
+        ContactEventRepositoryContract::class => EloquentContactEventRepository::class,
+        ContactSegmentRepositoryContract::class => EloquentContactSegmentRepository::class,
+        // Lecture étroite exposée aux domaines qui démarrent une conversation
+        // (`Widget`, `Channels`) : retrouver ou créer un contact par e-mail.
+        ContactLinkContract::class => ContactService::class,
 
         // --- Conversations (lot 2) --------------------------------------------------
         ConversationRepositoryContract::class => EloquentConversationRepository::class,

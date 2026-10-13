@@ -2,11 +2,14 @@
 
 namespace App\Domains\Contacts\Services;
 
+use App\Domains\Contacts\Contracts\ContactEventRepositoryContract;
 use App\Domains\Contacts\Contracts\ContactLinkContract;
 use App\Domains\Contacts\Contracts\ContactRepositoryContract;
 use App\Domains\Contacts\Exceptions\ContactEmailTakenException;
 use App\Models\Contact;
+use App\Models\ContactEvent;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 /**
  * CRUD du profil client, et implémente `ContactLinkContract` : seul point
@@ -15,7 +18,10 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
  */
 final class ContactService implements ContactLinkContract
 {
-    public function __construct(private readonly ContactRepositoryContract $contacts) {}
+    public function __construct(
+        private readonly ContactRepositoryContract $contacts,
+        private readonly ContactEventRepositoryContract $events,
+    ) {}
 
     /** @param  array<string, mixed>  $filters */
     public function paginate(string $workspaceId, array $filters, int $perPage): LengthAwarePaginator
@@ -59,6 +65,14 @@ final class ContactService implements ContactLinkContract
     public function delete(string $workspaceId, string $contactId): void
     {
         $this->contacts->delete($this->contacts->findInWorkspaceOrFail($workspaceId, $contactId));
+    }
+
+    /** @return Collection<int, ContactEvent> */
+    public function events(string $workspaceId, string $contactId): Collection
+    {
+        $this->contacts->findInWorkspaceOrFail($workspaceId, $contactId);
+
+        return $this->events->forContact($contactId);
     }
 
     public function findOrCreateIdByEmail(string $workspaceId, ?string $email, ?string $name = null): ?string

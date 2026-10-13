@@ -17,6 +17,7 @@ use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Widget\Enums\WidgetPosition;
 use App\Models\AssistantSettings;
 use App\Models\CannedResponse;
+use App\Models\Contact;
 use App\Models\Conversation;
 use App\Models\Invoice;
 use App\Models\KnowledgeChunk;
@@ -64,6 +65,19 @@ final class ModelFactory
             'slug' => $slug ?? Str::slug($name),
             'locale' => 'fr',
             'timezone' => 'UTC',
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function contact(array $attributes = []): Contact
+    {
+        return (new Contact)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'name' => 'Awa Koné',
+            'email' => null,
+            'phone' => null,
+            'custom_attributes' => null,
         ], true);
     }
 

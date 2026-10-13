@@ -10,6 +10,12 @@ use App\Domains\Auth\Http\Controllers\TwoFactorController;
 use App\Domains\Billing\Http\Controllers\InvoiceController;
 use App\Domains\Billing\Http\Controllers\PlanController;
 use App\Domains\Billing\Http\Controllers\SubscriptionController;
+use App\Domains\Contacts\Http\Controllers\ContactController;
+use App\Domains\Contacts\Http\Controllers\ContactEventController;
+use App\Domains\Contacts\Http\Controllers\ContactExportController;
+use App\Domains\Contacts\Http\Controllers\ContactImportController;
+use App\Domains\Contacts\Http\Controllers\ContactNoteController;
+use App\Domains\Contacts\Http\Controllers\ContactSegmentController;
 use App\Domains\Conversations\Http\Controllers\CannedResponseController;
 use App\Domains\Conversations\Http\Controllers\ConversationController;
 use App\Domains\Conversations\Http\Controllers\MessageController;
@@ -190,6 +196,31 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::get('/widget/settings', [WidgetSettingsController::class, 'show']);
             Route::put('/widget/settings', [WidgetSettingsController::class, 'update']);
             Route::get('/widget/script', [WidgetSettingsController::class, 'script']);
+        });
+
+        // =====================================================================
+        // CRM (lot 4) : profils, notes, historique, segments, import/export CSV.
+        // =====================================================================
+
+        Route::middleware('workspace.can:contacts.view')->group(function (): void {
+            Route::get('/contacts', [ContactController::class, 'index']);
+            Route::get('/contacts/export', [ContactExportController::class, 'index']);
+            Route::get('/contacts/{contact}', [ContactController::class, 'show'])->whereUuid('contact');
+            Route::get('/contacts/{contact}/notes', [ContactNoteController::class, 'index'])->whereUuid('contact');
+            Route::get('/contacts/{contact}/events', [ContactEventController::class, 'index'])->whereUuid('contact');
+            Route::get('/contact-segments', [ContactSegmentController::class, 'index']);
+            Route::get('/contact-segments/{segment}/contacts', [ContactSegmentController::class, 'contacts'])->whereUuid('segment');
+        });
+
+        Route::middleware('workspace.can:contacts.manage')->group(function (): void {
+            Route::post('/contacts', [ContactController::class, 'store']);
+            Route::post('/contacts/import', [ContactImportController::class, 'store']);
+            Route::put('/contacts/{contact}', [ContactController::class, 'update'])->whereUuid('contact');
+            Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->whereUuid('contact');
+            Route::post('/contacts/{contact}/notes', [ContactNoteController::class, 'store'])->whereUuid('contact');
+            Route::post('/contact-segments', [ContactSegmentController::class, 'store']);
+            Route::put('/contact-segments/{segment}', [ContactSegmentController::class, 'update'])->whereUuid('segment');
+            Route::delete('/contact-segments/{segment}', [ContactSegmentController::class, 'destroy'])->whereUuid('segment');
         });
 
         Route::middleware('workspace.can:assistant.manage')->group(function (): void {

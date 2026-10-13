@@ -33,6 +33,7 @@ interface SubscriptionWebhookContract
         string $currency,
         string $status,
         ?string $hostedInvoiceUrl,
+        ?string $invoicePdfUrl,
         ?Carbon $issuedAt,
         ?Carbon $paidAt,
     ): void;

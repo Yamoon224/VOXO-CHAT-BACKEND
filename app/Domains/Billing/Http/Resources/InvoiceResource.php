@@ -18,6 +18,7 @@ class InvoiceResource extends JsonResource
             'currency' => $this->currency,
             'status' => $this->status->value,
             'hosted_invoice_url' => $this->hosted_invoice_url,
+            'invoice_pdf_url' => $this->invoice_pdf_url,
             'issued_at' => $this->issued_at?->toIso8601String(),
             'paid_at' => $this->paid_at?->toIso8601String(),
         ];

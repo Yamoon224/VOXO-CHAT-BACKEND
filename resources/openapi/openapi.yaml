@@ -1554,6 +1554,19 @@ paths:
         '204': { description: Évènement traité }
         '400': { $ref: '#/components/responses/DomainError' }
 
+  /public/plans:
+    get:
+      tags: [Facturation]
+      summary: Grille tarifaire publique (site vitrine)
+      description: Mêmes données que `/workspace/billing/plans`, sans compte requis.
+      security: []
+      responses:
+        '200':
+          description: Paliers, du moins cher au plus cher
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Plan' } } } }
+
   /platform/workspaces:
     get:
       tags: [Plateforme]
@@ -2101,6 +2114,7 @@ components:
         currency: { type: string }
         status: { $ref: '#/components/schemas/InvoiceStatus' }
         hosted_invoice_url: { type: string, format: uri, nullable: true }
+        invoice_pdf_url: { type: string, format: uri, nullable: true }
         issued_at: { type: string, format: date-time, nullable: true }
         paid_at: { type: string, format: date-time, nullable: true }
 

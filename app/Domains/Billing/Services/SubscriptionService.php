@@ -164,6 +164,7 @@ final class SubscriptionService implements SubscriptionProvisionerContract, Subs
         string $currency,
         string $status,
         ?string $hostedInvoiceUrl,
+        ?string $invoicePdfUrl,
         ?Carbon $issuedAt,
         ?Carbon $paidAt,
     ): void {
@@ -177,6 +178,7 @@ final class SubscriptionService implements SubscriptionProvisionerContract, Subs
             'currency' => $currency,
             'status' => $status,
             'hosted_invoice_url' => $hostedInvoiceUrl,
+            'invoice_pdf_url' => $invoicePdfUrl,
             'issued_at' => $issuedAt,
             'paid_at' => $paidAt,
         ];

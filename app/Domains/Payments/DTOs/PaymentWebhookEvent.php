@@ -24,6 +24,7 @@ final readonly class PaymentWebhookEvent
         public ?string $invoiceCurrency = null,
         public ?string $invoiceStatus = null,
         public ?string $hostedInvoiceUrl = null,
+        public ?string $invoicePdfUrl = null,
         public ?Carbon $invoiceIssuedAt = null,
         public ?Carbon $invoicePaidAt = null,
     ) {}

@@ -29,6 +29,15 @@ class BillingManagementTest extends TestCase
     }
 
     #[Test]
+    public function la_grille_tarifaire_publique_ne_requiert_pas_de_compte(): void
+    {
+        $this->asGuest()
+            ->getJson('/api/v1/public/plans')
+            ->assertOk()
+            ->assertJsonPath('data.0.slug', 'free');
+    }
+
+    #[Test]
     public function un_proprietaire_consulte_son_abonnement_et_son_solde_de_credits(): void
     {
         $workspace = Workspace::factory()->create();

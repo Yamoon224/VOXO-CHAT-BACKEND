@@ -94,6 +94,10 @@ Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): 
 // — jamais à un jeton Sanctum, que Stripe ne détient pas.
 Route::post('/public/payments/webhook', [WebhookController::class, 'store']);
 
+// Grille tarifaire publique (page « Tarifs » du site vitrine, lot 3/4) :
+// mêmes données que `/billing/plans`, sans exiger de compte.
+Route::middleware('throttle:60,1')->get('/public/plans', [PlanController::class, 'index']);
+
 // =============================================================================
 // Zone compte
 // =============================================================================

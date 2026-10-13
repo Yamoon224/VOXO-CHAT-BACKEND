@@ -12,7 +12,8 @@ use Illuminate\Support\Carbon;
 
 /**
  * Facture reflétée depuis le prestataire de paiement (section 2.13). Pas de
- * génération de PDF maison : `hosted_invoice_url` pointe vers la page Stripe.
+ * génération de PDF maison : `hosted_invoice_url` pointe vers la page Stripe
+ * hébergée, `invoice_pdf_url` vers le PDF que Stripe a déjà généré.
  *
  * @property string $id
  * @property string $workspace_id
@@ -22,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $currency
  * @property InvoiceStatus $status
  * @property string|null $hosted_invoice_url
+ * @property string|null $invoice_pdf_url
  * @property Carbon|null $issued_at
  * @property Carbon|null $paid_at
  * @property Carbon|null $created_at
@@ -35,7 +37,7 @@ class Invoice extends Model
     /** @var list<string> */
     protected $fillable = [
         'workspace_id', 'subscription_id', 'payment_provider_invoice_id', 'amount_cents', 'currency',
-        'status', 'hosted_invoice_url', 'issued_at', 'paid_at',
+        'status', 'hosted_invoice_url', 'invoice_pdf_url', 'issued_at', 'paid_at',
     ];
 
     /** @return array<string, string> */

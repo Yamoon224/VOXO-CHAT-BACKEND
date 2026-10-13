@@ -17,7 +17,7 @@ final class SpySubscriptionWebhook implements SubscriptionWebhookContract
     /** @var list<string> */
     public array $canceledFromProvider = [];
 
-    /** @var list<array{provider_subscription_id: string, provider_invoice_id: string, amount_cents: int, currency: string, status: string, hosted_invoice_url: ?string, issued_at: ?Carbon, paid_at: ?Carbon}> */
+    /** @var list<array{provider_subscription_id: string, provider_invoice_id: string, amount_cents: int, currency: string, status: string, hosted_invoice_url: ?string, invoice_pdf_url: ?string, issued_at: ?Carbon, paid_at: ?Carbon}> */
     public array $recordedInvoiceEvents = [];
 
     public function activateFromCheckout(
@@ -53,13 +53,15 @@ final class SpySubscriptionWebhook implements SubscriptionWebhookContract
         string $currency,
         string $status,
         ?string $hostedInvoiceUrl,
+        ?string $invoicePdfUrl,
         ?Carbon $issuedAt,
         ?Carbon $paidAt,
     ): void {
         $this->recordedInvoiceEvents[] = [
             'provider_subscription_id' => $providerSubscriptionId, 'provider_invoice_id' => $providerInvoiceId,
             'amount_cents' => $amountCents, 'currency' => $currency, 'status' => $status,
-            'hosted_invoice_url' => $hostedInvoiceUrl, 'issued_at' => $issuedAt, 'paid_at' => $paidAt,
+            'hosted_invoice_url' => $hostedInvoiceUrl, 'invoice_pdf_url' => $invoicePdfUrl,
+            'issued_at' => $issuedAt, 'paid_at' => $paidAt,
         ];
     }
 }

@@ -94,6 +94,7 @@ final class StripePaymentGateway implements PaymentGatewayContract
                 invoiceCurrency: strtoupper((string) $object['currency']),
                 invoiceStatus: $object['status'],
                 hostedInvoiceUrl: $object['hosted_invoice_url'],
+                invoicePdfUrl: $object['invoice_pdf'],
                 invoiceIssuedAt: Carbon::createFromTimestamp($object['created']),
                 invoicePaidAt: ($object['status_transitions']['paid_at'] ?? null) !== null
                     ? Carbon::createFromTimestamp($object['status_transitions']['paid_at'])

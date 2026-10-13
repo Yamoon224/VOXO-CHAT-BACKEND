@@ -281,6 +281,7 @@ final class ModelFactory
             'currency' => 'EUR',
             'status' => InvoiceStatus::Paid,
             'hosted_invoice_url' => null,
+            'invoice_pdf_url' => null,
             'issued_at' => now(),
             'paid_at' => now(),
         ], true);

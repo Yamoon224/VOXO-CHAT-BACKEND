@@ -35,6 +35,7 @@ final class WebhookProcessor
                 (string) $event->invoiceCurrency,
                 (string) $event->invoiceStatus,
                 $event->hostedInvoiceUrl,
+                $event->invoicePdfUrl,
                 $event->invoiceIssuedAt,
                 $event->invoicePaidAt,
             ),

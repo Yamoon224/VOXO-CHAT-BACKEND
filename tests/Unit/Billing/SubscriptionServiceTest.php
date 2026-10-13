@@ -131,11 +131,11 @@ class SubscriptionServiceTest extends TestCase
 
         $service = new SubscriptionService($subscriptions, new InMemoryPlanRepository, $invoices, new InMemoryAiCreditLedger, new ArrayPaymentGateway);
 
-        $service->recordInvoiceEvent('sub_123', 'in_123', 1900, 'EUR', 'open', null, now(), null);
+        $service->recordInvoiceEvent('sub_123', 'in_123', 1900, 'EUR', 'open', null, null, now(), null);
         $this->assertCount(1, $invoices->forWorkspace('workspace-1'));
         $this->assertSame('open', $invoices->forWorkspace('workspace-1')->first()->status->value);
 
-        $service->recordInvoiceEvent('sub_123', 'in_123', 1900, 'EUR', 'paid', 'https://stripe.test/invoice', now(), now());
+        $service->recordInvoiceEvent('sub_123', 'in_123', 1900, 'EUR', 'paid', 'https://stripe.test/invoice', 'https://stripe.test/invoice.pdf', now(), now());
         $this->assertCount(1, $invoices->forWorkspace('workspace-1'));
         $this->assertSame('paid', $invoices->forWorkspace('workspace-1')->first()->status->value);
     }

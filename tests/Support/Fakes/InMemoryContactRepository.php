@@ -52,16 +52,32 @@ final class InMemoryContactRepository implements ContactRepositoryContract
 
     public function create(array $attributes): Contact
     {
-        $contact = ModelFactory::contact($attributes);
+        $contact = ModelFactory::contact($this->encodeJsonColumns($attributes));
 
         return $this->contacts[$contact->id] = $contact;
     }
 
     public function update(Contact $contact, array $attributes): Contact
     {
-        $contact->setRawAttributes($attributes + $contact->getAttributes(), true);
+        $contact->setRawAttributes($this->encodeJsonColumns($attributes) + $contact->getAttributes(), true);
 
         return $contact;
+    }
+
+    /**
+     * `custom_attributes` est un cast JSON : comme une vraie ligne, l'attribut
+     * brut doit être une chaîne, jamais le tableau PHP que le service fournit.
+     *
+     * @param  array<string, mixed>  $attributes
+     * @return array<string, mixed>
+     */
+    private function encodeJsonColumns(array $attributes): array
+    {
+        if (array_key_exists('custom_attributes', $attributes) && is_array($attributes['custom_attributes'])) {
+            $attributes['custom_attributes'] = json_encode($attributes['custom_attributes']);
+        }
+
+        return $attributes;
     }
 
     public function delete(Contact $contact): void

@@ -41,16 +41,32 @@ final class InMemoryContactSegmentRepository implements ContactSegmentRepository
 
     public function create(array $attributes): ContactSegment
     {
-        $segment = (new ContactSegment)->setRawAttributes($attributes + ['id' => (string) Str::uuid()], true);
+        $segment = (new ContactSegment)->setRawAttributes($this->encodeCriteria($attributes) + ['id' => (string) Str::uuid()], true);
 
         return $this->segments[$segment->id] = $segment;
     }
 
     public function update(ContactSegment $segment, array $attributes): ContactSegment
     {
-        $segment->setRawAttributes($attributes + $segment->getAttributes(), true);
+        $segment->setRawAttributes($this->encodeCriteria($attributes) + $segment->getAttributes(), true);
 
         return $segment;
+    }
+
+    /**
+     * `criteria` est un cast JSON : comme une vraie ligne, l'attribut brut
+     * doit être une chaîne, jamais le tableau PHP que le service fournit.
+     *
+     * @param  array<string, mixed>  $attributes
+     * @return array<string, mixed>
+     */
+    private function encodeCriteria(array $attributes): array
+    {
+        if (array_key_exists('criteria', $attributes) && is_array($attributes['criteria'])) {
+            $attributes['criteria'] = json_encode($attributes['criteria']);
+        }
+
+        return $attributes;
     }
 
     public function delete(ContactSegment $segment): void

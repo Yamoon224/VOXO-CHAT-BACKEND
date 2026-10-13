@@ -1132,6 +1132,280 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '404': { $ref: '#/components/responses/NotFound' }
 
+  /workspace/contacts:
+    get:
+      tags: [CRM]
+      summary: Liste des profils clients de l'espace
+      description: Permission `contacts.view`.
+      parameters:
+        - { name: search, in: query, schema: { type: string } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100 } }
+      responses:
+        '200':
+          description: Contacts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Contact' } }
+                  meta: { $ref: '#/components/schemas/PaginationMeta' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [CRM]
+      summary: Créer un profil client
+      description: Permission `contacts.manage`. Code d'erreur `contact_email_taken` (409).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ContactWriteRequest' }
+      responses:
+        '201':
+          description: Contact créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Contact' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '409': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/contacts/export:
+    get:
+      tags: [CRM]
+      summary: Exporter les contacts en CSV
+      description: Permission `contacts.view`. Mêmes colonnes que celles attendues à l'import.
+      responses:
+        '200':
+          description: Fichier CSV
+          content:
+            text/csv:
+              schema: { type: string }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/contacts/import:
+    post:
+      tags: [CRM]
+      summary: Importer des contacts depuis un CSV
+      description: |
+        Permission `contacts.manage`. Colonne `email` obligatoire dans
+        l'en-tête ; `name` et `phone` sont reconnues, toute autre colonne
+        devient un attribut personnalisé. Un contact existant (même e-mail)
+        est mis à jour, sinon créé. Code `contact_import_missing_email_column`
+        ou `contact_import_empty` (422).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file: { type: string, format: binary }
+      responses:
+        '200':
+          description: Résumé de l'import
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      created: { type: integer }
+                      updated: { type: integer }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/contacts/{contact}:
+    parameters:
+      - { name: contact, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [CRM]
+      summary: Consulter un profil client
+      description: Permission `contacts.view`.
+      responses:
+        '200':
+          description: Contact
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Contact' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [CRM]
+      summary: Modifier un profil client
+      description: Permission `contacts.manage`. Mise à jour partielle. Code `contact_email_taken` (409).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ContactWriteRequest' }
+      responses:
+        '200':
+          description: Contact modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Contact' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [CRM]
+      summary: Supprimer un profil client
+      description: Permission `contacts.manage`.
+      responses:
+        '204': { description: Contact supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/contacts/{contact}/notes:
+    parameters:
+      - { name: contact, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [CRM]
+      summary: Notes d'un contact
+      description: Permission `contacts.view`. Les plus récentes en premier.
+      responses:
+        '200':
+          description: Notes
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/ContactNote' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [CRM]
+      summary: Ajouter une note à un contact
+      description: Permission `contacts.manage`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body: { type: string, minLength: 1, maxLength: 5000 }
+      responses:
+        '201':
+          description: Note ajoutée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ContactNote' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/contacts/{contact}/events:
+    parameters:
+      - { name: contact, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [CRM]
+      summary: Historique chronologique d'un contact
+      description: Permission `contacts.view`. Les plus récents en premier.
+      responses:
+        '200':
+          description: Évènements
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/ContactEvent' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/contact-segments:
+    get:
+      tags: [CRM]
+      summary: Segments de l'espace
+      description: Permission `contacts.view`.
+      responses:
+        '200':
+          description: Segments
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/ContactSegment' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [CRM]
+      summary: Créer un segment
+      description: Permission `contacts.manage`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ContactSegmentWriteRequest' }
+      responses:
+        '201':
+          description: Segment créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ContactSegment' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/contact-segments/{segment}:
+    parameters:
+      - { name: segment, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      tags: [CRM]
+      summary: Modifier un segment
+      description: Permission `contacts.manage`. Mise à jour partielle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ContactSegmentWriteRequest' }
+      responses:
+        '200':
+          description: Segment modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ContactSegment' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [CRM]
+      summary: Supprimer un segment
+      description: Permission `contacts.manage`.
+      responses:
+        '204': { description: Segment supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/contact-segments/{segment}/contacts:
+    parameters:
+      - { name: segment, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [CRM]
+      summary: Contacts correspondant à un segment
+      description: Permission `contacts.view`. Évalué à la demande, pas mis en cache.
+      responses:
+        '200':
+          description: Contacts
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Contact' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
   /workspace/widget/settings:
     get:
       tags: [Widget]
@@ -1991,6 +2265,67 @@ components:
         title: { type: string }
         body: { type: string }
         created_at: { type: string, format: date-time }
+
+    Contact:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string, nullable: true }
+        email: { type: string, format: email, nullable: true }
+        phone: { type: string, nullable: true }
+        custom_attributes: { type: object, additionalProperties: true }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    ContactWriteRequest:
+      type: object
+      description: Création ou modification d'un contact. Mise à jour partielle sur `PUT`.
+      properties:
+        name: { type: string, nullable: true, maxLength: 120 }
+        email: { type: string, format: email, nullable: true }
+        phone: { type: string, nullable: true, maxLength: 40 }
+        custom_attributes: { type: object, additionalProperties: true, nullable: true }
+
+    ContactNote:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        body: { type: string }
+        author_name: { type: string, nullable: true }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    ContactEvent:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        type: { type: string, example: note_added }
+        payload: { type: object, additionalProperties: true }
+        occurred_at: { type: string, format: date-time }
+
+    ContactSegment:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        criteria:
+          type: array
+          items: { $ref: '#/components/schemas/ContactSegmentCriterion' }
+
+    ContactSegmentCriterion:
+      type: object
+      required: [field, operator]
+      properties:
+        field: { type: string, description: "`name`, `email`, `phone`, ou une clé d'attribut personnalisé." }
+        operator: { type: string, enum: [equals, contains, is_set, is_not_set] }
+        value: {}
+
+    ContactSegmentWriteRequest:
+      type: object
+      properties:
+        name: { type: string, maxLength: 120 }
+        criteria:
+          type: array
+          minItems: 1
+          items: { $ref: '#/components/schemas/ContactSegmentCriterion' }
 
     WidgetSettings:
       type: object

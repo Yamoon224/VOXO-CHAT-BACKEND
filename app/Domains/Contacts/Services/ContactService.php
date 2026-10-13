@@ -23,7 +23,10 @@ final class ContactService implements ContactLinkContract
         private readonly ContactEventRepositoryContract $events,
     ) {}
 
-    /** @param  array<string, mixed>  $filters */
+    /**
+     * @param  array<string, mixed>  $filters
+     * @return LengthAwarePaginator<int, Contact>
+     */
     public function paginate(string $workspaceId, array $filters, int $perPage): LengthAwarePaginator
     {
         return $this->contacts->paginate($workspaceId, $filters, $perPage);

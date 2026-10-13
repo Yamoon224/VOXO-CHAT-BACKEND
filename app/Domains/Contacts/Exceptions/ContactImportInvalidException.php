@@ -10,7 +10,7 @@ final class ContactImportInvalidException extends DomainException
     public static function missingEmailColumn(): self
     {
         return new self(
-            "Le fichier doit comporter une colonne « email » dans son en-tête.",
+            'Le fichier doit comporter une colonne « email » dans son en-tête.',
             'contact_import_missing_email_column',
             422,
         );

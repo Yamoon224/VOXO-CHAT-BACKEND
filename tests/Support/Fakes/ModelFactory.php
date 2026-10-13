@@ -71,6 +71,10 @@ final class ModelFactory
     /** @param  array<string, mixed>  $attributes */
     public static function contact(array $attributes = []): Contact
     {
+        if (array_key_exists('custom_attributes', $attributes) && is_array($attributes['custom_attributes'])) {
+            $attributes['custom_attributes'] = json_encode($attributes['custom_attributes']);
+        }
+
         return (new Contact)->setRawAttributes($attributes + [
             'id' => (string) Str::uuid(),
             'workspace_id' => (string) Str::uuid(),

@@ -1,0 +1,38 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:38:"v3-6.73.0.5-dev-master@e4f5f6c-8.3.32-";s:4:"data";a:17:{s:4:"name";s:7:"fgetcsv";s:10:"parameters";a:5:{s:6:"stream";a:13:{s:4:"name";s:6:"stream";s:7:"default";N;s:4:"type";N;s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:22;s:9:"endColumn";i:28;s:14:"parameterIndex";i:0;s:10:"isOptional";b:0;}s:6:"length";a:13:{s:4:"name";s:6:"length";s:7:"default";a:2:{s:4:"code";s:5:"\null";s:10:"attributes";a:6:{s:9:"startLine";i:43;s:7:"endLine";i:43;s:13:"startTokenPos";i:41;s:12:"startFilePos";i:1772;s:11:"endTokenPos";i:41;s:10:"endFilePos";i:1775;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionUnionType";s:4:"data";a:1:{s:5:"types";a:2:{i:0;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:3:"int";s:12:"isIdentifier";b:1;}}i:1;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"null";s:12:"isIdentifier";b:1;}}}}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:31;s:9:"endColumn";i:49;s:14:"parameterIndex";i:1;s:10:"isOptional";b:1;}s:9:"separator";a:13:{s:4:"name";s:9:"separator";s:7:"default";a:2:{s:4:"code";s:3:"','";s:10:"attributes";a:6:{s:9:"startLine";i:43;s:7:"endLine";i:43;s:13:"startTokenPos";i:50;s:12:"startFilePos";i:1798;s:11:"endTokenPos";i:50;s:10:"endFilePos";i:1800;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:52;s:9:"endColumn";i:74;s:14:"parameterIndex";i:2;s:10:"isOptional";b:1;}s:9:"enclosure";a:13:{s:4:"name";s:9:"enclosure";s:7:"default";a:2:{s:4:"code";s:3:"'"'";s:10:"attributes";a:6:{s:9:"startLine";i:43;s:7:"endLine";i:43;s:13:"startTokenPos";i:59;s:12:"startFilePos";i:1823;s:11:"endTokenPos";i:59;s:10:"endFilePos";i:1825;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:77;s:9:"endColumn";i:99;s:14:"parameterIndex";i:3;s:10:"isOptional";b:1;}s:6:"escape";a:13:{s:4:"name";s:6:"escape";s:7:"default";a:2:{s:4:"code";s:4:"'\\'";s:10:"attributes";a:6:{s:9:"startLine";i:43;s:7:"endLine";i:43;s:13:"startTokenPos";i:68;s:12:"startFilePos";i:1845;s:11:"endTokenPos";i:68;s:10:"endFilePos";i:1848;}}s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:6:"string";s:12:"isIdentifier";b:1;}}s:10:"isVariadic";b:0;s:5:"byRef";b:0;s:10:"isPromoted";b:0;s:10:"attributes";a:0:{}s:9:"startLine";i:43;s:7:"endLine";i:43;s:11:"startColumn";i:102;s:9:"endColumn";i:122;s:14:"parameterIndex";i:4;s:10:"isOptional";b:1;}}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionUnionType";s:4:"data";a:1:{s:5:"types";a:2:{i:0;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:5:"array";s:12:"isIdentifier";b:1;}}i:1;a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:5:"false";s:12:"isIdentifier";b:1;}}}}}s:10:"attributes";a:1:{i:0;a:3:{s:4:"name";s:50:"JetBrains\PhpStorm\Internal\LanguageLevelTypeAware";s:10:"isRepeated";b:0;s:9:"arguments";a:2:{i:0;a:2:{s:4:"code";s:24:"['8.0' => 'array|false']";s:10:"attributes";a:6:{s:9:"startLine";i:42;s:7:"endLine";i:42;s:13:"startTokenPos";i:11;s:12:"startFilePos";i:1671;s:11:"endTokenPos";i:17;s:10:"endFilePos";i:1694;}}s:7:"default";a:2:{s:4:"code";s:18:"'array|false|null'";s:10:"attributes";a:6:{s:9:"startLine";i:42;s:7:"endLine";i:42;s:13:"startTokenPos";i:23;s:12:"startFilePos";i:1706;s:11:"endTokenPos";i:23;s:10:"endFilePos";i:1723;}}}}}s:10:"docComment";s:1441:"/**
+ * Gets line from file pointer and parse for CSV fields
+ * @link https://php.net/manual/en/function.fgetcsv.php
+ * @param resource $stream <p>
+ * A valid file pointer to a file successfully opened by
+ * fopen, popen, or
+ * fsockopen.
+ * </p>
+ * @param int|null $length <p>
+ * Must be greater than the longest line (in characters) to be found in
+ * the CSV file (allowing for trailing line-end characters). It became
+ * optional in PHP 5. Omitting this parameter (or setting it to 0 in PHP
+ * 5.0.4 and later) the maximum line length is not limited, which is
+ * slightly slower.
+ * </p>
+ * @param string $separator [optional] <p>
+ * Set the field delimiter (one character only).
+ * </p>
+ * @param string $enclosure [optional] <p>
+ * Set the field enclosure character (one character only).
+ * </p>
+ * @param string $escape [optional] <p>
+ * Set the escape character (one character only). Defaults as a backslash.
+ * </p>
+ * @return array|false|null an indexed array containing the fields read.
+ * <p>
+ * A blank line in a CSV file will be returned as an array
+ * comprising a single null field, and will not be treated
+ * as an error.
+ * </p>
+ * <p>
+ * fgetcsv returns null if an invalid
+ * handle is supplied or false on other errors,
+ * including end of file.
+ * </p>
+ * @throws \ValueError Throws a ValueError if separator or enclosure is not one byte long. Throws a
+ * ValueError if escape is not one byte long or the empty string.
+ */";s:9:"startLine";i:42;s:7:"endLine";i:45;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:8:"isStatic";b:0;s:9:"namespace";N;s:13:"locatedSource";a:2:{s:5:"class";s:68:"PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource";s:4:"data";a:4:{s:4:"name";s:7:"fgetcsv";s:8:"filename";s:39:"phpstorm-stubs:standard/standard_6.stub";s:13:"extensionName";s:8:"standard";s:9:"aliasName";N;}}}}

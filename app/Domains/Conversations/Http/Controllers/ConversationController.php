@@ -11,6 +11,7 @@ use App\Domains\Conversations\Services\ConversationService;
 use App\Domains\Shared\Support\PageSize;
 use App\Domains\Shared\Support\WorkspaceScope;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -61,5 +62,22 @@ class ConversationController extends Controller
         $scope = WorkspaceScope::fromRequest($request);
 
         return new ConversationResource($this->insights->analyzeSentiment($scope->workspaceId, $conversation));
+    }
+
+    /**
+     * Copilote (section 2.2) : une suggestion, jamais un envoi — l'agent
+     * reste décisionnaire. Pas de ressource dédiée pour ce DTO : il n'a pas
+     * vocation à être connu de ce domaine au-delà du contrat qui le produit.
+     */
+    public function suggestReply(Request $request, string $conversation): JsonResponse
+    {
+        $scope = WorkspaceScope::fromRequest($request);
+        $suggestion = $this->insights->suggestReply($scope->workspaceId, $conversation);
+
+        return response()->json(['data' => [
+            'content' => $suggestion->content,
+            'citations' => $suggestion->citations,
+            'confidence' => $suggestion->confidence,
+        ]]);
     }
 }

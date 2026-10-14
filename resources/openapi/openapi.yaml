@@ -1135,6 +1135,28 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '404': { $ref: '#/components/responses/NotFound' }
 
+  /workspace/conversations/{conversation}/suggest-reply:
+    post:
+      tags: [Conversations]
+      summary: Copilote — suggérer une réponse à l'agent (section 2.2)
+      description: |
+        Permission `conversations.manage`. Jamais envoyée automatiquement :
+        l'agent relit, modifie si besoin, puis répond via l'endpoint des
+        messages. Consomme un crédit IA comme une réponse automatique. Code
+        d'erreur `ai_credit_quota_exceeded` (409) si le palier est épuisé.
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Suggestion de réponse
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AiReply' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/DomainError' }
+
   /workspace/contacts:
     get:
       tags: [CRM]

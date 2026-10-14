@@ -3,6 +3,7 @@
 namespace Tests\Unit\Assistant;
 
 use App\Domains\Assistant\DTOs\AiReply;
+use App\Domains\Assistant\Exceptions\AiCreditQuotaExceededException;
 use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Assistant\Services\AssistantService;
 use App\Domains\Conversations\Enums\ConversationStatus;
@@ -187,5 +188,49 @@ class AssistantServiceTest extends TestCase
 
         $this->assertSame('Le visiteur se plaint d\'un retard.', $summarized->summary);
         $this->assertSame('négatif', $analyzed->sentiment);
+    }
+
+    #[Test]
+    public function le_copilote_suggere_une_reponse_sans_la_publier(): void
+    {
+        $workspace = ModelFactory::workspace();
+        $conversation = ModelFactory::conversation(['workspace_id' => $workspace->id]);
+        $conversations = new InMemoryConversationRepository($conversation);
+        $messages = new InMemoryMessageRepository;
+        $messages->create(['conversation_id' => $conversation->id, 'workspace_id' => $workspace->id, 'sender_type' => 'visitor', 'body' => 'Quel est le prix ?']);
+
+        $ai = new ArrayAiProvider;
+        $ai->respondWith(new AiReply('Le prix est de 29€ par mois.', [['title' => 'Tarifs', 'content' => '29€/mois', 'citation_url' => null]], 0.6));
+        $quotas = new InMemoryQuotaGuard;
+
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas);
+
+        $suggestion = $service->suggestReply($workspace->id, $conversation->id);
+
+        $this->assertSame('Le prix est de 29€ par mois.', $suggestion->content);
+        $this->assertCount(1, $suggestion->citations);
+        // Toujours un seul message (celui du visiteur) : la suggestion n'est jamais publiée.
+        $this->assertCount(1, $messages->forConversation($conversation->id));
+        $this->assertCount(1, $quotas->consumed);
+    }
+
+    #[Test]
+    public function le_copilote_leve_une_exception_quand_le_quota_est_epuise(): void
+    {
+        $workspace = ModelFactory::workspace();
+        $conversation = ModelFactory::conversation(['workspace_id' => $workspace->id]);
+        $conversations = new InMemoryConversationRepository($conversation);
+        $messages = new InMemoryMessageRepository;
+        $messages->create(['conversation_id' => $conversation->id, 'workspace_id' => $workspace->id, 'sender_type' => 'visitor', 'body' => 'Quel est le prix ?']);
+
+        $ai = new ArrayAiProvider;
+        $quotas = new InMemoryQuotaGuard;
+        $quotas->allowAiCredits = false;
+
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas);
+
+        $this->expectException(AiCreditQuotaExceededException::class);
+
+        $service->suggestReply($workspace->id, $conversation->id);
     }
 }

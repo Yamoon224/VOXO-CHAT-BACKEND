@@ -7,6 +7,7 @@ use App\Domains\Assistant\Contracts\AssistantResponderContract;
 use App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract;
 use App\Domains\Assistant\Contracts\ConversationInsightContract;
 use App\Domains\Assistant\DTOs\AiReply;
+use App\Domains\Assistant\Exceptions\AiCreditQuotaExceededException;
 use App\Domains\Assistant\Jobs\RespondToVisitorMessageJob;
 use App\Domains\Billing\Contracts\QuotaGuardContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
@@ -121,6 +122,26 @@ final class AssistantService implements AssistantResponderContract, Conversation
         $sentiment = $this->ai->analyzeSentiment($this->historyFor($conversation->id));
 
         return $this->conversations->update($conversation, ['sentiment' => $sentiment]);
+    }
+
+    /** @throws AiCreditQuotaExceededException */
+    public function suggestReply(string $workspaceId, string $conversationId): AiReply
+    {
+        $conversation = $this->conversations->findInWorkspaceOrFail($workspaceId, $conversationId);
+
+        if (! $this->quotas->canConsumeAiCredit($workspaceId)) {
+            throw AiCreditQuotaExceededException::make();
+        }
+
+        $settings = $this->settings->findOrCreateForWorkspace($workspaceId);
+        $history = $this->historyFor($conversation->id);
+        $context = $this->knowledgeContext($workspaceId, $this->lastVisitorMessageBody($history) ?? '');
+
+        $reply = $this->ai->respond($this->systemPrompt($settings->tone_instructions), $history, $context);
+
+        $this->quotas->consumeAiCredit($workspaceId, 'Suggestion de réponse (copilote)', $conversation->id);
+
+        return $reply;
     }
 
     private function escalate(Conversation $conversation, string $message): void

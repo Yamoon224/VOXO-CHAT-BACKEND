@@ -227,6 +227,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/summarize', [ConversationController::class, 'summarize'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/sentiment', [ConversationController::class, 'analyzeSentiment'])->whereUuid('conversation');
+            Route::post('/conversations/{conversation}/suggest-reply', [ConversationController::class, 'suggestReply'])->whereUuid('conversation');
         });
 
         // =====================================================================

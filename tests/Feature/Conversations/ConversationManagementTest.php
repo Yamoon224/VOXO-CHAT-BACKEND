@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Conversations;
 
+use App\Domains\Assistant\DTOs\AiReply;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Models\Conversation;
 use App\Models\User;
@@ -91,5 +92,36 @@ class ConversationManagementTest extends TestCase
             ->postJson("/api/v1/workspace/conversations/{$conversation->id}/summarize")
             ->assertOk()
             ->assertJsonPath('data.summary', 'Résumé simulé de la conversation.');
+    }
+
+    #[Test]
+    public function le_copilote_suggere_une_reponse_sans_repondre_au_visiteur(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $agent = $this->memberOf($workspace, WorkspaceRole::Agent);
+        $conversation = Conversation::factory()->for($workspace)->create();
+
+        $this->aiProvider()->respondWith(new AiReply('Nous sommes ouverts de 9h à 18h.', [], 0.7));
+
+        $this->actingInWorkspace($agent, $workspace)
+            ->postJson("/api/v1/workspace/conversations/{$conversation->id}/suggest-reply")
+            ->assertOk()
+            ->assertJsonPath('data.content', 'Nous sommes ouverts de 9h à 18h.');
+
+        $this->getJson("/api/v1/workspace/conversations/{$conversation->id}/messages")
+            ->assertOk()
+            ->assertJsonCount(0, 'data');
+    }
+
+    #[Test]
+    public function un_lecteur_ne_peut_pas_demander_de_suggestion(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $viewer = $this->memberOf($workspace, WorkspaceRole::Viewer);
+        $conversation = Conversation::factory()->for($workspace)->create();
+
+        $this->actingInWorkspace($viewer, $workspace)
+            ->postJson("/api/v1/workspace/conversations/{$conversation->id}/suggest-reply")
+            ->assertStatus(403);
     }
 }

@@ -26,7 +26,7 @@ final class InMemoryTicketRepository implements TicketRepositoryContract
         $items = array_values(array_filter(
             $this->tickets,
             fn (Ticket $ticket) => $ticket->workspace_id === $workspaceId
-                && (! isset($filters['priority']) || $filters['priority'] === null || $ticket->priority->value === $filters['priority']),
+                && (! isset($filters['priority']) || $ticket->priority->value === $filters['priority']),
         ));
 
         return new Paginator($items, count($items), $perPage, 1);

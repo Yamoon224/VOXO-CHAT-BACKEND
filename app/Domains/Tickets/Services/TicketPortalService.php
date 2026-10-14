@@ -117,6 +117,9 @@ final class TicketPortalService
 
         $this->conversations->receiveReplyOnKnownConversation($ticket->workspace_id, $ticket->conversation_id, $body);
 
-        return $ticket;
+        // La conversation déjà chargée sur `$ticket` ne reflète pas d'elle-même
+        // le statut/`last_message_at` que la réponse vient de changer — même
+        // piège que celui documenté pour `ConversationService::assign()`.
+        return $ticket->load('conversation');
     }
 }

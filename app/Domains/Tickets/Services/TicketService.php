@@ -82,7 +82,9 @@ final class TicketService
             );
         }
 
-        return $ticket->setRelation('conversation', $conversation);
+        // Recharge pour obtenir `contact` et `conversation.assignedUser`, que
+        // `create()` ne charge pas — `TicketResource` en a besoin.
+        return $this->tickets->findInWorkspaceOrFail($scope->workspaceId, $ticket->id);
     }
 
     /** @param  array{priority?: TicketPriority, due_at?: Carbon|null}  $attributes */

@@ -38,6 +38,7 @@ tags:
   - name: Conversations
   - name: Widget
   - name: Canaux
+  - name: Tickets
   - name: Agent IA
   - name: Facturation
   - name: Paiements
@@ -1505,6 +1506,95 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/tickets:
+    get:
+      tags: [Tickets]
+      summary: Liste des tickets de l'espace
+      description: Permission `tickets.view`.
+      parameters:
+        - { name: priority, in: query, schema: { $ref: '#/components/schemas/TicketPriority' } }
+        - { name: overdue, in: query, schema: { type: boolean } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100 } }
+      responses:
+        '200':
+          description: Tickets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Ticket' } }
+                  meta: { $ref: '#/components/schemas/PaginationMeta' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/tickets/{ticket}:
+    get:
+      tags: [Tickets]
+      summary: Détail d'un ticket
+      description: Permission `tickets.view`.
+      parameters:
+        - { name: ticket, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Ticket
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Ticket' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Tickets]
+      summary: Modifier la priorité ou l'échéance d'un ticket
+      description: Permission `tickets.manage`.
+      parameters:
+        - { name: ticket, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority: { $ref: '#/components/schemas/TicketPriority' }
+                due_at: { type: string, format: date-time, nullable: true }
+      responses:
+        '200':
+          description: Ticket modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Ticket' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/conversations/{conversation}/ticket:
+    post:
+      tags: [Tickets]
+      summary: Transformer une conversation existante en ticket
+      description: Permission `tickets.manage`. Code d'erreur `ticket_already_exists` (422) si cette conversation en a déjà un.
+      parameters:
+        - { name: conversation, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority: { $ref: '#/components/schemas/TicketPriority' }
+                due_at: { type: string, format: date-time, nullable: true }
+      responses:
+        '201':
+          description: Ticket ouvert
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Ticket' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
   /workspace/assistant/settings:
     get:
       tags: [Agent IA]
@@ -1723,6 +1813,120 @@ paths:
           content:
             application/json:
               schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/tickets/{workspace}/submissions:
+    post:
+      tags: [Tickets]
+      summary: Ouvrir une nouvelle demande depuis le portail client
+      description: |
+        Pas d'authentification. Envoie un lien de portail signé par e-mail
+        (section 2.7) ; priorité toujours `normal`, fixée ensuite par l'équipe.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, subject, message]
+              properties:
+                email: { type: string, format: email }
+                name: { type: string, nullable: true, maxLength: 120 }
+                subject: { type: string, minLength: 1, maxLength: 200 }
+                message: { type: string, minLength: 1, maxLength: 5000 }
+      responses:
+        '201':
+          description: Ticket ouvert
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/TicketPortal' } } }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/tickets/{workspace}/portal-links:
+    post:
+      tags: [Tickets]
+      summary: Réémettre le lien de portail d'une adresse connue
+      description: Pas d'authentification. Répond 204 que l'adresse soit connue ou non — jamais d'énumération.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [email], properties: { email: { type: string, format: email } } }
+      responses:
+        '204': { description: Lien réémis si l'adresse est connue }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/tickets/portal/tickets:
+    get:
+      tags: [Tickets]
+      summary: Lister les tickets du contact désigné par le jeton de portail
+      security: []
+      parameters:
+        - { name: token, in: query, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Tickets du contact
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/TicketPortal' } } } }
+        '401': { $ref: '#/components/responses/DomainError' }
+
+  /public/tickets/portal/tickets/{ticket}:
+    get:
+      tags: [Tickets]
+      summary: Détail d'un ticket et de son fil, vu du portail
+      security: []
+      parameters:
+        - { name: ticket, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: token, in: query, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Ticket et messages publics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      ticket: { $ref: '#/components/schemas/TicketPortal' }
+                      messages: { type: array, items: { $ref: '#/components/schemas/TicketPortalMessage' } }
+        '401': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+
+  /public/tickets/portal/tickets/{ticket}/messages:
+    post:
+      tags: [Tickets]
+      summary: Répondre sur son ticket, vu du portail
+      description: Rouvre le ticket s'il était résolu.
+      security: []
+      parameters:
+        - { name: ticket, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, body]
+              properties:
+                token: { type: string }
+                body: { type: string, minLength: 1, maxLength: 10000 }
+      responses:
+        '201':
+          description: Message ajouté
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/TicketPortal' } } }
+        '401': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
   /invitations/{token}:
@@ -2283,7 +2487,7 @@ components:
 
     ConversationChannel:
       type: string
-      enum: [widget, email, contact_form]
+      enum: [widget, email, contact_form, ticket]
 
     MessageSenderType:
       type: string
@@ -2296,6 +2500,64 @@ components:
     WidgetPosition:
       type: string
       enum: [bottom_right, bottom_left]
+
+    TicketPriority:
+      type: string
+      enum: [low, normal, high, urgent]
+
+    Ticket:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        priority: { $ref: '#/components/schemas/TicketPriority' }
+        priority_label: { type: string }
+        due_at: { type: string, format: date-time, nullable: true }
+        is_overdue: { type: boolean }
+        created_at: { type: string, format: date-time }
+        contact:
+          type: object
+          nullable: true
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string, nullable: true }
+            email: { type: string, nullable: true }
+        conversation:
+          type: object
+          properties:
+            id: { type: string, format: uuid }
+            channel: { $ref: '#/components/schemas/ConversationChannel' }
+            channel_label: { type: string }
+            status: { $ref: '#/components/schemas/ConversationStatus' }
+            status_label: { type: string }
+            subject: { type: string, nullable: true }
+            visitor_name: { type: string, nullable: true }
+            visitor_email: { type: string, nullable: true }
+            assigned_user:
+              type: object
+              nullable: true
+              properties:
+                id: { type: string, format: uuid }
+                name: { type: string }
+            last_message_at: { type: string, format: date-time, nullable: true }
+
+    TicketPortal:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        subject: { type: string, nullable: true }
+        status: { $ref: '#/components/schemas/ConversationStatus' }
+        status_label: { type: string }
+        priority_label: { type: string }
+        last_message_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time }
+
+    TicketPortalMessage:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        sender_type: { $ref: '#/components/schemas/MessageSenderType' }
+        body: { type: string }
+        created_at: { type: string, format: date-time }
 
     Conversation:
       type: object

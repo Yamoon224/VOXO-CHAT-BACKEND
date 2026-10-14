@@ -6,14 +6,14 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue du client sur les messages de son ticket : jamais une note interne — même raison que `PublicMessageResource` (domaine `Widget`). */
+/**
+ * Vue du client sur les messages de son ticket : jamais une note interne — même raison que `PublicMessageResource` (domaine `Widget`).
+ *
+ * @mixin Message
+ */
 class TicketPortalMessageResource extends JsonResource
 {
-    /**
-     * @mixin Message
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         return [

@@ -15,6 +15,7 @@ use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Payments\Enums\InvoiceStatus;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Widget\Enums\WidgetPosition;
+use App\Domains\Tickets\Enums\TicketPriority;
 use App\Models\AssistantSettings;
 use App\Models\CannedResponse;
 use App\Models\ChannelEmailSettings;
@@ -27,6 +28,7 @@ use App\Models\KnowledgeSource;
 use App\Models\Message;
 use App\Models\Plan;
 use App\Models\Subscription;
+use App\Models\Ticket;
 use App\Models\User;
 use App\Models\WidgetSettings;
 use App\Models\Workspace;
@@ -190,6 +192,20 @@ final class ModelFactory
             'rating_comment' => null,
             'last_message_at' => null,
             'resolved_at' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function ticket(array $attributes = []): Ticket
+    {
+        return (new Ticket)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'conversation_id' => (string) Str::uuid(),
+            'contact_id' => null,
+            'priority' => TicketPriority::Normal,
+            'due_at' => null,
+            'created_at' => now(),
         ], true);
     }
 

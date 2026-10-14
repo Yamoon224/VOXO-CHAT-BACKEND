@@ -46,6 +46,14 @@ final class RecordingMailer implements TransactionalMailerContract
         ]];
     }
 
+    public function sendTicketPortalLink(string $email, string $name, string $subject, string $token): void
+    {
+        $this->sent[] = ['type' => 'ticket_portal_link', 'email' => $email, 'token' => $token, 'data' => [
+            'name' => $name,
+            'subject' => $subject,
+        ]];
+    }
+
     public function lastToken(): ?string
     {
         return $this->sent === [] ? null : $this->sent[array_key_last($this->sent)]['token'];

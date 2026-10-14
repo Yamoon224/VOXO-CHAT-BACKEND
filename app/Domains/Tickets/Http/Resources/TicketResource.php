@@ -6,14 +6,14 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue agent : priorité, échéance SLA, et l'essentiel de la conversation qu'elle habille. */
+/**
+ * Vue agent : priorité, échéance SLA, et l'essentiel de la conversation qu'elle habille.
+ *
+ * @mixin Ticket
+ */
 class TicketResource extends JsonResource
 {
-    /**
-     * @mixin Ticket
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         $conversation = $this->conversation;

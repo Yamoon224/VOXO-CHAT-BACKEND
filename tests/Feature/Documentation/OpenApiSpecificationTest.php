@@ -15,6 +15,7 @@ use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Payments\Enums\InvoiceStatus;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Shared\Http\Controllers\DocumentationController;
+use App\Domains\Tickets\Enums\TicketPriority;
 use App\Domains\Widget\Enums\WidgetPosition;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -124,6 +125,7 @@ class OpenApiSpecificationTest extends TestCase
         yield 'BillingInterval' => ['BillingInterval', BillingInterval::values()];
         yield 'SubscriptionStatus' => ['SubscriptionStatus', SubscriptionStatus::values()];
         yield 'InvoiceStatus' => ['InvoiceStatus', InvoiceStatus::values()];
+        yield 'TicketPriority' => ['TicketPriority', TicketPriority::values()];
     }
 
     #[Test]

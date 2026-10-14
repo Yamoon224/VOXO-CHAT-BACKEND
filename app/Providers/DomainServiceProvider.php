@@ -94,6 +94,9 @@ use App\Domains\Payments\Gateways\StripePaymentGateway;
 use App\Domains\Payments\Services\CheckoutService;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
+use App\Domains\Tickets\Contracts\TicketRepositoryContract;
+use App\Domains\Tickets\Repositories\EloquentTicketRepository;
+use App\Domains\Tickets\Support\TicketPortalToken;
 use App\Domains\Users\Contracts\UserRepositoryContract;
 use App\Domains\Users\Repositories\EloquentUserRepository;
 use App\Domains\Widget\Contracts\WidgetSettingsRepositoryContract;
@@ -222,6 +225,9 @@ class DomainServiceProvider extends ServiceProvider
         // Lecture étroite exposée au domaine `Conversations` : une réponse
         // publique vient d'être postée, à relayer vers son canal d'origine.
         OutboundChannelDispatcherContract::class => ChannelDispatchService::class,
+
+        // --- Tickets (lot 4) ------------------------------------------------------------
+        TicketRepositoryContract::class => EloquentTicketRepository::class,
     ];
 
     public function register(): void
@@ -233,6 +239,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerWidgetSupport();
         $this->registerPaymentsProvider();
         $this->registerChannelsProvider();
+        $this->registerTicketsSupport();
 
         $this->app->bind(FrontendUrl::class, fn (): FrontendUrl => new FrontendUrl(
             (string) config('voxo.frontend_url'),
@@ -429,6 +436,14 @@ class DomainServiceProvider extends ServiceProvider
 
             return $this->app->make($driver);
         });
+    }
+
+    private function registerTicketsSupport(): void
+    {
+        $this->app->bind(TicketPortalToken::class, fn (): TicketPortalToken => new TicketPortalToken(
+            (string) config('app.key'),
+            (int) config('tickets.portal.ttl_days'),
+        ));
     }
 
     private function registerWidgetSupport(): void

@@ -6,14 +6,14 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** Vue client du portail : jamais l'affectation ni les notes internes, qui ne la concernent pas. */
+/**
+ * Vue client du portail : jamais l'affectation ni les notes internes, qui ne la concernent pas.
+ *
+ * @mixin Ticket
+ */
 class TicketPortalResource extends JsonResource
 {
-    /**
-     * @mixin Ticket
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         $conversation = $this->conversation;

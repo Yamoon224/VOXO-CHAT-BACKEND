@@ -32,6 +32,12 @@ use App\Domains\Payments\Http\Controllers\CheckoutController;
 use App\Domains\Payments\Http\Controllers\WebhookController;
 use App\Domains\Platform\Http\Controllers\PlatformWorkspaceController;
 use App\Domains\Shared\Http\Controllers\HealthController;
+use App\Domains\Tickets\Http\Controllers\OpenTicketFromConversationController;
+use App\Domains\Tickets\Http\Controllers\PublicTicketController;
+use App\Domains\Tickets\Http\Controllers\TicketController;
+use App\Domains\Tickets\Http\Controllers\TicketPortalController;
+use App\Domains\Tickets\Http\Controllers\TicketPortalLinkController;
+use App\Domains\Tickets\Http\Controllers\TicketPortalMessageController;
 use App\Domains\Users\Http\Controllers\ProfileController;
 use App\Domains\Widget\Http\Controllers\PublicWidgetSettingsController;
 use App\Domains\Widget\Http\Controllers\VisitorMessageController;
@@ -106,6 +112,20 @@ Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): 
 Route::prefix('public/channels')->middleware('throttle:60,1')->group(function (): void {
     Route::post('/email/{workspace}/inbound', [InboundEmailController::class, 'store'])->whereUuid('workspace');
     Route::post('/contact-form/{workspace}/submissions', [ContactFormController::class, 'store'])->whereUuid('workspace');
+});
+
+// Portail client des tickets (lot 4, section 2.7) : pas de compte, un lien
+// signé reçu par e-mail à l'ouverture donne accès à l'historique du contact
+// (voir `TicketPortalToken`) — même raisonnement que `public/widget`, mais un
+// jeton qui vit des mois plutôt que des minutes. Les routes `portal/...` sont
+// déclarées avant celles à `{workspace}` : littérales, elles n'ont pas besoin
+// de l'arbitrage de `whereUuid` pour ne jamais s'y confondre.
+Route::prefix('public/tickets')->middleware('throttle:60,1')->group(function (): void {
+    Route::get('/portal/tickets', [TicketPortalController::class, 'index']);
+    Route::get('/portal/tickets/{ticket}', [TicketPortalController::class, 'show'])->whereUuid('ticket');
+    Route::post('/portal/tickets/{ticket}/messages', [TicketPortalMessageController::class, 'store'])->whereUuid('ticket');
+    Route::post('/{workspace}/submissions', [PublicTicketController::class, 'store'])->whereUuid('workspace');
+    Route::post('/{workspace}/portal-links', [TicketPortalLinkController::class, 'store'])->whereUuid('workspace');
 });
 
 // Rappels du prestataire de paiement (lot 3) : l'authenticité tient à la
@@ -196,6 +216,20 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/summarize', [ConversationController::class, 'summarize'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/sentiment', [ConversationController::class, 'analyzeSentiment'])->whereUuid('conversation');
+        });
+
+        // =====================================================================
+        // Tickets (lot 4) : une conversation devient ticket, priorité, échéance.
+        // =====================================================================
+
+        Route::middleware('workspace.can:tickets.view')->group(function (): void {
+            Route::get('/tickets', [TicketController::class, 'index']);
+            Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->whereUuid('ticket');
+        });
+
+        Route::middleware('workspace.can:tickets.manage')->group(function (): void {
+            Route::post('/conversations/{conversation}/ticket', [OpenTicketFromConversationController::class, 'store'])->whereUuid('conversation');
+            Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->whereUuid('ticket');
         });
 
         Route::middleware('workspace.can:canned_responses.manage')->group(function (): void {

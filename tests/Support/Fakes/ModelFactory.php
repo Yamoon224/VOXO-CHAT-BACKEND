@@ -8,6 +8,7 @@ use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Enums\MessageVisibility;
+use App\Domains\HelpCenter\Enums\ArticleStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
@@ -21,6 +22,8 @@ use App\Models\CannedResponse;
 use App\Models\ChannelEmailSettings;
 use App\Models\Contact;
 use App\Models\Conversation;
+use App\Models\HelpCenterArticle;
+use App\Models\HelpCenterCategory;
 use App\Models\Invoice;
 use App\Models\KnowledgeChunk;
 use App\Models\KnowledgeDocument;
@@ -223,6 +226,38 @@ final class ModelFactory
             'citations' => null,
             'attachment_path' => null,
             'attachment_filename' => null,
+            'created_at' => now(),
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function helpCenterCategory(array $attributes = []): HelpCenterCategory
+    {
+        return (new HelpCenterCategory)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'name' => 'Catégorie de test',
+            'slug' => 'categorie-de-test',
+            'locale' => 'fr',
+            'position' => 0,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function helpCenterArticle(array $attributes = []): HelpCenterArticle
+    {
+        return (new HelpCenterArticle)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'category_id' => null,
+            'title' => 'Article de test',
+            'slug' => 'article-de-test',
+            'locale' => 'fr',
+            'body' => 'Contenu de test.',
+            'status' => ArticleStatus::Draft,
+            'meta_description' => null,
+            'position' => 0,
+            'published_at' => null,
             'created_at' => now(),
         ], true);
     }

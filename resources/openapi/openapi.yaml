@@ -1596,6 +1596,192 @@ paths:
         '404': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/help-center/categories:
+    get:
+      tags: [Centre d'aide]
+      summary: Liste des catégories du centre d'aide
+      description: Permission `help_center.view`.
+      responses:
+        '200':
+          description: Catégories
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/HelpCenterCategory' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Centre d'aide]
+      summary: Créer une catégorie
+      description: Permission `help_center.manage`. Le slug est dérivé du nom, jamais saisi.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, maxLength: 120 }
+                locale: { $ref: '#/components/schemas/Locale' }
+                position: { type: integer, minimum: 0 }
+      responses:
+        '201':
+          description: Catégorie créée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/HelpCenterCategory' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/help-center/categories/{category}:
+    put:
+      tags: [Centre d'aide]
+      summary: Modifier une catégorie
+      description: Permission `help_center.manage`.
+      parameters:
+        - { name: category, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, maxLength: 120 }
+                position: { type: integer, minimum: 0 }
+      responses:
+        '200':
+          description: Catégorie modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/HelpCenterCategory' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Centre d'aide]
+      summary: Supprimer une catégorie
+      description: Permission `help_center.manage`. Ses articles restent, sans catégorie.
+      parameters:
+        - { name: category, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Catégorie supprimée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/help-center/articles:
+    get:
+      tags: [Centre d'aide]
+      summary: Liste des articles du centre d'aide
+      description: Permission `help_center.view`.
+      parameters:
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ArticleStatus' } }
+        - { name: category_id, in: query, schema: { type: string, format: uuid } }
+        - { name: locale, in: query, schema: { $ref: '#/components/schemas/Locale' } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100 } }
+      responses:
+        '200':
+          description: Articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/HelpCenterArticle' } }
+                  meta: { $ref: '#/components/schemas/PaginationMeta' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Centre d'aide]
+      summary: Créer un article
+      description: Permission `help_center.manage`. Le slug est dérivé du titre, jamais saisi.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title: { type: string, maxLength: 200 }
+                category_id: { type: string, format: uuid, nullable: true }
+                locale: { $ref: '#/components/schemas/Locale' }
+                body: { type: string }
+                status: { $ref: '#/components/schemas/ArticleStatus' }
+                meta_description: { type: string, nullable: true, maxLength: 160 }
+                position: { type: integer, minimum: 0 }
+      responses:
+        '201':
+          description: Article créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/HelpCenterArticle' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/help-center/articles/{article}:
+    get:
+      tags: [Centre d'aide]
+      summary: Détail d'un article
+      description: Permission `help_center.view`.
+      parameters:
+        - { name: article, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Article
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/HelpCenterArticle' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Centre d'aide]
+      summary: Modifier un article
+      description: Permission `help_center.manage`.
+      parameters:
+        - { name: article, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title: { type: string, maxLength: 200 }
+                category_id: { type: string, format: uuid, nullable: true }
+                body: { type: string }
+                status: { $ref: '#/components/schemas/ArticleStatus' }
+                meta_description: { type: string, nullable: true, maxLength: 160 }
+                position: { type: integer, minimum: 0 }
+      responses:
+        '200':
+          description: Article modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/HelpCenterArticle' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Centre d'aide]
+      summary: Supprimer un article
+      description: Permission `help_center.manage`.
+      parameters:
+        - { name: article, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Article supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/DomainError' }
+
   /workspace/assistant/settings:
     get:
       tags: [Agent IA]
@@ -1929,6 +2115,55 @@ paths:
         '401': { $ref: '#/components/responses/DomainError' }
         '404': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/help-center/{workspace}/categories:
+    get:
+      tags: [Centre d'aide]
+      summary: Catégories publiques du centre d'aide d'un espace
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: locale, in: query, schema: { $ref: '#/components/schemas/Locale' } }
+      responses:
+        '200':
+          description: Catégories
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/HelpCenterCategory' } } } }
+
+  /public/help-center/{workspace}/articles:
+    get:
+      tags: [Centre d'aide]
+      summary: Articles publiés d'un espace
+      description: Jamais un brouillon — « articles privés » du cahier des charges.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: locale, in: query, schema: { $ref: '#/components/schemas/Locale' } }
+        - { name: category_id, in: query, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Articles publiés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/PublicHelpCenterArticle' } } } }
+
+  /public/help-center/{workspace}/articles/{slug}:
+    get:
+      tags: [Centre d'aide]
+      summary: Détail d'un article publié, par son slug
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: slug, in: path, required: true, schema: { type: string } }
+        - { name: locale, in: query, schema: { $ref: '#/components/schemas/Locale' } }
+      responses:
+        '200':
+          description: Article publié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/PublicHelpCenterArticle' } } }
+        '404': { $ref: '#/components/responses/DomainError' }
 
   /invitations/{token}:
     get:
@@ -2559,6 +2794,58 @@ components:
         sender_type: { $ref: '#/components/schemas/MessageSenderType' }
         body: { type: string }
         created_at: { type: string, format: date-time }
+
+    ArticleStatus:
+      type: string
+      enum: [draft, published]
+
+    HelpCenterCategory:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        locale: { $ref: '#/components/schemas/Locale' }
+        position: { type: integer }
+
+    HelpCenterArticle:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        slug: { type: string }
+        locale: { $ref: '#/components/schemas/Locale' }
+        body: { type: string }
+        status: { $ref: '#/components/schemas/ArticleStatus' }
+        status_label: { type: string }
+        meta_description: { type: string, nullable: true }
+        position: { type: integer }
+        category:
+          type: object
+          nullable: true
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+        published_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time }
+
+    PublicHelpCenterArticle:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        slug: { type: string }
+        locale: { $ref: '#/components/schemas/Locale' }
+        body: { type: string }
+        meta_description: { type: string, nullable: true }
+        category:
+          type: object
+          nullable: true
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+            slug: { type: string }
+        published_at: { type: string, format: date-time, nullable: true }
 
     Conversation:
       type: object

@@ -8,6 +8,7 @@ use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Enums\MessageVisibility;
+use App\Domains\HelpCenter\Enums\ArticleStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
@@ -126,6 +127,7 @@ class OpenApiSpecificationTest extends TestCase
         yield 'SubscriptionStatus' => ['SubscriptionStatus', SubscriptionStatus::values()];
         yield 'InvoiceStatus' => ['InvoiceStatus', InvoiceStatus::values()];
         yield 'TicketPriority' => ['TicketPriority', TicketPriority::values()];
+        yield 'ArticleStatus' => ['ArticleStatus', ArticleStatus::values()];
     }
 
     #[Test]

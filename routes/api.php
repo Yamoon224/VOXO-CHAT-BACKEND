@@ -22,6 +22,9 @@ use App\Domains\Contacts\Http\Controllers\ContactSegmentController;
 use App\Domains\Conversations\Http\Controllers\CannedResponseController;
 use App\Domains\Conversations\Http\Controllers\ConversationController;
 use App\Domains\Conversations\Http\Controllers\MessageController;
+use App\Domains\HelpCenter\Http\Controllers\HelpCenterArticleController;
+use App\Domains\HelpCenter\Http\Controllers\HelpCenterCategoryController;
+use App\Domains\HelpCenter\Http\Controllers\PublicHelpCenterController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeDocumentController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeQaEntryController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeSearchController;
@@ -128,6 +131,14 @@ Route::prefix('public/tickets')->middleware('throttle:60,1')->group(function ():
     Route::post('/{workspace}/portal-links', [TicketPortalLinkController::class, 'store'])->whereUuid('workspace');
 });
 
+// Pages publiques du centre d'aide (lot 4, section 2.10) : pas de compte, pas
+// de jeton — seul le brouillon reste caché (`HelpCenterPublicService`).
+Route::prefix('public/help-center')->middleware('throttle:60,1')->group(function (): void {
+    Route::get('/{workspace}/categories', [PublicHelpCenterController::class, 'categories'])->whereUuid('workspace');
+    Route::get('/{workspace}/articles', [PublicHelpCenterController::class, 'articles'])->whereUuid('workspace');
+    Route::get('/{workspace}/articles/{slug}', [PublicHelpCenterController::class, 'article'])->whereUuid('workspace');
+});
+
 // Rappels du prestataire de paiement (lot 3) : l'authenticité tient à la
 // signature du corps, vérifiée dans `PaymentGatewayContract::parseWebhookEvent()`
 // — jamais à un jeton Sanctum, que Stripe ne détient pas.
@@ -230,6 +241,25 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::middleware('workspace.can:tickets.manage')->group(function (): void {
             Route::post('/conversations/{conversation}/ticket', [OpenTicketFromConversationController::class, 'store'])->whereUuid('conversation');
             Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->whereUuid('ticket');
+        });
+
+        // =====================================================================
+        // Centre d'aide (lot 4) : catégories et articles publics, section 2.10.
+        // =====================================================================
+
+        Route::middleware('workspace.can:help_center.view')->group(function (): void {
+            Route::get('/help-center/categories', [HelpCenterCategoryController::class, 'index']);
+            Route::get('/help-center/articles', [HelpCenterArticleController::class, 'index']);
+            Route::get('/help-center/articles/{article}', [HelpCenterArticleController::class, 'show'])->whereUuid('article');
+        });
+
+        Route::middleware('workspace.can:help_center.manage')->group(function (): void {
+            Route::post('/help-center/categories', [HelpCenterCategoryController::class, 'store']);
+            Route::put('/help-center/categories/{category}', [HelpCenterCategoryController::class, 'update'])->whereUuid('category');
+            Route::delete('/help-center/categories/{category}', [HelpCenterCategoryController::class, 'destroy'])->whereUuid('category');
+            Route::post('/help-center/articles', [HelpCenterArticleController::class, 'store']);
+            Route::put('/help-center/articles/{article}', [HelpCenterArticleController::class, 'update'])->whereUuid('article');
+            Route::delete('/help-center/articles/{article}', [HelpCenterArticleController::class, 'destroy'])->whereUuid('article');
         });
 
         Route::middleware('workspace.can:canned_responses.manage')->group(function (): void {

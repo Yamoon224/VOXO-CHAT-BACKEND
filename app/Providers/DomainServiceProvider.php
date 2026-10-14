@@ -57,6 +57,10 @@ use App\Domains\Conversations\Repositories\EloquentCannedResponseRepository;
 use App\Domains\Conversations\Repositories\EloquentConversationRepository;
 use App\Domains\Conversations\Repositories\EloquentMessageRepository;
 use App\Domains\Conversations\Services\ConversationService;
+use App\Domains\HelpCenter\Contracts\HelpCenterArticleRepositoryContract;
+use App\Domains\HelpCenter\Contracts\HelpCenterCategoryRepositoryContract;
+use App\Domains\HelpCenter\Repositories\EloquentHelpCenterArticleRepository;
+use App\Domains\HelpCenter\Repositories\EloquentHelpCenterCategoryRepository;
 use App\Domains\Knowledge\Contracts\EmbeddingProviderContract;
 use App\Domains\Knowledge\Contracts\EmbeddingSearchContract;
 use App\Domains\Knowledge\Contracts\KnowledgeChunkRepositoryContract;
@@ -228,6 +232,10 @@ class DomainServiceProvider extends ServiceProvider
 
         // --- Tickets (lot 4) ------------------------------------------------------------
         TicketRepositoryContract::class => EloquentTicketRepository::class,
+
+        // --- Centre d'aide (lot 4) ------------------------------------------------------
+        HelpCenterCategoryRepositoryContract::class => EloquentHelpCenterCategoryRepository::class,
+        HelpCenterArticleRepositoryContract::class => EloquentHelpCenterArticleRepository::class,
     ];
 
     public function register(): void

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Conversations;
 
+use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Exceptions\AssigneeNotMemberException;
 use App\Domains\Conversations\Services\ConversationService;
@@ -53,6 +54,28 @@ class ConversationServiceTest extends TestCase
 
         $this->assertSame($first->id, $second->id);
         $this->assertCount(2, $messages->forConversation($first->id));
+    }
+
+    #[Test]
+    public function un_message_de_canal_e_mail_rattache_le_contact_deja_resolu(): void
+    {
+        $conversations = new InMemoryConversationRepository;
+        $messages = new InMemoryMessageRepository;
+
+        $service = new ConversationService($conversations, $messages, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager);
+
+        $conversation = $service->receiveChannelMessage(
+            'workspace-1',
+            'email',
+            'client@exemple.fr',
+            'Bonjour, j\'ai une question.',
+            'Client Exemple',
+            'client@exemple.fr',
+            'contact-1',
+        );
+
+        $this->assertSame(ConversationChannel::Email, $conversation->channel);
+        $this->assertSame('contact-1', $conversation->contact_id);
     }
 
     #[Test]

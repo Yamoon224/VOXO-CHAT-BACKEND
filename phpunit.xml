@@ -61,6 +61,7 @@
         <env name="KNOWLEDGE_CRAWLER_DRIVER" value="array"/>
         <env name="ASSISTANT_AI_DRIVER" value="array"/>
         <env name="PAYMENTS_GATEWAY_DRIVER" value="array"/>
+        <env name="CHANNELS_EMAIL_DRIVER" value="array"/>
 
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>

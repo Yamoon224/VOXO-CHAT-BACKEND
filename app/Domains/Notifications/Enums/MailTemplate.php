@@ -14,6 +14,7 @@ enum MailTemplate: string
     case PasswordReset = 'password_reset';
     case WorkspaceInvitation = 'workspace_invitation';
     case QuotaAlert = 'quota_alert';
+    case TicketPortalLink = 'ticket_portal_link';
 
     public function view(): string
     {
@@ -36,6 +37,7 @@ enum MailTemplate: string
                     ? 'quota atteint'
                     : 'vous approchez de votre quota',
             ),
+            self::TicketPortalLink => 'Votre demande a bien été reçue',
         };
     }
 

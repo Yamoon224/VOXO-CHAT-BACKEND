@@ -2,6 +2,7 @@
 
 namespace App\Domains\Conversations\Services;
 
+use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
 use App\Domains\Conversations\Enums\MessageSenderType;
@@ -15,6 +16,7 @@ final class MessageService
     public function __construct(
         private readonly ConversationRepositoryContract $conversations,
         private readonly MessageRepositoryContract $messages,
+        private readonly OutboundChannelDispatcherContract $dispatcher,
     ) {}
 
     /** @return Collection<int, Message> */
@@ -48,6 +50,12 @@ final class MessageService
             'last_message_at' => now(),
             'needs_human' => $visibility === MessageVisibility::Public ? false : $conversation->needs_human,
         ]);
+
+        // Note interne : jamais renvoyée au visiteur, donc rien à relayer au
+        // canal d'origine (`Channels` n'en sait rien et ne doit pas en savoir).
+        if ($visibility === MessageVisibility::Public) {
+            $this->dispatcher->dispatchReply($scope->workspaceId, $conversation->channel->value, $conversation->visitor_email, $body);
+        }
 
         return $message;
     }

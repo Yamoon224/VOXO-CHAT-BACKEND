@@ -32,6 +32,12 @@ use App\Domains\Billing\Repositories\EloquentQuotaAlertRepository;
 use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
 use App\Domains\Billing\Services\QuotaGuardService;
 use App\Domains\Billing\Services\SubscriptionService;
+use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
+use App\Domains\Channels\Contracts\EmailChannelProviderContract;
+use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
+use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
+use App\Domains\Channels\Repositories\EloquentChannelEmailSettingsRepository;
+use App\Domains\Channels\Services\ChannelDispatchService;
 use App\Domains\Contacts\Contracts\ContactEventRepositoryContract;
 use App\Domains\Contacts\Contracts\ContactLinkContract;
 use App\Domains\Contacts\Contracts\ContactNoteRepositoryContract;
@@ -210,6 +216,12 @@ class DomainServiceProvider extends ServiceProvider
         // --- Conversation : lecture étroite exposée au domaine `Analytics` (lot 3) ---
         // Analytics lit, n'écrit pas.
         ConversationReaderContract::class => EloquentConversationRepository::class,
+
+        // --- Canaux (lot 4) ------------------------------------------------------------
+        ChannelEmailSettingsRepositoryContract::class => EloquentChannelEmailSettingsRepository::class,
+        // Lecture étroite exposée au domaine `Conversations` : une réponse
+        // publique vient d'être postée, à relayer vers son canal d'origine.
+        OutboundChannelDispatcherContract::class => ChannelDispatchService::class,
     ];
 
     public function register(): void
@@ -220,6 +232,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerAssistantProvider();
         $this->registerWidgetSupport();
         $this->registerPaymentsProvider();
+        $this->registerChannelsProvider();
 
         $this->app->bind(FrontendUrl::class, fn (): FrontendUrl => new FrontendUrl(
             (string) config('voxo.frontend_url'),
@@ -396,6 +409,25 @@ class DomainServiceProvider extends ServiceProvider
                     (string) config('payments.stripe.webhook_secret'),
                 )
                 : $this->app->make($driver);
+        });
+    }
+
+    /** Pilote d'envoi du canal e-mail, choisi par configuration (même garde que `registerMailSender()`). */
+    private function registerChannelsProvider(): void
+    {
+        $this->app->singleton(ArrayEmailChannelProvider::class);
+
+        $this->app->singleton(EmailChannelProviderContract::class, function (): EmailChannelProviderContract {
+            $name = (string) config('channels.email.driver');
+            $driver = config("channels.email.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, EmailChannelProviderContract::class)) {
+                throw new RuntimeException(
+                    "Pilote du canal e-mail « {$name} » inconnu. Vérifiez CHANNELS_EMAIL_DRIVER et config/channels.php.",
+                );
+            }
+
+            return $this->app->make($driver);
         });
     }
 

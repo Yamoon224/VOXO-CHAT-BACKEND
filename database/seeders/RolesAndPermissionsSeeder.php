@@ -41,6 +41,7 @@ class RolesAndPermissionsSeeder extends Seeder
         'conversations.manage' => 'Répondre, affecter, changer le statut et noter les conversations.',
         'canned_responses.manage' => 'Créer, modifier et supprimer les réponses pré-enregistrées.',
         'widget.manage' => 'Régler l\'apparence, les horaires et le script du widget.',
+        'channels.manage' => "Régler le canal e-mail : activation et domaine d'envoi.",
         'assistant.manage' => "Régler l'agent IA et tester le bac à sable.",
         'billing.view' => "Consulter le palier, l'abonnement et la consommation de l'espace de travail.",
         'billing.manage' => "Changer de palier, résilier l'abonnement et consulter les factures.",
@@ -58,12 +59,12 @@ class RolesAndPermissionsSeeder extends Seeder
         User::PLATFORM_ADMIN_ROLE => ['platform.manage'],
         WorkspaceRole::Owner->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
-            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage',
         ],
         WorkspaceRole::Admin->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
-            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'assistant.manage',
+            'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage',
         ],
         WorkspaceRole::Agent->value => [

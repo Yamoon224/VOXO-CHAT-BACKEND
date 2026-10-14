@@ -17,6 +17,7 @@ use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Widget\Enums\WidgetPosition;
 use App\Models\AssistantSettings;
 use App\Models\CannedResponse;
+use App\Models\ChannelEmailSettings;
 use App\Models\Contact;
 use App\Models\Conversation;
 use App\Models\Invoice;
@@ -179,6 +180,7 @@ final class ModelFactory
             'visitor_id' => (string) Str::uuid(),
             'visitor_name' => null,
             'visitor_email' => null,
+            'contact_id' => null,
             'assigned_user_id' => null,
             'subject' => null,
             'summary' => null,
@@ -217,6 +219,18 @@ final class ModelFactory
             'workspace_id' => (string) Str::uuid(),
             'title' => 'Réponse de test',
             'body' => 'Corps de la réponse.',
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function channelEmailSettings(array $attributes = []): ChannelEmailSettings
+    {
+        return (new ChannelEmailSettings)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'enabled' => false,
+            'reply_from_email' => null,
+            'reply_from_name' => null,
         ], true);
     }
 

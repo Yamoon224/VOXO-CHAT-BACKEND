@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
+use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
 use App\Domains\Knowledge\Crawling\ArrayWebCrawler;
 use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use App\Domains\Knowledge\Ocr\ArrayOcrEngine;
@@ -121,5 +122,11 @@ abstract class TestCase extends BaseTestCase
     protected function paymentGateway(): ArrayPaymentGateway
     {
         return $this->app->make(ArrayPaymentGateway::class);
+    }
+
+    /** `CHANNELS_EMAIL_DRIVER=array` en environnement de test. */
+    protected function emailChannelProvider(): ArrayEmailChannelProvider
+    {
+        return $this->app->make(ArrayEmailChannelProvider::class);
     }
 }

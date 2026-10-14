@@ -1,0 +1,110 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:83:"v2-4021a31071448ec49b40ff560bc34a5558d339d37da8c8ed850e6f5da5dd2d90-8.3.32-6.73.0.5";s:4:"data";a:22:{s:13:"locatedSource";a:2:{s:5:"class";s:60:"PHPStan\BetterReflection\SourceLocator\Located\LocatedSource";s:4:"data";a:2:{s:4:"name";s:35:"App\Providers\DomainServiceProvider";s:8:"filename";s:72:"C:/laragon/www/voxo.chat/backend/app/Providers/DomainServiceProvider.php";}}s:9:"namespace";s:13:"App\Providers";s:4:"name";s:35:"App\Providers\DomainServiceProvider";s:9:"shortName";s:21:"DomainServiceProvider";s:11:"isInterface";b:0;s:7:"isTrait";b:0;s:6:"isEnum";b:0;s:12:"isBackedEnum";b:0;s:9:"modifiers";i:0;s:10:"docComment";s:292:"/**
+ * Point unique de câblage entre contrats et implémentations (inversion des
+ * dépendances).
+ *
+ * Aucun service métier ne référence une classe concrète de persistance ni de
+ * prestataire : substituer une implémentation, en test ou en production, ne
+ * touche que ce fichier.
+ */";s:10:"attributes";a:0:{}s:9:"startLine";i:130;s:7:"endLine";i:465;s:11:"startColumn";i:1;s:9:"endColumn";i:1;s:15:"parentClassName";s:34:"Illuminate\Support\ServiceProvider";s:20:"implementsClassNames";a:0:{}s:15:"traitClassNames";a:0:{}s:18:"immediateConstants";a:0:{}s:19:"immediateProperties";a:1:{s:8:"bindings";a:16:{s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:4:"name";s:8:"bindings";s:9:"modifiers";i:1;s:4:"type";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:5:"array";s:12:"isIdentifier";b:1;}}s:7:"default";a:2:{s:4:"code";s:8517:"[
+    // --- Socle -------------------------------------------------------------
+    \App\Domains\Shared\Contracts\TransactionManagerContract::class => \App\Domains\Shared\Support\DatabaseTransactionManager::class,
+    // --- Comptes et sessions -------------------------------------------------
+    \App\Domains\Users\Contracts\UserRepositoryContract::class => \App\Domains\Users\Repositories\EloquentUserRepository::class,
+    \App\Domains\Auth\Contracts\AccessTokenManagerContract::class => \App\Domains\Auth\Services\SanctumAccessTokenManager::class,
+    // --- Espaces de travail --------------------------------------------------
+    \App\Domains\Workspaces\Contracts\WorkspaceRepositoryContract::class => \App\Domains\Workspaces\Repositories\EloquentWorkspaceRepository::class,
+    \App\Domains\Workspaces\Contracts\MembershipRepositoryContract::class => \App\Domains\Workspaces\Repositories\EloquentMembershipRepository::class,
+    \App\Domains\Workspaces\Contracts\InvitationRepositoryContract::class => \App\Domains\Workspaces\Repositories\EloquentInvitationRepository::class,
+    \App\Domains\Workspaces\Contracts\PermissionMatrixContract::class => \App\Domains\Workspaces\Support\SpatiePermissionMatrix::class,
+    // --- Lectures étroites (ségrégation des interfaces) ----------------------
+    //
+    // `MembershipReaderContract` : Auth sait dans quels espaces un compte
+    // agit, sans pouvoir modifier une équipe.
+    // `WorkspaceProvisionerContract` : l'inscription ouvre un espace, sans
+    // accéder au reste de leur gestion.
+    \App\Domains\Workspaces\Contracts\MembershipReaderContract::class => \App\Domains\Workspaces\Repositories\EloquentMembershipRepository::class,
+    \App\Domains\Workspaces\Contracts\WorkspaceProvisionerContract::class => \App\Domains\Workspaces\Services\WorkspaceService::class,
+    // --- Notifications ---------------------------------------------------------
+    \App\Domains\Notifications\Contracts\TransactionalMailerContract::class => \App\Domains\Notifications\Services\TransactionalMailer::class,
+    // --- Connaissances (lot 1) --------------------------------------------------
+    \App\Domains\Knowledge\Contracts\KnowledgeSourceRepositoryContract::class => \App\Domains\Knowledge\Repositories\EloquentKnowledgeSourceRepository::class,
+    \App\Domains\Knowledge\Contracts\KnowledgeDocumentRepositoryContract::class => \App\Domains\Knowledge\Repositories\EloquentKnowledgeDocumentRepository::class,
+    \App\Domains\Knowledge\Contracts\KnowledgeChunkRepositoryContract::class => \App\Domains\Knowledge\Repositories\EloquentKnowledgeChunkRepository::class,
+    // Moteur de recherche vectorielle : MySQL + similarité cosinus en PHP, pas de
+    // pgvector (décision du 8 octobre 2026, section 12 du cahier des charges).
+    \App\Domains\Knowledge\Contracts\EmbeddingSearchContract::class => \App\Domains\Knowledge\Search\MySqlCosineSimilaritySearch::class,
+    // Lecture étroite exposée au domaine `Assistant` (lot 2) : il cherche,
+    // il n'indexe pas.
+    \App\Domains\Knowledge\Contracts\KnowledgeSearchContract::class => \App\Domains\Knowledge\Services\KnowledgeSearchService::class,
+    // --- Contacts (lot 4) ---------------------------------------------------------
+    \App\Domains\Contacts\Contracts\ContactRepositoryContract::class => \App\Domains\Contacts\Repositories\EloquentContactRepository::class,
+    \App\Domains\Contacts\Contracts\ContactNoteRepositoryContract::class => \App\Domains\Contacts\Repositories\EloquentContactNoteRepository::class,
+    \App\Domains\Contacts\Contracts\ContactEventRepositoryContract::class => \App\Domains\Contacts\Repositories\EloquentContactEventRepository::class,
+    \App\Domains\Contacts\Contracts\ContactSegmentRepositoryContract::class => \App\Domains\Contacts\Repositories\EloquentContactSegmentRepository::class,
+    // Lecture étroite exposée aux domaines qui démarrent une conversation
+    // (`Widget`, `Channels`) : retrouver ou créer un contact par e-mail.
+    \App\Domains\Contacts\Contracts\ContactLinkContract::class => \App\Domains\Contacts\Services\ContactService::class,
+    // --- Conversations (lot 2) --------------------------------------------------
+    \App\Domains\Conversations\Contracts\ConversationRepositoryContract::class => \App\Domains\Conversations\Repositories\EloquentConversationRepository::class,
+    \App\Domains\Conversations\Contracts\MessageRepositoryContract::class => \App\Domains\Conversations\Repositories\EloquentMessageRepository::class,
+    \App\Domains\Conversations\Contracts\CannedResponseRepositoryContract::class => \App\Domains\Conversations\Repositories\EloquentCannedResponseRepository::class,
+    // Lecture étroite exposée au domaine `Widget` : un visiteur écrit et note,
+    // sans rien connaître de l'affectation ni des notes internes.
+    \App\Domains\Conversations\Contracts\VisitorConversationContract::class => \App\Domains\Conversations\Services\ConversationService::class,
+    // --- Widget (lot 2) ----------------------------------------------------------
+    \App\Domains\Widget\Contracts\WidgetSettingsRepositoryContract::class => \App\Domains\Widget\Repositories\EloquentWidgetSettingsRepository::class,
+    // --- Agent IA (lot 2) ---------------------------------------------------------
+    \App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract::class => \App\Domains\Assistant\Repositories\EloquentAssistantSettingsRepository::class,
+    // Lecture étroite exposée au domaine `Conversations` : il déclenche une
+    // réponse et lit résumé/sentiment, sans rien connaître du fournisseur d'IA.
+    \App\Domains\Assistant\Contracts\AssistantResponderContract::class => \App\Domains\Assistant\Services\AssistantService::class,
+    \App\Domains\Assistant\Contracts\ConversationInsightContract::class => \App\Domains\Assistant\Services\AssistantService::class,
+    // --- Facturation (lot 3) ------------------------------------------------------
+    \App\Domains\Billing\Contracts\PlanRepositoryContract::class => \App\Domains\Billing\Repositories\EloquentPlanRepository::class,
+    \App\Domains\Billing\Contracts\SubscriptionRepositoryContract::class => \App\Domains\Billing\Repositories\EloquentSubscriptionRepository::class,
+    \App\Domains\Billing\Contracts\InvoiceRepositoryContract::class => \App\Domains\Billing\Repositories\EloquentInvoiceRepository::class,
+    \App\Domains\Billing\Contracts\AiCreditLedgerContract::class => \App\Domains\Billing\Repositories\EloquentAiCreditLedger::class,
+    \App\Domains\Billing\Contracts\QuotaAlertRepositoryContract::class => \App\Domains\Billing\Repositories\EloquentQuotaAlertRepository::class,
+    // Lecture étroite exposée au domaine `Workspaces` : ouvrir un espace ouvre
+    // aussi son essai gratuit, sans connaître les plans.
+    \App\Domains\Billing\Contracts\SubscriptionProvisionerContract::class => \App\Domains\Billing\Services\SubscriptionService::class,
+    // « Puis-je ? » : les domaines demandent sans connaître les plans.
+    \App\Domains\Billing\Contracts\QuotaGuardContract::class => \App\Domains\Billing\Services\QuotaGuardService::class,
+    // Lecture étroite exposée au domaine `Payments` : un évènement du
+    // prestataire met à jour un abonnement, sans connaître les plans ni les
+    // crédits IA.
+    \App\Domains\Billing\Contracts\SubscriptionWebhookContract::class => \App\Domains\Billing\Services\SubscriptionService::class,
+    // --- Lectures étroites exposées à la console plateforme (lot 3) --------------
+    \App\Domains\Workspaces\Contracts\WorkspacePlatformReaderContract::class => \App\Domains\Workspaces\Repositories\EloquentWorkspaceRepository::class,
+    // --- Conversation : lecture étroite exposée au domaine `Analytics` (lot 3) ---
+    // Analytics lit, n'écrit pas.
+    \App\Domains\Conversations\Contracts\ConversationReaderContract::class => \App\Domains\Conversations\Repositories\EloquentConversationRepository::class,
+    // --- Canaux (lot 4) ------------------------------------------------------------
+    \App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract::class => \App\Domains\Channels\Repositories\EloquentChannelEmailSettingsRepository::class,
+    // Lecture étroite exposée au domaine `Conversations` : une réponse
+    // publique vient d'être postée, à relayer vers son canal d'origine.
+    \App\Domains\Channels\Contracts\OutboundChannelDispatcherContract::class => \App\Domains\Channels\Services\ChannelDispatchService::class,
+]";s:10:"attributes";a:6:{s:9:"startLine";i:133;s:7:"endLine";i:225;s:13:"startTokenPos";i:609;s:12:"startFilePos";i:7553;s:11:"endTokenPos";i:1127;s:10:"endFilePos";i:13716;}}s:10:"docComment";s:45:"/** @var array<class-string, class-string> */";s:10:"attributes";a:0:{}s:9:"startLine";i:133;s:7:"endLine";i:225;s:11:"startColumn";i:5;s:9:"endColumn";i:6;s:10:"isPromoted";b:0;s:21:"declaredAtCompileTime";b:1;s:16:"immediateVirtual";b:0;s:14:"immediateHooks";a:0:{}}}s:16:"immediateMethods";a:8:{s:8:"register";a:20:{s:4:"name";s:8:"register";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";N;s:9:"startLine";i:227;s:7:"endLine";i:248;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:1;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:18:"registerMailSender";a:20:{s:4:"name";s:18:"registerMailSender";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:601:"/**
+ * Pilote d'envoi des e-mails, choisi par configuration.
+ *
+ * `ArrayMailSender` est enregistré comme singleton sous son propre nom, et
+ * pas seulement derrière le contrat : les tests le redemandent par sa
+ * classe concrète (`tests\TestCase::mailbox()`) pour inspecter les envois,
+ * et doivent obtenir exactement l'instance que les services ont reçue, pas
+ * une seconde en double.
+ *
+ * Un pilote inconnu lève au lieu de retomber sur un autre : une plateforme
+ * qui croit envoyer ses liens de vérification alors qu'elle les jette ne
+ * se découvrirait qu'au premier client bloqué.
+ */";s:9:"startLine";i:263;s:7:"endLine";i:280;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:1;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:26:"registerKnowledgeProviders";a:20:{s:4:"name";s:26:"registerKnowledgeProviders";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:527:"/**
+ * Fournisseurs externes du domaine `Knowledge`, choisis par configuration.
+ *
+ * Les doublures de test (`Array*`) sont enregistrées comme singletons sous
+ * leur propre nom, pas seulement derrière leur contrat : les tests les
+ * redemandent par leur classe concrète pour préparer des réponses ou
+ * inspecter les appels reçus, et doivent obtenir l'instance exacte que les
+ * services ont reçue.
+ *
+ * Un pilote inconnu lève au lieu de retomber sur un autre : voir
+ * `registerMailSender()` pour la même garde.
+ */";s:9:"startLine";i:294;s:7:"endLine";i:363;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:1;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:25:"registerAssistantProvider";a:20:{s:4:"name";s:25:"registerAssistantProvider";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:102:"/** Fournisseur d'IA de l'agent, choisi par configuration (même garde que `registerMailSender()`). */";s:9:"startLine";i:366;s:7:"endLine";i:389;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:1;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:24:"registerPaymentsProvider";a:20:{s:4:"name";s:24:"registerPaymentsProvider";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:98:"/** Prestataire de paiement, choisi par configuration (même garde que `registerMailSender()`). */";s:9:"startLine";i:392;s:7:"endLine";i:413;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:1;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:24:"registerChannelsProvider";a:20:{s:4:"name";s:24:"registerChannelsProvider";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";s:105:"/** Pilote d'envoi du canal e-mail, choisi par configuration (même garde que `registerMailSender()`). */";s:9:"startLine";i:416;s:7:"endLine";i:432;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:1;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:21:"registerWidgetSupport";a:20:{s:4:"name";s:21:"registerWidgetSupport";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";N;s:9:"startLine";i:434;s:7:"endLine";i:444;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}s:19:"registerAuthSupport";a:20:{s:4:"name";s:19:"registerAuthSupport";s:10:"parameters";a:0:{}s:16:"returnsReference";b:0;s:10:"returnType";a:2:{s:5:"class";s:55:"PHPStan\BetterReflection\Reflection\ReflectionNamedType";s:4:"data";a:2:{s:4:"name";s:4:"void";s:12:"isIdentifier";b:1;}}s:10:"attributes";a:0:{}s:10:"docComment";N;s:9:"startLine";i:446;s:7:"endLine";i:464;s:11:"startColumn";i:5;s:9:"endColumn";i:5;s:10:"couldThrow";b:0;s:9:"isClosure";b:0;s:11:"isGenerator";b:0;s:10:"isVariadic";b:0;s:9:"modifiers";i:4;s:9:"namespace";s:13:"App\Providers";s:18:"declaringClassName";s:35:"App\Providers\DomainServiceProvider";s:21:"implementingClassName";s:35:"App\Providers\DomainServiceProvider";s:16:"currentClassName";s:35:"App\Providers\DomainServiceProvider";s:9:"aliasName";N;}}s:10:"traitsData";a:4:{s:7:"aliases";a:0:{}s:9:"modifiers";a:0:{}s:11:"precedences";a:0:{}s:6:"hashes";a:0:{}}}}

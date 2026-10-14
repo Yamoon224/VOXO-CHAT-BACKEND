@@ -59,4 +59,13 @@ final class TransactionalMailer implements TransactionalMailerContract
             'action_url' => $this->frontendUrl->to('settings/billing'),
         ]));
     }
+
+    public function sendTicketPortalLink(string $email, string $name, string $subject, string $token): void
+    {
+        $this->sender->send(new MailMessage($email, MailTemplate::TicketPortalLink, [
+            'name' => $name,
+            'subject' => $subject,
+            'action_url' => $this->frontendUrl->to('portal/tickets', ['token' => $token]),
+        ]));
+    }
 }

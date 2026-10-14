@@ -28,4 +28,6 @@ interface TransactionalMailerContract
         string $quotaLabel,
         int $thresholdPercent,
     ): void;
+
+    public function sendTicketPortalLink(string $email, string $name, string $subject, string $token): void;
 }

@@ -78,21 +78,62 @@ final class ConversationService implements VisitorConversationContract
         ?string $visitorName = null,
         ?string $visitorEmail = null,
     ): Conversation {
-        $conversation = $this->transactions->run(function () use ($workspaceId, $visitorId, $body, $visitorName, $visitorEmail) {
-            $conversation = $this->conversations->findOpenForVisitor($workspaceId, $visitorId)
-                ?? $this->conversations->create([
-                    'workspace_id' => $workspaceId,
-                    'channel' => ConversationChannel::Widget,
-                    'status' => ConversationStatus::Open,
-                    'visitor_id' => $visitorId,
-                ]);
+        return $this->receiveChannelMessage($workspaceId, ConversationChannel::Widget->value, $visitorId, $body, $visitorName, $visitorEmail);
+    }
 
-            if ($visitorName !== null || $visitorEmail !== null) {
-                $conversation = $this->conversations->update($conversation, array_filter([
+    /** Même mécanique, pour un canal autre que le widget (`Channels`) — voir `VisitorConversationContract`. */
+    public function receiveChannelMessage(
+        string $workspaceId,
+        string $channel,
+        string $visitorId,
+        string $body,
+        ?string $visitorName = null,
+        ?string $visitorEmail = null,
+        ?string $contactId = null,
+        ?string $subject = null,
+    ): Conversation {
+        $conversation = $this->transactions->run(
+            function () use ($workspaceId, $channel, $visitorId, $body, $visitorName, $visitorEmail, $contactId, $subject) {
+                $conversation = $this->conversations->findOpenForVisitor($workspaceId, $visitorId)
+                    ?? $this->conversations->create([
+                        'workspace_id' => $workspaceId,
+                        'channel' => ConversationChannel::from($channel),
+                        'status' => ConversationStatus::Open,
+                        'visitor_id' => $visitorId,
+                        'contact_id' => $contactId,
+                        'subject' => $subject,
+                    ]);
+
+                $attributes = array_filter([
                     'visitor_name' => $visitorName,
                     'visitor_email' => $visitorEmail,
-                ], fn (?string $value) => $value !== null));
-            }
+                    'contact_id' => $contactId ?? $conversation->contact_id,
+                ], fn (?string $value) => $value !== null);
+
+                if ($attributes !== []) {
+                    $conversation = $this->conversations->update($conversation, $attributes);
+                }
+
+                $this->messages->create([
+                    'conversation_id' => $conversation->id,
+                    'workspace_id' => $workspaceId,
+                    'sender_type' => MessageSenderType::Visitor,
+                    'body' => $body,
+                ]);
+
+                return $this->conversations->update($conversation, ['last_message_at' => now()]);
+            },
+        );
+
+        $this->assistant->respondToConversation($conversation->id);
+
+        return $conversation;
+    }
+
+    public function receiveReplyOnKnownConversation(string $workspaceId, string $conversationId, string $body): Conversation
+    {
+        $conversation = $this->transactions->run(function () use ($workspaceId, $conversationId, $body) {
+            $conversation = $this->conversations->findInWorkspaceOrFail($workspaceId, $conversationId);
 
             $this->messages->create([
                 'conversation_id' => $conversation->id,
@@ -101,7 +142,13 @@ final class ConversationService implements VisitorConversationContract
                 'body' => $body,
             ]);
 
-            return $this->conversations->update($conversation, ['last_message_at' => now()]);
+            $reopening = $conversation->status === ConversationStatus::Resolved;
+
+            return $this->conversations->update($conversation, [
+                'last_message_at' => now(),
+                'status' => $reopening ? ConversationStatus::Open : $conversation->status,
+                'resolved_at' => $reopening ? null : $conversation->resolved_at,
+            ]);
         });
 
         $this->assistant->respondToConversation($conversation->id);

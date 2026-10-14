@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * Conversation d'un visiteur avec l'espace de travail, tous canaux confondus
- * (un seul canal câblé pour l'instant : `widget`).
+ * (`widget`, `email`, `contact_form`).
  *
  * @property string $id
  * @property string $workspace_id
@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $visitor_id
  * @property string|null $visitor_name
  * @property string|null $visitor_email
+ * @property string|null $contact_id
  * @property string|null $assigned_user_id
  * @property string|null $subject
  * @property string|null $summary
@@ -42,7 +43,7 @@ class Conversation extends Model
 
     /** @var list<string> */
     protected $fillable = [
-        'workspace_id', 'channel', 'status', 'visitor_id', 'visitor_name', 'visitor_email',
+        'workspace_id', 'channel', 'status', 'visitor_id', 'visitor_name', 'visitor_email', 'contact_id',
         'assigned_user_id', 'subject', 'summary', 'sentiment', 'needs_human', 'rating',
         'rating_comment', 'last_message_at', 'resolved_at',
     ];

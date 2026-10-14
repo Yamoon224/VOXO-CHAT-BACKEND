@@ -10,6 +10,9 @@ use App\Domains\Auth\Http\Controllers\TwoFactorController;
 use App\Domains\Billing\Http\Controllers\InvoiceController;
 use App\Domains\Billing\Http\Controllers\PlanController;
 use App\Domains\Billing\Http\Controllers\SubscriptionController;
+use App\Domains\Channels\Http\Controllers\ChannelEmailSettingsController;
+use App\Domains\Channels\Http\Controllers\ContactFormController;
+use App\Domains\Channels\Http\Controllers\InboundEmailController;
 use App\Domains\Contacts\Http\Controllers\ContactController;
 use App\Domains\Contacts\Http\Controllers\ContactEventController;
 use App\Domains\Contacts\Http\Controllers\ContactExportController;
@@ -93,6 +96,16 @@ Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): 
     Route::post('/messages', [VisitorMessageController::class, 'store']);
     Route::get('/messages', [VisitorMessageController::class, 'index']);
     Route::post('/ratings', [VisitorRatingController::class, 'store']);
+});
+
+// Canaux entrants publics (lot 4, section 2.5) : un visiteur ou un
+// prestataire d'e-mail entrant (non encore choisi, voir `EmailChannelProviderContract`)
+// y rattache un e-mail à un espace de travail, par son identifiant dans
+// l'URL — même raisonnement que `public/widget` : pas de compte, pas de
+// jeton Sanctum.
+Route::prefix('public/channels')->middleware('throttle:60,1')->group(function (): void {
+    Route::post('/email/{workspace}/inbound', [InboundEmailController::class, 'store'])->whereUuid('workspace');
+    Route::post('/contact-form/{workspace}/submissions', [ContactFormController::class, 'store'])->whereUuid('workspace');
 });
 
 // Rappels du prestataire de paiement (lot 3) : l'authenticité tient à la
@@ -196,6 +209,16 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::get('/widget/settings', [WidgetSettingsController::class, 'show']);
             Route::put('/widget/settings', [WidgetSettingsController::class, 'update']);
             Route::get('/widget/script', [WidgetSettingsController::class, 'script']);
+        });
+
+        // =====================================================================
+        // Canaux (lot 4) : e-mail (boîte partagée, domaine d'envoi personnalisé).
+        // Le formulaire de contact n'a pas de réglages, rien à exposer ici.
+        // =====================================================================
+
+        Route::middleware('workspace.can:channels.manage')->group(function (): void {
+            Route::get('/channels/email/settings', [ChannelEmailSettingsController::class, 'show']);
+            Route::put('/channels/email/settings', [ChannelEmailSettingsController::class, 'update']);
         });
 
         // =====================================================================

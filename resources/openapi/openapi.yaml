@@ -37,6 +37,7 @@ tags:
   - name: Base de connaissances
   - name: Conversations
   - name: Widget
+  - name: Canaux
   - name: Agent IA
   - name: Facturation
   - name: Paiements
@@ -1468,6 +1469,42 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/DomainError' }
 
+  /workspace/channels/email/settings:
+    get:
+      tags: [Canaux]
+      summary: Réglages du canal e-mail de l'espace courant
+      description: Permission `channels.manage`.
+      responses:
+        '200':
+          description: Réglages
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ChannelEmailSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Canaux]
+      summary: Modifier les réglages du canal e-mail
+      description: Permission `channels.manage`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled: { type: boolean }
+                reply_from_email: { type: string, nullable: true }
+                reply_from_name: { type: string, nullable: true, maxLength: 120 }
+      responses:
+        '200':
+          description: Réglages modifiés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ChannelEmailSettings' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
   /workspace/assistant/settings:
     get:
       tags: [Agent IA]
@@ -1629,6 +1666,63 @@ paths:
       responses:
         '204': { description: Évaluation enregistrée }
         '401': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/email/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un e-mail entrant (canal e-mail)
+      description: |
+        Point d'entrée destiné à un prestataire d'e-mail entrant (non encore
+        choisi, section 2.5) : rattache le contact par son adresse, puis la
+        conversation. Pas d'authentification.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [from_email, body]
+              properties:
+                from_email: { type: string, format: email }
+                from_name: { type: string, nullable: true, maxLength: 120 }
+                body: { type: string, minLength: 1, maxLength: 20000 }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/contact-form/{workspace}/submissions:
+    post:
+      tags: [Canaux]
+      summary: Soumettre le formulaire de contact public d'un espace
+      description: Pas d'authentification — même mécanique que le canal e-mail.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, message]
+              properties:
+                email: { type: string, format: email }
+                name: { type: string, nullable: true, maxLength: 120 }
+                message: { type: string, minLength: 1, maxLength: 5000 }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
   /invitations/{token}:
@@ -2189,7 +2283,7 @@ components:
 
     ConversationChannel:
       type: string
-      enum: [widget]
+      enum: [widget, email, contact_form]
 
     MessageSenderType:
       type: string
@@ -2345,6 +2439,13 @@ components:
               opens_at: { type: string }
               closes_at: { type: string }
         offline_message: { type: string, nullable: true }
+
+    ChannelEmailSettings:
+      type: object
+      properties:
+        enabled: { type: boolean }
+        reply_from_email: { type: string, nullable: true }
+        reply_from_name: { type: string, nullable: true }
 
     PublicWidgetSettings:
       type: object

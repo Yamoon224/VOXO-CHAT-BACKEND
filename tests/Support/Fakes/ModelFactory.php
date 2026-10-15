@@ -8,6 +8,7 @@ use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Enums\MessageVisibility;
+use App\Domains\Conversations\Enums\RoutingActionType;
 use App\Domains\HelpCenter\Enums\ArticleStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
@@ -24,12 +25,14 @@ use App\Models\Contact;
 use App\Models\Conversation;
 use App\Models\HelpCenterArticle;
 use App\Models\HelpCenterCategory;
+use App\Models\InboxView;
 use App\Models\Invoice;
 use App\Models\KnowledgeChunk;
 use App\Models\KnowledgeDocument;
 use App\Models\KnowledgeSource;
 use App\Models\Message;
 use App\Models\Plan;
+use App\Models\RoutingRule;
 use App\Models\Subscription;
 use App\Models\Ticket;
 use App\Models\User;
@@ -259,6 +262,34 @@ final class ModelFactory
             'position' => 0,
             'published_at' => null,
             'created_at' => now(),
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function routingRule(array $attributes = []): RoutingRule
+    {
+        return (new RoutingRule)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'name' => 'Règle de test',
+            'position' => 0,
+            'is_active' => true,
+            'conditions' => [],
+            'action_type' => RoutingActionType::AssignUser,
+            'assignee_user_ids' => [],
+            'next_round_robin_index' => 0,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function inboxView(array $attributes = []): InboxView
+    {
+        return (new InboxView)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'name' => 'Vue de test',
+            'position' => 0,
+            'filters' => [],
         ], true);
     }
 

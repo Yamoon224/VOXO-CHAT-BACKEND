@@ -29,6 +29,22 @@ class ConversationManagementTest extends TestCase
     }
 
     #[Test]
+    public function la_liste_se_filtre_par_canal(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $agent = $this->memberOf($workspace, WorkspaceRole::Agent);
+        Conversation::factory()->for($workspace)->create(['channel' => 'widget']);
+        Conversation::factory()->for($workspace)->create(['channel' => 'email']);
+
+        $response = $this->actingInWorkspace($agent, $workspace)
+            ->getJson('/api/v1/workspace/conversations?channel=email')
+            ->assertOk();
+
+        $this->assertCount(1, $response->json('data'));
+        $this->assertSame('email', $response->json('data.0.channel'));
+    }
+
+    #[Test]
     public function un_lecteur_ne_peut_pas_affecter_une_conversation(): void
     {
         $workspace = Workspace::factory()->create();

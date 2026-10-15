@@ -24,4 +24,13 @@ interface ContactLinkContract
      * est vide.
      */
     public function findOrCreateIdByExternalId(string $workspaceId, string $channel, ?string $externalId, ?string $name = null): ?string;
+
+    /**
+     * Enregistre une réponse de visiteur comme attribut personnalisé (lot 5,
+     * section 2.8 : collecte de champs dans le chat) — `$contactId` connu,
+     * l'attribut s'ajoute à son profil ; `null`, un profil nu est créé (sans
+     * e-mail ni téléphone connus, juste cet attribut). Renvoie l'identifiant
+     * du contact, à rattacher à la conversation si celle-ci n'en avait pas.
+     */
+    public function setCustomAttributeForContact(string $workspaceId, ?string $contactId, string $key, string $value): string;
 }

@@ -136,6 +136,22 @@ final class ContactService implements ContactLinkContract
         ])->id;
     }
 
+    public function setCustomAttributeForContact(string $workspaceId, ?string $contactId, string $key, string $value): string
+    {
+        if ($contactId === null) {
+            return $this->contacts->create([
+                'workspace_id' => $workspaceId,
+                'custom_attributes' => [$key => $value],
+            ])->id;
+        }
+
+        $contact = $this->contacts->findInWorkspaceOrFail($workspaceId, $contactId);
+
+        return $this->contacts->update($contact, [
+            'custom_attributes' => [...($contact->custom_attributes ?? []), $key => $value],
+        ])->id;
+    }
+
     private function guardEmailAvailable(string $workspaceId, ?string $email): void
     {
         if ($email === null) {

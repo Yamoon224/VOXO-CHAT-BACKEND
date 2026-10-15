@@ -24,6 +24,7 @@ final class ConversationService implements VisitorConversationContract
         private readonly MembershipReaderContract $memberships,
         private readonly AssistantResponderContract $assistant,
         private readonly TransactionManagerContract $transactions,
+        private readonly RoutingExecutionService $routing,
     ) {}
 
     /**
@@ -103,6 +104,13 @@ final class ConversationService implements VisitorConversationContract
                         'contact_id' => $contactId,
                         'subject' => $subject,
                     ]);
+
+                // Le routage (section 2.4) ne joue qu'à l'ouverture : un message
+                // suivant sur une conversation déjà affectée ne doit pas la
+                // réaffecter.
+                if ($conversation->wasRecentlyCreated) {
+                    $this->routing->applyTo($conversation, $body);
+                }
 
                 $attributes = array_filter([
                     'visitor_name' => $visitorName,

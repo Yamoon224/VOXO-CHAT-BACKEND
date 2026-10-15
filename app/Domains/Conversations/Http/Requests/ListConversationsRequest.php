@@ -2,6 +2,7 @@
 
 namespace App\Domains\Conversations\Http\Requests;
 
+use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -19,6 +20,7 @@ class ListConversationsRequest extends FormRequest
         return [
             'status' => ['sometimes', 'nullable', Rule::enum(ConversationStatus::class)],
             'assigned_user_id' => ['sometimes', 'nullable', 'string', 'uuid'],
+            'channel' => ['sometimes', 'nullable', Rule::enum(ConversationChannel::class)],
             'needs_human' => ['sometimes', 'nullable', 'boolean'],
             'sort' => ['sometimes', 'nullable', 'string', 'max:40'],
             'direction' => ['sometimes', 'nullable', Rule::in(['asc', 'desc'])],

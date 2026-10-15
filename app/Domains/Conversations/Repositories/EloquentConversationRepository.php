@@ -24,6 +24,7 @@ final class EloquentConversationRepository implements ConversationReaderContract
             ->where('workspace_id', $workspaceId)
             ->when($filters['status'] ?? null, fn (Builder $query, mixed $status) => $query->where('status', $status))
             ->when($filters['assigned_user_id'] ?? null, fn (Builder $query, mixed $userId) => $query->where('assigned_user_id', $userId))
+            ->when($filters['channel'] ?? null, fn (Builder $query, mixed $channel) => $query->where('channel', $channel))
             ->when(array_key_exists('needs_human', $filters) && $filters['needs_human'] !== null, fn (Builder $query) => $query->where('needs_human', (bool) $filters['needs_human']))
             ->tap(fn (Builder $query) => Sort::apply($query, $filters, self::SORTABLE, 'last_message_at', 'desc'))
             ->paginate($perPage)

@@ -51,11 +51,15 @@ use App\Domains\Contacts\Services\ContactService;
 use App\Domains\Conversations\Contracts\CannedResponseRepositoryContract;
 use App\Domains\Conversations\Contracts\ConversationReaderContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
+use App\Domains\Conversations\Contracts\InboxViewRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
+use App\Domains\Conversations\Contracts\RoutingRuleRepositoryContract;
 use App\Domains\Conversations\Contracts\VisitorConversationContract;
 use App\Domains\Conversations\Repositories\EloquentCannedResponseRepository;
 use App\Domains\Conversations\Repositories\EloquentConversationRepository;
+use App\Domains\Conversations\Repositories\EloquentInboxViewRepository;
 use App\Domains\Conversations\Repositories\EloquentMessageRepository;
+use App\Domains\Conversations\Repositories\EloquentRoutingRuleRepository;
 use App\Domains\Conversations\Services\ConversationService;
 use App\Domains\HelpCenter\Contracts\HelpCenterArticleRepositoryContract;
 use App\Domains\HelpCenter\Contracts\HelpCenterCategoryRepositoryContract;
@@ -223,6 +227,10 @@ class DomainServiceProvider extends ServiceProvider
         // --- Conversation : lecture étroite exposée au domaine `Analytics` (lot 3) ---
         // Analytics lit, n'écrit pas.
         ConversationReaderContract::class => EloquentConversationRepository::class,
+
+        // --- Routage et sous-boîtes (lot 5) ---------------------------------------------
+        RoutingRuleRepositoryContract::class => EloquentRoutingRuleRepository::class,
+        InboxViewRepositoryContract::class => EloquentInboxViewRepository::class,
 
         // --- Canaux (lot 4) ------------------------------------------------------------
         ChannelEmailSettingsRepositoryContract::class => EloquentChannelEmailSettingsRepository::class,

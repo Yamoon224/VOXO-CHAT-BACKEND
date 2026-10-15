@@ -8,6 +8,9 @@ use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Enums\MessageVisibility;
+use App\Domains\Conversations\Enums\RoutingActionType;
+use App\Domains\Conversations\Enums\RoutingConditionField;
+use App\Domains\Conversations\Enums\RoutingConditionOperator;
 use App\Domains\HelpCenter\Enums\ArticleStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
@@ -128,6 +131,9 @@ class OpenApiSpecificationTest extends TestCase
         yield 'InvoiceStatus' => ['InvoiceStatus', InvoiceStatus::values()];
         yield 'TicketPriority' => ['TicketPriority', TicketPriority::values()];
         yield 'ArticleStatus' => ['ArticleStatus', ArticleStatus::values()];
+        yield 'RoutingConditionField' => ['RoutingConditionField', RoutingConditionField::values()];
+        yield 'RoutingConditionOperator' => ['RoutingConditionOperator', RoutingConditionOperator::values()];
+        yield 'RoutingActionType' => ['RoutingActionType', RoutingActionType::values()];
     }
 
     #[Test]

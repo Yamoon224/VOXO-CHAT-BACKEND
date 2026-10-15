@@ -21,7 +21,9 @@ use App\Domains\Contacts\Http\Controllers\ContactNoteController;
 use App\Domains\Contacts\Http\Controllers\ContactSegmentController;
 use App\Domains\Conversations\Http\Controllers\CannedResponseController;
 use App\Domains\Conversations\Http\Controllers\ConversationController;
+use App\Domains\Conversations\Http\Controllers\InboxViewController;
 use App\Domains\Conversations\Http\Controllers\MessageController;
+use App\Domains\Conversations\Http\Controllers\RoutingRuleController;
 use App\Domains\HelpCenter\Http\Controllers\HelpCenterArticleController;
 use App\Domains\HelpCenter\Http\Controllers\HelpCenterCategoryController;
 use App\Domains\HelpCenter\Http\Controllers\PublicHelpCenterController;
@@ -219,6 +221,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::get('/conversations', [ConversationController::class, 'index']);
             Route::get('/conversations/{conversation}', [ConversationController::class, 'show'])->whereUuid('conversation');
             Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index'])->whereUuid('conversation');
+            Route::get('/inbox-views', [InboxViewController::class, 'index']);
         });
 
         Route::middleware('workspace.can:conversations.manage')->group(function (): void {
@@ -228,6 +231,20 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::post('/conversations/{conversation}/summarize', [ConversationController::class, 'summarize'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/sentiment', [ConversationController::class, 'analyzeSentiment'])->whereUuid('conversation');
             Route::post('/conversations/{conversation}/suggest-reply', [ConversationController::class, 'suggestReply'])->whereUuid('conversation');
+            Route::post('/inbox-views', [InboxViewController::class, 'store']);
+            Route::put('/inbox-views/{view}', [InboxViewController::class, 'update'])->whereUuid('view');
+            Route::delete('/inbox-views/{view}', [InboxViewController::class, 'destroy'])->whereUuid('view');
+        });
+
+        // =====================================================================
+        // Routage (lot 5, section 2.4) : tourniquet, origine, intention.
+        // =====================================================================
+
+        Route::middleware('workspace.can:routing.manage')->group(function (): void {
+            Route::get('/routing-rules', [RoutingRuleController::class, 'index']);
+            Route::post('/routing-rules', [RoutingRuleController::class, 'store']);
+            Route::put('/routing-rules/{rule}', [RoutingRuleController::class, 'update'])->whereUuid('rule');
+            Route::delete('/routing-rules/{rule}', [RoutingRuleController::class, 'destroy'])->whereUuid('rule');
         });
 
         // =====================================================================

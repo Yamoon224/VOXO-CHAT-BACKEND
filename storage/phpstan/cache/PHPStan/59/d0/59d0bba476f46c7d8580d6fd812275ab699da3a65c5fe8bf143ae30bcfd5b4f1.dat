@@ -1,1 +1,1 @@
-O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-8716db7d63f2a47c47f3d7c7f857029c4923ba923f33cbf04cd658be655d917f-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:32:"tests\support\fakes\modelfactory";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-456c52fed26c077179ceb43fccf7f60b2b9f2fea98914c70207a25f47fe297ef-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:32:"tests\support\fakes\modelfactory";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

@@ -47,6 +47,10 @@ final class InMemoryInboxViewRepository implements InboxViewRepositoryContract
 
     public function update(InboxView $view, array $attributes): InboxView
     {
+        if (array_key_exists('filters', $attributes) && is_array($attributes['filters'])) {
+            $attributes['filters'] = json_encode($attributes['filters']);
+        }
+
         $view->setRawAttributes($attributes + $view->getAttributes(), true);
 
         return $view;

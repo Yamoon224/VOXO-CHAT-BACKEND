@@ -49,6 +49,12 @@ final class InMemoryRoutingRuleRepository implements RoutingRuleRepositoryContra
 
     public function update(RoutingRule $rule, array $attributes): RoutingRule
     {
+        foreach (['conditions', 'assignee_user_ids'] as $jsonField) {
+            if (array_key_exists($jsonField, $attributes) && is_array($attributes[$jsonField])) {
+                $attributes[$jsonField] = json_encode($attributes[$jsonField]);
+            }
+        }
+
         $rule->setRawAttributes($attributes + $rule->getAttributes(), true);
 
         return $rule;

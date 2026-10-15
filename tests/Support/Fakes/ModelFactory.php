@@ -268,15 +268,24 @@ final class ModelFactory
     /** @param  array<string, mixed>  $attributes */
     public static function routingRule(array $attributes = []): RoutingRule
     {
+        // `conditions`/`assignee_user_ids` sont des colonnes castées JSON :
+        // `setRawAttributes` attend leur forme brute (encodée), jamais le
+        // tableau PHP directement — voir la note de ModelFactory sur ce piège.
+        foreach (['conditions', 'assignee_user_ids'] as $jsonField) {
+            if (array_key_exists($jsonField, $attributes) && is_array($attributes[$jsonField])) {
+                $attributes[$jsonField] = json_encode($attributes[$jsonField]);
+            }
+        }
+
         return (new RoutingRule)->setRawAttributes($attributes + [
             'id' => (string) Str::uuid(),
             'workspace_id' => (string) Str::uuid(),
             'name' => 'Règle de test',
             'position' => 0,
             'is_active' => true,
-            'conditions' => [],
+            'conditions' => json_encode([]),
             'action_type' => RoutingActionType::AssignUser,
-            'assignee_user_ids' => [],
+            'assignee_user_ids' => json_encode([]),
             'next_round_robin_index' => 0,
         ], true);
     }
@@ -284,12 +293,16 @@ final class ModelFactory
     /** @param  array<string, mixed>  $attributes */
     public static function inboxView(array $attributes = []): InboxView
     {
+        if (array_key_exists('filters', $attributes) && is_array($attributes['filters'])) {
+            $attributes['filters'] = json_encode($attributes['filters']);
+        }
+
         return (new InboxView)->setRawAttributes($attributes + [
             'id' => (string) Str::uuid(),
             'workspace_id' => (string) Str::uuid(),
             'name' => 'Vue de test',
             'position' => 0,
-            'filters' => [],
+            'filters' => json_encode([]),
         ], true);
     }
 

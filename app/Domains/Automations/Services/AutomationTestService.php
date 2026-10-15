@@ -56,6 +56,6 @@ final class AutomationTestService
     {
         $membership = $this->memberships->findForUser($workspaceId, $userId);
 
-        return $membership?->user?->name ?? "un agent introuvable ({$userId})";
+        return $membership?->user->name ?? "un agent introuvable ({$userId})";
     }
 }

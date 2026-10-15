@@ -16,6 +16,7 @@ use Tests\Support\Fakes\InMemoryMembershipRepository;
 use Tests\Support\Fakes\InMemoryMessageRepository;
 use Tests\Support\Fakes\InMemoryRoutingRuleRepository;
 use Tests\Support\Fakes\ModelFactory;
+use Tests\Support\Fakes\NullAutomationResponder;
 use Tests\Support\Fakes\SpyAssistantResponder;
 use Tests\TestCase;
 
@@ -35,6 +36,7 @@ class ConversationServiceTest extends TestCase
             $assistant,
             new ImmediateTransactionManager,
             new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations),
+            new NullAutomationResponder,
         );
 
         $conversation = $service->receiveVisitorMessage('workspace-1', 'visitor-1', 'Bonjour, avez-vous des horaires ?');
@@ -50,7 +52,7 @@ class ConversationServiceTest extends TestCase
         $conversations = new InMemoryConversationRepository;
         $messages = new InMemoryMessageRepository;
 
-        $service = new ConversationService($conversations, $messages, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations));
+        $service = new ConversationService($conversations, $messages, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations), new NullAutomationResponder);
 
         $first = $service->receiveVisitorMessage('workspace-1', 'visitor-1', 'Premier message.');
         $second = $service->receiveVisitorMessage('workspace-1', 'visitor-1', 'Deuxième message.');
@@ -65,7 +67,7 @@ class ConversationServiceTest extends TestCase
         $conversations = new InMemoryConversationRepository;
         $messages = new InMemoryMessageRepository;
 
-        $service = new ConversationService($conversations, $messages, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations));
+        $service = new ConversationService($conversations, $messages, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations), new NullAutomationResponder);
 
         $conversation = $service->receiveChannelMessage(
             'workspace-1',
@@ -86,7 +88,7 @@ class ConversationServiceTest extends TestCase
     {
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1']);
         $conversations = new InMemoryConversationRepository($conversation);
-        $service = new ConversationService($conversations, new InMemoryMessageRepository, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations));
+        $service = new ConversationService($conversations, new InMemoryMessageRepository, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations), new NullAutomationResponder);
 
         $this->expectException(AssigneeNotMemberException::class);
 
@@ -98,7 +100,7 @@ class ConversationServiceTest extends TestCase
     {
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1']);
         $conversations = new InMemoryConversationRepository($conversation);
-        $service = new ConversationService($conversations, new InMemoryMessageRepository, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations));
+        $service = new ConversationService($conversations, new InMemoryMessageRepository, new InMemoryMembershipRepository, new SpyAssistantResponder, new ImmediateTransactionManager, new RoutingExecutionService(new InMemoryRoutingRuleRepository, $conversations), new NullAutomationResponder);
 
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent);
         $resolved = $service->changeStatus($scope, $conversation->id, ConversationStatus::Resolved);

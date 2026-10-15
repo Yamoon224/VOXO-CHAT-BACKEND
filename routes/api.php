@@ -3,11 +3,11 @@
 use App\Domains\Analytics\Http\Controllers\AnalyticsController;
 use App\Domains\Assistant\Http\Controllers\AssistantSandboxController;
 use App\Domains\Assistant\Http\Controllers\AssistantSettingsController;
-use App\Domains\Automations\Http\Controllers\AutomationScenarioController;
 use App\Domains\Auth\Http\Controllers\AuthController;
 use App\Domains\Auth\Http\Controllers\EmailVerificationController;
 use App\Domains\Auth\Http\Controllers\PasswordResetController;
 use App\Domains\Auth\Http\Controllers\TwoFactorController;
+use App\Domains\Automations\Http\Controllers\AutomationScenarioController;
 use App\Domains\Billing\Http\Controllers\InvoiceController;
 use App\Domains\Billing\Http\Controllers\PlanController;
 use App\Domains\Billing\Http\Controllers\SubscriptionController;

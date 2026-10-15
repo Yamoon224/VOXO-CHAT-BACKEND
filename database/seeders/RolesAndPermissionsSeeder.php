@@ -53,6 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
         'help_center.view' => "Consulter les catégories et articles du centre d'aide.",
         'help_center.manage' => "Créer, modifier, supprimer et publier les catégories et articles du centre d'aide.",
         'routing.manage' => 'Créer, modifier et supprimer les règles de routage des conversations.',
+        'automations.manage' => 'Créer, modifier, supprimer, tester et publier les scénarios d\'automatisation.',
     ];
 
     /**
@@ -66,13 +67,13 @@ class RolesAndPermissionsSeeder extends Seeder
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage', 'tickets.view', 'tickets.manage',
-            'help_center.view', 'help_center.manage', 'routing.manage',
+            'help_center.view', 'help_center.manage', 'routing.manage', 'automations.manage',
         ],
         WorkspaceRole::Admin->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage', 'tickets.view', 'tickets.manage',
-            'help_center.view', 'help_center.manage', 'routing.manage',
+            'help_center.view', 'help_center.manage', 'routing.manage', 'automations.manage',
         ],
         WorkspaceRole::Agent->value => [
             'workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage',

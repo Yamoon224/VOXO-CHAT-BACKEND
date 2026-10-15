@@ -2,6 +2,11 @@
 
 namespace Tests\Feature\Documentation;
 
+use App\Domains\Automations\Enums\AutomationActionType;
+use App\Domains\Automations\Enums\AutomationConditionField;
+use App\Domains\Automations\Enums\AutomationConditionOperator;
+use App\Domains\Automations\Enums\AutomationStatus;
+use App\Domains\Automations\Enums\AutomationTriggerType;
 use App\Domains\Billing\Enums\BillingInterval;
 use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Domains\Conversations\Enums\ConversationChannel;
@@ -134,6 +139,11 @@ class OpenApiSpecificationTest extends TestCase
         yield 'RoutingConditionField' => ['RoutingConditionField', RoutingConditionField::values()];
         yield 'RoutingConditionOperator' => ['RoutingConditionOperator', RoutingConditionOperator::values()];
         yield 'RoutingActionType' => ['RoutingActionType', RoutingActionType::values()];
+        yield 'AutomationStatus' => ['AutomationStatus', AutomationStatus::values()];
+        yield 'AutomationTriggerType' => ['AutomationTriggerType', AutomationTriggerType::values()];
+        yield 'AutomationConditionField' => ['AutomationConditionField', AutomationConditionField::values()];
+        yield 'AutomationConditionOperator' => ['AutomationConditionOperator', AutomationConditionOperator::values()];
+        yield 'AutomationActionType' => ['AutomationActionType', AutomationActionType::values()];
     }
 
     #[Test]

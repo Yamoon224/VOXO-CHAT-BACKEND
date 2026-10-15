@@ -3,6 +3,7 @@
 namespace App\Domains\Conversations\Services;
 
 use App\Domains\Assistant\Contracts\AssistantResponderContract;
+use App\Domains\Automations\Contracts\AutomationResponderContract;
 use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
 use App\Domains\Conversations\Contracts\VisitorConversationContract;
@@ -25,6 +26,7 @@ final class ConversationService implements VisitorConversationContract
         private readonly AssistantResponderContract $assistant,
         private readonly TransactionManagerContract $transactions,
         private readonly RoutingExecutionService $routing,
+        private readonly AutomationResponderContract $automations,
     ) {}
 
     /**
@@ -93,8 +95,10 @@ final class ConversationService implements VisitorConversationContract
         ?string $contactId = null,
         ?string $subject = null,
     ): Conversation {
+        $automationHandled = false;
+
         $conversation = $this->transactions->run(
-            function () use ($workspaceId, $channel, $visitorId, $body, $visitorName, $visitorEmail, $contactId, $subject) {
+            function () use ($workspaceId, $channel, $visitorId, $body, $visitorName, $visitorEmail, $contactId, $subject, &$automationHandled) {
                 $conversation = $this->conversations->findOpenForVisitor($workspaceId, $visitorId)
                     ?? $this->conversations->create([
                         'workspace_id' => $workspaceId,
@@ -104,11 +108,12 @@ final class ConversationService implements VisitorConversationContract
                         'contact_id' => $contactId,
                         'subject' => $subject,
                     ]);
+                $isNewConversation = $conversation->wasRecentlyCreated;
 
                 // Le routage (section 2.4) ne joue qu'à l'ouverture : un message
                 // suivant sur une conversation déjà affectée ne doit pas la
                 // réaffecter.
-                if ($conversation->wasRecentlyCreated) {
+                if ($isNewConversation) {
                     $this->routing->applyTo($conversation, $body);
                 }
 
@@ -129,11 +134,28 @@ final class ConversationService implements VisitorConversationContract
                     'body' => $body,
                 ]);
 
-                return $this->conversations->update($conversation, ['last_message_at' => now()]);
+                $conversation = $this->conversations->update($conversation, ['last_message_at' => now()]);
+
+                // Un scénario d'automatisation (section 2.8) qui prend la
+                // main sur ce message remplace la réponse de l'agent IA pour
+                // ce tour-là — jamais les deux à la fois.
+                $automationHandled = $this->automations->applyTo($conversation, $body, $isNewConversation);
+
+                if (! $automationHandled) {
+                    return $conversation;
+                }
+
+                // Une étape d'automatisation a pu changer `contact_id` (ou
+                // affecter un agent) sur la ligne en base sans que cette
+                // copie en mémoire ne le sache — même piège que documenté
+                // pour `ConversationService::assign()` : on la recharge.
+                return $this->conversations->findInWorkspaceOrFail($workspaceId, $conversation->id);
             },
         );
 
-        $this->assistant->respondToConversation($conversation->id);
+        if (! $automationHandled) {
+            $this->assistant->respondToConversation($conversation->id);
+        }
 
         return $conversation;
     }

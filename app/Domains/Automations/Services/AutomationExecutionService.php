@@ -2,6 +2,7 @@
 
 namespace App\Domains\Automations\Services;
 
+use App\Domains\Automations\Contracts\AutomationResponderContract;
 use App\Domains\Automations\Contracts\AutomationRunRepositoryContract;
 use App\Domains\Automations\Contracts\AutomationScenarioRepositoryContract;
 use App\Domains\Automations\Enums\AutomationActionType;
@@ -21,7 +22,7 @@ use App\Models\Conversation;
  * avant l'agent IA : un scénario qui prend la main sur un message remplace sa
  * réponse automatique pour ce tour-là (voir la valeur de retour).
  */
-final class AutomationExecutionService
+final class AutomationExecutionService implements AutomationResponderContract
 {
     public function __construct(
         private readonly AutomationScenarioRepositoryContract $scenarios,
@@ -77,7 +78,10 @@ final class AutomationExecutionService
 
     private function resume(AutomationRun $run, Conversation $conversation, string $messageBody): void
     {
-        $scenario = $run->scenario;
+        // Jamais `$run->scenario` (relation Eloquent) : ce service ne doit
+        // atteindre un autre agrégat qu'à travers son dépôt, jamais une
+        // relation implicite — même principe que partout ailleurs ici.
+        $scenario = $this->scenarios->findInWorkspaceOrFail($conversation->workspace_id, $run->scenario_id);
         $pausedStep = $scenario->steps[$run->current_step - 1];
 
         $conversation = $this->setContactAttribute($conversation, $pausedStep['config']['attribute_key'], $messageBody);

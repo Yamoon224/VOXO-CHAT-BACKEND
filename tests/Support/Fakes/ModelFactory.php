@@ -2,6 +2,9 @@
 
 namespace Tests\Support\Fakes;
 
+use App\Domains\Automations\Enums\AutomationRunStatus;
+use App\Domains\Automations\Enums\AutomationStatus;
+use App\Domains\Automations\Enums\AutomationTriggerType;
 use App\Domains\Billing\Enums\BillingInterval;
 use App\Domains\Billing\Enums\SubscriptionStatus;
 use App\Domains\Conversations\Enums\ConversationChannel;
@@ -19,6 +22,8 @@ use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Tickets\Enums\TicketPriority;
 use App\Domains\Widget\Enums\WidgetPosition;
 use App\Models\AssistantSettings;
+use App\Models\AutomationRun;
+use App\Models\AutomationScenario;
 use App\Models\CannedResponse;
 use App\Models\ChannelConnection;
 use App\Models\ChannelEmailSettings;
@@ -288,6 +293,40 @@ final class ModelFactory
             'action_type' => RoutingActionType::AssignUser,
             'assignee_user_ids' => json_encode([]),
             'next_round_robin_index' => 0,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function automationScenario(array $attributes = []): AutomationScenario
+    {
+        foreach (['conditions', 'steps'] as $jsonField) {
+            if (array_key_exists($jsonField, $attributes) && is_array($attributes[$jsonField])) {
+                $attributes[$jsonField] = json_encode($attributes[$jsonField]);
+            }
+        }
+
+        return (new AutomationScenario)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'name' => 'Scénario de test',
+            'position' => 0,
+            'status' => AutomationStatus::Draft,
+            'trigger_type' => AutomationTriggerType::ConversationOpened,
+            'conditions' => json_encode([]),
+            'steps' => json_encode([]),
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function automationRun(array $attributes = []): AutomationRun
+    {
+        return (new AutomationRun)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'conversation_id' => (string) Str::uuid(),
+            'scenario_id' => (string) Str::uuid(),
+            'current_step' => 0,
+            'status' => AutomationRunStatus::Running,
         ], true);
     }
 

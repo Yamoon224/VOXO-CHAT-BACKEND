@@ -3,6 +3,7 @@
 use App\Domains\Analytics\Http\Controllers\AnalyticsController;
 use App\Domains\Assistant\Http\Controllers\AssistantSandboxController;
 use App\Domains\Assistant\Http\Controllers\AssistantSettingsController;
+use App\Domains\Automations\Http\Controllers\AutomationScenarioController;
 use App\Domains\Auth\Http\Controllers\AuthController;
 use App\Domains\Auth\Http\Controllers\EmailVerificationController;
 use App\Domains\Auth\Http\Controllers\PasswordResetController;
@@ -265,6 +266,19 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::post('/routing-rules', [RoutingRuleController::class, 'store']);
             Route::put('/routing-rules/{rule}', [RoutingRuleController::class, 'update'])->whereUuid('rule');
             Route::delete('/routing-rules/{rule}', [RoutingRuleController::class, 'destroy'])->whereUuid('rule');
+        });
+
+        // =====================================================================
+        // Automatisations (lot 5, section 2.8) : déclencheur, conditions,
+        // actions — brouillon et test avant publication.
+        // =====================================================================
+
+        Route::middleware('workspace.can:automations.manage')->group(function (): void {
+            Route::get('/automations', [AutomationScenarioController::class, 'index']);
+            Route::post('/automations', [AutomationScenarioController::class, 'store']);
+            Route::put('/automations/{scenario}', [AutomationScenarioController::class, 'update'])->whereUuid('scenario');
+            Route::delete('/automations/{scenario}', [AutomationScenarioController::class, 'destroy'])->whereUuid('scenario');
+            Route::post('/automations/{scenario}/test', [AutomationScenarioController::class, 'test'])->whereUuid('scenario');
         });
 
         // =====================================================================

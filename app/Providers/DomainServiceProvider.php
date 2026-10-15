@@ -10,6 +10,12 @@ use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Assistant\Providers\ClaudeAiProvider;
 use App\Domains\Assistant\Repositories\EloquentAssistantSettingsRepository;
 use App\Domains\Assistant\Services\AssistantService;
+use App\Domains\Automations\Contracts\AutomationResponderContract;
+use App\Domains\Automations\Contracts\AutomationRunRepositoryContract;
+use App\Domains\Automations\Contracts\AutomationScenarioRepositoryContract;
+use App\Domains\Automations\Repositories\EloquentAutomationRunRepository;
+use App\Domains\Automations\Repositories\EloquentAutomationScenarioRepository;
+use App\Domains\Automations\Services\AutomationExecutionService;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
 use App\Domains\Auth\Contracts\PasswordResetTokenStoreContract;
 use App\Domains\Auth\Contracts\TotpProviderContract;
@@ -243,6 +249,13 @@ class DomainServiceProvider extends ServiceProvider
         // --- Routage et sous-boîtes (lot 5) ---------------------------------------------
         RoutingRuleRepositoryContract::class => EloquentRoutingRuleRepository::class,
         InboxViewRepositoryContract::class => EloquentInboxViewRepository::class,
+
+        // --- Automatisations (lot 5, section 2.8) ---------------------------------------
+        AutomationScenarioRepositoryContract::class => EloquentAutomationScenarioRepository::class,
+        AutomationRunRepositoryContract::class => EloquentAutomationRunRepository::class,
+        // Lecture étroite exposée au domaine `Conversations` : un message
+        // vient d'être reçu, à évaluer contre les scénarios publiés.
+        AutomationResponderContract::class => AutomationExecutionService::class,
 
         // --- Canaux (lot 4, lot 5) -------------------------------------------------------
         ChannelEmailSettingsRepositoryContract::class => EloquentChannelEmailSettingsRepository::class,

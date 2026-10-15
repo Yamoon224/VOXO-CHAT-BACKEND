@@ -41,6 +41,7 @@ tags:
   - name: Tickets
   - name: Centre d'aide
   - name: Routage
+  - name: Automatisations
   - name: Agent IA
   - name: Facturation
   - name: Paiements
@@ -1331,6 +1332,141 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/DomainError' }
         '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/automations:
+    get:
+      tags: [Automatisations]
+      summary: Scénarios d'automatisation de l'espace courant (section 2.8)
+      description: Permission `automations.manage`.
+      responses:
+        '200':
+          description: Scénarios
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/AutomationScenario' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Automatisations]
+      summary: Créer un scénario d'automatisation
+      description: |
+        Permission `automations.manage`. Créé en `draft` par défaut : seul un
+        scénario `published` est évalué sur les conversations réelles.
+        Code d'erreur `automation_assignee_not_member` (422) si une étape
+        `assign_user` désigne quelqu'un hors de l'espace.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [trigger_type]
+              properties:
+                name: { type: string, maxLength: 120 }
+                position: { type: integer, minimum: 0 }
+                status: { $ref: '#/components/schemas/AutomationStatus' }
+                trigger_type: { $ref: '#/components/schemas/AutomationTriggerType' }
+                conditions: { type: array, items: { $ref: '#/components/schemas/AutomationCondition' } }
+                steps: { type: array, items: { $ref: '#/components/schemas/AutomationStep' } }
+      responses:
+        '201':
+          description: Scénario créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AutomationScenario' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/automations/{scenario}:
+    put:
+      tags: [Automatisations]
+      summary: Modifier un scénario d'automatisation
+      description: Permission `automations.manage`.
+      parameters:
+        - { name: scenario, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [trigger_type]
+              properties:
+                name: { type: string, maxLength: 120 }
+                position: { type: integer, minimum: 0 }
+                status: { $ref: '#/components/schemas/AutomationStatus' }
+                trigger_type: { $ref: '#/components/schemas/AutomationTriggerType' }
+                conditions: { type: array, items: { $ref: '#/components/schemas/AutomationCondition' } }
+                steps: { type: array, items: { $ref: '#/components/schemas/AutomationStep' } }
+      responses:
+        '200':
+          description: Scénario modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AutomationScenario' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Automatisations]
+      summary: Supprimer un scénario d'automatisation
+      description: Permission `automations.manage`.
+      parameters:
+        - { name: scenario, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Scénario supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/automations/{scenario}/test:
+    post:
+      tags: [Automatisations]
+      summary: Tester un scénario sur un message d'exemple, sans rien enregistrer
+      description: |
+        Permission `automations.manage`. Simule les conditions et les étapes
+        sur `message` (et `channel` si une condition en dépend) sans jamais
+        créer de conversation, de contact ni de message réel — même logique
+        que le bac à sable de l'agent IA (`POST /workspace/assistant/sandbox`).
+        S'arrête à la première étape « poser une question » : une vraie
+        réponse de visiteur serait nécessaire pour continuer.
+      parameters:
+        - { name: scenario, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: { type: string, maxLength: 2000 }
+                channel: { type: string, nullable: true }
+      responses:
+        '200':
+          description: Résultat de la simulation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      conditions_matched: { type: boolean }
+                      steps:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type: { $ref: '#/components/schemas/AutomationActionType' }
+                            preview: { type: string }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
 
   /workspace/contacts:
     get:
@@ -3296,6 +3432,58 @@ components:
         action_type: { $ref: '#/components/schemas/RoutingActionType' }
         action_type_label: { type: string }
         assignee_user_ids: { type: array, items: { type: string, format: uuid } }
+
+    AutomationStatus:
+      type: string
+      enum: [draft, published]
+
+    AutomationTriggerType:
+      type: string
+      enum: [conversation_opened, message_received]
+
+    AutomationConditionField:
+      type: string
+      enum: [channel, message]
+
+    AutomationConditionOperator:
+      type: string
+      enum: [equals, contains]
+
+    AutomationActionType:
+      type: string
+      enum: [send_message, ask_question, assign_user, set_contact_attribute]
+
+    AutomationCondition:
+      type: object
+      properties:
+        field: { $ref: '#/components/schemas/AutomationConditionField' }
+        operator: { $ref: '#/components/schemas/AutomationConditionOperator' }
+        value: { type: string }
+
+    AutomationStep:
+      type: object
+      description: |
+        `config` varie par `type` : `send_message`/`ask_question` portent
+        `body` (`ask_question` porte aussi `attribute_key`, l'attribut du
+        contact où enregistrer la prochaine réponse du visiteur) ;
+        `assign_user` porte `user_id` ; `set_contact_attribute` porte `key`
+        et `value`.
+      properties:
+        type: { $ref: '#/components/schemas/AutomationActionType' }
+        config: { type: object, additionalProperties: true }
+
+    AutomationScenario:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        position: { type: integer }
+        status: { $ref: '#/components/schemas/AutomationStatus' }
+        status_label: { type: string }
+        trigger_type: { $ref: '#/components/schemas/AutomationTriggerType' }
+        trigger_type_label: { type: string }
+        conditions: { type: array, items: { $ref: '#/components/schemas/AutomationCondition' } }
+        steps: { type: array, items: { $ref: '#/components/schemas/AutomationStep' } }
 
     InboxView:
       type: object

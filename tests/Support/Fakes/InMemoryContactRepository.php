@@ -50,6 +50,28 @@ final class InMemoryContactRepository implements ContactRepositoryContract
         return null;
     }
 
+    public function findByPhone(string $workspaceId, string $phone): ?Contact
+    {
+        foreach ($this->contacts as $contact) {
+            if ($contact->workspace_id === $workspaceId && $contact->phone === $phone) {
+                return $contact;
+            }
+        }
+
+        return null;
+    }
+
+    public function findByCustomAttribute(string $workspaceId, string $key, string $value): ?Contact
+    {
+        foreach ($this->contacts as $contact) {
+            if ($contact->workspace_id === $workspaceId && ($contact->custom_attributes[$key] ?? null) === $value) {
+                return $contact;
+            }
+        }
+
+        return null;
+    }
+
     public function create(array $attributes): Contact
     {
         $contact = ModelFactory::contact($this->encodeJsonColumns($attributes));

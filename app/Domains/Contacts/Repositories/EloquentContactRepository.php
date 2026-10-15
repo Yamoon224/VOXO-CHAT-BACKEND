@@ -38,6 +38,19 @@ final class EloquentContactRepository implements ContactRepositoryContract
         return Contact::query()->where('workspace_id', $workspaceId)->where('email', $email)->first();
     }
 
+    public function findByPhone(string $workspaceId, string $phone): ?Contact
+    {
+        return Contact::query()->where('workspace_id', $workspaceId)->where('phone', $phone)->first();
+    }
+
+    public function findByCustomAttribute(string $workspaceId, string $key, string $value): ?Contact
+    {
+        return Contact::query()
+            ->where('workspace_id', $workspaceId)
+            ->where("custom_attributes->{$key}", $value)
+            ->first();
+    }
+
     public function create(array $attributes): Contact
     {
         return Contact::query()->create($attributes);

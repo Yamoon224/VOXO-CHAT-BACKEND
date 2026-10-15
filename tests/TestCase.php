@@ -5,6 +5,11 @@ namespace Tests;
 use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
 use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
+use App\Domains\Channels\Providers\ArrayInstagramChannelProvider;
+use App\Domains\Channels\Providers\ArrayMessengerChannelProvider;
+use App\Domains\Channels\Providers\ArraySmsChannelProvider;
+use App\Domains\Channels\Providers\ArrayTelegramChannelProvider;
+use App\Domains\Channels\Providers\ArrayWhatsAppChannelProvider;
 use App\Domains\Knowledge\Crawling\ArrayWebCrawler;
 use App\Domains\Knowledge\Embeddings\ArrayEmbeddingProvider;
 use App\Domains\Knowledge\Ocr\ArrayOcrEngine;
@@ -128,5 +133,35 @@ abstract class TestCase extends BaseTestCase
     protected function emailChannelProvider(): ArrayEmailChannelProvider
     {
         return $this->app->make(ArrayEmailChannelProvider::class);
+    }
+
+    /** `CHANNELS_WHATSAPP_DRIVER=array` en environnement de test. */
+    protected function whatsAppChannelProvider(): ArrayWhatsAppChannelProvider
+    {
+        return $this->app->make(ArrayWhatsAppChannelProvider::class);
+    }
+
+    /** `CHANNELS_MESSENGER_DRIVER=array` en environnement de test. */
+    protected function messengerChannelProvider(): ArrayMessengerChannelProvider
+    {
+        return $this->app->make(ArrayMessengerChannelProvider::class);
+    }
+
+    /** `CHANNELS_INSTAGRAM_DRIVER=array` en environnement de test. */
+    protected function instagramChannelProvider(): ArrayInstagramChannelProvider
+    {
+        return $this->app->make(ArrayInstagramChannelProvider::class);
+    }
+
+    /** `CHANNELS_TELEGRAM_DRIVER=array` en environnement de test. */
+    protected function telegramChannelProvider(): ArrayTelegramChannelProvider
+    {
+        return $this->app->make(ArrayTelegramChannelProvider::class);
+    }
+
+    /** `CHANNELS_SMS_DRIVER=array` en environnement de test. */
+    protected function smsChannelProvider(): ArraySmsChannelProvider
+    {
+        return $this->app->make(ArraySmsChannelProvider::class);
     }
 }

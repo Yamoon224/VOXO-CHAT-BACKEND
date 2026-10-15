@@ -41,7 +41,7 @@ class RolesAndPermissionsSeeder extends Seeder
         'conversations.manage' => 'Répondre, affecter, changer le statut et noter les conversations.',
         'canned_responses.manage' => 'Créer, modifier et supprimer les réponses pré-enregistrées.',
         'widget.manage' => 'Régler l\'apparence, les horaires et le script du widget.',
-        'channels.manage' => "Régler le canal e-mail : activation et domaine d'envoi.",
+        'channels.manage' => 'Régler les canaux de messagerie : e-mail, WhatsApp, Messenger, Instagram, Telegram, SMS.',
         'assistant.manage' => "Régler l'agent IA et tester le bac à sable.",
         'billing.view' => "Consulter le palier, l'abonnement et la consommation de l'espace de travail.",
         'billing.manage' => "Changer de palier, résilier l'abonnement et consulter les factures.",

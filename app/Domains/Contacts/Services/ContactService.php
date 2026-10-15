@@ -97,6 +97,45 @@ final class ContactService implements ContactLinkContract
         ])->id;
     }
 
+    public function findOrCreateIdByPhone(string $workspaceId, ?string $phone, ?string $name = null): ?string
+    {
+        if ($phone === null || $phone === '') {
+            return null;
+        }
+
+        $contact = $this->contacts->findByPhone($workspaceId, $phone);
+
+        if ($contact !== null) {
+            return $contact->id;
+        }
+
+        return $this->contacts->create([
+            'workspace_id' => $workspaceId,
+            'phone' => $phone,
+            'name' => $name,
+        ])->id;
+    }
+
+    public function findOrCreateIdByExternalId(string $workspaceId, string $channel, ?string $externalId, ?string $name = null): ?string
+    {
+        if ($externalId === null || $externalId === '') {
+            return null;
+        }
+
+        $key = "{$channel}_id";
+        $contact = $this->contacts->findByCustomAttribute($workspaceId, $key, $externalId);
+
+        if ($contact !== null) {
+            return $contact->id;
+        }
+
+        return $this->contacts->create([
+            'workspace_id' => $workspaceId,
+            'name' => $name,
+            'custom_attributes' => [$key => $externalId],
+        ])->id;
+    }
+
     private function guardEmailAvailable(string $workspaceId, ?string $email): void
     {
         if ($email === null) {

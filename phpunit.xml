@@ -62,6 +62,11 @@
         <env name="ASSISTANT_AI_DRIVER" value="array"/>
         <env name="PAYMENTS_GATEWAY_DRIVER" value="array"/>
         <env name="CHANNELS_EMAIL_DRIVER" value="array"/>
+        <env name="CHANNELS_WHATSAPP_DRIVER" value="array"/>
+        <env name="CHANNELS_MESSENGER_DRIVER" value="array"/>
+        <env name="CHANNELS_INSTAGRAM_DRIVER" value="array"/>
+        <env name="CHANNELS_TELEGRAM_DRIVER" value="array"/>
+        <env name="CHANNELS_SMS_DRIVER" value="array"/>
 
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>

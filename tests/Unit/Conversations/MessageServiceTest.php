@@ -47,7 +47,9 @@ class MessageServiceTest extends TestCase
     #[Test]
     public function une_reponse_publique_est_relayee_au_canal_d_origine(): void
     {
-        $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'visitor_email' => 'client@exemple.fr']);
+        // `visitor_id` porte l'adresse de relais (lot 5 : e-mail, téléphone ou
+        // identifiant externe selon le canal) — voir `InboundChannelService`.
+        $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'visitor_id' => 'client@exemple.fr']);
         $conversations = new InMemoryConversationRepository($conversation);
         $dispatcher = new SpyOutboundChannelDispatcher;
         $service = new MessageService($conversations, new InMemoryMessageRepository, $dispatcher);

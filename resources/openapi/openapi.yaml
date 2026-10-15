@@ -1704,6 +1704,49 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/channels/{channel}/connection:
+    get:
+      tags: [Canaux]
+      summary: Connexion de l'espace courant à un canal de messagerie (lot 5)
+      description: Permission `channels.manage`. `{channel}` est whatsapp, messenger, instagram, telegram ou sms.
+      parameters:
+        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] } }
+      responses:
+        '200':
+          description: Connexion
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ChannelConnection' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    put:
+      tags: [Canaux]
+      summary: Activer ou mettre à jour les identifiants d'un canal de messagerie
+      description: |
+        Permission `channels.manage`. `credentials` ne fait qu'ajouter ou
+        remplacer les clés fournies — les autres clés déjà enregistrées sont
+        conservées. Activer (`enabled: true`) exige que les identifiants
+        requis par ce canal soient déjà renseignés, sans quoi 422.
+      parameters:
+        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] } }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled: { type: boolean }
+                credentials: { type: object, additionalProperties: { type: string } }
+      responses:
+        '200':
+          description: Connexion modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/ChannelConnection' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
   /workspace/tickets:
     get:
       tags: [Tickets]
@@ -2197,6 +2240,185 @@ paths:
           content:
             application/json:
               schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/whatsapp/{workspace}/inbound:
+    get:
+      tags: [Canaux]
+      summary: Poignée de main du webhook WhatsApp (vérification Meta)
+      description: |
+        Meta envoie `hub.mode`, `hub.verify_token` et `hub.challenge` avant
+        d'accepter l'URL dans la console de l'app — répond `hub.challenge` en
+        texte brut si le jeton correspond à celui enregistré sur `ChannelConnection`.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: hub.mode, in: query, required: false, schema: { type: string } }
+        - { name: hub.verify_token, in: query, required: false, schema: { type: string } }
+        - { name: hub.challenge, in: query, required: false, schema: { type: string } }
+      responses:
+        '200': { description: 'Jeton valide, défi renvoyé en texte brut' }
+        '403': { description: Jeton de vérification invalide }
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal WhatsApp)
+      description: |
+        Point d'entrée du webhook WhatsApp Cloud API. Pas de jeton Sanctum,
+        mais pas ouvert à tous : le canal doit être activé pour cet espace et
+        la requête doit porter un `X-Hub-Signature-256` valide (HMAC-SHA256 du
+        corps brut avec `app_secret`), sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Hub-Signature-256, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook WhatsApp Cloud API }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/messenger/{workspace}/inbound:
+    get:
+      tags: [Canaux]
+      summary: Poignée de main du webhook Messenger (vérification Meta)
+      description: Même mécanique que le webhook WhatsApp.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: hub.mode, in: query, required: false, schema: { type: string } }
+        - { name: hub.verify_token, in: query, required: false, schema: { type: string } }
+        - { name: hub.challenge, in: query, required: false, schema: { type: string } }
+      responses:
+        '200': { description: 'Jeton valide, défi renvoyé en texte brut' }
+        '403': { description: Jeton de vérification invalide }
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal Messenger)
+      description: |
+        Point d'entrée du webhook Messenger (Send/Receive API de Meta). Même
+        garde que WhatsApp : canal activé et `X-Hub-Signature-256` valide, sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Hub-Signature-256, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook Messenger }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/instagram/{workspace}/inbound:
+    get:
+      tags: [Canaux]
+      summary: Poignée de main du webhook Instagram (vérification Meta)
+      description: Même mécanique que le webhook WhatsApp.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: hub.mode, in: query, required: false, schema: { type: string } }
+        - { name: hub.verify_token, in: query, required: false, schema: { type: string } }
+        - { name: hub.challenge, in: query, required: false, schema: { type: string } }
+      responses:
+        '200': { description: 'Jeton valide, défi renvoyé en texte brut' }
+        '403': { description: Jeton de vérification invalide }
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal Instagram)
+      description: |
+        Point d'entrée du webhook Instagram (Send/Receive API de Meta). Même
+        garde que WhatsApp : canal activé et `X-Hub-Signature-256` valide, sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Hub-Signature-256, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook Instagram }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/telegram/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal Telegram)
+      description: |
+        Point d'entrée du webhook Telegram (Bot API) — pas de poignée de main
+        GET préalable contrairement aux produits Meta, mais le canal doit être
+        activé et la requête doit porter l'en-tête
+        `X-Telegram-Bot-Api-Secret-Token` (fixé lors de l'appel `setWebhook`
+        avec `secret_token`), sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Telegram-Bot-Api-Secret-Token, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook Telegram (Bot API) }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou jeton secret invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/sms/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un SMS entrant
+      description: |
+        Forme Twilio-like (prestataire non tranché, section 12 du cahier des
+        charges). Le canal doit être activé et la requête doit porter un
+        `X-Twilio-Signature` valide (HMAC-SHA1 de l'URL et des paramètres du
+        formulaire avec `auth_token`), sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Twilio-Signature, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [From, Body]
+              properties:
+                From: { type: string }
+                Body: { type: string }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
   /public/tickets/{workspace}/submissions:
@@ -2920,7 +3142,7 @@ components:
 
     ConversationChannel:
       type: string
-      enum: [widget, email, contact_form, ticket]
+      enum: [widget, email, contact_form, ticket, whatsapp, messenger, instagram, telegram, sms]
 
     MessageSenderType:
       type: string
@@ -3238,6 +3460,17 @@ components:
         enabled: { type: boolean }
         reply_from_email: { type: string, nullable: true }
         reply_from_name: { type: string, nullable: true }
+
+    ChannelConnection:
+      type: object
+      description: |
+        Les identifiants sont masqués à la relecture (derniers caractères
+        visibles), sauf `verify_token` : l'espace doit le copier dans la
+        console Meta pour WhatsApp/Messenger/Instagram.
+      properties:
+        channel: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] }
+        enabled: { type: boolean }
+        credentials: { type: object, additionalProperties: { type: string } }
 
     PublicWidgetSettings:
       type: object

@@ -32,10 +32,22 @@ use App\Domains\Billing\Repositories\EloquentQuotaAlertRepository;
 use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
 use App\Domains\Billing\Services\QuotaGuardService;
 use App\Domains\Billing\Services\SubscriptionService;
+use App\Domains\Channels\Contracts\ChannelConnectionRepositoryContract;
 use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
 use App\Domains\Channels\Contracts\EmailChannelProviderContract;
+use App\Domains\Channels\Contracts\InstagramChannelProviderContract;
+use App\Domains\Channels\Contracts\MessengerChannelProviderContract;
 use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
+use App\Domains\Channels\Contracts\SmsChannelProviderContract;
+use App\Domains\Channels\Contracts\TelegramChannelProviderContract;
+use App\Domains\Channels\Contracts\WhatsAppChannelProviderContract;
 use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
+use App\Domains\Channels\Providers\ArrayInstagramChannelProvider;
+use App\Domains\Channels\Providers\ArrayMessengerChannelProvider;
+use App\Domains\Channels\Providers\ArraySmsChannelProvider;
+use App\Domains\Channels\Providers\ArrayTelegramChannelProvider;
+use App\Domains\Channels\Providers\ArrayWhatsAppChannelProvider;
+use App\Domains\Channels\Repositories\EloquentChannelConnectionRepository;
 use App\Domains\Channels\Repositories\EloquentChannelEmailSettingsRepository;
 use App\Domains\Channels\Services\ChannelDispatchService;
 use App\Domains\Contacts\Contracts\ContactEventRepositoryContract;
@@ -232,8 +244,9 @@ class DomainServiceProvider extends ServiceProvider
         RoutingRuleRepositoryContract::class => EloquentRoutingRuleRepository::class,
         InboxViewRepositoryContract::class => EloquentInboxViewRepository::class,
 
-        // --- Canaux (lot 4) ------------------------------------------------------------
+        // --- Canaux (lot 4, lot 5) -------------------------------------------------------
         ChannelEmailSettingsRepositoryContract::class => EloquentChannelEmailSettingsRepository::class,
+        ChannelConnectionRepositoryContract::class => EloquentChannelConnectionRepository::class,
         // Lecture étroite exposée au domaine `Conversations` : une réponse
         // publique vient d'être postée, à relayer vers son canal d'origine.
         OutboundChannelDispatcherContract::class => ChannelDispatchService::class,
@@ -435,18 +448,38 @@ class DomainServiceProvider extends ServiceProvider
         });
     }
 
-    /** Pilote d'envoi du canal e-mail, choisi par configuration (même garde que `registerMailSender()`). */
+    /** Pilote d'envoi des canaux de messagerie, choisi par configuration (même garde que `registerMailSender()`). */
     private function registerChannelsProvider(): void
     {
         $this->app->singleton(ArrayEmailChannelProvider::class);
+        $this->app->singleton(ArrayWhatsAppChannelProvider::class);
+        $this->app->singleton(ArrayMessengerChannelProvider::class);
+        $this->app->singleton(ArrayInstagramChannelProvider::class);
+        $this->app->singleton(ArrayTelegramChannelProvider::class);
+        $this->app->singleton(ArraySmsChannelProvider::class);
 
-        $this->app->singleton(EmailChannelProviderContract::class, function (): EmailChannelProviderContract {
-            $name = (string) config('channels.email.driver');
-            $driver = config("channels.email.drivers.{$name}");
+        $this->bindChannelDriver('email', EmailChannelProviderContract::class);
+        $this->bindChannelDriver('whatsapp', WhatsAppChannelProviderContract::class);
+        $this->bindChannelDriver('messenger', MessengerChannelProviderContract::class);
+        $this->bindChannelDriver('instagram', InstagramChannelProviderContract::class);
+        $this->bindChannelDriver('telegram', TelegramChannelProviderContract::class);
+        $this->bindChannelDriver('sms', SmsChannelProviderContract::class);
+    }
 
-            if (! is_string($driver) || ! is_subclass_of($driver, EmailChannelProviderContract::class)) {
+    /**
+     * @template T
+     *
+     * @param  class-string<T>  $contract
+     */
+    private function bindChannelDriver(string $channel, string $contract): void
+    {
+        $this->app->singleton($contract, function () use ($channel, $contract) {
+            $name = (string) config("channels.{$channel}.driver");
+            $driver = config("channels.{$channel}.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, $contract)) {
                 throw new RuntimeException(
-                    "Pilote du canal e-mail « {$name} » inconnu. Vérifiez CHANNELS_EMAIL_DRIVER et config/channels.php.",
+                    "Pilote du canal « {$channel} » « {$name} » inconnu. Vérifiez CHANNELS_".strtoupper($channel).'_DRIVER et config/channels.php.',
                 );
             }
 

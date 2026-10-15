@@ -10,9 +10,16 @@ use App\Domains\Auth\Http\Controllers\TwoFactorController;
 use App\Domains\Billing\Http\Controllers\InvoiceController;
 use App\Domains\Billing\Http\Controllers\PlanController;
 use App\Domains\Billing\Http\Controllers\SubscriptionController;
+use App\Domains\Channels\Http\Controllers\ChannelConnectionController;
 use App\Domains\Channels\Http\Controllers\ChannelEmailSettingsController;
 use App\Domains\Channels\Http\Controllers\ContactFormController;
 use App\Domains\Channels\Http\Controllers\InboundEmailController;
+use App\Domains\Channels\Http\Controllers\InstagramInboundController;
+use App\Domains\Channels\Http\Controllers\MessengerInboundController;
+use App\Domains\Channels\Http\Controllers\SmsInboundController;
+use App\Domains\Channels\Http\Controllers\TelegramInboundController;
+use App\Domains\Channels\Http\Controllers\WhatsAppInboundController;
+use App\Domains\Channels\Support\MessagingChannel;
 use App\Domains\Contacts\Http\Controllers\ContactController;
 use App\Domains\Contacts\Http\Controllers\ContactEventController;
 use App\Domains\Contacts\Http\Controllers\ContactExportController;
@@ -117,6 +124,19 @@ Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): 
 Route::prefix('public/channels')->middleware('throttle:60,1')->group(function (): void {
     Route::post('/email/{workspace}/inbound', [InboundEmailController::class, 'store'])->whereUuid('workspace');
     Route::post('/contact-form/{workspace}/submissions', [ContactFormController::class, 'store'])->whereUuid('workspace');
+
+    // Omnicanal (lot 5) : WhatsApp, Messenger et Instagram passent par le
+    // webhook unifié de Meta, qui exige une poignée de main GET avant
+    // d'accepter l'URL (`VerifiesMetaWebhook`) — Telegram et le SMS appellent
+    // directement le POST, sans vérification préalable.
+    Route::get('/whatsapp/{workspace}/inbound', [WhatsAppInboundController::class, 'verify'])->whereUuid('workspace');
+    Route::post('/whatsapp/{workspace}/inbound', [WhatsAppInboundController::class, 'store'])->whereUuid('workspace');
+    Route::get('/messenger/{workspace}/inbound', [MessengerInboundController::class, 'verify'])->whereUuid('workspace');
+    Route::post('/messenger/{workspace}/inbound', [MessengerInboundController::class, 'store'])->whereUuid('workspace');
+    Route::get('/instagram/{workspace}/inbound', [InstagramInboundController::class, 'verify'])->whereUuid('workspace');
+    Route::post('/instagram/{workspace}/inbound', [InstagramInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/telegram/{workspace}/inbound', [TelegramInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/sms/{workspace}/inbound', [SmsInboundController::class, 'store'])->whereUuid('workspace');
 });
 
 // Portail client des tickets (lot 4, section 2.7) : pas de compte, un lien
@@ -301,6 +321,13 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::middleware('workspace.can:channels.manage')->group(function (): void {
             Route::get('/channels/email/settings', [ChannelEmailSettingsController::class, 'show']);
             Route::put('/channels/email/settings', [ChannelEmailSettingsController::class, 'update']);
+
+            // Omnicanal (lot 5) : une connexion par couple (espace, canal) —
+            // WhatsApp, Messenger, Instagram, Telegram, SMS.
+            Route::get('/channels/{channel}/connection', [ChannelConnectionController::class, 'show'])
+                ->whereIn('channel', MessagingChannel::values());
+            Route::put('/channels/{channel}/connection', [ChannelConnectionController::class, 'update'])
+                ->whereIn('channel', MessagingChannel::values());
         });
 
         // =====================================================================

@@ -18,6 +18,11 @@ interface ContactRepositoryContract
 
     public function findByEmail(string $workspaceId, string $email): ?Contact;
 
+    public function findByPhone(string $workspaceId, string $phone): ?Contact;
+
+    /** Recherche par attribut personnalisé (lot 5) : identifiants externes des canaux de messagerie (PSID, IGSID, chat id Telegram). */
+    public function findByCustomAttribute(string $workspaceId, string $key, string $value): ?Contact;
+
     /** @param  array<string, mixed>  $attributes */
     public function create(array $attributes): Contact;
 

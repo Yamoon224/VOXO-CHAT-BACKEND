@@ -2,25 +2,61 @@
 
 namespace App\Domains\Channels\Services;
 
+use App\Domains\Channels\Contracts\ChannelConnectionRepositoryContract;
 use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
 use App\Domains\Channels\Contracts\EmailChannelProviderContract;
+use App\Domains\Channels\Contracts\InstagramChannelProviderContract;
+use App\Domains\Channels\Contracts\MessengerChannelProviderContract;
 use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
+use App\Domains\Channels\Contracts\SmsChannelProviderContract;
+use App\Domains\Channels\Contracts\TelegramChannelProviderContract;
+use App\Domains\Channels\Contracts\WhatsAppChannelProviderContract;
 
 /** Implémente `OutboundChannelDispatcherContract` : relaie une réponse publique vers son canal d'origine. */
 final class ChannelDispatchService implements OutboundChannelDispatcherContract
 {
     public function __construct(
-        private readonly ChannelEmailSettingsRepositoryContract $settings,
+        private readonly ChannelEmailSettingsRepositoryContract $emailSettings,
         private readonly EmailChannelProviderContract $emailProvider,
+        private readonly ChannelConnectionRepositoryContract $connections,
+        private readonly WhatsAppChannelProviderContract $whatsApp,
+        private readonly MessengerChannelProviderContract $messenger,
+        private readonly InstagramChannelProviderContract $instagram,
+        private readonly TelegramChannelProviderContract $telegram,
+        private readonly SmsChannelProviderContract $sms,
     ) {}
 
-    public function dispatchReply(string $workspaceId, string $channel, ?string $recipientEmail, string $body): void
+    public function dispatchReply(string $workspaceId, string $channel, ?string $recipientAddress, string $body): void
     {
-        if ($channel !== 'email' || $recipientEmail === null) {
+        if ($recipientAddress === null) {
             return;
         }
 
-        $settings = $this->settings->findOrCreateForWorkspace($workspaceId);
+        if ($channel === 'email') {
+            $this->dispatchEmail($workspaceId, $recipientAddress, $body);
+
+            return;
+        }
+
+        $connection = $this->connections->findForWorkspace($workspaceId, $channel);
+
+        if ($connection === null || ! $connection->enabled) {
+            return;
+        }
+
+        match ($channel) {
+            'whatsapp' => $this->whatsApp->sendReply($recipientAddress, $body, $connection->credentials),
+            'messenger' => $this->messenger->sendReply($recipientAddress, $body, $connection->credentials),
+            'instagram' => $this->instagram->sendReply($recipientAddress, $body, $connection->credentials),
+            'telegram' => $this->telegram->sendReply($recipientAddress, $body, $connection->credentials),
+            'sms' => $this->sms->sendReply($recipientAddress, $body, $connection->credentials),
+            default => null,
+        };
+    }
+
+    private function dispatchEmail(string $workspaceId, string $recipientEmail, string $body): void
+    {
+        $settings = $this->emailSettings->findOrCreateForWorkspace($workspaceId);
 
         if (! $settings->enabled || $settings->reply_from_email === null) {
             return;

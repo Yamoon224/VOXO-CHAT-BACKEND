@@ -20,6 +20,7 @@ use App\Domains\Tickets\Enums\TicketPriority;
 use App\Domains\Widget\Enums\WidgetPosition;
 use App\Models\AssistantSettings;
 use App\Models\CannedResponse;
+use App\Models\ChannelConnection;
 use App\Models\ChannelEmailSettings;
 use App\Models\Contact;
 use App\Models\Conversation;
@@ -326,6 +327,22 @@ final class ModelFactory
             'enabled' => false,
             'reply_from_email' => null,
             'reply_from_name' => null,
+        ], true);
+    }
+
+    /** @param  array<string, mixed>  $attributes */
+    public static function channelConnection(array $attributes = []): ChannelConnection
+    {
+        if (array_key_exists('credentials', $attributes) && is_array($attributes['credentials'])) {
+            $attributes['credentials'] = json_encode($attributes['credentials']);
+        }
+
+        return (new ChannelConnection)->setRawAttributes($attributes + [
+            'id' => (string) Str::uuid(),
+            'workspace_id' => (string) Str::uuid(),
+            'channel' => 'whatsapp',
+            'enabled' => false,
+            'credentials' => json_encode([]),
         ], true);
     }
 

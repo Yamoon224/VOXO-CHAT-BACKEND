@@ -54,7 +54,7 @@ final class MessageService
         // Note interne : jamais renvoyée au visiteur, donc rien à relayer au
         // canal d'origine (`Channels` n'en sait rien et ne doit pas en savoir).
         if ($visibility === MessageVisibility::Public) {
-            $this->dispatcher->dispatchReply($scope->workspaceId, $conversation->channel->value, $conversation->visitor_email, $body);
+            $this->dispatcher->dispatchReply($scope->workspaceId, $conversation->channel->value, $conversation->visitor_id, $body);
         }
 
         return $message;

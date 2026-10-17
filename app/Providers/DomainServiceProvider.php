@@ -11,6 +11,7 @@ use App\Domains\Assistant\Providers\ClaudeAiProvider;
 use App\Domains\Assistant\Repositories\EloquentAssistantSettingsRepository;
 use App\Domains\Assistant\Services\AssistantService;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
+use App\Domains\Auth\Contracts\ApiKeyIssuerContract;
 use App\Domains\Auth\Contracts\PasswordResetTokenStoreContract;
 use App\Domains\Auth\Contracts\TotpProviderContract;
 use App\Domains\Auth\Services\SanctumAccessTokenManager;
@@ -166,6 +167,9 @@ class DomainServiceProvider extends ServiceProvider
         // --- Comptes et sessions -------------------------------------------------
         UserRepositoryContract::class => EloquentUserRepository::class,
         AccessTokenManagerContract::class => SanctumAccessTokenManager::class,
+        // Lecture étroite exposée au domaine `Integrations` (lot 6) : une clé
+        // d'API n'est qu'un jeton d'accès personnel marqué comme tel.
+        ApiKeyIssuerContract::class => SanctumAccessTokenManager::class,
 
         // --- Espaces de travail --------------------------------------------------
         WorkspaceRepositoryContract::class => EloquentWorkspaceRepository::class,

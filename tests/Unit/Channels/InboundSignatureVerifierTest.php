@@ -97,4 +97,79 @@ class InboundSignatureVerifierTest extends TestCase
 
         $this->assertFalse(InboundSignatureVerifier::twilioSignatureValid($request, ['auth_token' => 'auth-token']));
     }
+
+    #[Test]
+    public function une_signature_x_valide_est_acceptee(): void
+    {
+        $body = '{"direct_message_events":[]}';
+        $secret = 'consumer-secret';
+        $signature = 'sha256='.base64_encode(hash_hmac('sha256', $body, $secret, true));
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Twitter-Webhooks-Signature', $signature);
+
+        $this->assertTrue(InboundSignatureVerifier::xSignatureValid($request, ['consumer_secret' => $secret]));
+    }
+
+    #[Test]
+    public function une_signature_x_falsifiee_est_refusee(): void
+    {
+        $body = '{"direct_message_events":[]}';
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Twitter-Webhooks-Signature', 'sha256=0000');
+
+        $this->assertFalse(InboundSignatureVerifier::xSignatureValid($request, ['consumer_secret' => 'consumer-secret']));
+    }
+
+    #[Test]
+    public function sans_consumer_secret_configure_rien_n_est_accepte_pour_x(): void
+    {
+        $request = Request::create('/inbound', 'POST', [], [], [], [], '{}');
+        $request->headers->set('X-Twitter-Webhooks-Signature', 'sha256=abc');
+
+        $this->assertFalse(InboundSignatureVerifier::xSignatureValid($request, []));
+    }
+
+    #[Test]
+    public function une_signature_viber_valide_est_acceptee(): void
+    {
+        $body = '{"event":"message"}';
+        $secret = 'auth-token-viber';
+        $signature = hash_hmac('sha256', $body, $secret);
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Viber-Content-Signature', $signature);
+
+        $this->assertTrue(InboundSignatureVerifier::viberSignatureValid($request, ['auth_token' => $secret]));
+    }
+
+    #[Test]
+    public function une_signature_viber_falsifiee_est_refusee(): void
+    {
+        $body = '{"event":"message"}';
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Viber-Content-Signature', 'signature-invalide');
+
+        $this->assertFalse(InboundSignatureVerifier::viberSignatureValid($request, ['auth_token' => 'auth-token-viber']));
+    }
+
+    #[Test]
+    public function une_signature_line_valide_est_acceptee(): void
+    {
+        $body = '{"events":[]}';
+        $secret = 'channel-secret-line';
+        $signature = base64_encode(hash_hmac('sha256', $body, $secret, true));
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Line-Signature', $signature);
+
+        $this->assertTrue(InboundSignatureVerifier::lineSignatureValid($request, ['channel_secret' => $secret]));
+    }
+
+    #[Test]
+    public function une_signature_line_falsifiee_est_refusee(): void
+    {
+        $body = '{"events":[]}';
+        $request = Request::create('/inbound', 'POST', [], [], [], [], $body);
+        $request->headers->set('X-Line-Signature', 'signature-invalide');
+
+        $this->assertFalse(InboundSignatureVerifier::lineSignatureValid($request, ['channel_secret' => 'channel-secret-line']));
+    }
 }

@@ -4,10 +4,14 @@ namespace Tests\Unit\Channels;
 
 use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
 use App\Domains\Channels\Providers\ArrayInstagramChannelProvider;
+use App\Domains\Channels\Providers\ArrayLineChannelProvider;
 use App\Domains\Channels\Providers\ArrayMessengerChannelProvider;
 use App\Domains\Channels\Providers\ArraySmsChannelProvider;
 use App\Domains\Channels\Providers\ArrayTelegramChannelProvider;
+use App\Domains\Channels\Providers\ArrayTelephonyChannelProvider;
+use App\Domains\Channels\Providers\ArrayViberChannelProvider;
 use App\Domains\Channels\Providers\ArrayWhatsAppChannelProvider;
+use App\Domains\Channels\Providers\ArrayXChannelProvider;
 use App\Domains\Channels\Services\ChannelDispatchService;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\InMemoryChannelConnectionRepository;
@@ -32,6 +36,10 @@ class ChannelDispatchServiceTest extends TestCase
             new ArrayInstagramChannelProvider,
             new ArrayTelegramChannelProvider,
             new ArraySmsChannelProvider,
+            new ArrayXChannelProvider,
+            new ArrayViberChannelProvider,
+            new ArrayLineChannelProvider,
+            new ArrayTelephonyChannelProvider,
         );
     }
 

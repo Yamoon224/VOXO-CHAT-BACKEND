@@ -1850,7 +1850,7 @@ paths:
       summary: Connexion de l'espace courant à un canal de messagerie (lot 5)
       description: Permission `channels.manage`. `{channel}` est whatsapp, messenger, instagram, telegram ou sms.
       parameters:
-        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] } }
+        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms, x, viber, line, telephony] } }
       responses:
         '200':
           description: Connexion
@@ -1868,7 +1868,7 @@ paths:
         conservées. Activer (`enabled: true`) exige que les identifiants
         requis par ce canal soient déjà renseignés, sans quoi 422.
       parameters:
-        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] } }
+        - { name: channel, in: path, required: true, schema: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms, x, viber, line, telephony] } }
       requestBody:
         content:
           application/json:
@@ -3183,6 +3183,127 @@ paths:
         '403': { description: Canal non activé ou signature invalide }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /public/channels/x/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message direct entrant (canal X)
+      description: |
+        Point d'entrée du webhook X (Twitter) Account Activity API (lot 7,
+        section 2.5, P3) — pas de poignée de main GET, mais le canal doit
+        être activé et la requête doit porter un `X-Twitter-Webhooks-Signature`
+        valide (HMAC-SHA256 en base64 du corps brut avec `consumer_secret`),
+        sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Twitter-Webhooks-Signature, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook X (Account Activity API) }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/viber/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal Viber)
+      description: |
+        Point d'entrée du webhook Viber (lot 7, section 2.5, P3) — pas de
+        poignée de main GET, mais le canal doit être activé et la requête
+        doit porter un `X-Viber-Content-Signature` valide (HMAC-SHA256 en
+        hexadécimal du corps brut avec `auth_token`), sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Viber-Content-Signature, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook Viber }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/line/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un message entrant (canal Line)
+      description: |
+        Point d'entrée du webhook LINE Messaging API (lot 7, section 2.5,
+        P3) — pas de poignée de main GET, mais le canal doit être activé et
+        la requête doit porter un `X-Line-Signature` valide (HMAC-SHA256 en
+        base64 du corps brut avec `channel_secret`), sans quoi 403. Un envoi
+        peut porter plusieurs évènements ; seul le premier évènement
+        `message` est traité.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Line-Signature, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, description: Charge utile du webhook LINE Messaging API }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/channels/telephony/{workspace}/inbound:
+    post:
+      tags: [Canaux]
+      summary: Réceptionner un évènement d'appel entrant (journal d'appels)
+      description: |
+        Callback de statut d'appel vocal, forme Twilio-like (lot 7, section
+        2.5, P3) — journal d'appel uniquement, pas de téléphonie temps réel
+        (voix/IVR) : aucune audio ni transcription, seul un résumé (statut,
+        durée) est enregistré comme message de la conversation. Le canal
+        doit être activé et la requête doit porter un `X-Twilio-Signature`
+        valide (même schéma que le canal SMS), sans quoi 403.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: X-Twilio-Signature, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [CallSid, From, To, CallStatus]
+              properties:
+                CallSid: { type: string }
+                From: { type: string }
+                To: { type: string }
+                CallStatus: { type: string }
+                CallDuration: { type: string }
+      responses:
+        '201':
+          description: Conversation créée ou complétée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { conversation_id: { type: string, format: uuid } } } } }
+        '403': { description: Canal non activé ou signature invalide }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
   /public/tickets/{workspace}/submissions:
     post:
       tags: [Tickets]
@@ -4072,7 +4193,7 @@ components:
 
     ConversationChannel:
       type: string
-      enum: [widget, email, contact_form, ticket, whatsapp, messenger, instagram, telegram, sms]
+      enum: [widget, email, contact_form, ticket, whatsapp, messenger, instagram, telegram, sms, x, viber, line, telephony]
 
     MessageSenderType:
       type: string
@@ -4451,7 +4572,7 @@ components:
         visibles), sauf `verify_token` : l'espace doit le copier dans la
         console Meta pour WhatsApp/Messenger/Instagram.
       properties:
-        channel: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms] }
+        channel: { type: string, enum: [whatsapp, messenger, instagram, telegram, sms, x, viber, line, telephony] }
         enabled: { type: boolean }
         credentials: { type: object, additionalProperties: { type: string } }
 

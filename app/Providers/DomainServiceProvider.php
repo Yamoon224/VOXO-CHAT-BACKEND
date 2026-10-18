@@ -56,17 +56,25 @@ use App\Domains\Channels\Contracts\ChannelConnectionRepositoryContract;
 use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
 use App\Domains\Channels\Contracts\EmailChannelProviderContract;
 use App\Domains\Channels\Contracts\InstagramChannelProviderContract;
+use App\Domains\Channels\Contracts\LineChannelProviderContract;
 use App\Domains\Channels\Contracts\MessengerChannelProviderContract;
 use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
 use App\Domains\Channels\Contracts\SmsChannelProviderContract;
 use App\Domains\Channels\Contracts\TelegramChannelProviderContract;
+use App\Domains\Channels\Contracts\TelephonyChannelProviderContract;
+use App\Domains\Channels\Contracts\ViberChannelProviderContract;
 use App\Domains\Channels\Contracts\WhatsAppChannelProviderContract;
+use App\Domains\Channels\Contracts\XChannelProviderContract;
 use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
 use App\Domains\Channels\Providers\ArrayInstagramChannelProvider;
+use App\Domains\Channels\Providers\ArrayLineChannelProvider;
 use App\Domains\Channels\Providers\ArrayMessengerChannelProvider;
 use App\Domains\Channels\Providers\ArraySmsChannelProvider;
 use App\Domains\Channels\Providers\ArrayTelegramChannelProvider;
+use App\Domains\Channels\Providers\ArrayTelephonyChannelProvider;
+use App\Domains\Channels\Providers\ArrayViberChannelProvider;
 use App\Domains\Channels\Providers\ArrayWhatsAppChannelProvider;
+use App\Domains\Channels\Providers\ArrayXChannelProvider;
 use App\Domains\Channels\Repositories\EloquentChannelConnectionRepository;
 use App\Domains\Channels\Repositories\EloquentChannelEmailSettingsRepository;
 use App\Domains\Channels\Services\ChannelDispatchService;
@@ -566,6 +574,10 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->singleton(ArrayInstagramChannelProvider::class);
         $this->app->singleton(ArrayTelegramChannelProvider::class);
         $this->app->singleton(ArraySmsChannelProvider::class);
+        $this->app->singleton(ArrayXChannelProvider::class);
+        $this->app->singleton(ArrayViberChannelProvider::class);
+        $this->app->singleton(ArrayLineChannelProvider::class);
+        $this->app->singleton(ArrayTelephonyChannelProvider::class);
 
         $this->bindChannelDriver('email', EmailChannelProviderContract::class);
         $this->bindChannelDriver('whatsapp', WhatsAppChannelProviderContract::class);
@@ -573,6 +585,10 @@ class DomainServiceProvider extends ServiceProvider
         $this->bindChannelDriver('instagram', InstagramChannelProviderContract::class);
         $this->bindChannelDriver('telegram', TelegramChannelProviderContract::class);
         $this->bindChannelDriver('sms', SmsChannelProviderContract::class);
+        $this->bindChannelDriver('x', XChannelProviderContract::class);
+        $this->bindChannelDriver('viber', ViberChannelProviderContract::class);
+        $this->bindChannelDriver('line', LineChannelProviderContract::class);
+        $this->bindChannelDriver('telephony', TelephonyChannelProviderContract::class);
     }
 
     /**

@@ -76,4 +76,64 @@ final class InboundSignatureVerifier
 
         return hash_equals($expected, $header);
     }
+
+    /**
+     * X (Twitter) : `X-Twitter-Webhooks-Signature`, préfixe `sha256=` suivi
+     * du HMAC-SHA256 en base64 du corps brut avec `consumer_secret`.
+     *
+     * @param  array<string, mixed>  $credentials
+     */
+    public static function xSignatureValid(Request $request, array $credentials): bool
+    {
+        $secret = $credentials['consumer_secret'] ?? null;
+        $header = (string) $request->header('X-Twitter-Webhooks-Signature', '');
+
+        if (! is_string($secret) || $secret === '' || ! str_starts_with($header, 'sha256=')) {
+            return false;
+        }
+
+        $expected = base64_encode(hash_hmac('sha256', $request->getContent(), $secret, true));
+
+        return hash_equals($expected, substr($header, strlen('sha256=')));
+    }
+
+    /**
+     * Viber : `X-Viber-Content-Signature`, HMAC-SHA256 en hexadécimal du
+     * corps brut avec `auth_token`.
+     *
+     * @param  array<string, mixed>  $credentials
+     */
+    public static function viberSignatureValid(Request $request, array $credentials): bool
+    {
+        $secret = $credentials['auth_token'] ?? null;
+        $header = (string) $request->header('X-Viber-Content-Signature', '');
+
+        if (! is_string($secret) || $secret === '' || $header === '') {
+            return false;
+        }
+
+        $expected = hash_hmac('sha256', $request->getContent(), $secret);
+
+        return hash_equals($expected, $header);
+    }
+
+    /**
+     * Line : `X-Line-Signature`, HMAC-SHA256 en base64 du corps brut avec
+     * `channel_secret`.
+     *
+     * @param  array<string, mixed>  $credentials
+     */
+    public static function lineSignatureValid(Request $request, array $credentials): bool
+    {
+        $secret = $credentials['channel_secret'] ?? null;
+        $header = (string) $request->header('X-Line-Signature', '');
+
+        if (! is_string($secret) || $secret === '' || $header === '') {
+            return false;
+        }
+
+        $expected = base64_encode(hash_hmac('sha256', $request->getContent(), $secret, true));
+
+        return hash_equals($expected, $header);
+    }
 }

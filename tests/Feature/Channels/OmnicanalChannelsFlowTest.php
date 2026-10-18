@@ -191,6 +191,134 @@ class OmnicanalChannelsFlowTest extends TestCase
     }
 
     #[Test]
+    public function un_message_x_entrant_rattache_le_contact_par_identifiant_expediteur(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $consumerSecret = $this->enableX($workspace, $admin);
+        $payload = [
+            'direct_message_events' => [[
+                'message_create' => ['sender_id' => 'x-user-1', 'message_data' => ['text' => 'Bonjour sur X.']],
+            ]],
+            'users' => ['x-user-1' => ['name' => 'Alex']],
+        ];
+
+        $response = $this->postJson("/api/v1/public/channels/x/{$workspace->id}/inbound", $payload, $this->xSignatureHeader($payload, $consumerSecret))
+            ->assertCreated();
+
+        $conversation = Conversation::query()->findOrFail($response->json('data.conversation_id'));
+        $this->assertSame('x', $conversation->channel->value);
+        $this->assertSame('x-user-1', $conversation->visitor_id);
+        $this->assertSame('Alex', $conversation->visitor_name);
+    }
+
+    #[Test]
+    public function un_message_x_avec_une_signature_invalide_est_refuse(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $this->enableX($workspace, $admin);
+        $payload = ['direct_message_events' => [['message_create' => ['sender_id' => 'x-user-1', 'message_data' => ['text' => 'Bonjour.']]]]];
+
+        $this->postJson("/api/v1/public/channels/x/{$workspace->id}/inbound", $payload, ['X-Twitter-Webhooks-Signature' => 'sha256=invalide'])
+            ->assertStatus(403);
+    }
+
+    #[Test]
+    public function un_message_viber_entrant_rattache_le_contact_par_identifiant_expediteur(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $authToken = $this->enableViber($workspace, $admin);
+        $payload = ['event' => 'message', 'sender' => ['id' => 'viber-user-1', 'name' => 'Sam'], 'message' => ['type' => 'text', 'text' => 'Bonjour sur Viber.']];
+
+        $response = $this->postJson("/api/v1/public/channels/viber/{$workspace->id}/inbound", $payload, $this->viberSignatureHeader($payload, $authToken))
+            ->assertCreated();
+
+        $conversation = Conversation::query()->findOrFail($response->json('data.conversation_id'));
+        $this->assertSame('viber', $conversation->channel->value);
+        $this->assertSame('viber-user-1', $conversation->visitor_id);
+        $this->assertSame('Sam', $conversation->visitor_name);
+    }
+
+    #[Test]
+    public function un_message_viber_avec_une_signature_invalide_est_refuse(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $this->enableViber($workspace, $admin);
+        $payload = ['sender' => ['id' => 'viber-user-1'], 'message' => ['text' => 'Bonjour.']];
+
+        $this->postJson("/api/v1/public/channels/viber/{$workspace->id}/inbound", $payload, ['X-Viber-Content-Signature' => 'signature-invalide'])
+            ->assertStatus(403);
+    }
+
+    #[Test]
+    public function un_message_line_entrant_rattache_le_contact_par_identifiant_expediteur(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $channelSecret = $this->enableLine($workspace, $admin);
+        $payload = ['events' => [['type' => 'message', 'source' => ['type' => 'user', 'userId' => 'line-user-1'], 'message' => ['type' => 'text', 'text' => 'Bonjour sur Line.']]]];
+
+        $response = $this->postJson("/api/v1/public/channels/line/{$workspace->id}/inbound", $payload, $this->lineSignatureHeader($payload, $channelSecret))
+            ->assertCreated();
+
+        $conversation = Conversation::query()->findOrFail($response->json('data.conversation_id'));
+        $this->assertSame('line', $conversation->channel->value);
+        $this->assertSame('line-user-1', $conversation->visitor_id);
+    }
+
+    #[Test]
+    public function un_message_line_avec_une_signature_invalide_est_refuse(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $this->enableLine($workspace, $admin);
+        $payload = ['events' => [['source' => ['userId' => 'line-user-1'], 'message' => ['text' => 'Bonjour.']]]];
+
+        $this->postJson("/api/v1/public/channels/line/{$workspace->id}/inbound", $payload, ['X-Line-Signature' => 'signature-invalide'])
+            ->assertStatus(403);
+    }
+
+    #[Test]
+    public function un_appel_entrant_rattache_le_contact_par_telephone_et_resume_l_appel(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $authToken = $this->enableTelephony($workspace, $admin);
+        $params = ['CallSid' => 'CA123', 'From' => '+33612345678', 'To' => '+33600000000', 'CallStatus' => 'completed', 'CallDuration' => '134'];
+
+        $response = $this->post(
+            "/api/v1/public/channels/telephony/{$workspace->id}/inbound",
+            $params,
+            $this->twilioStyleSignatureHeader('/public/channels/telephony/'.$workspace->id.'/inbound', $params, $authToken),
+        )->assertCreated();
+
+        $conversation = Conversation::query()->findOrFail($response->json('data.conversation_id'));
+        $this->assertSame('telephony', $conversation->channel->value);
+
+        $contact = Contact::query()->where('workspace_id', $workspace->id)->first();
+        $this->assertSame('+33612345678', $contact->phone);
+        $this->assertSame('Appel terminé (durée 02:14)', $conversation->messages()->latest()->first()->body);
+    }
+
+    #[Test]
+    public function un_appel_avec_une_signature_invalide_est_refuse(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+        $this->enableTelephony($workspace, $admin);
+        $params = ['CallSid' => 'CA123', 'From' => '+33612345678', 'To' => '+33600000000', 'CallStatus' => 'completed'];
+
+        $this->post(
+            "/api/v1/public/channels/telephony/{$workspace->id}/inbound",
+            $params,
+            ['X-Twilio-Signature' => 'signature-invalide'],
+        )->assertStatus(403);
+    }
+
+    #[Test]
     public function la_poignee_de_main_whatsapp_reussit_avec_le_bon_jeton(): void
     {
         $workspace = Workspace::factory()->create();
@@ -323,6 +451,113 @@ class OmnicanalChannelsFlowTest extends TestCase
             ->assertOk();
 
         return $authToken;
+    }
+
+    /** Active X (Twitter) pour l'espace et renvoie le `consumer_secret` utilisé pour signer les webhooks de test. */
+    private function enableX(Workspace $workspace, User $admin): string
+    {
+        $consumerSecret = 'consumer-secret-x';
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/x/connection', [
+                'credentials' => ['consumer_secret' => $consumerSecret, 'access_token' => 'access-token-x'],
+            ])->assertOk();
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/x/connection', ['enabled' => true])
+            ->assertOk();
+
+        return $consumerSecret;
+    }
+
+    /** Active Viber pour l'espace et renvoie l'`auth_token` utilisé pour signer les webhooks de test. */
+    private function enableViber(Workspace $workspace, User $admin): string
+    {
+        $authToken = 'auth-token-viber';
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/viber/connection', ['credentials' => ['auth_token' => $authToken]])
+            ->assertOk();
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/viber/connection', ['enabled' => true])
+            ->assertOk();
+
+        return $authToken;
+    }
+
+    /** Active Line pour l'espace et renvoie le `channel_secret` utilisé pour signer les webhooks de test. */
+    private function enableLine(Workspace $workspace, User $admin): string
+    {
+        $channelSecret = 'channel-secret-line';
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/line/connection', [
+                'credentials' => ['channel_access_token' => 'channel-access-token-line', 'channel_secret' => $channelSecret],
+            ])->assertOk();
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/line/connection', ['enabled' => true])
+            ->assertOk();
+
+        return $channelSecret;
+    }
+
+    /** Active le journal d'appels pour l'espace et renvoie l'`auth_token` utilisé pour signer les webhooks de test. */
+    private function enableTelephony(Workspace $workspace, User $admin): string
+    {
+        $authToken = 'auth-token-telephony';
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/telephony/connection', [
+                'credentials' => ['account_sid' => 'AC456', 'auth_token' => $authToken, 'caller_number' => '+33600000001'],
+            ])->assertOk();
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/channels/telephony/connection', ['enabled' => true])
+            ->assertOk();
+
+        return $authToken;
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, string>
+     */
+    private function xSignatureHeader(array $payload, string $consumerSecret): array
+    {
+        $signature = base64_encode(hash_hmac('sha256', (string) json_encode($payload), $consumerSecret, true));
+
+        return ['X-Twitter-Webhooks-Signature' => "sha256={$signature}"];
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, string>
+     */
+    private function viberSignatureHeader(array $payload, string $authToken): array
+    {
+        return ['X-Viber-Content-Signature' => hash_hmac('sha256', (string) json_encode($payload), $authToken)];
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, string>
+     */
+    private function lineSignatureHeader(array $payload, string $channelSecret): array
+    {
+        $signature = base64_encode(hash_hmac('sha256', (string) json_encode($payload), $channelSecret, true));
+
+        return ['X-Line-Signature' => $signature];
+    }
+
+    /**
+     * @param  array<string, string>  $params
+     * @return array<string, string>
+     */
+    private function twilioStyleSignatureHeader(string $path, array $params, string $authToken): array
+    {
+        $fullUrl = rtrim((string) config('app.url'), '/').'/api/v1'.$path;
+
+        ksort($params);
+        $data = $fullUrl;
+        foreach ($params as $key => $value) {
+            $data .= $key.$value;
+        }
+
+        return ['X-Twilio-Signature' => base64_encode(hash_hmac('sha1', $data, $authToken, true))];
     }
 
     /**

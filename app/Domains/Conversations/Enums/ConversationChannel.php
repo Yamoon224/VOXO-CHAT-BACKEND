@@ -9,7 +9,10 @@ namespace App\Domains\Conversations\Enums;
  * section 2.7) : une demande ouverte depuis le portail client, sans passer
  * par un des trois canaux ci-dessus. `whatsapp`, `messenger`, `instagram`,
  * `telegram` et `sms` arrivent avec le lot 5 (Omnicanal, section 2.5, P2) —
- * même raisonnement, un connecteur de plus derrière `Channels`.
+ * même raisonnement, un connecteur de plus derrière `Channels`. `x`, `viber`,
+ * `line` et `telephony` arrivent avec le lot 7 (section 2.5, P3) — même
+ * raisonnement encore, `telephony` étant un journal d'appels (pas de
+ * téléphonie temps réel).
  */
 enum ConversationChannel: string
 {
@@ -22,6 +25,10 @@ enum ConversationChannel: string
     case Instagram = 'instagram';
     case Telegram = 'telegram';
     case Sms = 'sms';
+    case X = 'x';
+    case Viber = 'viber';
+    case Line = 'line';
+    case Telephony = 'telephony';
 
     public function label(): string
     {
@@ -35,6 +42,10 @@ enum ConversationChannel: string
             self::Instagram => 'Instagram',
             self::Telegram => 'Telegram',
             self::Sms => 'SMS',
+            self::X => 'X',
+            self::Viber => 'Viber',
+            self::Line => 'Line',
+            self::Telephony => 'Téléphonie',
         };
     }
 

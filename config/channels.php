@@ -2,16 +2,24 @@
 
 use App\Domains\Channels\Providers\ArrayEmailChannelProvider;
 use App\Domains\Channels\Providers\ArrayInstagramChannelProvider;
+use App\Domains\Channels\Providers\ArrayLineChannelProvider;
 use App\Domains\Channels\Providers\ArrayMessengerChannelProvider;
 use App\Domains\Channels\Providers\ArraySmsChannelProvider;
 use App\Domains\Channels\Providers\ArrayTelegramChannelProvider;
+use App\Domains\Channels\Providers\ArrayTelephonyChannelProvider;
+use App\Domains\Channels\Providers\ArrayViberChannelProvider;
 use App\Domains\Channels\Providers\ArrayWhatsAppChannelProvider;
+use App\Domains\Channels\Providers\ArrayXChannelProvider;
 use App\Domains\Channels\Providers\InstagramGraphApiProvider;
 use App\Domains\Channels\Providers\LaravelMailEmailChannelProvider;
+use App\Domains\Channels\Providers\LineMessagingApiProvider;
 use App\Domains\Channels\Providers\MessengerGraphApiProvider;
 use App\Domains\Channels\Providers\TelegramBotApiProvider;
+use App\Domains\Channels\Providers\TwilioCallLogProvider;
 use App\Domains\Channels\Providers\TwilioSmsProvider;
+use App\Domains\Channels\Providers\ViberApiProvider;
 use App\Domains\Channels\Providers\WhatsAppCloudApiProvider;
+use App\Domains\Channels\Providers\XApiProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +89,42 @@ return [
         'drivers' => [
             'http' => TwilioSmsProvider::class,
             'array' => ArraySmsChannelProvider::class,
+        ],
+    ],
+
+    'x' => [
+        'driver' => env('CHANNELS_X_DRIVER', 'http'),
+
+        'drivers' => [
+            'http' => XApiProvider::class,
+            'array' => ArrayXChannelProvider::class,
+        ],
+    ],
+
+    'viber' => [
+        'driver' => env('CHANNELS_VIBER_DRIVER', 'http'),
+
+        'drivers' => [
+            'http' => ViberApiProvider::class,
+            'array' => ArrayViberChannelProvider::class,
+        ],
+    ],
+
+    'line' => [
+        'driver' => env('CHANNELS_LINE_DRIVER', 'http'),
+
+        'drivers' => [
+            'http' => LineMessagingApiProvider::class,
+            'array' => ArrayLineChannelProvider::class,
+        ],
+    ],
+
+    'telephony' => [
+        'driver' => env('CHANNELS_TELEPHONY_DRIVER', 'http'),
+
+        'drivers' => [
+            'http' => TwilioCallLogProvider::class,
+            'array' => ArrayTelephonyChannelProvider::class,
         ],
     ],
 

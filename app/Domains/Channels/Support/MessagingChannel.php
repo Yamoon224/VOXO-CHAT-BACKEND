@@ -3,10 +3,10 @@
 namespace App\Domains\Channels\Support;
 
 /**
- * Les cinq canaux de messagerie du lot 5 (section 2.5, P2) : la forme des
- * identifiants varie par prestataire, centralisée ici pour que la requête de
- * validation, le service de connexion et les pilotes concrets restent
- * d'accord sans se copier les clés les uns des autres.
+ * Les neuf canaux de messagerie des lots 5 et 7 (section 2.5, P2/P3) : la
+ * forme des identifiants varie par prestataire, centralisée ici pour que la
+ * requête de validation, le service de connexion et les pilotes concrets
+ * restent d'accord sans se copier les clés les uns des autres.
  */
 enum MessagingChannel: string
 {
@@ -15,6 +15,10 @@ enum MessagingChannel: string
     case Instagram = 'instagram';
     case Telegram = 'telegram';
     case Sms = 'sms';
+    case X = 'x';
+    case Viber = 'viber';
+    case Line = 'line';
+    case Telephony = 'telephony';
 
     /**
      * @return list<string> Clés de `credentials` requises pour activer le
@@ -22,10 +26,12 @@ enum MessagingChannel: string
      *                      `X-Hub-Signature-256` sur chaque webhook entrant —
      *                      sans lui, n'importe qui pourrait usurper un
      *                      visiteur en postant directement sur l'URL publique.
-     *                      `auth_token` (SMS) sert pareil pour `X-Twilio-Signature`.
-     *                      Telegram n'a pas de secret saisi par l'espace : le
-     *                      sien (`secret_token`) est engendré à la création,
-     *                      voir `usesSecretToken()`.
+     *                      `auth_token` (SMS, Viber, téléphonie) sert pareil
+     *                      pour leur propre en-tête de signature ;
+     *                      `consumer_secret` (X) et `channel_secret` (Line)
+     *                      de même. Telegram n'a pas de secret saisi par
+     *                      l'espace : le sien (`secret_token`) est engendré à
+     *                      la création, voir `usesSecretToken()`.
      */
     public function requiredCredentialFields(): array
     {
@@ -34,19 +40,27 @@ enum MessagingChannel: string
             self::Messenger, self::Instagram => ['page_access_token', 'app_secret'],
             self::Telegram => ['bot_token'],
             self::Sms => ['account_sid', 'auth_token', 'from_number'],
+            self::X => ['consumer_secret', 'access_token'],
+            self::Viber => ['auth_token'],
+            self::Line => ['channel_access_token', 'channel_secret'],
+            // Lot 7, section 2.5 (P3) : canal « journal d'appels », pas de
+            // téléphonie temps réel (voix/IVR) — voir `TelephonyInboundRequest`.
+            // `caller_number` sert de `From` pour le SMS de rappel automatique
+            // (`TwilioCallLogProvider::sendReply()`).
+            self::Telephony => ['account_sid', 'auth_token', 'caller_number'],
         };
     }
 
     /**
      * WhatsApp/Messenger/Instagram passent par le webhook unifié de Meta, qui
      * exige une poignée de main GET (`hub.verify_token`) avant d'accepter
-     * l'URL dans la console de l'app — Telegram et le SMS n'en ont pas besoin.
+     * l'URL dans la console de l'app — les autres canaux n'en ont pas besoin.
      */
     public function usesMetaWebhookHandshake(): bool
     {
         return match ($this) {
             self::WhatsApp, self::Messenger, self::Instagram => true,
-            self::Telegram, self::Sms => false,
+            self::Telegram, self::Sms, self::X, self::Viber, self::Line, self::Telephony => false,
         };
     }
 

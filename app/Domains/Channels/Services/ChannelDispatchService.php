@@ -6,11 +6,15 @@ use App\Domains\Channels\Contracts\ChannelConnectionRepositoryContract;
 use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
 use App\Domains\Channels\Contracts\EmailChannelProviderContract;
 use App\Domains\Channels\Contracts\InstagramChannelProviderContract;
+use App\Domains\Channels\Contracts\LineChannelProviderContract;
 use App\Domains\Channels\Contracts\MessengerChannelProviderContract;
 use App\Domains\Channels\Contracts\OutboundChannelDispatcherContract;
 use App\Domains\Channels\Contracts\SmsChannelProviderContract;
 use App\Domains\Channels\Contracts\TelegramChannelProviderContract;
+use App\Domains\Channels\Contracts\TelephonyChannelProviderContract;
+use App\Domains\Channels\Contracts\ViberChannelProviderContract;
 use App\Domains\Channels\Contracts\WhatsAppChannelProviderContract;
+use App\Domains\Channels\Contracts\XChannelProviderContract;
 
 /** Implémente `OutboundChannelDispatcherContract` : relaie une réponse publique vers son canal d'origine. */
 final class ChannelDispatchService implements OutboundChannelDispatcherContract
@@ -24,6 +28,10 @@ final class ChannelDispatchService implements OutboundChannelDispatcherContract
         private readonly InstagramChannelProviderContract $instagram,
         private readonly TelegramChannelProviderContract $telegram,
         private readonly SmsChannelProviderContract $sms,
+        private readonly XChannelProviderContract $x,
+        private readonly ViberChannelProviderContract $viber,
+        private readonly LineChannelProviderContract $line,
+        private readonly TelephonyChannelProviderContract $telephony,
     ) {}
 
     public function dispatchReply(string $workspaceId, string $channel, ?string $recipientAddress, string $body): void
@@ -50,6 +58,10 @@ final class ChannelDispatchService implements OutboundChannelDispatcherContract
             'instagram' => $this->instagram->sendReply($recipientAddress, $body, $connection->credentials),
             'telegram' => $this->telegram->sendReply($recipientAddress, $body, $connection->credentials),
             'sms' => $this->sms->sendReply($recipientAddress, $body, $connection->credentials),
+            'x' => $this->x->sendReply($recipientAddress, $body, $connection->credentials),
+            'viber' => $this->viber->sendReply($recipientAddress, $body, $connection->credentials),
+            'line' => $this->line->sendReply($recipientAddress, $body, $connection->credentials),
+            'telephony' => $this->telephony->sendReply($recipientAddress, $body, $connection->credentials),
             default => null,
         };
     }

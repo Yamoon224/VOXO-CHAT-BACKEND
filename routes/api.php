@@ -20,10 +20,14 @@ use App\Domains\Channels\Http\Controllers\ChannelEmailSettingsController;
 use App\Domains\Channels\Http\Controllers\ContactFormController;
 use App\Domains\Channels\Http\Controllers\InboundEmailController;
 use App\Domains\Channels\Http\Controllers\InstagramInboundController;
+use App\Domains\Channels\Http\Controllers\LineInboundController;
 use App\Domains\Channels\Http\Controllers\MessengerInboundController;
 use App\Domains\Channels\Http\Controllers\SmsInboundController;
 use App\Domains\Channels\Http\Controllers\TelegramInboundController;
+use App\Domains\Channels\Http\Controllers\TelephonyInboundController;
+use App\Domains\Channels\Http\Controllers\ViberInboundController;
 use App\Domains\Channels\Http\Controllers\WhatsAppInboundController;
+use App\Domains\Channels\Http\Controllers\XInboundController;
 use App\Domains\Channels\Support\MessagingChannel;
 use App\Domains\Contacts\Http\Controllers\ContactController;
 use App\Domains\Contacts\Http\Controllers\ContactEventController;
@@ -150,6 +154,10 @@ Route::prefix('public/channels')->middleware('throttle:60,1')->group(function ()
     Route::post('/instagram/{workspace}/inbound', [InstagramInboundController::class, 'store'])->whereUuid('workspace');
     Route::post('/telegram/{workspace}/inbound', [TelegramInboundController::class, 'store'])->whereUuid('workspace');
     Route::post('/sms/{workspace}/inbound', [SmsInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/x/{workspace}/inbound', [XInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/viber/{workspace}/inbound', [ViberInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/line/{workspace}/inbound', [LineInboundController::class, 'store'])->whereUuid('workspace');
+    Route::post('/telephony/{workspace}/inbound', [TelephonyInboundController::class, 'store'])->whereUuid('workspace');
 });
 
 // Portail client des tickets (lot 4, section 2.7) : pas de compte, un lien

@@ -12,6 +12,8 @@ use App\Domains\Automations\Http\Controllers\AutomationScenarioController;
 use App\Domains\Billing\Http\Controllers\InvoiceController;
 use App\Domains\Billing\Http\Controllers\PlanController;
 use App\Domains\Billing\Http\Controllers\SubscriptionController;
+use App\Domains\Campaigns\Http\Controllers\CampaignController;
+use App\Domains\Campaigns\Http\Controllers\CampaignTemplateController;
 use App\Domains\Channels\Http\Controllers\ChannelConnectionController;
 use App\Domains\Channels\Http\Controllers\ChannelEmailSettingsController;
 use App\Domains\Channels\Http\Controllers\ContactFormController;
@@ -282,6 +284,26 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::put('/automations/{scenario}', [AutomationScenarioController::class, 'update'])->whereUuid('scenario');
             Route::delete('/automations/{scenario}', [AutomationScenarioController::class, 'destroy'])->whereUuid('scenario');
             Route::post('/automations/{scenario}/test', [AutomationScenarioController::class, 'test'])->whereUuid('scenario');
+        });
+
+        // =====================================================================
+        // Campagnes (lot 6, section 2.9) : envois ponctuels, ciblage par
+        // segment, modèles.
+        // =====================================================================
+
+        Route::middleware('workspace.can:campaigns.manage')->group(function (): void {
+            Route::get('/campaign-templates', [CampaignTemplateController::class, 'index']);
+            Route::post('/campaign-templates', [CampaignTemplateController::class, 'store']);
+            Route::put('/campaign-templates/{template}', [CampaignTemplateController::class, 'update'])->whereUuid('template');
+            Route::delete('/campaign-templates/{template}', [CampaignTemplateController::class, 'destroy'])->whereUuid('template');
+
+            Route::get('/campaigns', [CampaignController::class, 'index']);
+            Route::post('/campaigns', [CampaignController::class, 'store']);
+            Route::get('/campaigns/{campaign}', [CampaignController::class, 'show'])->whereUuid('campaign');
+            Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])->whereUuid('campaign');
+            Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])->whereUuid('campaign');
+            Route::post('/campaigns/{campaign}/send', [CampaignController::class, 'send'])->whereUuid('campaign');
+            Route::get('/campaigns/{campaign}/sends', [CampaignController::class, 'sends'])->whereUuid('campaign');
         });
 
         // =====================================================================

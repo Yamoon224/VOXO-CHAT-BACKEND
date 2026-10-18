@@ -3,6 +3,7 @@
 namespace App\Domains\Contacts\Services;
 
 use App\Domains\Contacts\Contracts\ContactRepositoryContract;
+use App\Domains\Contacts\Contracts\ContactSegmentMatcherContract;
 use App\Domains\Contacts\Contracts\ContactSegmentRepositoryContract;
 use App\Domains\Contacts\Enums\SegmentOperator;
 use App\Models\Contact;
@@ -15,7 +16,7 @@ use Illuminate\Support\Collection;
  * évaluateur simple, pas un moteur de requête dynamique — la volumétrie
  * visée (un espace de travail, pas une base multi-tenant entière) le permet.
  */
-final class ContactSegmentService
+final class ContactSegmentService implements ContactSegmentMatcherContract
 {
     public function __construct(
         private readonly ContactSegmentRepositoryContract $segments,
@@ -53,6 +54,11 @@ final class ContactSegmentService
         return $this->contacts->all($workspaceId)->filter(
             fn (Contact $contact) => $this->matchesAllCriteria($contact, $segment->criteria),
         )->values();
+    }
+
+    public function assertExistsInWorkspace(string $workspaceId, string $segmentId): void
+    {
+        $this->segments->findInWorkspaceOrFail($workspaceId, $segmentId);
     }
 
     /** @param  list<array{field: string, operator: string, value: mixed}>  $criteria */

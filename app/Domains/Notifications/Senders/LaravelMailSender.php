@@ -4,6 +4,7 @@ namespace App\Domains\Notifications\Senders;
 
 use App\Domains\Notifications\Contracts\MailSenderContract;
 use App\Domains\Notifications\DTOs\MailMessage;
+use App\Domains\Notifications\Support\RawMail;
 use App\Domains\Notifications\Support\TransactionalMail;
 use Illuminate\Contracts\Mail\Mailer;
 
@@ -19,5 +20,10 @@ final class LaravelMailSender implements MailSenderContract
     public function send(MailMessage $message): void
     {
         $this->mailer->to($message->to)->queue(new TransactionalMail($message));
+    }
+
+    public function sendRaw(string $to, string $subject, string $bodyHtml): void
+    {
+        $this->mailer->to($to)->queue(new RawMail($subject, $bodyHtml));
     }
 }

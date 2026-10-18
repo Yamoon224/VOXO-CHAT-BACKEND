@@ -15,15 +15,29 @@ final class ArrayMailSender implements MailSenderContract
     /** @var list<MailMessage> */
     private array $sent = [];
 
+    /** @var list<array{to: string, subject: string, bodyHtml: string}> */
+    private array $sentRaw = [];
+
     public function send(MailMessage $message): void
     {
         $this->sent[] = $message;
+    }
+
+    public function sendRaw(string $to, string $subject, string $bodyHtml): void
+    {
+        $this->sentRaw[] = ['to' => $to, 'subject' => $subject, 'bodyHtml' => $bodyHtml];
     }
 
     /** @return list<MailMessage> */
     public function sent(): array
     {
         return $this->sent;
+    }
+
+    /** @return list<array{to: string, subject: string, bodyHtml: string}> */
+    public function sentRaw(): array
+    {
+        return $this->sentRaw;
     }
 
     /** Dernier message d'un modèle donné envoyé à cette adresse. */

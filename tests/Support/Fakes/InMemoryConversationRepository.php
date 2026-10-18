@@ -66,6 +66,14 @@ final class InMemoryConversationRepository implements ConversationRepositoryCont
             ->first();
     }
 
+    public function findLatestForContact(string $workspaceId, string $contactId): ?Conversation
+    {
+        return (new Collection($this->conversations))
+            ->filter(fn (Conversation $c) => $c->workspace_id === $workspaceId && $c->contact_id === $contactId)
+            ->sortByDesc(fn (Conversation $c) => $c->last_message_at)
+            ->first();
+    }
+
     public function create(array $attributes): Conversation
     {
         $conversation = ModelFactory::conversation($attributes);

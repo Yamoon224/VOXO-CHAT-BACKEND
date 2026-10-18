@@ -9,6 +9,9 @@ use App\Domains\Automations\Enums\AutomationStatus;
 use App\Domains\Automations\Enums\AutomationTriggerType;
 use App\Domains\Billing\Enums\BillingInterval;
 use App\Domains\Billing\Enums\SubscriptionStatus;
+use App\Domains\Campaigns\Enums\CampaignChannel;
+use App\Domains\Campaigns\Enums\CampaignSendStatus;
+use App\Domains\Campaigns\Enums\CampaignStatus;
 use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
@@ -148,6 +151,9 @@ class OpenApiSpecificationTest extends TestCase
         yield 'AutomationActionType' => ['AutomationActionType', AutomationActionType::values()];
         yield 'WebhookEventType' => ['WebhookEventType', WebhookEventType::values()];
         yield 'WebhookDeliveryStatus' => ['WebhookDeliveryStatus', WebhookDeliveryStatus::values()];
+        yield 'CampaignChannel' => ['CampaignChannel', CampaignChannel::values()];
+        yield 'CampaignStatus' => ['CampaignStatus', CampaignStatus::values()];
+        yield 'CampaignSendStatus' => ['CampaignSendStatus', CampaignSendStatus::values()];
     }
 
     #[Test]

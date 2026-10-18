@@ -61,6 +61,15 @@ final class EloquentConversationRepository implements ConversationReaderContract
             ->first();
     }
 
+    public function findLatestForContact(string $workspaceId, string $contactId): ?Conversation
+    {
+        return Conversation::query()
+            ->where('workspace_id', $workspaceId)
+            ->where('contact_id', $contactId)
+            ->latest('last_message_at')
+            ->first();
+    }
+
     public function create(array $attributes): Conversation
     {
         return Conversation::create($attributes);

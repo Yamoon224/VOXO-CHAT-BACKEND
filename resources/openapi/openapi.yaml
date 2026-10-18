@@ -47,6 +47,7 @@ tags:
   - name: Paiements
   - name: Statistiques
   - name: Intégrations
+  - name: Campagnes
   - name: Plateforme
 
 paths:
@@ -1781,6 +1782,7 @@ paths:
                       opens_at: { type: string, example: '09:00' }
                       closes_at: { type: string, example: '18:00' }
                 offline_message: { type: string, nullable: true, maxLength: 500 }
+                hide_branding: { type: boolean }
       responses:
         '200':
           description: Réglages modifiés
@@ -1883,6 +1885,223 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/campaign-templates:
+    get:
+      tags: [Campagnes]
+      summary: Modèles de campagne de l'espace courant (section 2.9)
+      description: Permission `campaigns.manage`.
+      responses:
+        '200':
+          description: Modèles
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/CampaignTemplate' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Campagnes]
+      summary: Créer un modèle de campagne
+      description: 'Permission `campaigns.manage`. `{{name}}` et `{{email}}` sont substitués à l''envoi.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, channel, body]
+              properties:
+                name: { type: string, maxLength: 120 }
+                channel: { $ref: '#/components/schemas/CampaignChannel' }
+                subject: { type: string, maxLength: 200, nullable: true, description: "Requis pour le canal e-mail, sans objet pour le chat." }
+                body: { type: string }
+      responses:
+        '201':
+          description: Modèle créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/CampaignTemplate' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/campaign-templates/{template}:
+    put:
+      tags: [Campagnes]
+      summary: Modifier un modèle de campagne
+      description: Permission `campaigns.manage`.
+      parameters:
+        - { name: template, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, channel, body]
+              properties:
+                name: { type: string, maxLength: 120 }
+                channel: { $ref: '#/components/schemas/CampaignChannel' }
+                subject: { type: string, maxLength: 200, nullable: true }
+                body: { type: string }
+      responses:
+        '200':
+          description: Modèle modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/CampaignTemplate' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Campagnes]
+      summary: Supprimer un modèle de campagne
+      description: Permission `campaigns.manage`.
+      parameters:
+        - { name: template, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Modèle supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/campaigns:
+    get:
+      tags: [Campagnes]
+      summary: Campagnes de l'espace courant (section 2.9)
+      description: Permission `campaigns.manage`.
+      responses:
+        '200':
+          description: Campagnes
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/Campaign' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Campagnes]
+      summary: Créer une campagne (brouillon)
+      description: Permission `campaigns.manage`. Le segment et le modèle doivent exister dans cet espace.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, channel, segment_id, template_id]
+              properties:
+                name: { type: string, maxLength: 120 }
+                channel: { $ref: '#/components/schemas/CampaignChannel' }
+                segment_id: { type: string, format: uuid }
+                template_id: { type: string, format: uuid }
+      responses:
+        '201':
+          description: Campagne créée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Campaign' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/campaigns/{campaign}:
+    get:
+      tags: [Campagnes]
+      summary: Détail d'une campagne, avec ses comptes d'envoi
+      description: Permission `campaigns.manage`.
+      parameters:
+        - { name: campaign, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Campagne
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Campaign' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Campagnes]
+      summary: Modifier une campagne (brouillon uniquement)
+      description: |
+        Permission `campaigns.manage`. Code d'erreur `campaign_already_sent`
+        (422) si la campagne a déjà été envoyée : le ciblage et le contenu
+        d'une campagne envoyée ne changent plus.
+      parameters:
+        - { name: campaign, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, channel, segment_id, template_id]
+              properties:
+                name: { type: string, maxLength: 120 }
+                channel: { $ref: '#/components/schemas/CampaignChannel' }
+                segment_id: { type: string, format: uuid }
+                template_id: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Campagne modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Campaign' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Campagnes]
+      summary: Supprimer une campagne
+      description: Permission `campaigns.manage`.
+      parameters:
+        - { name: campaign, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Campagne supprimée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/campaigns/{campaign}/send:
+    post:
+      tags: [Campagnes]
+      summary: Envoyer une campagne au segment ciblé
+      description: |
+        Permission `campaigns.manage`. Résout le segment, met un envoi par
+        contact en file (jamais dans cette requête), et fige la campagne.
+        Code d'erreur `campaign_already_sent` (422) si déjà envoyée.
+      parameters:
+        - { name: campaign, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Campagne envoyée (mise en file)
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/Campaign' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/campaigns/{campaign}/sends:
+    get:
+      tags: [Campagnes]
+      summary: Détail des tentatives d'envoi d'une campagne, par contact
+      description: Permission `campaigns.manage`.
+      parameters:
+        - { name: campaign, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Tentatives d'envoi
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/CampaignSend' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
 
   /workspace/tickets:
     get:
@@ -3810,6 +4029,7 @@ components:
               opens_at: { type: string }
               closes_at: { type: string }
         offline_message: { type: string, nullable: true }
+        hide_branding: { type: boolean, description: "Marque blanche (section 2.3) : retire la mention VOXO du widget." }
 
     ChannelEmailSettings:
       type: object
@@ -3839,6 +4059,7 @@ components:
         language: { $ref: '#/components/schemas/Locale' }
         is_open_now: { type: boolean }
         offline_message: { type: string, nullable: true }
+        hide_branding: { type: boolean }
 
     AssistantSettings:
       type: object
@@ -3978,6 +4199,64 @@ components:
       properties:
         question: { type: string }
         created_at: { type: string, format: date-time }
+
+    CampaignChannel:
+      type: string
+      enum: [email, chat]
+
+    CampaignTemplate:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        channel: { $ref: '#/components/schemas/CampaignChannel' }
+        channel_label: { type: string }
+        subject: { type: string, nullable: true }
+        body: { type: string }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    CampaignStatus:
+      type: string
+      enum: [draft, sent]
+
+    CampaignStats:
+      type: object
+      properties:
+        pending: { type: integer }
+        sent: { type: integer }
+        failed: { type: integer }
+        skipped: { type: integer }
+
+    Campaign:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        channel: { $ref: '#/components/schemas/CampaignChannel' }
+        channel_label: { type: string }
+        segment_id: { type: string, format: uuid }
+        template_id: { type: string, format: uuid }
+        status: { $ref: '#/components/schemas/CampaignStatus' }
+        status_label: { type: string }
+        sent_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time, nullable: true }
+        stats: { $ref: '#/components/schemas/CampaignStats' }
+
+    CampaignSendStatus:
+      type: string
+      enum: [pending, sent, failed, skipped]
+
+    CampaignSend:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        contact_id: { type: string, format: uuid }
+        contact_name: { type: string, nullable: true }
+        contact_email: { type: string, nullable: true }
+        status: { $ref: '#/components/schemas/CampaignSendStatus' }
+        status_label: { type: string }
+        error: { type: string, nullable: true }
+        sent_at: { type: string, format: date-time, nullable: true }
 
     WebhookEventType:
       type: string

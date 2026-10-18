@@ -29,6 +29,22 @@ class WidgetSettingsManagementTest extends TestCase
     }
 
     #[Test]
+    public function activer_la_marque_blanche_masque_la_mention_voxo(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $admin = $this->memberOf($workspace, WorkspaceRole::Admin);
+
+        $this->actingInWorkspace($admin, $workspace)
+            ->putJson('/api/v1/workspace/widget/settings', ['hide_branding' => true])
+            ->assertOk()
+            ->assertJsonPath('data.hide_branding', true);
+
+        $this->actingInWorkspace($admin, $workspace)
+            ->getJson('/api/v1/workspace/widget/settings')
+            ->assertJsonPath('data.hide_branding', true);
+    }
+
+    #[Test]
     public function un_agent_ne_peut_pas_modifier_les_reglages_du_widget(): void
     {
         $workspace = Workspace::factory()->create();

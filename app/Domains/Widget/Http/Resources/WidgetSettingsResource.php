@@ -24,6 +24,7 @@ class WidgetSettingsResource extends JsonResource
             'language' => $this->language,
             'business_hours' => $this->business_hours,
             'offline_message' => $this->offline_message,
+            'hide_branding' => $this->hide_branding,
         ];
     }
 }

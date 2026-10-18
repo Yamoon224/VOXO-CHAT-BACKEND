@@ -39,6 +39,12 @@ use App\Domains\Billing\Repositories\EloquentQuotaAlertRepository;
 use App\Domains\Billing\Repositories\EloquentSubscriptionRepository;
 use App\Domains\Billing\Services\QuotaGuardService;
 use App\Domains\Billing\Services\SubscriptionService;
+use App\Domains\Campaigns\Contracts\CampaignRepositoryContract;
+use App\Domains\Campaigns\Contracts\CampaignSendRepositoryContract;
+use App\Domains\Campaigns\Contracts\CampaignTemplateRepositoryContract;
+use App\Domains\Campaigns\Repositories\EloquentCampaignRepository;
+use App\Domains\Campaigns\Repositories\EloquentCampaignSendRepository;
+use App\Domains\Campaigns\Repositories\EloquentCampaignTemplateRepository;
 use App\Domains\Channels\Contracts\ChannelConnectionRepositoryContract;
 use App\Domains\Channels\Contracts\ChannelEmailSettingsRepositoryContract;
 use App\Domains\Channels\Contracts\EmailChannelProviderContract;
@@ -61,11 +67,13 @@ use App\Domains\Contacts\Contracts\ContactEventRepositoryContract;
 use App\Domains\Contacts\Contracts\ContactLinkContract;
 use App\Domains\Contacts\Contracts\ContactNoteRepositoryContract;
 use App\Domains\Contacts\Contracts\ContactRepositoryContract;
+use App\Domains\Contacts\Contracts\ContactSegmentMatcherContract;
 use App\Domains\Contacts\Contracts\ContactSegmentRepositoryContract;
 use App\Domains\Contacts\Repositories\EloquentContactEventRepository;
 use App\Domains\Contacts\Repositories\EloquentContactNoteRepository;
 use App\Domains\Contacts\Repositories\EloquentContactRepository;
 use App\Domains\Contacts\Repositories\EloquentContactSegmentRepository;
+use App\Domains\Contacts\Services\ContactSegmentService;
 use App\Domains\Contacts\Services\ContactService;
 use App\Domains\Conversations\Contracts\CannedResponseRepositoryContract;
 use App\Domains\Conversations\Contracts\ConversationReaderContract;
@@ -214,6 +222,9 @@ class DomainServiceProvider extends ServiceProvider
         // Lecture étroite exposée aux domaines qui démarrent une conversation
         // (`Widget`, `Channels`) : retrouver ou créer un contact par e-mail.
         ContactLinkContract::class => ContactService::class,
+        // Lecture étroite exposée au domaine `Campaigns` (lot 6, section 2.9) :
+        // résoudre l'appartenance à un segment, jamais gérer les segments.
+        ContactSegmentMatcherContract::class => ContactSegmentService::class,
 
         // --- Conversations (lot 2) --------------------------------------------------
         ConversationRepositoryContract::class => EloquentConversationRepository::class,
@@ -280,6 +291,11 @@ class DomainServiceProvider extends ServiceProvider
         // --- Centre d'aide (lot 4) ------------------------------------------------------
         HelpCenterCategoryRepositoryContract::class => EloquentHelpCenterCategoryRepository::class,
         HelpCenterArticleRepositoryContract::class => EloquentHelpCenterArticleRepository::class,
+
+        // --- Campagnes (lot 6, section 2.9) : envois ponctuels, modèles ------------------
+        CampaignTemplateRepositoryContract::class => EloquentCampaignTemplateRepository::class,
+        CampaignRepositoryContract::class => EloquentCampaignRepository::class,
+        CampaignSendRepositoryContract::class => EloquentCampaignSendRepository::class,
 
         // --- Intégrations (lot 6, section 2.14) : clés d'API, webhooks sortants ---------
         WebhookSubscriptionRepositoryContract::class => EloquentWebhookSubscriptionRepository::class,

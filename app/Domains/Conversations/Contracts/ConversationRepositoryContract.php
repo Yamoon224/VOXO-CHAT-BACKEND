@@ -27,6 +27,14 @@ interface ConversationRepositoryContract
     /** Tous statuts confondus : pour afficher/sonder le fil, après résolution comprise. */
     public function findLatestForVisitor(string $workspaceId, string $visitorId): ?Conversation;
 
+    /**
+     * Même mécanique que `findLatestForVisitor()`, mais par profil CRM plutôt
+     * que par identifiant de canal — pour un domaine qui ne connaît un client
+     * que par son contact, jamais par sa session de visiteur (`Campaigns`,
+     * lot 6, section 2.9 : relancer une conversation existante côté chat).
+     */
+    public function findLatestForContact(string $workspaceId, string $contactId): ?Conversation;
+
     /** @param  array<string, mixed>  $attributes */
     public function create(array $attributes): Conversation;
 

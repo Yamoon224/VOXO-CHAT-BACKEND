@@ -25,6 +25,7 @@ class PublicWidgetSettingsResource extends JsonResource
             'language' => $this->language,
             'is_open_now' => $this->isOpenAt(now()),
             'offline_message' => $this->offline_message,
+            'hide_branding' => $this->hide_branding,
         ];
     }
 }

@@ -27,6 +27,7 @@ class UpdateWidgetSettingsRequest extends FormRequest
             'business_hours.*.opens_at' => ['required_with:business_hours', 'date_format:H:i'],
             'business_hours.*.closes_at' => ['required_with:business_hours', 'date_format:H:i'],
             'offline_message' => ['sometimes', 'nullable', 'string', 'max:500'],
+            'hide_branding' => ['sometimes', 'boolean'],
         ];
     }
 }

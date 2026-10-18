@@ -68,6 +68,6 @@ class WidgetPublicFlowTest extends TestCase
 
         $this->getJson("/api/v1/public/widget/{$workspace->id}/settings")
             ->assertOk()
-            ->assertJsonStructure(['data' => ['primary_color', 'position', 'language', 'is_open_now']]);
+            ->assertJsonStructure(['data' => ['primary_color', 'position', 'language', 'is_open_now', 'hide_branding']]);
     }
 }

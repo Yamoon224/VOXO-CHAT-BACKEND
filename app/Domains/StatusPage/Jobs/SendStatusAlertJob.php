@@ -41,7 +41,7 @@ final class SendStatusAlertJob implements ShouldQueue
             return;
         }
 
-        $unsubscribeUrl = $frontendUrl->to('public/status/unsubscribe', [
+        $unsubscribeUrl = $frontendUrl->to('status/unsubscribe', [
             'token' => $token->issue($subscriber->workspace_id, $subscriber->id),
         ]);
 

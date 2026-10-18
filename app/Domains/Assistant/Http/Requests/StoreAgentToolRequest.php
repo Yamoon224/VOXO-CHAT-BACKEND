@@ -5,6 +5,7 @@ namespace App\Domains\Assistant\Http\Requests;
 use App\Domains\Assistant\Enums\AgentToolHttpMethod;
 use App\Domains\Assistant\Enums\AgentToolParameterLocation;
 use App\Domains\Assistant\Enums\AgentToolParameterType;
+use App\Domains\Assistant\Support\TemplatedUrlRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -23,7 +24,7 @@ class StoreAgentToolRequest extends FormRequest
             'name' => ['required', 'string', 'max:64', 'regex:/^[a-zA-Z0-9_-]+$/'],
             'description' => ['required', 'string', 'max:1000'],
             'http_method' => ['required', Rule::in(AgentToolHttpMethod::values())],
-            'url' => ['required', 'url', 'max:2048'],
+            'url' => ['required', 'max:2048', new TemplatedUrlRule],
             'headers' => ['sometimes', 'nullable', 'array'],
             'headers.*' => ['string'],
             'enabled' => ['sometimes', 'boolean'],

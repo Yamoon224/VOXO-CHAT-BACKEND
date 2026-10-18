@@ -50,6 +50,12 @@ use App\Domains\Payments\Http\Controllers\CheckoutController;
 use App\Domains\Payments\Http\Controllers\WebhookController;
 use App\Domains\Platform\Http\Controllers\PlatformWorkspaceController;
 use App\Domains\Shared\Http\Controllers\HealthController;
+use App\Domains\StatusPage\Http\Controllers\PublicStatusPageController;
+use App\Domains\StatusPage\Http\Controllers\PublicStatusSubscriptionController;
+use App\Domains\StatusPage\Http\Controllers\StatusIncidentController;
+use App\Domains\StatusPage\Http\Controllers\StatusMaintenanceController;
+use App\Domains\StatusPage\Http\Controllers\StatusProbeController;
+use App\Domains\StatusPage\Http\Controllers\StatusSubscriberController;
 use App\Domains\Tickets\Http\Controllers\OpenTicketFromConversationController;
 use App\Domains\Tickets\Http\Controllers\PublicTicketController;
 use App\Domains\Tickets\Http\Controllers\TicketController;
@@ -165,6 +171,16 @@ Route::prefix('public/help-center')->middleware('throttle:60,1')->group(function
     Route::get('/{workspace}/categories', [PublicHelpCenterController::class, 'categories'])->whereUuid('workspace');
     Route::get('/{workspace}/articles', [PublicHelpCenterController::class, 'articles'])->whereUuid('workspace');
     Route::get('/{workspace}/articles/{slug}', [PublicHelpCenterController::class, 'article'])->whereUuid('workspace');
+});
+
+// Page de statut publique (lot 7, section 2.11) : pas de compte. L'inscription
+// aux alertes est par e-mail simple ; la désinscription passe par un jeton
+// signé (`StatusSubscriberToken`) qui porte déjà l'espace, d'où l'absence de
+// `{workspace}` sur cette seule route.
+Route::prefix('public/status')->middleware('throttle:60,1')->group(function (): void {
+    Route::post('/unsubscribe', [PublicStatusSubscriptionController::class, 'destroy']);
+    Route::get('/{workspace}', [PublicStatusPageController::class, 'show'])->whereUuid('workspace');
+    Route::post('/{workspace}/subscribe', [PublicStatusSubscriptionController::class, 'store'])->whereUuid('workspace');
 });
 
 // Rappels du prestataire de paiement (lot 3) : l'authenticité tient à la
@@ -304,6 +320,32 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])->whereUuid('campaign');
             Route::post('/campaigns/{campaign}/send', [CampaignController::class, 'send'])->whereUuid('campaign');
             Route::get('/campaigns/{campaign}/sends', [CampaignController::class, 'sends'])->whereUuid('campaign');
+        });
+
+        // =====================================================================
+        // Page de statut (lot 7, section 2.11) : sondes, incidents,
+        // maintenances, abonnés aux alertes.
+        // =====================================================================
+
+        Route::middleware('workspace.can:status_page.manage')->group(function (): void {
+            Route::get('/status-page/probes', [StatusProbeController::class, 'index']);
+            Route::post('/status-page/probes', [StatusProbeController::class, 'store']);
+            Route::put('/status-page/probes/{probe}', [StatusProbeController::class, 'update'])->whereUuid('probe');
+            Route::delete('/status-page/probes/{probe}', [StatusProbeController::class, 'destroy'])->whereUuid('probe');
+
+            Route::get('/status-page/incidents', [StatusIncidentController::class, 'index']);
+            Route::post('/status-page/incidents', [StatusIncidentController::class, 'store']);
+            Route::delete('/status-page/incidents/{incident}', [StatusIncidentController::class, 'destroy'])->whereUuid('incident');
+            Route::get('/status-page/incidents/{incident}/updates', [StatusIncidentController::class, 'updates'])->whereUuid('incident');
+            Route::post('/status-page/incidents/{incident}/updates', [StatusIncidentController::class, 'addUpdate'])->whereUuid('incident');
+
+            Route::get('/status-page/maintenances', [StatusMaintenanceController::class, 'index']);
+            Route::post('/status-page/maintenances', [StatusMaintenanceController::class, 'store']);
+            Route::put('/status-page/maintenances/{maintenance}', [StatusMaintenanceController::class, 'update'])->whereUuid('maintenance');
+            Route::delete('/status-page/maintenances/{maintenance}', [StatusMaintenanceController::class, 'destroy'])->whereUuid('maintenance');
+
+            Route::get('/status-page/subscribers', [StatusSubscriberController::class, 'index']);
+            Route::delete('/status-page/subscribers/{subscriber}', [StatusSubscriberController::class, 'destroy'])->whereUuid('subscriber');
         });
 
         // =====================================================================

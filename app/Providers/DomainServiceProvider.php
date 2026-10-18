@@ -128,13 +128,28 @@ use App\Domains\Notifications\Contracts\TransactionalMailerContract;
 use App\Domains\Notifications\Senders\ArrayMailSender;
 use App\Domains\Notifications\Senders\LaravelMailSender;
 use App\Domains\Notifications\Services\TransactionalMailer;
-use App\Domains\Notifications\Support\FrontendUrl;
 use App\Domains\Payments\Contracts\PaymentGatewayContract;
 use App\Domains\Payments\Gateways\ArrayPaymentGateway;
 use App\Domains\Payments\Gateways\StripePaymentGateway;
 use App\Domains\Payments\Services\CheckoutService;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
+use App\Domains\Shared\Support\FrontendUrl;
+use App\Domains\StatusPage\Contracts\ProbeCheckerContract;
+use App\Domains\StatusPage\Contracts\StatusIncidentRepositoryContract;
+use App\Domains\StatusPage\Contracts\StatusIncidentUpdateRepositoryContract;
+use App\Domains\StatusPage\Contracts\StatusMaintenanceRepositoryContract;
+use App\Domains\StatusPage\Contracts\StatusProbeCheckRepositoryContract;
+use App\Domains\StatusPage\Contracts\StatusProbeRepositoryContract;
+use App\Domains\StatusPage\Contracts\StatusSubscriberRepositoryContract;
+use App\Domains\StatusPage\Providers\ArrayProbeChecker;
+use App\Domains\StatusPage\Repositories\EloquentStatusIncidentRepository;
+use App\Domains\StatusPage\Repositories\EloquentStatusIncidentUpdateRepository;
+use App\Domains\StatusPage\Repositories\EloquentStatusMaintenanceRepository;
+use App\Domains\StatusPage\Repositories\EloquentStatusProbeCheckRepository;
+use App\Domains\StatusPage\Repositories\EloquentStatusProbeRepository;
+use App\Domains\StatusPage\Repositories\EloquentStatusSubscriberRepository;
+use App\Domains\StatusPage\Support\StatusSubscriberToken;
 use App\Domains\Tickets\Contracts\TicketRepositoryContract;
 use App\Domains\Tickets\Repositories\EloquentTicketRepository;
 use App\Domains\Tickets\Support\TicketPortalToken;
@@ -292,6 +307,14 @@ class DomainServiceProvider extends ServiceProvider
         HelpCenterCategoryRepositoryContract::class => EloquentHelpCenterCategoryRepository::class,
         HelpCenterArticleRepositoryContract::class => EloquentHelpCenterArticleRepository::class,
 
+        // --- Page de statut (lot 7, section 2.11) ----------------------------------------
+        StatusProbeRepositoryContract::class => EloquentStatusProbeRepository::class,
+        StatusProbeCheckRepositoryContract::class => EloquentStatusProbeCheckRepository::class,
+        StatusIncidentRepositoryContract::class => EloquentStatusIncidentRepository::class,
+        StatusIncidentUpdateRepositoryContract::class => EloquentStatusIncidentUpdateRepository::class,
+        StatusMaintenanceRepositoryContract::class => EloquentStatusMaintenanceRepository::class,
+        StatusSubscriberRepositoryContract::class => EloquentStatusSubscriberRepository::class,
+
         // --- Campagnes (lot 6, section 2.9) : envois ponctuels, modèles ------------------
         CampaignTemplateRepositoryContract::class => EloquentCampaignTemplateRepository::class,
         CampaignRepositoryContract::class => EloquentCampaignRepository::class,
@@ -315,6 +338,11 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerPaymentsProvider();
         $this->registerChannelsProvider();
         $this->registerTicketsSupport();
+        $this->registerStatusPageProvider();
+
+        $this->app->bind(StatusSubscriberToken::class, fn (): StatusSubscriberToken => new StatusSubscriberToken(
+            (string) config('app.key'),
+        ));
 
         $this->app->bind(FrontendUrl::class, fn (): FrontendUrl => new FrontendUrl(
             (string) config('voxo.frontend_url'),
@@ -539,6 +567,25 @@ class DomainServiceProvider extends ServiceProvider
             (string) config('app.key'),
             (int) config('tickets.portal.ttl_days'),
         ));
+    }
+
+    /** Pilote de vérification des sondes, choisi par configuration (même garde que `registerMailSender()`). */
+    private function registerStatusPageProvider(): void
+    {
+        $this->app->singleton(ArrayProbeChecker::class);
+
+        $this->app->singleton(ProbeCheckerContract::class, function (): ProbeCheckerContract {
+            $name = (string) config('status_page.probe_checker.driver');
+            $driver = config("status_page.probe_checker.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, ProbeCheckerContract::class)) {
+                throw new RuntimeException(
+                    "Pilote de vérification « {$name} » inconnu. Vérifiez STATUS_PAGE_PROBE_CHECKER_DRIVER et config/status_page.php.",
+                );
+            }
+
+            return $this->app->make($driver);
+        });
     }
 
     private function registerWidgetSupport(): void

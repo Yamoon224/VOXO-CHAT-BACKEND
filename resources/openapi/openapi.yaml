@@ -48,6 +48,7 @@ tags:
   - name: Statistiques
   - name: Intégrations
   - name: Campagnes
+  - name: Page de statut
   - name: Plateforme
 
 paths:
@@ -2102,6 +2103,340 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/DomainError' }
         '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/status-page/probes:
+    get:
+      tags: [Page de statut]
+      summary: Sondes de disponibilité de l'espace courant (section 2.11)
+      description: Permission `status_page.manage`.
+      responses:
+        '200':
+          description: Sondes
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/StatusProbe' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Page de statut]
+      summary: Créer une sonde de disponibilité
+      description: Permission `status_page.manage`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, url]
+              properties:
+                name: { type: string, maxLength: 120 }
+                url: { type: string, format: uri, maxLength: 2048 }
+                check_interval_minutes: { type: integer, minimum: 1, maximum: 1440 }
+      responses:
+        '201':
+          description: Sonde créée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusProbe' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/status-page/probes/{probe}:
+    put:
+      tags: [Page de statut]
+      summary: Modifier une sonde de disponibilité
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: probe, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, url]
+              properties:
+                name: { type: string, maxLength: 120 }
+                url: { type: string, format: uri, maxLength: 2048 }
+                check_interval_minutes: { type: integer, minimum: 1, maximum: 1440 }
+      responses:
+        '200':
+          description: Sonde modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusProbe' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Page de statut]
+      summary: Supprimer une sonde de disponibilité
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: probe, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Sonde supprimée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/status-page/incidents:
+    get:
+      tags: [Page de statut]
+      summary: Incidents de l'espace courant (section 2.11)
+      description: Permission `status_page.manage`.
+      responses:
+        '200':
+          description: Incidents
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/StatusIncident' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Page de statut]
+      summary: Ouvrir un incident
+      description: Permission `status_page.manage`. Toujours accompagné d'un premier message de chronologie.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, impact, status, body]
+              properties:
+                title: { type: string, maxLength: 160 }
+                impact: { $ref: '#/components/schemas/StatusIncidentImpact' }
+                status: { $ref: '#/components/schemas/StatusIncidentStatus' }
+                body: { type: string, maxLength: 2000 }
+      responses:
+        '201':
+          description: Incident créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusIncident' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/status-page/incidents/{incident}:
+    delete:
+      tags: [Page de statut]
+      summary: Supprimer un incident
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: incident, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Incident supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/status-page/incidents/{incident}/updates:
+    get:
+      tags: [Page de statut]
+      summary: Chronologie d'un incident, la plus ancienne en premier
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: incident, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Mises à jour
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/StatusIncidentUpdate' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [Page de statut]
+      summary: Ajouter une mise à jour à la chronologie
+      description: |
+        Permission `status_page.manage`. Notifie chaque abonné de l'espace
+        (`StatusAlertNotifier`, en file). Un statut `resolved` horodate la
+        résolution de l'incident.
+      parameters:
+        - { name: incident, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status, body]
+              properties:
+                status: { $ref: '#/components/schemas/StatusIncidentStatus' }
+                body: { type: string, maxLength: 2000 }
+      responses:
+        '200':
+          description: Incident mis à jour
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusIncident' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/status-page/maintenances:
+    get:
+      tags: [Page de statut]
+      summary: Maintenances planifiées de l'espace courant (section 2.11)
+      description: Permission `status_page.manage`.
+      responses:
+        '200':
+          description: Maintenances
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/StatusMaintenance' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Page de statut]
+      summary: Planifier une maintenance
+      description: Permission `status_page.manage`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, scheduled_start, scheduled_end]
+              properties:
+                title: { type: string, maxLength: 160 }
+                description: { type: string, nullable: true, maxLength: 2000 }
+                status: { $ref: '#/components/schemas/StatusMaintenanceStatus' }
+                scheduled_start: { type: string, format: date-time }
+                scheduled_end: { type: string, format: date-time }
+      responses:
+        '201':
+          description: Maintenance créée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusMaintenance' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/status-page/maintenances/{maintenance}:
+    put:
+      tags: [Page de statut]
+      summary: Modifier une maintenance planifiée
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: maintenance, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, status, scheduled_start, scheduled_end]
+              properties:
+                title: { type: string, maxLength: 160 }
+                description: { type: string, nullable: true, maxLength: 2000 }
+                status: { $ref: '#/components/schemas/StatusMaintenanceStatus' }
+                scheduled_start: { type: string, format: date-time }
+                scheduled_end: { type: string, format: date-time }
+      responses:
+        '200':
+          description: Maintenance modifiée
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/StatusMaintenance' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Page de statut]
+      summary: Supprimer une maintenance planifiée
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: maintenance, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Maintenance supprimée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/status-page/subscribers:
+    get:
+      tags: [Page de statut]
+      summary: Abonnés aux alertes de l'espace courant
+      description: Permission `status_page.manage`.
+      responses:
+        '200':
+          description: Abonnés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/StatusSubscriber' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+
+  /workspace/status-page/subscribers/{subscriber}:
+    delete:
+      tags: [Page de statut]
+      summary: Retirer un abonné
+      description: Permission `status_page.manage`.
+      parameters:
+        - { name: subscriber, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Abonné retiré }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /public/status/{workspace}:
+    get:
+      tags: [Page de statut]
+      summary: Vue publique de la page de statut (section 2.11)
+      description: Pas de compte requis. Sondes, incidents en cours et maintenances à venir.
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Vue d'ensemble
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/PublicStatusOverview' } } }
+
+  /public/status/{workspace}/subscribe:
+    post:
+      tags: [Page de statut]
+      summary: S'abonner aux alertes de cet espace
+      description: "Pas de compte requis. Déjà abonnée : aucune erreur, aucun doublon."
+      security: []
+      parameters:
+        - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [email], properties: { email: { type: string, format: email } } }
+      responses:
+        '204': { description: Abonnement enregistré }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /public/status/unsubscribe:
+    post:
+      tags: [Page de statut]
+      summary: Se désabonner par le lien reçu dans une alerte
+      description: |
+        Pas de compte requis. Toujours `204`, jeton valide ou non : ne révèle
+        jamais si un jeton correspond à une inscription réelle.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [token], properties: { token: { type: string } } }
+      responses:
+        '204': { description: Désabonnement traité }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
 
   /workspace/tickets:
     get:
@@ -4257,6 +4592,101 @@ components:
         status_label: { type: string }
         error: { type: string, nullable: true }
         sent_at: { type: string, format: date-time, nullable: true }
+
+    StatusProbeStatus:
+      type: string
+      enum: [unknown, up, down]
+
+    StatusProbe:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        url: { type: string, format: uri }
+        check_interval_minutes: { type: integer }
+        status: { $ref: '#/components/schemas/StatusProbeStatus' }
+        status_label: { type: string }
+        last_checked_at: { type: string, format: date-time, nullable: true }
+        consecutive_failures: { type: integer }
+
+    StatusIncidentStatus:
+      type: string
+      enum: [investigating, identified, monitoring, resolved]
+
+    StatusIncidentImpact:
+      type: string
+      enum: [none, minor, major, critical]
+
+    StatusIncident:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        status: { $ref: '#/components/schemas/StatusIncidentStatus' }
+        status_label: { type: string }
+        impact: { $ref: '#/components/schemas/StatusIncidentImpact' }
+        impact_label: { type: string }
+        started_at: { type: string, format: date-time }
+        resolved_at: { type: string, format: date-time, nullable: true }
+
+    StatusIncidentUpdate:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        status: { $ref: '#/components/schemas/StatusIncidentStatus' }
+        status_label: { type: string }
+        body: { type: string }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    StatusMaintenanceStatus:
+      type: string
+      enum: [scheduled, in_progress, completed]
+
+    StatusMaintenance:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        status: { $ref: '#/components/schemas/StatusMaintenanceStatus' }
+        scheduled_start: { type: string, format: date-time }
+        scheduled_end: { type: string, format: date-time }
+
+    StatusSubscriber:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    PublicStatusProbe:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        status: { $ref: '#/components/schemas/StatusProbeStatus' }
+        status_label: { type: string }
+        uptime_ratio: { type: number, format: float, nullable: true }
+
+    PublicStatusIncident:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        status: { $ref: '#/components/schemas/StatusIncidentStatus' }
+        status_label: { type: string }
+        impact: { $ref: '#/components/schemas/StatusIncidentImpact' }
+        impact_label: { type: string }
+        started_at: { type: string, format: date-time }
+        resolved_at: { type: string, format: date-time, nullable: true }
+        updates: { type: array, items: { $ref: '#/components/schemas/StatusIncidentUpdate' } }
+
+    PublicStatusOverview:
+      type: object
+      properties:
+        probes: { type: array, items: { $ref: '#/components/schemas/PublicStatusProbe' } }
+        ongoing_incidents: { type: array, items: { $ref: '#/components/schemas/PublicStatusIncident' } }
+        upcoming_maintenances: { type: array, items: { $ref: '#/components/schemas/StatusMaintenance' } }
 
     WebhookEventType:
       type: string

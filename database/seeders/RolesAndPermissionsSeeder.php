@@ -56,6 +56,7 @@ class RolesAndPermissionsSeeder extends Seeder
         'automations.manage' => 'Créer, modifier, supprimer, tester et publier les scénarios d\'automatisation.',
         'integrations.manage' => "Créer, modifier et supprimer les clés d'API et les abonnements webhook sortants.",
         'campaigns.manage' => 'Créer, modifier, supprimer et envoyer des campagnes, et gérer leurs modèles.',
+        'status_page.manage' => 'Gérer les sondes, incidents, maintenances et abonnés de la page de statut.',
     ];
 
     /**
@@ -70,12 +71,14 @@ class RolesAndPermissionsSeeder extends Seeder
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage', 'tickets.view', 'tickets.manage',
             'help_center.view', 'help_center.manage', 'routing.manage', 'automations.manage', 'integrations.manage', 'campaigns.manage',
+            'status_page.manage',
         ],
         WorkspaceRole::Admin->value => [
             'workspace.view', 'workspace.manage', 'members.view', 'members.manage', 'knowledge.view', 'knowledge.manage',
             'conversations.view', 'conversations.manage', 'canned_responses.manage', 'widget.manage', 'channels.manage', 'assistant.manage',
             'billing.view', 'billing.manage', 'analytics.view', 'contacts.view', 'contacts.manage', 'tickets.view', 'tickets.manage',
             'help_center.view', 'help_center.manage', 'routing.manage', 'automations.manage', 'integrations.manage', 'campaigns.manage',
+            'status_page.manage',
         ],
         WorkspaceRole::Agent->value => [
             'workspace.view', 'members.view', 'knowledge.view', 'knowledge.manage',

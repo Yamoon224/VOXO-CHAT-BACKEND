@@ -6,7 +6,7 @@ use App\Domains\Notifications\Contracts\MailSenderContract;
 use App\Domains\Notifications\Contracts\TransactionalMailerContract;
 use App\Domains\Notifications\DTOs\MailMessage;
 use App\Domains\Notifications\Enums\MailTemplate;
-use App\Domains\Notifications\Support\FrontendUrl;
+use App\Domains\Shared\Support\FrontendUrl;
 
 final class TransactionalMailer implements TransactionalMailerContract
 {

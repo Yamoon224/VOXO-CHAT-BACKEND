@@ -29,6 +29,10 @@ use App\Domains\Knowledge\Enums\RecrawlFrequency;
 use App\Domains\Payments\Enums\InvoiceStatus;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Domains\Shared\Http\Controllers\DocumentationController;
+use App\Domains\StatusPage\Enums\IncidentImpact;
+use App\Domains\StatusPage\Enums\IncidentStatus;
+use App\Domains\StatusPage\Enums\MaintenanceStatus;
+use App\Domains\StatusPage\Enums\ProbeStatus;
 use App\Domains\Tickets\Enums\TicketPriority;
 use App\Domains\Widget\Enums\WidgetPosition;
 use Illuminate\Support\Facades\Route;
@@ -154,6 +158,10 @@ class OpenApiSpecificationTest extends TestCase
         yield 'CampaignChannel' => ['CampaignChannel', CampaignChannel::values()];
         yield 'CampaignStatus' => ['CampaignStatus', CampaignStatus::values()];
         yield 'CampaignSendStatus' => ['CampaignSendStatus', CampaignSendStatus::values()];
+        yield 'StatusProbeStatus' => ['StatusProbeStatus', ProbeStatus::values()];
+        yield 'StatusIncidentStatus' => ['StatusIncidentStatus', IncidentStatus::values()];
+        yield 'StatusIncidentImpact' => ['StatusIncidentImpact', IncidentImpact::values()];
+        yield 'StatusMaintenanceStatus' => ['StatusMaintenanceStatus', MaintenanceStatus::values()];
     }
 
     #[Test]

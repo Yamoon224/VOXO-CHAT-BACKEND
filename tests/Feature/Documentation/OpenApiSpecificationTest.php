@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Documentation;
 
+use App\Domains\Assistant\Enums\AgentToolHttpMethod;
+use App\Domains\Assistant\Enums\AgentToolParameterLocation;
+use App\Domains\Assistant\Enums\AgentToolParameterType;
 use App\Domains\Automations\Enums\AutomationActionType;
 use App\Domains\Automations\Enums\AutomationConditionField;
 use App\Domains\Automations\Enums\AutomationConditionOperator;
@@ -162,6 +165,9 @@ class OpenApiSpecificationTest extends TestCase
         yield 'StatusIncidentStatus' => ['StatusIncidentStatus', IncidentStatus::values()];
         yield 'StatusIncidentImpact' => ['StatusIncidentImpact', IncidentImpact::values()];
         yield 'StatusMaintenanceStatus' => ['StatusMaintenanceStatus', MaintenanceStatus::values()];
+        yield 'AgentToolHttpMethod' => ['AgentToolHttpMethod', AgentToolHttpMethod::values()];
+        yield 'AgentToolParameterType' => ['AgentToolParameterType', AgentToolParameterType::values()];
+        yield 'AgentToolParameterLocation' => ['AgentToolParameterLocation', AgentToolParameterLocation::values()];
     }
 
     #[Test]

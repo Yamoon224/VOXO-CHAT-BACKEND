@@ -2771,6 +2771,77 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/assistant/tools:
+    get:
+      tags: [Agent IA]
+      summary: Outils tiers déclarés de l'espace courant (section 2.2, P3)
+      description: "Permission `assistant.manage`. Les en-têtes sont masqués à la relecture."
+      responses:
+        '200':
+          description: Outils
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/AgentTool' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Agent IA]
+      summary: Déclarer un outil tiers
+      description: |
+        Permission `assistant.manage`. `name` doit respecter la contrainte de
+        l'API Claude (alphanumérique, tiret, underscore). L'agent IA peut
+        appeler cet outil pendant une conversation s'il est activé.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AgentToolWrite' }
+      responses:
+        '201':
+          description: Outil créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AgentTool' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/assistant/tools/{tool}:
+    put:
+      tags: [Agent IA]
+      summary: Modifier un outil tiers déclaré
+      description: |
+        Permission `assistant.manage`. Les en-têtes s'ajoutent à ceux déjà
+        enregistrés : un en-tête omis dans la requête reste inchangé.
+      parameters:
+        - { name: tool, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AgentToolWrite' }
+      responses:
+        '200':
+          description: Outil modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/AgentTool' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Agent IA]
+      summary: Supprimer un outil tiers déclaré
+      description: Permission `assistant.manage`.
+      parameters:
+        - { name: tool, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Outil supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
   /public/widget/{workspace}/settings:
     get:
       tags: [Widget]
@@ -4409,6 +4480,52 @@ components:
         content: { type: string }
         citations: { type: array, items: { type: object } }
         confidence: { type: number, format: float }
+
+    AgentToolHttpMethod:
+      type: string
+      enum: [GET, POST, PUT, PATCH, DELETE]
+
+    AgentToolParameterType:
+      type: string
+      enum: [string, number, boolean]
+
+    AgentToolParameterLocation:
+      type: string
+      enum: [path, query, body]
+
+    AgentToolParameter:
+      type: object
+      properties:
+        name: { type: string }
+        type: { $ref: '#/components/schemas/AgentToolParameterType' }
+        description: { type: string }
+        required: { type: boolean }
+        in: { $ref: '#/components/schemas/AgentToolParameterLocation' }
+
+    AgentTool:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        description: { type: string }
+        http_method: { $ref: '#/components/schemas/AgentToolHttpMethod' }
+        url: { type: string, format: uri }
+        headers: { type: object, nullable: true, additionalProperties: { type: string }, description: "Masqués à la relecture." }
+        parameters: { type: array, items: { $ref: '#/components/schemas/AgentToolParameter' } }
+        enabled: { type: boolean }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    AgentToolWrite:
+      type: object
+      required: [name, description, http_method, url]
+      properties:
+        name: { type: string, maxLength: 64, pattern: '^[a-zA-Z0-9_-]+$' }
+        description: { type: string, maxLength: 1000 }
+        http_method: { $ref: '#/components/schemas/AgentToolHttpMethod' }
+        url: { type: string, format: uri, maxLength: 2048 }
+        headers: { type: object, nullable: true, additionalProperties: { type: string } }
+        parameters: { type: array, items: { $ref: '#/components/schemas/AgentToolParameter' } }
+        enabled: { type: boolean }
 
     PaginationMeta:
       type: object

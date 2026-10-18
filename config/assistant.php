@@ -1,7 +1,9 @@
 <?php
 
+use App\Domains\Assistant\Providers\ArrayAgentToolCaller;
 use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Assistant\Providers\ClaudeAiProvider;
+use App\Domains\Assistant\Providers\HttpAgentToolCaller;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,17 @@ return [
         'respond_model' => env('ANTHROPIC_RESPOND_MODEL', 'claude-sonnet-5-5'),
         'short_task_model' => env('ANTHROPIC_SHORT_TASK_MODEL', 'claude-haiku-4-5'),
         'base_url' => env('ANTHROPIC_BASE_URL', 'https://api.anthropic.com/v1'),
+    ],
+
+    // Outils tiers déclarés (section 2.2, P3) : même garde que `driver`
+    // ci-dessus, pour le pilote d'appel HTTP des outils, pas celui d'IA.
+    'tool_caller' => [
+        'driver' => env('ASSISTANT_TOOL_CALLER_DRIVER', 'http'),
+
+        'drivers' => [
+            'http' => HttpAgentToolCaller::class,
+            'array' => ArrayAgentToolCaller::class,
+        ],
     ],
 
 ];

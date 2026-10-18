@@ -5,6 +5,7 @@ namespace App\Domains\Assistant\Services;
 use App\Domains\Assistant\Contracts\AiProviderContract;
 use App\Domains\Assistant\Contracts\AssistantResponderContract;
 use App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract;
+use App\Domains\Assistant\Contracts\AvailableToolsContract;
 use App\Domains\Assistant\Contracts\ConversationInsightContract;
 use App\Domains\Assistant\DTOs\AiReply;
 use App\Domains\Assistant\Exceptions\AiCreditQuotaExceededException;
@@ -40,6 +41,7 @@ final class AssistantService implements AssistantResponderContract, Conversation
         private readonly ConversationRepositoryContract $conversations,
         private readonly MessageRepositoryContract $messages,
         private readonly QuotaGuardContract $quotas,
+        private readonly AvailableToolsContract $tools,
     ) {}
 
     /** Implémente `AssistantResponderContract` : déclenche la réponse, en file. */
@@ -73,9 +75,11 @@ final class AssistantService implements AssistantResponderContract, Conversation
 
         $context = $this->knowledgeContext($conversation->workspace_id, $lastVisitorMessage);
         $reply = $this->ai->respond(
+            $conversation->workspace_id,
             $this->systemPrompt($settings->tone_instructions),
             $history,
             $context,
+            $this->tools->availableToolDefinitions($conversation->workspace_id),
         );
 
         if ($reply->confidence < $settings->confidence_threshold) {
@@ -102,9 +106,11 @@ final class AssistantService implements AssistantResponderContract, Conversation
         $context = $this->knowledgeContext($workspaceId, $message);
 
         return $this->ai->respond(
+            $workspaceId,
             $this->systemPrompt($settings->tone_instructions),
             [['role' => 'user', 'content' => $message]],
             $context,
+            $this->tools->availableToolDefinitions($workspaceId),
         );
     }
 
@@ -137,7 +143,13 @@ final class AssistantService implements AssistantResponderContract, Conversation
         $history = $this->historyFor($conversation->id);
         $context = $this->knowledgeContext($workspaceId, $this->lastVisitorMessageBody($history) ?? '');
 
-        $reply = $this->ai->respond($this->systemPrompt($settings->tone_instructions), $history, $context);
+        $reply = $this->ai->respond(
+            $workspaceId,
+            $this->systemPrompt($settings->tone_instructions),
+            $history,
+            $context,
+            $this->tools->availableToolDefinitions($workspaceId),
+        );
 
         $this->quotas->consumeAiCredit($workspaceId, 'Suggestion de réponse (copilote)', $conversation->id);
 

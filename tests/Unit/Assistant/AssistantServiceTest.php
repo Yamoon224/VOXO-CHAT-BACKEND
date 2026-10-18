@@ -15,6 +15,7 @@ use Tests\Support\Fakes\InMemoryConversationRepository;
 use Tests\Support\Fakes\InMemoryMessageRepository;
 use Tests\Support\Fakes\InMemoryQuotaGuard;
 use Tests\Support\Fakes\ModelFactory;
+use Tests\Support\Fakes\NullAvailableTools;
 use Tests\TestCase;
 
 class AssistantServiceTest extends TestCase
@@ -55,6 +56,7 @@ class AssistantServiceTest extends TestCase
             $conversations,
             $messages,
             $quotas,
+            new NullAvailableTools,
         );
 
         $service->processConversationResponse($conversation->id);
@@ -87,6 +89,7 @@ class AssistantServiceTest extends TestCase
             $conversations,
             $messages,
             $quotas,
+            new NullAvailableTools,
         );
 
         $service->processConversationResponse($conversation->id);
@@ -115,6 +118,7 @@ class AssistantServiceTest extends TestCase
             $conversations,
             $messages,
             new InMemoryQuotaGuard,
+            new NullAvailableTools,
         );
 
         $service->processConversationResponse($conversation->id);
@@ -138,7 +142,7 @@ class AssistantServiceTest extends TestCase
 
         $ai = new ArrayAiProvider;
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, $settings, $conversations, $messages, new InMemoryQuotaGuard);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, $settings, $conversations, $messages, new InMemoryQuotaGuard, new NullAvailableTools);
 
         $service->processConversationResponse($conversation->id);
 
@@ -160,6 +164,7 @@ class AssistantServiceTest extends TestCase
             new InMemoryConversationRepository,
             new InMemoryMessageRepository,
             new InMemoryQuotaGuard,
+            new NullAvailableTools,
         );
 
         $reply = $service->sandboxRespond($workspace->id, 'Une question de test ?');
@@ -181,7 +186,7 @@ class AssistantServiceTest extends TestCase
         $ai->respondWithSummary('Le visiteur se plaint d\'un retard.');
         $ai->respondWithSentiment('négatif');
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, new InMemoryQuotaGuard);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, new InMemoryQuotaGuard, new NullAvailableTools);
 
         $summarized = $service->summarize($workspace->id, $conversation->id);
         $analyzed = $service->analyzeSentiment($workspace->id, $conversation->id);
@@ -203,7 +208,7 @@ class AssistantServiceTest extends TestCase
         $ai->respondWith(new AiReply('Le prix est de 29€ par mois.', [['title' => 'Tarifs', 'content' => '29€/mois', 'citation_url' => null]], 0.6));
         $quotas = new InMemoryQuotaGuard;
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas, new NullAvailableTools);
 
         $suggestion = $service->suggestReply($workspace->id, $conversation->id);
 
@@ -227,7 +232,7 @@ class AssistantServiceTest extends TestCase
         $quotas = new InMemoryQuotaGuard;
         $quotas->allowAiCredits = false;
 
-        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas);
+        $service = new AssistantService($this->knowledgeSearch(), $ai, new InMemoryAssistantSettingsRepository, $conversations, $messages, $quotas, new NullAvailableTools);
 
         $this->expectException(AiCreditQuotaExceededException::class);
 

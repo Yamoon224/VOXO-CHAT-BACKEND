@@ -2,6 +2,7 @@
 
 use App\Domains\Analytics\Http\Controllers\AnalyticsController;
 use App\Domains\Analytics\Http\Controllers\AnalyticsExportController;
+use App\Domains\Assistant\Http\Controllers\AgentToolController;
 use App\Domains\Assistant\Http\Controllers\AssistantSandboxController;
 use App\Domains\Assistant\Http\Controllers\AssistantSettingsController;
 use App\Domains\Auth\Http\Controllers\AuthController;
@@ -440,6 +441,12 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::get('/assistant/settings', [AssistantSettingsController::class, 'show']);
             Route::put('/assistant/settings', [AssistantSettingsController::class, 'update']);
             Route::post('/assistant/sandbox', [AssistantSandboxController::class, 'store']);
+
+            // Outils tiers déclarés (lot 7, section 2.2, P3).
+            Route::get('/assistant/tools', [AgentToolController::class, 'index']);
+            Route::post('/assistant/tools', [AgentToolController::class, 'store']);
+            Route::put('/assistant/tools/{tool}', [AgentToolController::class, 'update'])->whereUuid('tool');
+            Route::delete('/assistant/tools/{tool}', [AgentToolController::class, 'destroy'])->whereUuid('tool');
         });
 
         // =====================================================================

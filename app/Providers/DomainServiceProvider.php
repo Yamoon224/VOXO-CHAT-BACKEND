@@ -2,13 +2,20 @@
 
 namespace App\Providers;
 
+use App\Domains\Assistant\Contracts\AgentToolRepositoryContract;
 use App\Domains\Assistant\Contracts\AiProviderContract;
 use App\Domains\Assistant\Contracts\AssistantResponderContract;
 use App\Domains\Assistant\Contracts\AssistantSettingsRepositoryContract;
+use App\Domains\Assistant\Contracts\AvailableToolsContract;
 use App\Domains\Assistant\Contracts\ConversationInsightContract;
+use App\Domains\Assistant\Contracts\ToolCallerContract;
+use App\Domains\Assistant\Contracts\ToolInvokerContract;
+use App\Domains\Assistant\Providers\ArrayAgentToolCaller;
 use App\Domains\Assistant\Providers\ArrayAiProvider;
 use App\Domains\Assistant\Providers\ClaudeAiProvider;
+use App\Domains\Assistant\Repositories\EloquentAgentToolRepository;
 use App\Domains\Assistant\Repositories\EloquentAssistantSettingsRepository;
+use App\Domains\Assistant\Services\AgentToolService;
 use App\Domains\Assistant\Services\AssistantService;
 use App\Domains\Auth\Contracts\AccessTokenManagerContract;
 use App\Domains\Auth\Contracts\ApiKeyIssuerContract;
@@ -259,6 +266,13 @@ class DomainServiceProvider extends ServiceProvider
         AssistantResponderContract::class => AssistantService::class,
         ConversationInsightContract::class => AssistantService::class,
 
+        // --- Outils tiers déclarés (lot 7, section 2.2, P3) ---------------------------
+        AgentToolRepositoryContract::class => EloquentAgentToolRepository::class,
+        // Lecture étroite exposée à `AssistantService` : quels outils proposer.
+        AvailableToolsContract::class => AgentToolService::class,
+        // Lecture étroite exposée à `ClaudeAiProvider` : comment invoquer un outil.
+        ToolInvokerContract::class => AgentToolService::class,
+
         // --- Facturation (lot 3) ------------------------------------------------------
         PlanRepositoryContract::class => EloquentPlanRepository::class,
         SubscriptionRepositoryContract::class => EloquentSubscriptionRepository::class,
@@ -333,6 +347,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerMailSender();
         $this->registerAuthSupport();
         $this->registerKnowledgeProviders();
+        $this->registerToolCallerProvider();
         $this->registerAssistantProvider();
         $this->registerWidgetSupport();
         $this->registerPaymentsProvider();
@@ -493,8 +508,28 @@ class DomainServiceProvider extends ServiceProvider
                     (string) config('assistant.claude.respond_model'),
                     (string) config('assistant.claude.short_task_model'),
                     (string) config('assistant.claude.base_url'),
+                    $this->app->make(ToolInvokerContract::class),
                 )
                 : $this->app->make($driver);
+        });
+    }
+
+    /** Pilote d'appel HTTP des outils tiers déclarés, choisi par configuration (même garde que `registerMailSender()`). */
+    private function registerToolCallerProvider(): void
+    {
+        $this->app->singleton(ArrayAgentToolCaller::class);
+
+        $this->app->singleton(ToolCallerContract::class, function (): ToolCallerContract {
+            $name = (string) config('assistant.tool_caller.driver');
+            $driver = config("assistant.tool_caller.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, ToolCallerContract::class)) {
+                throw new RuntimeException(
+                    "Pilote d'outils « {$name} » inconnu. Vérifiez ASSISTANT_TOOL_CALLER_DRIVER et config/assistant.php.",
+                );
+            }
+
+            return $this->app->make($driver);
         });
     }
 

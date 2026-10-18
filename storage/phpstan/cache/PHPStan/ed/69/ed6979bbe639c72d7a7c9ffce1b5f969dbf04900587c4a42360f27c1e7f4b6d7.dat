@@ -1,1 +1,1 @@
-O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-cff82041009f5ab974c5ef82f086987c3f2db1d4c3f835762e871071f03fc6aa-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:35:"app\providers\domainserviceprovider";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-e419f619037f88f66eaaeeff29453fd6fdff77b6ca4629b2e40a4f8c3f92d8cc-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:35:"app\providers\domainserviceprovider";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

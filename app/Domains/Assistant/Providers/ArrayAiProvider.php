@@ -4,6 +4,7 @@ namespace App\Domains\Assistant\Providers;
 
 use App\Domains\Assistant\Contracts\AiProviderContract;
 use App\Domains\Assistant\DTOs\AiReply;
+use App\Domains\Assistant\DTOs\ToolDefinition;
 
 /**
  * Doublure de test : pas d'appel réseau, réponses configurables. Enregistrée
@@ -18,7 +19,7 @@ final class ArrayAiProvider implements AiProviderContract
 
     private string $sentiment = 'neutre';
 
-    /** @var list<array{system: string, history: list<array{role: string, content: string}>, context: list<array{title: string, content: string, citation_url: string|null}>}> */
+    /** @var list<array{system: string, history: list<array{role: string, content: string}>, context: list<array{title: string, content: string, citation_url: string|null}>, tools: list<ToolDefinition>}> */
     private array $calls = [];
 
     public function respondWith(AiReply $reply): void
@@ -36,9 +37,9 @@ final class ArrayAiProvider implements AiProviderContract
         $this->sentiment = $sentiment;
     }
 
-    public function respond(string $systemPrompt, array $conversationHistory, array $knowledgeContext): AiReply
+    public function respond(string $workspaceId, string $systemPrompt, array $conversationHistory, array $knowledgeContext, array $tools = []): AiReply
     {
-        $this->calls[] = ['system' => $systemPrompt, 'history' => $conversationHistory, 'context' => $knowledgeContext];
+        $this->calls[] = ['system' => $systemPrompt, 'history' => $conversationHistory, 'context' => $knowledgeContext, 'tools' => $tools];
 
         return $this->reply ?? new AiReply('Réponse simulée.', [], 1.0);
     }

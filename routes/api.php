@@ -1,6 +1,7 @@
 <?php
 
 use App\Domains\Analytics\Http\Controllers\AnalyticsController;
+use App\Domains\Analytics\Http\Controllers\AnalyticsExportController;
 use App\Domains\Assistant\Http\Controllers\AssistantSandboxController;
 use App\Domains\Assistant\Http\Controllers\AssistantSettingsController;
 use App\Domains\Auth\Http\Controllers\AuthController;
@@ -35,6 +36,8 @@ use App\Domains\Conversations\Http\Controllers\RoutingRuleController;
 use App\Domains\HelpCenter\Http\Controllers\HelpCenterArticleController;
 use App\Domains\HelpCenter\Http\Controllers\HelpCenterCategoryController;
 use App\Domains\HelpCenter\Http\Controllers\PublicHelpCenterController;
+use App\Domains\Integrations\Http\Controllers\ApiKeyController;
+use App\Domains\Integrations\Http\Controllers\WebhookSubscriptionController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeDocumentController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeQaEntryController;
 use App\Domains\Knowledge\Http\Controllers\KnowledgeSearchController;
@@ -393,6 +396,23 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
         Route::middleware('workspace.can:analytics.view')->group(function (): void {
             Route::get('/analytics/overview', [AnalyticsController::class, 'overview']);
+            Route::get('/analytics/export', [AnalyticsExportController::class, 'index']);
+        });
+
+        // =====================================================================
+        // Intégrations (lot 6, section 2.14) : clés d'API, webhooks sortants.
+        // =====================================================================
+
+        Route::middleware('workspace.can:integrations.manage')->group(function (): void {
+            Route::get('/integrations/webhooks', [WebhookSubscriptionController::class, 'index']);
+            Route::post('/integrations/webhooks', [WebhookSubscriptionController::class, 'store']);
+            Route::put('/integrations/webhooks/{subscription}', [WebhookSubscriptionController::class, 'update'])->whereUuid('subscription');
+            Route::delete('/integrations/webhooks/{subscription}', [WebhookSubscriptionController::class, 'destroy'])->whereUuid('subscription');
+            Route::get('/integrations/webhooks/{subscription}/deliveries', [WebhookSubscriptionController::class, 'deliveries'])->whereUuid('subscription');
+
+            Route::get('/integrations/api-keys', [ApiKeyController::class, 'index']);
+            Route::post('/integrations/api-keys', [ApiKeyController::class, 'store']);
+            Route::delete('/integrations/api-keys/{key}', [ApiKeyController::class, 'destroy'])->whereUuid('key');
         });
     });
 });

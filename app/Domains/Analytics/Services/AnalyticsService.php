@@ -15,6 +15,7 @@ final class AnalyticsService
     public function overview(WorkspaceScope $scope, Carbon $from, Carbon $to): AnalyticsOverview
     {
         $outcomes = $this->conversations->countByResolutionOutcome($scope->workspaceId, $from, $to);
+        $unansweredKnowledge = $this->conversations->unansweredKnowledgeQuestions($scope->workspaceId, $from, $to);
 
         return new AnalyticsOverview(
             from: $from,
@@ -25,6 +26,13 @@ final class AnalyticsService
             aiResolvedCount: $outcomes['ai_resolved'],
             escalatedCount: $outcomes['escalated'],
             unansweredCount: $outcomes['unanswered'],
+            averageFirstResponseSeconds: $this->conversations->averageFirstResponseSeconds($scope->workspaceId, $from, $to),
+            averageResolutionSeconds: $this->conversations->averageResolutionSeconds($scope->workspaceId, $from, $to),
+            messagesByAgent: $this->conversations->countMessagesByAgent($scope->workspaceId, $from, $to),
+            conversationsByChannel: $this->conversations->countConversationsByChannel($scope->workspaceId, $from, $to),
+            topCitedDocuments: $this->conversations->topCitedKnowledgeDocuments($scope->workspaceId, $from, $to),
+            unansweredKnowledgeQuestionsCount: $unansweredKnowledge['count'],
+            recentUnansweredKnowledgeQuestions: $unansweredKnowledge['recent'],
         );
     }
 }

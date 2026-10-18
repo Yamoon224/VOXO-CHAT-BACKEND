@@ -9,6 +9,7 @@ use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 final class SanctumAccessTokenManager implements AccessTokenManagerContract, ApiKeyIssuerContract
@@ -66,8 +67,8 @@ final class SanctumAccessTokenManager implements AccessTokenManagerContract, Api
                 id: $token->id,
                 name: $token->name,
                 createdByName: $token->tokenable instanceof User ? $token->tokenable->name : 'Compte supprimé',
-                lastUsedAt: $token->last_used_at,
-                createdAt: $token->created_at,
+                lastUsedAt: $token->last_used_at === null ? null : Carbon::instance($token->last_used_at),
+                createdAt: Carbon::instance($token->created_at),
             ));
     }
 
@@ -82,6 +83,7 @@ final class SanctumAccessTokenManager implements AccessTokenManagerContract, Api
         $token->delete();
     }
 
+    /** @return Builder<PersonalAccessToken> */
     private function apiKeysQuery(string $workspaceId): Builder
     {
         return PersonalAccessToken::query()

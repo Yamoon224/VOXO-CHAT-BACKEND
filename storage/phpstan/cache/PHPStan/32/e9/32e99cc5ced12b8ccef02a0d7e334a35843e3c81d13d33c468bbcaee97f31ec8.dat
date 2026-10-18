@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-9341a6724d25b1bca6e252ae4353246be18dc6e56387a2b453b7b4e10f526ec4-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:41:"tests\support\fakes\nullwebhookdispatcher";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

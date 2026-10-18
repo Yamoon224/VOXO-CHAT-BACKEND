@@ -10,7 +10,9 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Support\Fakes\InMemoryConversationRepository;
 use Tests\Support\Fakes\InMemoryMessageRepository;
 use Tests\Support\Fakes\ModelFactory;
+use Tests\Support\Fakes\NullWebhookDispatcher;
 use Tests\Support\Fakes\SpyOutboundChannelDispatcher;
+use Tests\Support\Fakes\SpyWebhookDispatcher;
 use Tests\TestCase;
 
 class MessageServiceTest extends TestCase
@@ -20,12 +22,14 @@ class MessageServiceTest extends TestCase
     {
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'needs_human' => true]);
         $conversations = new InMemoryConversationRepository($conversation);
-        $service = new MessageService($conversations, new InMemoryMessageRepository, new SpyOutboundChannelDispatcher);
+        $webhooks = new SpyWebhookDispatcher;
+        $service = new MessageService($conversations, new InMemoryMessageRepository, new SpyOutboundChannelDispatcher, $webhooks);
 
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent);
         $service->postAgentMessage($scope, $conversation->id, 'Je peux vous aider.', MessageVisibility::Public);
 
         $this->assertFalse($conversation->needs_human);
+        $this->assertSame(['message.created'], $webhooks->eventTypes());
     }
 
     #[Test]
@@ -34,7 +38,7 @@ class MessageServiceTest extends TestCase
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'needs_human' => true]);
         $conversations = new InMemoryConversationRepository($conversation);
         $messages = new InMemoryMessageRepository;
-        $service = new MessageService($conversations, $messages, new SpyOutboundChannelDispatcher);
+        $service = new MessageService($conversations, $messages, new SpyOutboundChannelDispatcher, new NullWebhookDispatcher);
 
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent);
         $message = $service->postAgentMessage($scope, $conversation->id, 'À vérifier avant de répondre.', MessageVisibility::Internal);
@@ -52,7 +56,7 @@ class MessageServiceTest extends TestCase
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'visitor_id' => 'client@exemple.fr']);
         $conversations = new InMemoryConversationRepository($conversation);
         $dispatcher = new SpyOutboundChannelDispatcher;
-        $service = new MessageService($conversations, new InMemoryMessageRepository, $dispatcher);
+        $service = new MessageService($conversations, new InMemoryMessageRepository, $dispatcher, new NullWebhookDispatcher);
 
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent);
         $service->postAgentMessage($scope, $conversation->id, 'Voici la réponse.', MessageVisibility::Public);
@@ -68,7 +72,7 @@ class MessageServiceTest extends TestCase
         $conversation = ModelFactory::conversation(['workspace_id' => 'workspace-1', 'visitor_email' => 'client@exemple.fr']);
         $conversations = new InMemoryConversationRepository($conversation);
         $dispatcher = new SpyOutboundChannelDispatcher;
-        $service = new MessageService($conversations, new InMemoryMessageRepository, $dispatcher);
+        $service = new MessageService($conversations, new InMemoryMessageRepository, $dispatcher, new NullWebhookDispatcher);
 
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Agent);
         $service->postAgentMessage($scope, $conversation->id, 'Note interne.', MessageVisibility::Internal);

@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
+class Container_5d9dc579e8 extends _PHPStan_0e156a663\Nette\DI\Container
 {
 	protected $tags = [
 		'phpstan.diagnoseExtension' => ['018' => true, '019' => true, '0518' => true, '0519' => true],
@@ -7254,7 +7254,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7274,7 +7274,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7336,7 +7336,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7383,7 +7383,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7403,7 +7403,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7474,7 +7474,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7536,7 +7536,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7561,7 +7561,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -7581,7 +7581,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			private $container;
 
 
-			public function __construct(Container_6a268680c5 $container)
+			public function __construct(Container_5d9dc579e8 $container)
 			{
 				$this->container = $container;
 			}
@@ -11234,7 +11234,7 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 	}
 
 
-	public function createServiceContainer(): Container_6a268680c5
+	public function createServiceContainer(): Container_5d9dc579e8
 	{
 		return $this;
 	}
@@ -12353,50 +12353,42 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 			'usedLevel' => '6',
 			'cliAutoloadFile' => null,
 			'env' => [
-				'BIN_TARGET' => 'C:\laragon\www\voxo.chat\backend\vendor\bin\/phpstan',
-				'COLUMNS' => '120',
-				'COMPOSER_BINARY' => 'C:\ProgramData\ComposerSetup\bin\composer.phar',
-				'COMPOSER_RUNTIME_BIN_DIR' => 'C:\laragon\www\voxo.chat\backend\vendor\bin\\',
-				'LINES' => '9001',
-				'PROMPT' => '$P$G',
-				'SHELL_VERBOSITY' => '0',
-				'GIT_ASKPASS' => 'echo',
-				'LANGUAGE' => 'C',
-				'PATH' => 'C:\laragon\www\voxo.chat\backend\vendor\bin;C:\Users\HIGH LEVEL\AppData\Local\pnpm;C:\Users\HIGH LEVEL\bin;C:\Program Files\Git\ucrt64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\ucrt64\bin;C:\Program Files\Git\usr\bin;C:\Users\HIGH LEVEL\bin;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot\bin;C:\Python\Scripts;C:\Python313;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\flutter\bin;C:\nuget;C:\poppler\Library\bin;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resour;C:\Program Files\Apache\Maven\apache-maven-3.9.10\bin;C:\Program Files\dotnet;C:\Program Files\PostgreSQL\18\bin;C:\Program Files\Java\javafx-sdk-26;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\HIGH LEVEL\.local\bin;C:\Program Files\GitHub CLI;C:\Program Files\Git\cmd;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\Users\HIGH LEVEL\AppData\Local\pnpm;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\.dotnet\tools;C:\Users\HIGH LEVEL\.bun\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\javafx-sdk-26;C:\Users\HIGH LEVEL\.local\bin;C:\Users\HIGH LEVEL\AppData\Local\Pub\Cache\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl',
-				'PHP_BINARY' => 'C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64\php.exe',
-				'AI_AGENT' => 'claude-code_2-1-292_agent',
+				'ACLOCAL_PATH' => 'C:\Program Files\Git\ucrt64\share\aclocal;C:\Program Files\Git\usr\share\aclocal',
+				'AI_AGENT' => 'claude-code_2-1-301_agent',
 				'ALLUSERSPROFILE' => 'C:\ProgramData',
 				'ANDROID_HOME' => 'C:\Android\Sdk',
 				'ANDROID_SDK_ROOT' => 'C:\Android\Sdk',
 				'APPDATA' => 'C:\Users\HIGH LEVEL\AppData\Roaming',
 				'APPLICATION_INSIGHTS_NO_STATSBEAT' => 'true',
 				'BUN' => 'C:\Users\HIGH LEVEL\.bun\bin',
-				'CHROME_CRASHPAD_PIPE_NAME' => '\\\.\pipe\crashpad_7888_XQCNFGCGMQVXHIXD',
+				'CHROME_CRASHPAD_PIPE_NAME' => '\\\.\pipe\crashpad_11108_AOJABJPJSZZADLTU',
 				'CLAUDECODE' => '1',
-				'CLAUDE_AGENT_SDK_VERSION' => '0.3.292',
+				'CLAUDE_AGENT_SDK_VERSION' => '0.3.301',
 				'CLAUDE_CODE_CHILD_SESSION' => '1',
 				'CLAUDE_CODE_EMIT_STARTUP_TIMING' => '1',
 				'CLAUDE_CODE_ENABLE_SDK_FILE_CHECKPOINTING' => 'true',
 				'CLAUDE_CODE_ENABLE_TASKS' => '0',
 				'CLAUDE_CODE_ENTRYPOINT' => 'claude-vscode',
-				'CLAUDE_CODE_EXECPATH' => 'C:\Users\HIGH LEVEL\.vscode\extensions\anthropic.claude-code-2.1.292-win32-x64\resources\native-binary\claude.exe',
-				'CLAUDE_CODE_MESSAGING_SOCKET' => '\\\.\pipe\LOCAL\cc-msg-530ec80c1684a68a8701e49d8c4c85ca',
-				'CLAUDE_CODE_MESSAGING_TOKEN' => '0d631cd64b2b82fc1241e365d28a82be',
+				'CLAUDE_CODE_EXECPATH' => 'C:\Users\HIGH LEVEL\.vscode\extensions\anthropic.claude-code-2.1.301-win32-x64\resources\native-binary\claude.exe',
+				'CLAUDE_CODE_MESSAGING_SOCKET' => '\\\.\pipe\LOCAL\cc-msg-3d7572712d0648cdba0782451831e017',
+				'CLAUDE_CODE_MESSAGING_TOKEN' => '4b68b0b96cec4502fd99b40ea491bc80',
 				'CLAUDE_CODE_QUESTION_PREVIEW_FORMAT' => 'markdown',
 				'CLAUDE_CODE_SESSION_ATTENDED' => '1',
-				'CLAUDE_CODE_SESSION_ID' => 'c1a123de-c707-4e26-9944-01f73828fe25',
+				'CLAUDE_CODE_SESSION_ID' => '53a60837-1b15-45ee-bf48-52d14bcccdad',
 				'CLAUDE_EFFORT' => 'high',
-				'CLAUDE_PID' => '11360',
+				'CLAUDE_PID' => '9428',
+				'COLUMNS' => '120',
 				'COMMONPROGRAMFILES' => 'C:\Program Files\Common Files',
 				'COMPUTERNAME' => 'YAMOON',
 				'COMSPEC' => 'C:\WINDOWS\system32\cmd.exe',
+				'CONFIG_SITE' => 'C:/Program Files/Git/etc/config.site',
 				'COPILOT_OTEL_FILE_EXPORTER_PATH' => '\\\.\nul',
 				'COREPACK_ENABLE_AUTO_PIN' => '0',
 				'ChocolateyInstall' => 'C:\ProgramData\chocolatey',
 				'ChocolateyLastPathUpdate' => '133838340299593043',
 				'CommonProgramFiles(x86)' => 'C:\Program Files (x86)\Common Files',
 				'CommonProgramW6432' => 'C:\Program Files\Common Files',
-				'DOTNET_MULTILEVEL_LOOKUP' => '0',
+				'DISPLAY' => 'needs-to-be-defined',
 				'DriverData' => 'C:\Windows\System32\Drivers\DriverData',
 				'ELECTRON_RUN_AS_NODE' => '1',
 				'EXEPATH' => 'C:\Program Files\Git\bin',
@@ -12405,29 +12397,47 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 				'HOME' => 'C:\Users\HIGH LEVEL',
 				'HOMEDRIVE' => 'C:',
 				'HOMEPATH' => '\Users\HIGH LEVEL',
+				'HOSTNAME' => 'YAMOON',
+				'INFOPATH' => 'C:\Program Files\Git\ucrt64\local\info;C:\Program Files\Git\ucrt64\share\info;C:\Program Files\Git\usr\local\info;C:\Program Files\Git\usr\share\info;C:\Program Files\Git\usr\info;C:\Program Files\Git\share\info',
 				'INTEL_DEV_REDIST' => 'C:\Program Files (x86)\Common Files\Intel\Shared Libraries\\',
 				'JAVA_HOME' => 'C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot\\',
+				'LANG' => 'fr_FR.UTF-8',
+				'LINES' => '9001',
 				'LOCALAPPDATA' => 'C:\Users\HIGH LEVEL\AppData\Local',
 				'LOGONSERVER' => '\\\YAMOON',
+				'MANPATH' => 'C:\Program Files\Git\ucrt64\local\man;C:\Program Files\Git\ucrt64\share\man;C:\Program Files\Git\usr\local\man;C:\Program Files\Git\usr\share\man;C:\Program Files\Git\usr\man;C:\Program Files\Git\share\man',
 				'MCP_CONNECTION_NONBLOCKING' => 'true',
 				'MIC_LD_LIBRARY_PATH' => 'C:\Program Files (x86)\Common Files\Intel\Shared Libraries\compiler\lib\intel64_win_mic',
-				'MODERNIZE_AGENT_PATH' => 'c:\Users\HIGH LEVEL\.vscode\extensions\ms-dotnettools.upgrade-agent-1.1.652\prompts',
+				'MINGW_CHOST' => 'x86_64-w64-mingw32',
+				'MINGW_PACKAGE_PREFIX' => 'mingw-w64-ucrt-x86_64',
+				'MINGW_PREFIX' => 'C:/Program Files/Git/ucrt64',
+				'MODERNIZE_AGENT_PATH' => 'c:\Users\HIGH LEVEL\.vscode\extensions\ms-dotnettools.upgrade-agent-1.1.707\prompts',
 				'MSYSTEM' => 'UCRT64',
-				'MXC_BIN_DIR' => 'c:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\2a59476c9b\resources\app\node_modules.asar.unpacked\@microsoft\mxc-sdk\bin',
+				'MSYSTEM_CARCH' => 'x86_64',
+				'MSYSTEM_CHOST' => 'x86_64-w64-mingw32',
+				'MSYSTEM_PREFIX' => 'C:/Program Files/Git/ucrt64',
 				'NUMBER_OF_PROCESSORS' => '4',
 				'NoDefaultCurrentDirectoryInExePath' => '1',
 				'OLDPWD' => 'C:/laragon/www/voxo.chat/backend',
+				'ORIGINAL_PATH' => 'C:\Program Files\Git\ucrt64\bin;C:\Program Files\Git\usr\bin;C:\Users\HIGH LEVEL\bin;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot\bin;C:\Python\Scripts;C:\Python313;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\flutter\bin;C:\nuget;C:\poppler\Library\bin;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resour;C:\Program Files\Apache\Maven\apache-maven-3.9.10\bin;C:\Program Files\dotnet;C:\Program Files\PostgreSQL\18\bin;C:\Program Files\Java\javafx-sdk-26;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\HIGH LEVEL\.local\bin;C:\Program Files\GitHub CLI;C:\Program Files\Git\cmd;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\Users\HIGH LEVEL\AppData\Local\pnpm;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\.dotnet\tools;C:\Users\HIGH LEVEL\.bun\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\javafx-sdk-26;C:\Users\HIGH LEVEL\.local\bin;C:\Users\HIGH LEVEL\AppData\Local\Pub\Cache\bin',
+				'ORIGINAL_TEMP' => 'C:/Users/HIGHLE~1/AppData/Local/Temp',
+				'ORIGINAL_TMP' => 'C:/Users/HIGHLE~1/AppData/Local/Temp',
 				'OS' => 'Windows_NT',
 				'OneDrive' => 'C:\Users\HIGH LEVEL\OneDrive',
 				'OneDriveConsumer' => 'C:\Users\HIGH LEVEL\OneDrive',
+				'PATH' => 'C:\Users\HIGH LEVEL\AppData\Local\pnpm;C:\Users\HIGH LEVEL\bin;C:\Program Files\Git\ucrt64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\ucrt64\bin;C:\Program Files\Git\usr\bin;C:\Users\HIGH LEVEL\bin;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot\bin;C:\Python\Scripts;C:\Python313;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\flutter\bin;C:\nuget;C:\poppler\Library\bin;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\AppData\Local\Programs\cursor\resour;C:\Program Files\Apache\Maven\apache-maven-3.9.10\bin;C:\Program Files\dotnet;C:\Program Files\PostgreSQL\18\bin;C:\Program Files\Java\javafx-sdk-26;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\HIGH LEVEL\.local\bin;C:\Program Files\GitHub CLI;C:\Program Files\Git\cmd;C:\laragon\bin\php\php-8.3.32-Win32-vs16-x64;C:\Users\HIGH LEVEL\AppData\Local\pnpm;C:\Users\HIGH LEVEL\AppData\Local\Microsoft\WindowsApps;C:\Users\HIGH LEVEL\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\HIGH LEVEL\AppData\Roaming\npm;C:\Users\HIGH LEVEL\.dotnet\tools;C:\Users\HIGH LEVEL\.bun\bin;C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\javafx-sdk-26;C:\Users\HIGH LEVEL\.local\bin;C:\Users\HIGH LEVEL\AppData\Local\Pub\Cache\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl',
 				'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW',
+				'PKG_CONFIG_PATH' => 'C:\Program Files\Git\ucrt64\lib\pkgconfig;C:\Program Files\Git\ucrt64\share\pkgconfig',
+				'PKG_CONFIG_SYSTEM_INCLUDE_PATH' => 'C:/Program Files/Git/ucrt64/include',
+				'PKG_CONFIG_SYSTEM_LIBRARY_PATH' => 'C:/Program Files/Git/ucrt64/lib',
 				'PLINK_PROTOCOL' => 'ssh',
-				'PNPM_HOME' => 'C:\Users\HIGH LEVEL\AppData\Local\pnpm',
+				'PNPM_HOME' => 'C:/Users/HIGH LEVEL/AppData/Local/pnpm',
 				'PROCESSOR_ARCHITECTURE' => 'AMD64',
 				'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 142 Stepping 9, GenuineIntel',
 				'PROCESSOR_LEVEL' => '6',
 				'PROCESSOR_REVISION' => '8e09',
 				'PROGRAMFILES' => 'C:\Program Files',
+				'PS1' => '\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ ',
 				'PSModulePath' => 'C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules',
 				'PUBLIC' => 'C:\Users\Public',
 				'PWD' => 'C:/laragon/www/voxo.chat/backend',
@@ -12436,32 +12446,35 @@ class Container_6a268680c5 extends _PHPStan_0e156a663\Nette\DI\Container
 				'ProgramW6432' => 'C:\Program Files',
 				'SESSIONNAME' => 'Console',
 				'SHELL' => 'C:\Program Files\Git\usr\bin\bash.exe',
-				'SHLVL' => '2',
+				'SHELL_VERBOSITY' => '0',
+				'SHLVL' => '1',
+				'SSH_ASKPASS' => 'C:/Program Files/Git/ucrt64/bin/git-askpass.exe',
 				'SYSTEMDRIVE' => 'C:',
 				'SYSTEMROOT' => 'C:\WINDOWS',
 				'TEMP' => 'C:\Users\HIGHLE~1\AppData\Local\Temp',
 				'TERM' => 'xterm-256color',
 				'TMP' => 'C:\Users\HIGHLE~1\AppData\Local\Temp',
+				'TMPDIR' => 'C:\Users\HIGHLE~1\AppData\Local\Temp',
 				'USERDOMAIN' => 'YAMOON',
 				'USERDOMAIN_ROAMINGPROFILE' => 'YAMOON',
 				'USERNAME' => 'HIGH LEVEL',
 				'USERPROFILE' => 'C:\Users\HIGH LEVEL',
-				'VSCODE_CODE_CACHE_PATH' => 'C:\Users\HIGH LEVEL\AppData\Roaming\Code\CachedData\2a59476c9bfcb90b3ddc372c36762471b7dfad1c',
+				'VSCODE_CODE_CACHE_PATH' => 'C:\Users\HIGH LEVEL\AppData\Roaming\Code\CachedData\6d62b1d5dace93a33b3a6d3eca1317bd5e15bcb1',
 				'VSCODE_CRASH_REPORTER_PROCESS_TYPE' => 'extensionHost',
 				'VSCODE_CWD' => 'C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code',
 				'VSCODE_DOTNET_INSTALL_TOOL_ORIGINAL_HOME' => 'undefined',
 				'VSCODE_ESM_ENTRYPOINT' => 'vs/workbench/api/node/extensionHostProcess',
 				'VSCODE_HANDLES_UNCAUGHT_ERRORS' => 'true',
-				'VSCODE_IPC_HOOK' => '\\\.\pipe\f6efdabf-1.141.0-main-sock',
+				'VSCODE_IPC_HOOK' => '\\\.\pipe\f6efdabf-1.142.0-main-sock',
 				'VSCODE_L10N_BUNDLE_LOCATION' => '',
-				'VSCODE_NLS_CONFIG' => '{"userLocale":"en-us","osLocale":"fr-fr","resolvedLanguage":"en","defaultMessagesFile":"C:\\\Users\\\HIGH LEVEL\\\AppData\\\Local\\\Programs\\\Microsoft VS Code\\\2a59476c9b\\\resources\\\app\\\out\\\nls.messages.json","locale":"en-us","availableLanguages":{}}',
-				'VSCODE_NODE_COMPILE_CACHE_KIND' => 'main',
-				'VSCODE_NODE_COMPILE_CACHE_ROOT' => 'C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\07f806f999\resources\app\node-compile-cache',
-				'VSCODE_PID' => '7888',
+				'VSCODE_NLS_CONFIG' => '{"userLocale":"en-us","osLocale":"fr-fr","resolvedLanguage":"en","defaultMessagesFile":"C:\\\Users\\\HIGH LEVEL\\\AppData\\\Local\\\Programs\\\Microsoft VS Code\\\6d62b1d5da\\\resources\\\app\\\out\\\nls.messages.json","locale":"en-us","availableLanguages":{}}',
+				'VSCODE_NODE_COMPILE_CACHE_KIND' => 'extension-host',
+				'VSCODE_NODE_COMPILE_CACHE_ROOT' => 'C:\Users\HIGH LEVEL\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\node-compile-cache',
+				'VSCODE_PID' => '11108',
 				'WINDIR' => 'C:\WINDOWS',
-				'_' => 'C:/laragon/bin/php/php-8.3.32-Win32-vs16-x64/php',
+				'_' => 'vendor/bin/phpstan',
 				'_PG_ADMIN_' => 'C:\Program Files\PostgreSQL\17\bin',
-				'__COMPAT_LAYER' => 'RunAsInvoker',
+				'__COMPAT_LAYER' => 'DetectorsAppHealth',
 			],
 		];
 	}

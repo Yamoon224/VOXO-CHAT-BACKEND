@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-776b21527a1cffab4b97c29fa001ecfd45b20687f359645a26379b1e5ba8fd11-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:69:"app\domains\conversations\repositories\eloquentconversationrepository";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

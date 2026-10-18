@@ -17,6 +17,8 @@ use App\Domains\Conversations\Enums\RoutingActionType;
 use App\Domains\Conversations\Enums\RoutingConditionField;
 use App\Domains\Conversations\Enums\RoutingConditionOperator;
 use App\Domains\HelpCenter\Enums\ArticleStatus;
+use App\Domains\Integrations\Enums\WebhookDeliveryStatus;
+use App\Domains\Integrations\Enums\WebhookEventType;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentStatus;
 use App\Domains\Knowledge\Enums\KnowledgeDocumentType;
 use App\Domains\Knowledge\Enums\KnowledgeSourceType;
@@ -144,6 +146,8 @@ class OpenApiSpecificationTest extends TestCase
         yield 'AutomationConditionField' => ['AutomationConditionField', AutomationConditionField::values()];
         yield 'AutomationConditionOperator' => ['AutomationConditionOperator', AutomationConditionOperator::values()];
         yield 'AutomationActionType' => ['AutomationActionType', AutomationActionType::values()];
+        yield 'WebhookEventType' => ['WebhookEventType', WebhookEventType::values()];
+        yield 'WebhookDeliveryStatus' => ['WebhookDeliveryStatus', WebhookDeliveryStatus::values()];
     }
 
     #[Test]

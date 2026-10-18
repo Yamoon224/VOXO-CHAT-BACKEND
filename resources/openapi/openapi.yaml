@@ -46,6 +46,7 @@ tags:
   - name: Facturation
   - name: Paiements
   - name: Statistiques
+  - name: Intégrations
   - name: Plateforme
 
 paths:
@@ -2899,6 +2900,174 @@ paths:
         '403': { $ref: '#/components/responses/DomainError' }
         '422': { $ref: '#/components/responses/ValidationFailed' }
 
+  /workspace/analytics/export:
+    get:
+      tags: [Statistiques]
+      summary: Export CSV des agrégats de la période (section 2.12)
+      description: Permission `analytics.view`. Mêmes agrégats que `/workspace/analytics/overview`, à plat pour un tableur.
+      parameters:
+        - { name: from, in: query, schema: { type: string, format: date } }
+        - { name: to, in: query, schema: { type: string, format: date } }
+      responses:
+        '200':
+          description: Fichier CSV
+          content:
+            text/csv:
+              schema: { type: string }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/integrations/webhooks:
+    get:
+      tags: [Intégrations]
+      summary: Abonnements webhook sortants de l'espace courant (section 2.14)
+      description: Permission `integrations.manage`.
+      responses:
+        '200':
+          description: Abonnements
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/WebhookSubscription' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Intégrations]
+      summary: Créer un abonnement webhook
+      description: |
+        Permission `integrations.manage`. Le secret de signature est généré
+        côté serveur et rendu en clair dans la réponse — il sert à vérifier
+        l'en-tête `X-Voxo-Signature` sur chaque livraison.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, event_types]
+              properties:
+                url: { type: string, format: uri, maxLength: 2048 }
+                event_types: { type: array, items: { $ref: '#/components/schemas/WebhookEventType' }, minItems: 1 }
+                enabled: { type: boolean }
+      responses:
+        '201':
+          description: Abonnement créé
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/WebhookSubscription' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/integrations/webhooks/{subscription}:
+    put:
+      tags: [Intégrations]
+      summary: Modifier un abonnement webhook
+      description: Permission `integrations.manage`. Le secret existant n'est jamais régénéré par cette opération.
+      parameters:
+        - { name: subscription, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, event_types]
+              properties:
+                url: { type: string, format: uri, maxLength: 2048 }
+                event_types: { type: array, items: { $ref: '#/components/schemas/WebhookEventType' }, minItems: 1 }
+                enabled: { type: boolean }
+      responses:
+        '200':
+          description: Abonnement modifié
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: '#/components/schemas/WebhookSubscription' } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+    delete:
+      tags: [Intégrations]
+      summary: Supprimer un abonnement webhook
+      description: Permission `integrations.manage`.
+      parameters:
+        - { name: subscription, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Abonnement supprimé }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/integrations/webhooks/{subscription}/deliveries:
+    get:
+      tags: [Intégrations]
+      summary: Historique récent des livraisons d'un abonnement
+      description: Permission `integrations.manage`. Les 20 plus récentes, pour le débogage côté espace de travail.
+      parameters:
+        - { name: subscription, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '200':
+          description: Livraisons
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/WebhookDelivery' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /workspace/integrations/api-keys:
+    get:
+      tags: [Intégrations]
+      summary: Clés d'API de l'espace courant (section 2.14)
+      description: Permission `integrations.manage`. Le jeton en clair n'est jamais relisible après son émission.
+      responses:
+        '200':
+          description: Clés
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/ApiKey' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+    post:
+      tags: [Intégrations]
+      summary: Émettre une clé d'API
+      description: |
+        Permission `integrations.manage`. Agit avec les mêmes permissions
+        que la personne qui l'émet, dans cet espace de travail. Le jeton en
+        clair n'est remis qu'une fois, dans cette réponse.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, maxLength: 120 }
+      responses:
+        '201':
+          description: Clé émise
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { type: object, properties: { token: { type: string } } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /workspace/integrations/api-keys/{key}:
+    delete:
+      tags: [Intégrations]
+      summary: Révoquer une clé d'API
+      description: Permission `integrations.manage`.
+      parameters:
+        - { name: key, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: Clé révoquée }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/DomainError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
   /public/payments/webhook:
     post:
       tags: [Paiements]
@@ -3778,6 +3947,74 @@ components:
         ai_resolved_count: { type: integer }
         escalated_count: { type: integer }
         unanswered_count: { type: integer }
+        average_first_response_seconds: { type: number, format: float, nullable: true }
+        average_resolution_seconds: { type: number, format: float, nullable: true }
+        messages_by_agent: { type: array, items: { $ref: '#/components/schemas/AnalyticsCountByAgent' } }
+        conversations_by_channel: { type: array, items: { $ref: '#/components/schemas/AnalyticsCountByChannel' } }
+        top_cited_documents: { type: array, items: { $ref: '#/components/schemas/AnalyticsTopCitedDocument' } }
+        unanswered_knowledge_questions_count: { type: integer }
+        recent_unanswered_knowledge_questions: { type: array, items: { $ref: '#/components/schemas/AnalyticsUnansweredKnowledgeQuestion' } }
+
+    AnalyticsCountByAgent:
+      type: object
+      properties:
+        user_id: { type: string, format: uuid }
+        count: { type: integer }
+
+    AnalyticsCountByChannel:
+      type: object
+      properties:
+        channel: { type: string }
+        count: { type: integer }
+
+    AnalyticsTopCitedDocument:
+      type: object
+      properties:
+        title: { type: string }
+        count: { type: integer }
+
+    AnalyticsUnansweredKnowledgeQuestion:
+      type: object
+      properties:
+        question: { type: string }
+        created_at: { type: string, format: date-time }
+
+    WebhookEventType:
+      type: string
+      enum: [conversation.created, conversation.resolved, message.created]
+
+    WebhookSubscription:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        url: { type: string, format: uri }
+        secret: { type: string, description: "En clair : nécessaire en continu pour vérifier X-Voxo-Signature." }
+        event_types: { type: array, items: { $ref: '#/components/schemas/WebhookEventType' } }
+        enabled: { type: boolean }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    WebhookDeliveryStatus:
+      type: string
+      enum: [pending, success, failed]
+
+    WebhookDelivery:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        event_type: { type: string }
+        status: { $ref: '#/components/schemas/WebhookDeliveryStatus' }
+        response_status: { type: integer, nullable: true }
+        attempted_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time, nullable: true }
+
+    ApiKey:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        created_by_name: { type: string }
+        last_used_at: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time, nullable: true }
 
     PlatformWorkspace:
       type: object

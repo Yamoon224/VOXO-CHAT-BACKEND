@@ -7,6 +7,7 @@ use App\Domains\Conversations\Contracts\ConversationRepositoryContract;
 use App\Domains\Conversations\Contracts\MessageRepositoryContract;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Enums\MessageVisibility;
+use App\Domains\Integrations\Contracts\WebhookDispatcherContract;
 use App\Domains\Shared\Support\WorkspaceScope;
 use App\Models\Message;
 use Illuminate\Support\Collection;
@@ -17,6 +18,7 @@ final class MessageService
         private readonly ConversationRepositoryContract $conversations,
         private readonly MessageRepositoryContract $messages,
         private readonly OutboundChannelDispatcherContract $dispatcher,
+        private readonly WebhookDispatcherContract $webhooks,
     ) {}
 
     /** @return Collection<int, Message> */
@@ -56,6 +58,13 @@ final class MessageService
         if ($visibility === MessageVisibility::Public) {
             $this->dispatcher->dispatchReply($scope->workspaceId, $conversation->channel->value, $conversation->visitor_id, $body);
         }
+
+        $this->webhooks->dispatch($scope->workspaceId, 'message.created', [
+            'id' => $message->id,
+            'conversation_id' => $conversation->id,
+            'sender_type' => $message->sender_type->value,
+            'body' => $message->body,
+        ]);
 
         return $message;
     }

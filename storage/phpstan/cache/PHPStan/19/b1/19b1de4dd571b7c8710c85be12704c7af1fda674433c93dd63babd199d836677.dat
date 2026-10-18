@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-d11a7a9e519113898a68b73f0ce62c33492765320800b36d3615f38260280f5a-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:62:"app\domains\conversations\contracts\conversationreadercontract";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

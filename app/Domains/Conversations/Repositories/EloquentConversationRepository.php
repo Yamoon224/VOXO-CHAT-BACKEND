@@ -11,6 +11,7 @@ use App\Models\Message;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 final class EloquentConversationRepository implements ConversationReaderContract, ConversationRepositoryContract
 {
@@ -121,6 +122,109 @@ final class EloquentConversationRepository implements ConversationReaderContract
             ->count();
 
         return ['ai_resolved' => $aiResolved, 'escalated' => $escalated, 'unanswered' => $unanswered];
+    }
+
+    public function averageFirstResponseSeconds(string $workspaceId, Carbon $from, Carbon $to): ?float
+    {
+        $conversations = $this->scopedByPeriod($workspaceId, $from, $to)->get(['id', 'created_at']);
+
+        if ($conversations->isEmpty()) {
+            return null;
+        }
+
+        $firstResponseAt = Message::query()
+            ->whereIn('conversation_id', $conversations->pluck('id'))
+            ->where('sender_type', '!=', 'visitor')
+            ->select('conversation_id', DB::raw('MIN(created_at) as first_response_at'))
+            ->groupBy('conversation_id')
+            ->pluck('first_response_at', 'conversation_id');
+
+        $delays = $conversations
+            ->filter(fn (Conversation $conversation) => isset($firstResponseAt[$conversation->id]))
+            ->map(fn (Conversation $conversation) => Carbon::parse($firstResponseAt[$conversation->id])->diffInSeconds($conversation->created_at, true));
+
+        return $delays->isEmpty() ? null : (float) $delays->avg();
+    }
+
+    public function averageResolutionSeconds(string $workspaceId, Carbon $from, Carbon $to): ?float
+    {
+        $delays = $this->scopedByPeriod($workspaceId, $from, $to)
+            ->where('status', 'resolved')
+            ->whereNotNull('resolved_at')
+            ->get(['created_at', 'resolved_at'])
+            ->map(fn (Conversation $conversation) => $conversation->resolved_at->diffInSeconds($conversation->created_at, true));
+
+        return $delays->isEmpty() ? null : (float) $delays->avg();
+    }
+
+    public function countMessagesByAgent(string $workspaceId, Carbon $from, Carbon $to): array
+    {
+        return Message::query()
+            ->where('workspace_id', $workspaceId)
+            ->where('sender_type', 'agent')
+            ->whereNotNull('sender_user_id')
+            ->whereBetween('created_at', [$from, $to])
+            ->select('sender_user_id', DB::raw('COUNT(*) as aggregate_count'))
+            ->groupBy('sender_user_id')
+            ->get()
+            ->map(fn (Message $row) => ['user_id' => $row->sender_user_id, 'count' => (int) $row->getAttribute('aggregate_count')])
+            ->all();
+    }
+
+    public function countConversationsByChannel(string $workspaceId, Carbon $from, Carbon $to): array
+    {
+        return $this->scopedByPeriod($workspaceId, $from, $to)
+            ->select('channel', DB::raw('COUNT(*) as aggregate_count'))
+            ->groupBy('channel')
+            ->get()
+            ->map(fn (Conversation $row) => ['channel' => $row->channel->value, 'count' => (int) $row->getAttribute('aggregate_count')])
+            ->all();
+    }
+
+    public function topCitedKnowledgeDocuments(string $workspaceId, Carbon $from, Carbon $to, int $limit = 5): array
+    {
+        return Message::query()
+            ->where('workspace_id', $workspaceId)
+            ->where('sender_type', 'ai')
+            ->whereBetween('created_at', [$from, $to])
+            ->whereNotNull('citations')
+            ->pluck('citations')
+            ->flatMap(fn (array $citations) => array_column($citations, 'title'))
+            ->countBy()
+            ->sortDesc()
+            ->take($limit)
+            ->map(fn (int $count, string $title) => ['title' => $title, 'count' => $count])
+            ->values()
+            ->all();
+    }
+
+    public function unansweredKnowledgeQuestions(string $workspaceId, Carbon $from, Carbon $to, int $limit = 10): array
+    {
+        $unanswered = Message::query()
+            ->where('workspace_id', $workspaceId)
+            ->where('sender_type', 'ai')
+            ->whereBetween('created_at', [$from, $to])
+            ->where(fn (Builder $query) => $query->whereNull('citations')->orWhereJsonLength('citations', 0))
+            ->orderByDesc('created_at');
+
+        $count = $unanswered->count();
+
+        $recent = $unanswered->limit($limit)->get(['conversation_id', 'created_at'])
+            ->map(function (Message $aiMessage) {
+                $question = Message::query()
+                    ->where('conversation_id', $aiMessage->conversation_id)
+                    ->where('sender_type', 'visitor')
+                    ->where('created_at', '<=', $aiMessage->created_at)
+                    ->latest('created_at')
+                    ->value('body');
+
+                return $question === null ? null : ['question' => $question, 'created_at' => $aiMessage->created_at];
+            })
+            ->filter(fn (?array $row) => $row !== null)
+            ->values()
+            ->all();
+
+        return ['count' => $count, 'recent' => $recent];
     }
 
     /** @return Builder<Conversation> */

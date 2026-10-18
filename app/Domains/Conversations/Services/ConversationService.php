@@ -11,6 +11,7 @@ use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
 use App\Domains\Conversations\Exceptions\AssigneeNotMemberException;
+use App\Domains\Integrations\Contracts\WebhookDispatcherContract;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\WorkspaceScope;
 use App\Domains\Workspaces\Contracts\MembershipReaderContract;
@@ -27,6 +28,7 @@ final class ConversationService implements VisitorConversationContract
         private readonly TransactionManagerContract $transactions,
         private readonly RoutingExecutionService $routing,
         private readonly AutomationResponderContract $automations,
+        private readonly WebhookDispatcherContract $webhooks,
     ) {}
 
     /**
@@ -64,10 +66,21 @@ final class ConversationService implements VisitorConversationContract
     {
         $conversation = $this->conversations->findInWorkspaceOrFail($scope->workspaceId, $conversationId);
 
-        return $this->conversations->update($conversation, [
+        $conversation = $this->conversations->update($conversation, [
             'status' => $status,
             'resolved_at' => $status === ConversationStatus::Resolved ? now() : null,
         ]);
+
+        if ($status === ConversationStatus::Resolved) {
+            $this->webhooks->dispatch($scope->workspaceId, 'conversation.resolved', [
+                'id' => $conversation->id,
+                'channel' => $conversation->channel->value,
+                'contact_id' => $conversation->contact_id,
+                'resolved_at' => $conversation->resolved_at,
+            ]);
+        }
+
+        return $conversation;
     }
 
     /**
@@ -96,9 +109,11 @@ final class ConversationService implements VisitorConversationContract
         ?string $subject = null,
     ): Conversation {
         $automationHandled = false;
+        $isNewConversation = false;
+        $message = null;
 
         $conversation = $this->transactions->run(
-            function () use ($workspaceId, $channel, $visitorId, $body, $visitorName, $visitorEmail, $contactId, $subject, &$automationHandled) {
+            function () use ($workspaceId, $channel, $visitorId, $body, $visitorName, $visitorEmail, $contactId, $subject, &$automationHandled, &$isNewConversation, &$message) {
                 $conversation = $this->conversations->findOpenForVisitor($workspaceId, $visitorId)
                     ?? $this->conversations->create([
                         'workspace_id' => $workspaceId,
@@ -127,7 +142,7 @@ final class ConversationService implements VisitorConversationContract
                     $conversation = $this->conversations->update($conversation, $attributes);
                 }
 
-                $this->messages->create([
+                $message = $this->messages->create([
                     'conversation_id' => $conversation->id,
                     'workspace_id' => $workspaceId,
                     'sender_type' => MessageSenderType::Visitor,
@@ -153,6 +168,25 @@ final class ConversationService implements VisitorConversationContract
             },
         );
 
+        if ($isNewConversation) {
+            $this->webhooks->dispatch($workspaceId, 'conversation.created', [
+                'id' => $conversation->id,
+                'channel' => $conversation->channel->value,
+                'visitor_id' => $conversation->visitor_id,
+                'contact_id' => $conversation->contact_id,
+                'subject' => $conversation->subject,
+            ]);
+        }
+
+        if ($message !== null) {
+            $this->webhooks->dispatch($workspaceId, 'message.created', [
+                'id' => $message->id,
+                'conversation_id' => $conversation->id,
+                'sender_type' => $message->sender_type->value,
+                'body' => $message->body,
+            ]);
+        }
+
         if (! $automationHandled) {
             $this->assistant->respondToConversation($conversation->id);
         }
@@ -162,10 +196,12 @@ final class ConversationService implements VisitorConversationContract
 
     public function receiveReplyOnKnownConversation(string $workspaceId, string $conversationId, string $body): Conversation
     {
-        $conversation = $this->transactions->run(function () use ($workspaceId, $conversationId, $body) {
+        $message = null;
+
+        $conversation = $this->transactions->run(function () use ($workspaceId, $conversationId, $body, &$message) {
             $conversation = $this->conversations->findInWorkspaceOrFail($workspaceId, $conversationId);
 
-            $this->messages->create([
+            $message = $this->messages->create([
                 'conversation_id' => $conversation->id,
                 'workspace_id' => $workspaceId,
                 'sender_type' => MessageSenderType::Visitor,
@@ -180,6 +216,13 @@ final class ConversationService implements VisitorConversationContract
                 'resolved_at' => $reopening ? null : $conversation->resolved_at,
             ]);
         });
+
+        $this->webhooks->dispatch($workspaceId, 'message.created', [
+            'id' => $message->id,
+            'conversation_id' => $conversation->id,
+            'sender_type' => $message->sender_type->value,
+            'body' => $message->body,
+        ]);
 
         $this->assistant->respondToConversation($conversation->id);
 

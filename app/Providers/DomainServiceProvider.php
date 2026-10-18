@@ -84,6 +84,12 @@ use App\Domains\HelpCenter\Contracts\HelpCenterArticleRepositoryContract;
 use App\Domains\HelpCenter\Contracts\HelpCenterCategoryRepositoryContract;
 use App\Domains\HelpCenter\Repositories\EloquentHelpCenterArticleRepository;
 use App\Domains\HelpCenter\Repositories\EloquentHelpCenterCategoryRepository;
+use App\Domains\Integrations\Contracts\WebhookDeliveryRepositoryContract;
+use App\Domains\Integrations\Contracts\WebhookDispatcherContract;
+use App\Domains\Integrations\Contracts\WebhookSubscriptionRepositoryContract;
+use App\Domains\Integrations\Repositories\EloquentWebhookDeliveryRepository;
+use App\Domains\Integrations\Repositories\EloquentWebhookSubscriptionRepository;
+use App\Domains\Integrations\Services\WebhookDispatchService;
 use App\Domains\Knowledge\Contracts\EmbeddingProviderContract;
 use App\Domains\Knowledge\Contracts\EmbeddingSearchContract;
 use App\Domains\Knowledge\Contracts\KnowledgeChunkRepositoryContract;
@@ -274,6 +280,13 @@ class DomainServiceProvider extends ServiceProvider
         // --- Centre d'aide (lot 4) ------------------------------------------------------
         HelpCenterCategoryRepositoryContract::class => EloquentHelpCenterCategoryRepository::class,
         HelpCenterArticleRepositoryContract::class => EloquentHelpCenterArticleRepository::class,
+
+        // --- Intégrations (lot 6, section 2.14) : clés d'API, webhooks sortants ---------
+        WebhookSubscriptionRepositoryContract::class => EloquentWebhookSubscriptionRepository::class,
+        WebhookDeliveryRepositoryContract::class => EloquentWebhookDeliveryRepository::class,
+        // Lecture étroite exposée aux domaines métier : un évènement vient de
+        // se produire, à relayer vers les abonnements qui y souscrivent.
+        WebhookDispatcherContract::class => WebhookDispatchService::class,
     ];
 
     public function register(): void

@@ -1,1 +1,1 @@
-O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-db198cf0b69a28b67369a7d9c04f14db692f0e3ece19a9176bfbd332f059c9f5-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:49:"app\domains\conversations\services\messageservice";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-43f1631dbfc7c90e953f57fcecab270c2b2398f9fe03ece9a0fdcd9916a0d5c5-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:49:"app\domains\conversations\services\messageservice";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

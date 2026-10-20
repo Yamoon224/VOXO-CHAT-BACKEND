@@ -30,7 +30,7 @@ final class MessageBroadcastEvent implements ShouldBroadcastNow
     {
         $channels = [new PrivateChannel("conversation.{$this->message->conversation_id}")];
 
-        if ($this->message->isPublic()) {
+        if ($this->message->isVisibleToVisitor()) {
             $channels[] = new PresenceChannel("conversation.{$this->message->conversation_id}.public");
         }
 

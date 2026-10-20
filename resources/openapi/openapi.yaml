@@ -2846,6 +2846,10 @@ paths:
     get:
       tags: [Widget]
       summary: Réglages publics du widget, lus avant toute session de visiteur
+      description: |
+        Chaque appel vaut vérification d'installation (section 2.3,
+        `last_installed_check_at` côté vue d'équipe) : seul le script
+        réellement chargé sur le site du client peut atteindre cette route.
       security: []
       parameters:
         - { name: workspace, in: path, required: true, schema: { type: string, format: uuid } }
@@ -2913,7 +2917,11 @@ paths:
     get:
       tags: [Widget]
       summary: Sonder les messages de sa conversation (visiteur)
-      description: "Pas de temps réel pour l'instant (voir la note de portée du lot 2) : le widget sonde cette route."
+      description: |
+        Historique de la conversation. `meta.conversation_id` permet au
+        widget de s'abonner au canal temps réel `conversation.{id}.public`
+        sans attendre d'avoir envoyé un premier message (section 4.1) — ou
+        de retomber sur le sondage si aucun serveur Reverb n'est configuré.
       security: []
       parameters:
         - { name: token, in: query, required: true, schema: { type: string } }
@@ -2922,7 +2930,14 @@ paths:
           description: Messages visibles du visiteur, dans l'ordre
           content:
             application/json:
-              schema: { type: object, properties: { data: { type: array, items: { $ref: '#/components/schemas/PublicMessage' } } } }
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/PublicMessage' } }
+                  meta:
+                    type: object
+                    properties:
+                      conversation_id: { type: string, format: uuid, nullable: true }
         '401': { $ref: '#/components/responses/DomainError' }
 
   /public/widget/ratings:
@@ -4557,6 +4572,11 @@ components:
               closes_at: { type: string }
         offline_message: { type: string, nullable: true }
         hide_branding: { type: boolean, description: "Marque blanche (section 2.3) : retire la mention VOXO du widget." }
+        last_installed_check_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: "Vérification d'installation (section 2.3) : dernier appel public des réglages, preuve que le script est bien chargé sur le site du client."
 
     ChannelEmailSettings:
       type: object
@@ -4587,6 +4607,15 @@ components:
         is_open_now: { type: boolean }
         offline_message: { type: string, nullable: true }
         hide_branding: { type: boolean }
+        realtime:
+          type: object
+          nullable: true
+          description: "Paramètres de connexion Reverb (section 4.1), jamais secrets ; `null` si aucun serveur n'est configuré (repli sur le sondage)."
+          properties:
+            key: { type: string }
+            host: { type: string }
+            port: { type: integer }
+            scheme: { type: string }
 
     AssistantSettings:
       type: object

@@ -14,19 +14,20 @@ class WidgetSettingsServiceTest extends TestCase
     #[Test]
     public function le_script_porte_l_identifiant_de_l_espace_et_l_url_configuree(): void
     {
-        $service = new WidgetSettingsService(new InMemoryWidgetSettingsRepository, 'https://cdn.voxo.test');
+        $service = new WidgetSettingsService(new InMemoryWidgetSettingsRepository, 'https://cdn.voxo.test', 'https://api.voxo.test/api/v1');
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Owner);
 
         $script = $service->script($scope);
 
         $this->assertStringContainsString('workspace-1', $script);
         $this->assertStringContainsString('https://cdn.voxo.test/widget.js', $script);
+        $this->assertStringContainsString('https://api.voxo.test/api/v1', $script);
     }
 
     #[Test]
     public function les_reglages_se_creent_a_la_demande_pour_un_nouvel_espace(): void
     {
-        $service = new WidgetSettingsService(new InMemoryWidgetSettingsRepository, 'https://cdn.voxo.test');
+        $service = new WidgetSettingsService(new InMemoryWidgetSettingsRepository, 'https://cdn.voxo.test', 'https://api.voxo.test/api/v1');
         $scope = new WorkspaceScope('workspace-1', 'member-1', 'user-1', WorkspaceRole::Owner);
 
         $settings = $service->current($scope);

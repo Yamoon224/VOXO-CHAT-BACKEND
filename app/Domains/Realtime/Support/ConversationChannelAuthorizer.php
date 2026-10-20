@@ -57,8 +57,8 @@ final class ConversationChannelAuthorizer
         }
 
         if ($user instanceof VisitorIdentity) {
-            return $user->workspaceId === $conversation->workspace_id && $user->visitorId === $conversation->visitor_id
-                ? ['id' => "visitor:{$user->visitorId}", 'name' => 'Visiteur']
+            return $user->workspaceId() === $conversation->workspace_id && $user->visitorId() === $conversation->visitor_id
+                ? ['id' => "visitor:{$user->visitorId()}", 'name' => 'Visiteur']
                 : false;
         }
 

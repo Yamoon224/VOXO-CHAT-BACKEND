@@ -681,6 +681,10 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(WidgetSettingsService::class)
             ->needs('$scriptBaseUrl')
             ->giveConfig('widget.script_base_url');
+
+        $this->app->when(WidgetSettingsService::class)
+            ->needs('$apiBaseUrl')
+            ->giveConfig('widget.api_base_url');
     }
 
     /** Pilote de diffusion temps réel (section 4.1), choisi par configuration (même garde que `registerToolCallerProvider()`). */

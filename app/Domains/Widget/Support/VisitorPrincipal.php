@@ -56,4 +56,14 @@ final readonly class VisitorPrincipal implements Authenticatable, VisitorIdentit
     {
         return "visitor:{$this->visitorId}";
     }
+
+    public function workspaceId(): string
+    {
+        return $this->workspaceId;
+    }
+
+    public function visitorId(): string
+    {
+        return $this->visitorId;
+    }
 }

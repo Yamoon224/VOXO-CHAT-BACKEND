@@ -122,9 +122,10 @@ Route::middleware('throttle:30,1')->group(function (): void {
 
 // Widget public : un visiteur n'est pas un compte, le périmètre vient du
 // jeton de session de visiteur (signé, sans table de sessions), pas d'un
-// jeton Sanctum. Pas de bundle `widget.js` embarquable pour l'instant (voir
-// la note de portée du lot 2) : cette zone n'est consommée qu'en REST, par
-// sondage — le temps réel (Reverb, section 4.1) suivra avec le widget lui-même.
+// jeton Sanctum. Le bundle `widget.js` (`web/widget-src/`) utilise ces
+// routes REST ; le temps réel (Reverb, section 4.1) passe par un canal à
+// part (`/broadcasting/auth`, garde `visitor`) — ces routes restent aussi
+// le repli si aucun serveur Reverb n'est configuré (sondage).
 Route::prefix('public/widget')->middleware('throttle:60,1')->group(function (): void {
     Route::get('/{workspace}/settings', [PublicWidgetSettingsController::class, 'show'])->whereUuid('workspace');
     Route::post('/{workspace}/sessions', [VisitorSessionController::class, 'store'])->whereUuid('workspace');

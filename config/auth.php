@@ -42,6 +42,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Visiteur anonyme (section 4.1, authentification des canaux temps
+        // réel publics) : identité reconstruite à la volée par le callback
+        // enregistré via `Auth::viaRequest()` dans
+        // `DomainServiceProvider::boot()` — pas de fournisseur, rien à
+        // chercher en base.
+        'visitor' => [
+            'driver' => 'visitor',
+            'provider' => null,
+        ],
     ],
 
     /*

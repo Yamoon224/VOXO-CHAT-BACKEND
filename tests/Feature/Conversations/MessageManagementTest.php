@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Conversations;
 
+use App\Domains\Realtime\Providers\ArrayConversationBroadcaster;
 use App\Domains\Shared\Enums\WorkspaceRole;
 use App\Models\Conversation;
 use App\Models\Workspace;
@@ -25,6 +26,12 @@ class MessageManagementTest extends TestCase
             ->assertCreated()
             ->assertJsonPath('data.sender_type', 'agent')
             ->assertJsonPath('data.visibility', 'public');
+
+        // Diffusée en temps réel (section 4.1) : visible du visiteur, donc
+        // sur les deux canaux (voir `MessageBroadcastEvent::broadcastOn()`).
+        $broadcasted = app(ArrayConversationBroadcaster::class)->broadcasted();
+        $this->assertCount(1, $broadcasted);
+        $this->assertTrue($broadcasted[0]->isVisibleToVisitor());
     }
 
     #[Test]
@@ -47,6 +54,12 @@ class MessageManagementTest extends TestCase
             ->assertOk();
 
         $this->assertCount(1, $messages->json('data'));
+
+        // Diffusée quand même côté agent (le canal réservé en tient compte),
+        // mais jamais marquée visible du visiteur.
+        $broadcasted = app(ArrayConversationBroadcaster::class)->broadcasted();
+        $this->assertCount(1, $broadcasted);
+        $this->assertFalse($broadcasted[0]->isVisibleToVisitor());
     }
 
     #[Test]

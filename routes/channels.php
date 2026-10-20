@@ -1,9 +1,6 @@
 <?php
 
-use App\Domains\Widget\Support\VisitorPrincipal;
-use App\Domains\Workspaces\Contracts\MembershipReaderContract;
-use App\Models\Conversation;
-use App\Models\User;
+use App\Domains\Realtime\Support\ConversationChannelAuthorizer;
 use Illuminate\Support\Facades\Broadcast;
 
 /**
@@ -16,44 +13,20 @@ use Illuminate\Support\Facades\Broadcast;
  *   messages publics seulement, présence, indicateurs de saisie (relayés
  *   côté client, sans code serveur — voir la diffusion du whisper Pusher).
  *
- * Jamais l'inverse : une note interne ne doit jamais rejoindre le second
- * canal, sans quoi elle atteindrait le navigateur du visiteur (voir
+ * L'autorisation elle-même vit dans `ConversationChannelAuthorizer`, pour
+ * être testable sans passer par le protocole Pusher/Reverb complet. Jamais
+ * l'inverse des deux canaux : une note interne ne doit jamais rejoindre le
+ * second, sans quoi elle atteindrait le navigateur du visiteur (voir
  * `MessageBroadcastEvent::broadcastOn()`).
  */
-Broadcast::channel('conversation.{conversationId}', function ($user, string $conversationId) {
-    if (! $user instanceof User) {
-        return false;
-    }
+Broadcast::channel(
+    'conversation.{conversationId}',
+    fn (mixed $user, string $conversationId) => app(ConversationChannelAuthorizer::class)->authorizeAgentChannel($user, $conversationId),
+    ['guards' => ['sanctum']],
+);
 
-    $conversation = Conversation::query()->find($conversationId);
-
-    if ($conversation === null) {
-        return false;
-    }
-
-    $member = app(MembershipReaderContract::class)->findForUser($conversation->workspace_id, $user->id);
-
-    return $member !== null ? ['id' => $user->id, 'name' => $user->name] : false;
-}, ['guards' => ['sanctum']]);
-
-Broadcast::channel('conversation.{conversationId}.public', function ($user, string $conversationId) {
-    $conversation = Conversation::query()->find($conversationId);
-
-    if ($conversation === null) {
-        return false;
-    }
-
-    if ($user instanceof User) {
-        $member = app(MembershipReaderContract::class)->findForUser($conversation->workspace_id, $user->id);
-
-        return $member !== null ? ['id' => $user->id, 'name' => $user->name] : false;
-    }
-
-    if ($user instanceof VisitorPrincipal) {
-        return $user->workspaceId === $conversation->workspace_id && $user->visitorId === $conversation->visitor_id
-            ? ['id' => "visitor:{$user->visitorId}", 'name' => 'Visiteur']
-            : false;
-    }
-
-    return false;
-}, ['guards' => ['sanctum', 'visitor']]);
+Broadcast::channel(
+    'conversation.{conversationId}.public',
+    fn (mixed $user, string $conversationId) => app(ConversationChannelAuthorizer::class)->authorizePublicChannel($user, $conversationId),
+    ['guards' => ['sanctum', 'visitor']],
+);

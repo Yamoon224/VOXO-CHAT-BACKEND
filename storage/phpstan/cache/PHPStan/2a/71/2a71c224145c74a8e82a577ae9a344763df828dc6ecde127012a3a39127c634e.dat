@@ -1,0 +1,1 @@
+O:23:"PHPStan\Cache\CacheItem":2:{s:11:"variableKey";s:74:"v2-a8a0bca4ec190d8b7a122d67191587d3adfc5748a6bbfedb831649d9989a7067-8.3.32";s:4:"data";a:3:{s:7:"classes";a:1:{s:41:"tests\feature\widget\widgetpublicflowtest";b:1;}s:9:"functions";a:0:{}s:9:"constants";a:0:{}}}

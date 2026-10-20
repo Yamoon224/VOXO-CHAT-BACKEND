@@ -11,6 +11,7 @@ final class WidgetSettingsService
     public function __construct(
         private readonly WidgetSettingsRepositoryContract $settings,
         private readonly string $scriptBaseUrl,
+        private readonly string $apiBaseUrl,
     ) {}
 
     public function current(WorkspaceScope $scope): WidgetSettings
@@ -42,8 +43,9 @@ final class WidgetSettingsService
 
     /**
      * Générateur de script (section 2.3) : extrait à copier-coller sur le
-     * site du client. Pas encore de bundle `widget.js` embarquable (voir la
-     * note de portée du lot 2) — seul le texte du script est généré ici.
+     * site du client. `apiBaseUrl` est l'origine de CETTE API (pas celle du
+     * bundle, qui vit sur `scriptBaseUrl`) — le widget ne peut pas la
+     * déduire lui-même puisqu'il tourne sur le domaine du client.
      */
     public function script(WorkspaceScope $scope): string
     {
@@ -52,7 +54,7 @@ final class WidgetSettingsService
         return <<<HTML
         <script>
           (function (w, d) {
-            w.VoxoWidgetConfig = { workspaceId: "{$workspaceId}" };
+            w.VoxoWidgetConfig = { workspaceId: "{$workspaceId}", apiBaseUrl: "{$this->apiBaseUrl}" };
             var s = d.createElement("script");
             s.src = "{$this->scriptBaseUrl}/widget.js";
             s.async = true;

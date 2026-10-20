@@ -42,7 +42,12 @@ final class MessageBroadcastEvent implements ShouldBroadcastNow
         return 'message.created';
     }
 
-    /** Même forme que `MessageResource` : le client peut traiter la charge utile comme un message ordinaire, sans traduction. */
+    /**
+     * Même forme que `MessageResource` : le client peut traiter la charge
+     * utile comme un message ordinaire, sans traduction.
+     *
+     * @return array<string, mixed>
+     */
     public function broadcastWith(): array
     {
         return [

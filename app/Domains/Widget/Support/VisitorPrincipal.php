@@ -2,6 +2,7 @@
 
 namespace App\Domains\Widget\Support;
 
+use App\Domains\Realtime\Contracts\VisitorIdentity;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 /**
@@ -11,7 +12,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
  * (`VisitorSessionToken`). Pas de mot de passe, pas de « remember me » : un
  * visiteur anonyme n'a rien de tout cela.
  */
-final readonly class VisitorPrincipal implements Authenticatable
+final readonly class VisitorPrincipal implements Authenticatable, VisitorIdentity
 {
     public function __construct(
         public string $workspaceId,

@@ -2,7 +2,7 @@
 
 namespace App\Domains\Realtime\Support;
 
-use App\Domains\Widget\Support\VisitorPrincipal;
+use App\Domains\Realtime\Contracts\VisitorIdentity;
 use App\Domains\Workspaces\Contracts\MembershipReaderContract;
 use App\Models\Conversation;
 use App\Models\User;
@@ -56,7 +56,7 @@ final class ConversationChannelAuthorizer
             return $this->asAgent($user, $conversation);
         }
 
-        if ($user instanceof VisitorPrincipal) {
+        if ($user instanceof VisitorIdentity) {
             return $user->workspaceId === $conversation->workspace_id && $user->visitorId === $conversation->visitor_id
                 ? ['id' => "visitor:{$user->visitorId}", 'name' => 'Visiteur']
                 : false;

@@ -31,6 +31,20 @@ class VisitorGuardTest extends TestCase
     }
 
     #[Test]
+    public function un_jeton_visiteur_porte_par_l_en_tete_resout_aussi_un_principal(): void
+    {
+        $token = app(VisitorSessionToken::class)->issue('workspace-1', 'visitor-1', now());
+        $request = Request::create('/broadcasting/auth', 'POST');
+        $request->headers->set('X-Visitor-Token', $token);
+        $this->app->instance('request', $request);
+
+        $user = Auth::guard('visitor')->user();
+
+        $this->assertInstanceOf(VisitorPrincipal::class, $user);
+        $this->assertSame('workspace-1', $user->workspaceId);
+    }
+
+    #[Test]
     public function un_jeton_visiteur_invalide_ne_resout_personne(): void
     {
         $this->app->instance('request', Request::create('/broadcasting/auth', 'POST', ['visitor_token' => 'falsifie']));

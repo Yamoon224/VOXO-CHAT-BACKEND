@@ -42,19 +42,21 @@ final class MessageBroadcastEvent implements ShouldBroadcastNow
         return 'message.created';
     }
 
-    /** @return array<string, mixed> */
+    /** Même forme que `MessageResource` : le client peut traiter la charge utile comme un message ordinaire, sans traduction. */
     public function broadcastWith(): array
     {
         return [
             'id' => $this->message->id,
             'conversation_id' => $this->message->conversation_id,
             'sender_type' => $this->message->sender_type->value,
+            'sender_label' => $this->message->sender_type->label(),
             'sender_user' => $this->message->senderUser === null
                 ? null
                 : ['id' => $this->message->senderUser->id, 'name' => $this->message->senderUser->name],
             'visibility' => $this->message->visibility->value,
             'body' => $this->message->body,
             'citations' => $this->message->citations ?? [],
+            'attachment_filename' => $this->message->attachment_filename,
             'created_at' => $this->message->created_at?->toIso8601String(),
         ];
     }

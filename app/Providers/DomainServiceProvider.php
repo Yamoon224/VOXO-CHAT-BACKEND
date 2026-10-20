@@ -365,7 +365,11 @@ class DomainServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Auth::viaRequest('visitor', function (Request $request): ?VisitorPrincipal {
-            $token = $request->input('visitor_token');
+            // Les bibliothèques clientes (Echo) ne savent envoyer que des
+            // en-têtes supplémentaires sur `/broadcasting/auth`, pas de champ
+            // de formulaire arbitraire : `X-Visitor-Token` sert ce besoin, le
+            // champ `visitor_token` reste accepté pour un appel direct.
+            $token = $request->header('X-Visitor-Token') ?? $request->input('visitor_token');
 
             if (! is_string($token) || $token === '') {
                 return null;

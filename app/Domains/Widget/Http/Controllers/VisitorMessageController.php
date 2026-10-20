@@ -45,6 +45,6 @@ class VisitorMessageController extends Controller
 
         return PublicMessageResource::collection(
             $conversation === null ? [] : $this->messages->publicForConversation($conversation->id),
-        );
+        )->additional(['meta' => ['conversation_id' => $conversation?->id]]);
     }
 }

@@ -23,6 +23,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         apiPrefix: 'api/v1',
     )
+    // Hors `api/v1` et son enveloppe d'erreurs JSON : c'est le protocole
+    // Pusher/Reverb natif (`/broadcasting/auth`), pas une route REST de ce
+    // produit — même raisonnement que `/up`, jamais listée dans l'OpenAPI.
+    ->withBroadcasting(
+        __DIR__.'/../routes/channels.php',
+        ['middleware' => ['throttle:60,1']],
+    )
     // Les commandes planifiées vivent par domaine (`app/Domains/*/Console`),
     // pas dans `app/Console/Commands` : sans ceci, Artisan ne les connaît pas
     // par leur signature, et `Schedule::command(...)` échoue silencieusement

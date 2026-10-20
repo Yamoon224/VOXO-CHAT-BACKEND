@@ -147,6 +147,9 @@ use App\Domains\Payments\Contracts\PaymentGatewayContract;
 use App\Domains\Payments\Gateways\ArrayPaymentGateway;
 use App\Domains\Payments\Gateways\StripePaymentGateway;
 use App\Domains\Payments\Services\CheckoutService;
+use App\Domains\Realtime\Contracts\ConversationBroadcasterContract;
+use App\Domains\Realtime\Providers\ArrayConversationBroadcaster;
+use App\Domains\Realtime\Services\EventConversationBroadcaster;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
 use App\Domains\Shared\Support\FrontendUrl;
@@ -173,6 +176,7 @@ use App\Domains\Users\Repositories\EloquentUserRepository;
 use App\Domains\Widget\Contracts\WidgetSettingsRepositoryContract;
 use App\Domains\Widget\Repositories\EloquentWidgetSettingsRepository;
 use App\Domains\Widget\Services\WidgetSettingsService;
+use App\Domains\Widget\Support\VisitorPrincipal;
 use App\Domains\Widget\Support\VisitorSessionToken;
 use App\Domains\Workspaces\Contracts\InvitationRepositoryContract;
 use App\Domains\Workspaces\Contracts\MembershipReaderContract;
@@ -188,6 +192,8 @@ use App\Domains\Workspaces\Services\InvitationService;
 use App\Domains\Workspaces\Services\WorkspaceService;
 use App\Domains\Workspaces\Support\SpatiePermissionMatrix;
 use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Google2FA\Google2FA;
@@ -350,6 +356,28 @@ class DomainServiceProvider extends ServiceProvider
         WebhookDispatcherContract::class => WebhookDispatchService::class,
     ];
 
+    /**
+     * Garde `visitor` (section 4.1, authentification des canaux temps réel
+     * publics) : reconstruit une identité anonyme à partir du jeton de
+     * session à chaque requête d'authentification de canal, jamais stockée.
+     * Essayé seulement après le garde `sanctum` (voir `routes/channels.php`),
+     * donc jamais consulté pour une requête d'agent authentifié.
+     */
+    public function boot(): void
+    {
+        Auth::viaRequest('visitor', function (Request $request): ?VisitorPrincipal {
+            $token = $request->input('visitor_token');
+
+            if (! is_string($token) || $token === '') {
+                return null;
+            }
+
+            $claims = $this->app->make(VisitorSessionToken::class)->verify($token, now());
+
+            return $claims === null ? null : new VisitorPrincipal($claims['workspaceId'], $claims['visitorId']);
+        });
+    }
+
     public function register(): void
     {
         $this->registerMailSender();
@@ -362,6 +390,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->registerChannelsProvider();
         $this->registerTicketsSupport();
         $this->registerStatusPageProvider();
+        $this->registerRealtimeProvider();
 
         $this->app->bind(StatusSubscriberToken::class, fn (): StatusSubscriberToken => new StatusSubscriberToken(
             (string) config('app.key'),
@@ -649,6 +678,25 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(WidgetSettingsService::class)
             ->needs('$scriptBaseUrl')
             ->giveConfig('widget.script_base_url');
+    }
+
+    /** Pilote de diffusion temps réel (section 4.1), choisi par configuration (même garde que `registerToolCallerProvider()`). */
+    private function registerRealtimeProvider(): void
+    {
+        $this->app->singleton(ArrayConversationBroadcaster::class);
+
+        $this->app->singleton(ConversationBroadcasterContract::class, function (): ConversationBroadcasterContract {
+            $name = (string) config('realtime.broadcaster.driver');
+            $driver = config("realtime.broadcaster.drivers.{$name}");
+
+            if (! is_string($driver) || ! is_subclass_of($driver, ConversationBroadcasterContract::class)) {
+                throw new RuntimeException(
+                    "Pilote de diffusion « {$name} » inconnu. Vérifiez REALTIME_BROADCASTER_DRIVER et config/realtime.php.",
+                );
+            }
+
+            return $this->app->make($driver);
+        });
     }
 
     private function registerAuthSupport(): void

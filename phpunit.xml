@@ -69,6 +69,7 @@
         <env name="CHANNELS_SMS_DRIVER" value="array"/>
         <env name="STATUS_PAGE_PROBE_CHECKER_DRIVER" value="array"/>
         <env name="ASSISTANT_TOOL_CALLER_DRIVER" value="array"/>
+        <env name="REALTIME_BROADCASTER_DRIVER" value="array"/>
 
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>

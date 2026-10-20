@@ -72,6 +72,24 @@ class WidgetPublicFlowTest extends TestCase
     }
 
     #[Test]
+    public function le_jeton_porte_par_l_en_tete_x_visitor_token_est_aussi_accepte(): void
+    {
+        $workspace = Workspace::factory()->create();
+        $this->aiProvider()->respondWith(new AiReply('Entendu.', [], 0.95));
+
+        $session = $this->postJson("/api/v1/public/widget/{$workspace->id}/sessions")->assertCreated();
+        $token = $session->json('data.token');
+        $this->postJson('/api/v1/public/widget/messages', ['token' => $token, 'body' => 'Bonjour.'])->assertCreated();
+
+        // Préféré au paramètre `token` (voir `ListVisitorMessagesRequest`) :
+        // jamais de jeton de session dans l'URL, qui finirait dans les
+        // journaux serveur et l'historique du navigateur.
+        $this->getJson('/api/v1/public/widget/messages', ['X-Visitor-Token' => $token])
+            ->assertOk()
+            ->assertJsonCount(2, 'data');
+    }
+
+    #[Test]
     public function un_jeton_invalide_est_refuse(): void
     {
         $this->getJson('/api/v1/public/widget/messages?token=invalide')

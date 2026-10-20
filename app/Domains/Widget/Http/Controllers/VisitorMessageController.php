@@ -39,7 +39,7 @@ class VisitorMessageController extends Controller
 
     public function index(ListVisitorMessagesRequest $request): AnonymousResourceCollection
     {
-        $claims = $this->sessions->verify($request->string('token')->toString());
+        $claims = $this->sessions->verify($request->visitorToken());
 
         $conversation = $this->conversationsRepository->findLatestForVisitor($claims['workspaceId'], $claims['visitorId']);
 

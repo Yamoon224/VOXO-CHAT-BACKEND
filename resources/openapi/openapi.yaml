@@ -2922,9 +2922,16 @@ paths:
         widget de s'abonner au canal temps réel `conversation.{id}.public`
         sans attendre d'avoir envoyé un premier message (section 4.1) — ou
         de retomber sur le sondage si aucun serveur Reverb n'est configuré.
+
+        Le jeton se passe de préférence par l'en-tête `X-Visitor-Token`
+        (même en-tête que l'authentification des canaux temps réel) plutôt
+        que par la requête : un jeton dans l'URL finit dans les journaux
+        serveur et l'historique du navigateur. Le paramètre `token` reste
+        accepté pour compatibilité.
       security: []
       parameters:
-        - { name: token, in: query, required: true, schema: { type: string } }
+        - { name: X-Visitor-Token, in: header, required: false, schema: { type: string } }
+        - { name: token, in: query, required: false, schema: { type: string } }
       responses:
         '200':
           description: Messages visibles du visiteur, dans l'ordre

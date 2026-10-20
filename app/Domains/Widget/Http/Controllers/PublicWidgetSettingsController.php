@@ -12,6 +12,9 @@ class PublicWidgetSettingsController extends Controller
 
     public function show(string $workspace): PublicWidgetSettingsResource
     {
-        return new PublicWidgetSettingsResource($this->settings->forWorkspaceId($workspace));
+        $settings = $this->settings->forWorkspaceId($workspace);
+        $this->settings->markInstalled($settings);
+
+        return new PublicWidgetSettingsResource($settings);
     }
 }

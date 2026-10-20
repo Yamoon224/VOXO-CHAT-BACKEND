@@ -10,6 +10,7 @@ use App\Domains\Conversations\Contracts\VisitorConversationContract;
 use App\Domains\Conversations\Enums\ConversationChannel;
 use App\Domains\Conversations\Enums\ConversationStatus;
 use App\Domains\Conversations\Enums\MessageSenderType;
+use App\Domains\Conversations\Enums\MessageVisibility;
 use App\Domains\Conversations\Exceptions\AssigneeNotMemberException;
 use App\Domains\Integrations\Contracts\WebhookDispatcherContract;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
@@ -146,6 +147,12 @@ final class ConversationService implements VisitorConversationContract
                     'conversation_id' => $conversation->id,
                     'workspace_id' => $workspaceId,
                     'sender_type' => MessageSenderType::Visitor,
+                    // Un visiteur ne crée jamais de note interne — explicite
+                    // ici, pas seulement le défaut de colonne : un modèle
+                    // fraîchement créé ne le reflète pas en mémoire PHP, et
+                    // `MessageBroadcastEvent::broadcastOn()` lit `isPublic()`
+                    // juste après cette création (section 4.1).
+                    'visibility' => MessageVisibility::Public,
                     'body' => $body,
                 ]);
 
@@ -205,6 +212,7 @@ final class ConversationService implements VisitorConversationContract
                 'conversation_id' => $conversation->id,
                 'workspace_id' => $workspaceId,
                 'sender_type' => MessageSenderType::Visitor,
+                'visibility' => MessageVisibility::Public,
                 'body' => $body,
             ]);
 

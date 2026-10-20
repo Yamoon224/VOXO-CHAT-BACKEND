@@ -25,6 +25,7 @@ class WidgetSettingsResource extends JsonResource
             'business_hours' => $this->business_hours,
             'offline_message' => $this->offline_message,
             'hide_branding' => $this->hide_branding,
+            'last_installed_check_at' => $this->last_installed_check_at?->toIso8601String(),
         ];
     }
 }

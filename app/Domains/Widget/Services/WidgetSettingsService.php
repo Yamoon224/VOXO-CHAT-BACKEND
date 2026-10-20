@@ -24,6 +24,16 @@ final class WidgetSettingsService
         return $this->settings->findOrCreateForWorkspace($workspaceId);
     }
 
+    /**
+     * Vérification d'installation (section 2.3) : le script ne peut
+     * atteindre cette route que s'il est bien chargé sur le site du client —
+     * chaque appel public des réglages vaut donc preuve de vie.
+     */
+    public function markInstalled(WidgetSettings $settings): void
+    {
+        $this->settings->update($settings, ['last_installed_check_at' => now()]);
+    }
+
     /** @param  array<string, mixed>  $attributes */
     public function update(WorkspaceScope $scope, array $attributes): WidgetSettings
     {

@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property array<int, array{day: int, opens_at: string, closes_at: string}>|null $business_hours
  * @property string|null $offline_message
  * @property bool $hide_branding
+ * @property Carbon|null $last_installed_check_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -35,7 +36,7 @@ class WidgetSettings extends Model
     /** @var list<string> */
     protected $fillable = [
         'workspace_id', 'primary_color', 'logo_url', 'position', 'welcome_message',
-        'language', 'business_hours', 'offline_message', 'hide_branding',
+        'language', 'business_hours', 'offline_message', 'hide_branding', 'last_installed_check_at',
     ];
 
     /** @return array<string, string> */
@@ -45,6 +46,7 @@ class WidgetSettings extends Model
             'position' => WidgetPosition::class,
             'business_hours' => 'array',
             'hide_branding' => 'boolean',
+            'last_installed_check_at' => 'datetime',
         ];
     }
 

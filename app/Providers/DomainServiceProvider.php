@@ -149,7 +149,6 @@ use App\Domains\Payments\Gateways\StripePaymentGateway;
 use App\Domains\Payments\Services\CheckoutService;
 use App\Domains\Realtime\Contracts\ConversationBroadcasterContract;
 use App\Domains\Realtime\Providers\ArrayConversationBroadcaster;
-use App\Domains\Realtime\Services\EventConversationBroadcaster;
 use App\Domains\Shared\Contracts\TransactionManagerContract;
 use App\Domains\Shared\Support\DatabaseTransactionManager;
 use App\Domains\Shared\Support\FrontendUrl;
